@@ -1,0 +1,69 @@
+Trying out some ideas to standardize the way we write web pages in CS 110.
+
+Ideally, I'd like to be able to focus on writing the content without all
+the HTML boilerplate around it. This is the opposite of SSI: the included
+part is the part that varies, and the including part is the boilerplate.
+
+On the other hand, if I modify the boilerplate (say, adding an extra .js
+or .css file), I don't want to have to modify all my pages.  What I really
+want is to be able to dynamically generate a 
+
+foo.html
+
+that #includes a
+
+foo.part
+
+but the foo.html is a symbolic link to a master "boilerplate.html" file
+that lives in this directory.
+
+However the foo.html file can't be a symlink because it will slightly vary
+based on the filename to be #included.
+
+Also, I don't want to have to routinely invoke special tools because my
+colleagues might not do so, and then things get out of sync.
+
+An alternative is to put each reading topic into its own directory:
+
+foo/reading.html
+
+which #includes
+
+reading.part
+
+and all the reading.html files are symlinks to a master "reading.html" in
+this directory.
+
+No, this won't work, because we *also* need to modify the title of the
+page and the H1 header, and sometimes we want/need to add some custom CSS
+to the page, so we'll still need to have an editable .html page. So, we
+bag the idea of having symlinks to a master boilerplate file, but instead
+have a way to find the pages that vary from our standard.  It's as simple
+as:
+
+cd ~cs110/public_html/readings/
+for f in */*.html; do
+    diff R00-generic/standard.html $f
+done
+
+I've written that script in "compare-with-standard.sh"
+
+For the most part, that should yield just titles and headers, but might
+pick up other things.
+
+Another issue is that it's sometimes hard for students to find where some
+topic was introduced or explained.  Even instructors can search
+fruitlessly through several links before finding it. It would be really
+nice to have one master (very long) web page that includes *all* the
+reading.
+
+That could be done with a special directory:
+
+all/reading.html
+
+which #includes all the other readings, in the correct order.  This allows
+people to search for what they are looking for using plain old command-f
+or control-f.  
+
+I also like the idea of splitting up the reading directories into smaller
+chunks, making it easier to split a topic across several days.

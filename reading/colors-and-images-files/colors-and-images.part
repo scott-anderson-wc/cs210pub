@@ -1,0 +1,1023 @@
+<div class="alert alert-info">
+  <p>We recomend that you read Chapter 8 (pp. 340-350) and Chapter 5 of your 
+    <a href="http://shop.oreilly.com/product/9780596159924.do">Head First HTML and CSS</a> book.
+</div>
+        
+<p>Building upon the idea
+  of <a href="../compModel/information.html">representation</a>, we will
+  discuss how images are represented in digital form.  We'll work up to
+  it, first starting with how color is represented (which is based on the
+  physiology of the human eye), then looking at images as rectangular
+  arrangements of spots of pure color.  Finally, we'll calculate the file
+  size of an image and discuss one way of
+  <em>compressing</em> the file so that it is smaller and therefore faster
+  to download.  This compression is, in fact, a different
+  <em>representation</em> of the information.
+ 
+  <h2 id="standard">Standard Colors</h2>
+  
+  <p>In the present day, modern browsers support 140 color names. This
+    means that we can use color names such
+    as <code>black</code>, <code>aqua</code>, or <code>chocolate</code> as
+    values for the CSS properties that except a color value, such
+    as <code>color</code>, <code>background-color</code>, etc.  Many years
+    ago, browsers could only support 17 color names, known as standard
+    colors: <em>aqua, black, blue, fuchsia, gray, green, lime, maroon,
+    navy, olive, orange, purple, red, silver, teal, white, and
+    yellow</em>. However, later that list was expanded with 123 more
+    colors. W3Schools maintains a complete list of
+    the <a href="http://www.w3schools.com/html/html_colornames.asp"> 140
+    recognized color names</a>. While you can achieve a lot by using only
+    these named colors, very often you want something more specific from
+    the color spectrum. It turns out that we can use numerical codes to
+    refer to colors, because inside the computer, colors are represented
+    by numbers.  How?  For that, we need to understand additive colors and
+    color vision.
+          
+    <H2 id="vision">Additive (RGB) Colors and Color Vision</H2>
+          
+  <P>Human retinas happen to have rod-shaped cells that are sensitive to
+all light, and cone-shaped cells that come in three kinds:
+red-sensitive, green-sensitive, and blue-sensitive. Therefore, there
+are three (additive) primary colors: Red, Green and Blue or RGB. All
+visible colors are seen by exciting these three types of cells in
+various degrees. (For more information, consult these Wikipedia articles
+on <a href="http://en.wikipedia.org/wiki/Additive_color">additive color</a>
+and <a href="http://en.wikipedia.org/wiki/Color_vision">color
+vision</a>.)
+
+<P>Color monitors and TV sets use RGB to display all their colors,
+including yellow, chartreuse, you name it. So, every color is some amount
+of Red, some amount of Green, and some amount of Blue. 
+
+<P>On computers, RGB color components are standardly defined on a scale
+from 0 to 255, which is 8 bits or 1 byte.
+ 
+<div class="bs-callout bs-callout-warning">
+  <p>Play with
+  the <a href="http://cs.wellesley.edu/~cs110/scott/L09-JS-events/slider-scott-v5b.html">Color
+  slider page</a> to
+  get a feel for this. 
+</div>
+  
+      <figure style="float: right;" class="text-center">
+             <img src="colors-and-images-files/additive-mix.jpg" width=200 alt="additive mix" 
+                  class="img-thumbnail">
+        <figcaption>An example of additive mixing.</figcaption>
+    </figure>
+
+<p>Here is a list of examples:
+
+<UL>
+    <LI><span style="color: #6495ED">Cornflower = 100 149 237</span>
+
+    <LI><span style="color: #228B22">Forest Green = 34 139 34</span>
+
+    <LI><span style="color: #FFD700">Gold = 255 215 0</span>
+            
+    <LI><span style="color: #1E90FF">DodgerBlue = 30 144 255</span>
+
+    <LI><span style="color: #A0522D">Sienna = 160 82 45</span>
+
+    <LI><span style="color: #FF69B4">HotPink = 255 105 180</span>
+</UL>
+
+  <p style="clear: right;">We can use this knowledge about colors being represented as a mix
+          of red, blue, and green when specifying color values in CSS.
+          There are three ways to do this:</p>  
+          
+          <pre>
+color: rgb(64,224,208);   /* three RGB numbers in the range 0-255 */
+color: rgb(25%,88%,82%);  /* three RGB percentages */
+color: #40E0D0;           /* three RGB numbers expressed as a hexadecimal triple */
+</pre>
+          
+ <p>The first two ways are self-explanatory, since they use decimal numbers
+          and percentage values with which you are familiar. In the following,
+          we will explain the meaning of the hexadecimal color codes such as
+          <code>#40E0D0</code>. The <code>#</code> sign is used in this case
+          to simply indicate that the sequence of digits and letters is in
+          hexadecimal.</p>   
+          
+    <H2 id="hexadecimal">Hexadecimal</H2>
+         
+<P>People use decimal (base 10), computers use binary (base 2), but
+programmers often use <a
+href="http://en.wikipedia.org/wiki/Hexadecimal">hexadecimal</a> (base
+16) for convenience.
+         
+<P>Binary numerals get long very fast. It is not easy to remember 24
+binary digits, but you can more easily remember 6 hexadecimal
+digits. Each hexadecimal digit represents exactly four binary digits
+(bits).  (This is because 2<sup>4</sup>=16.)
+
+<p>One way to understand hexadecimal is by analogy with decimal, but
+we're all so familiar with decimal numerals that our reflexes get in
+the way.  (In fact, humans throughout history have used many different
+<a href="http://en.wikipedia.org/wiki/List_of_numeral_system">numeral
+systems</a>; decimal is not sacrosanct.)  So, we first need to break
+down decimal notation so that you can see the analogy with
+hexadecimal.  For now, we'll stick with two-digit numerals, but the
+same ideas extend to any larger numbers.
+
+<P>Decimal notation works by organizing things into groups of ten,
+then counting the groups and the leftovers: Suppose you had a bunch of
+sticks on the ground and you bundled them all into groups of 10 with
+some left over (fewer than 10). Now, use a symbol to denote the number
+of bundles and another symbol to denote the number of sticks left
+over. You've just invented two-digit numbers in base 10.
+         
+<P>Hexadecimal: Do the same thing with bundles of 16, and you've invented
+two-digit numbers in base 16.  For example, if you had thirty-five sticks
+<!--(I'm trying to avoid decimal notation)-->, they could be bundled into two
+groups of sixteen and three left over, so the hexadecimal notation is 23.
+Careful!  That numeral isn't the decimal number twenty-three!  It's still
+thirty-five sticks, but we write it down in hexadecimal as 23.
+
+<p>To distinguish a decimal numeral from a hexadecimal numeral, we use
+subscripts.  So, to say that thirty-five sticks is written 23 in
+hexadecimal, we can write:
+
+<blockquote><p>35<sub>10</sub> = 23<sub>16</sub></blockquote>
+
+<p>Both decimal and hexadecimal notations are based on <em>place
+value</em>.  We say that 23<sub>16</sub> means 35<sub>10</sub> because
+it's a "2" in the <em>sixteens</em> place and "3" in the <em>ones</em>
+place, just like 35<sub>10</sub> has a "3" in the <em>tens</em> place
+and a "5" in the <em>ones</em> place.
+
+<p>Let's take another example.  Suppose we have 26<sub>10</sub>
+sticks.  That's one group of 16 and 10 left over.  How do we write
+that number in hexadecimal?  Is it 110<sub>16</sub>?  That is, a "1"
+in the <em>sixteens</em> place followed by a "10" in the <em>ones</em>
+place? No; that would be confusing, since it would look like a
+three-digit numeral.  We need a symbol that means ten. We can't use
+"10," since that's not a single symbol.  Instead, we use "A"; that is,
+A<sub>16</sub>=10<sub>10</sub>.  Similarly, "B" means 11, "C" means
+12, "D" means 13, "E" means 14, and "F" means 15.  We don't need any
+more symbols, because we can't have 16 things left over, since that
+would make another group of 16.  The following table summarizes these
+correspondences and what we've done so far.
+
+<P><TABLE id="hex-and-decimal" class="table-bordered numbers">
+<caption>The correspondence between decimal numerals and hexadecimal numerals</caption>
+<tr>
+    <TH> Decimal </TH>
+    <TD> 0 </TD>
+    <TD> 1 </TD>
+    <TD> ... </TD>
+    <TD> 9 </TD>
+    <TD> 10 </TD>
+    <TD> 11 </TD>
+    <TD> 12 </TD>
+    <TD> 13 </TD>
+    <TD> 14 </TD>
+    <TD> 15 </TD>
+    <TD> 16 </TD>
+    <TD> 17 </TD>
+    <TD> 18 </TD>
+    <TD> ... </TD>
+    <TD> 28 </TD>
+    <TD> 29 </TD>
+    <TD> 30 </TD>
+    <TD> 31 </TD>
+    <TD> 32 </TD>
+    <TD> 33 </TD>
+    <TD> 34 </TD>
+    <TD> 35 </TD>
+    <TD> 36 </TD>
+</TR>
+<tr>
+    <TH> Hexadecimal </TH>
+    <TD> 0 </TD>
+    <TD> 1 </TD>
+    <TD> ... </TD>
+    <TD> 9 </TD>
+    <TD> A </TD>
+    <TD> B </TD>
+    <TD> C </TD>
+    <TD> D </TD>
+    <TD> E </TD>
+    <TD> F </TD>
+    <TD> 10 </TD>
+    <TD> 11 </TD>
+    <TD> 12 </TD>
+    <TD> ... </TD>
+    <TD> 1C </TD>
+    <TD> 1D </TD>
+    <TD> 1E </TD>
+    <TD> 1F </TD>
+    <TD> 20 </TD>
+    <TD> 21 </TD>
+    <TD> 22 </TD>
+    <TD> 23 </TD>
+    <TD> 24 </TD>
+</TR>
+</TABLE>
+        
+<p style="margin-top:15px">To convert a big decimal number to hexadecimal, just divide.  For
+example, 230<sub>10</sub> divided by 16 is 14<sub>10</sub> with a
+remainder of 6<sub>10</sub>.  Thus, the hexadecimal numeral is
+E6<sub>16</sub>.  To convert a hexadecimal number to decimal, just
+multiply: <code>E6<sub>16</sub>=E*16 + 6 = 14*16 + 6 = 230</code>.
+
+<div class="bs-callout bs-callout-warning">
+<h4>Exercise 1</h4>
+    <P>Try the following conversions as an in-class exercise.  You can use
+    a calculator, you can ask your neighbors, anything you like.
+         
+    <P><TABLE class="table-bordered numbers">
+     <TR>
+         <TH> Dec </th>
+         <TH> Hex </th>
+         <TH> Dec </th>
+         <TH> Hex </th>
+     </TR>
+    <tr><td>  7</td><td><br></td><td> 22</td><td><br></td></tr>
+    <tr><td> 26</td><td><br></td><td>100</td><td><br></td></tr>
+    <tr><td>127</td><td><br></td><td>149</td><td><br></td></tr>
+    <tr><td>240</td><td><br></td><td>255</td><td><br></td></tr>
+    </table>
+         
+<P>You can check your work with the following form:
+<FORM>
+<TABLE class="numbers">
+ <TR>
+     <TH> Decimal </TH>
+     <TH> Hexadecimal </TH>
+ </TR>
+ <TR>
+     <TD> <INPUT TYPE=text id=dec_val VALUE="" SIZE=3> </TD>
+     <TD> <INPUT TYPE=text id=hex_val VALUE="" SIZE=3> </TD>
+ </TR>
+ <TR>
+     <TD> <INPUT TYPE=button VALUE="to hex"
+                 onclick="document.getElementById('hex_val').value=parseInt(document.getElementById('dec_val').value,10).toString(16)">
+     </TD>
+     <TD>
+          <INPUT TYPE=button VALUE="to decimal"
+                 onclick="document.getElementById('dec_val').value=parseInt(document.getElementById('hex_val').value,16).toString(10)">
+     </TD>
+ </TR>
+</TABLE>
+</FORM>
+ </div>  
+
+<h2 id="binary_conversion">Converting Hexadecimal to or from Binary</h2>
+
+<p>Now that we know both hexadecimal and binary, you can convert binary to
+  hexadecimal (and vice versa).  However, you would probably do so by
+  converting the binary number to decimal and then the decimal number to
+  hexadecimal.  There's a better way, involving almost no arithmetic (or,
+  rather, all the arithmetic is with one-digit numbers you can add in your
+  head).  Indeed, this technique is the <em>reason</em> that computer
+  scientists like using hexadecimal. (Well, this and the fun of getting to
+  spell words like ACE and DEADBEEF with hex digits.)
+
+<h3>Example 1</h3>
+
+<p>Let's start with an example.  Suppose you need to convert the following
+  from binary to hexadecimal:
+
+  <blockquote><p>01010100 = ??<sub>16</sub></blockquote>
+
+<p>What we're going to do is to take the bits in chunks of four bits, so
+  to mark the chunks we'll insert a period in the middle of the number:
+
+  <blockquote><p>0101.0100 = ??<sub>16</sub></blockquote>
+
+<p>Now, we just convert each chunk directly into hex.  The first chunk,
+  0101, is just the number 5. The second chunk, 0100, is just the number
+  4.  Those are already in hex, so we are done:
+
+  <blockquote><p>0101.0100 = 54<sub>16</sub></blockquote>
+
+<p>(Try doing it via decimal, to check.  The decimal value corresponding
+  to both of these is 80+4=84.)
+
+<h3>Example 2</h3>
+
+<p>Let's do another one, this time with slightly larger values:
+
+  <blockquote><p>10101100 = ??<sub>16</sub></blockquote>
+
+<p>Again, take the bits in chunks of four bits:
+
+  <blockquote><p>1010.1100 = ??<sub>16</sub></blockquote>
+
+<p>Now, we just convert each chunk directly into hex.  The first chunk,
+  1010, is 8+2 or 10<sub>10</sub>, which is the digit A in hex. The second
+  chunk, 1100, is 8+4 or 12<sub>10</sub>, which is the digit C in hex. So
+  we are now done:
+
+  <blockquote><p>1010.1100 = AC<sub>16</sub></blockquote>
+
+<p>(Again, check our work by doing it via decimal.  The decimal value
+  corresponding to both of these is 160+12=172.)
+
+<h3>Explanation</h3>
+
+<p>Why does this work?  Suppose we needed to convert 172 from decimal to
+  hex: our first step would be to divide the number by 16.  In binary,
+  moving the <q>binary point</q> to the left by one place is equivalent to
+  dividing by two, so moving the binary point four places is equivalent to
+  dividing by 16.  So when we put a period in the middle of the 8-bit
+  binary number, it is exactly the same as dividing by 16.  We then have
+  the quotient to the left of the binary point, and the remainder to the
+  right of the binary point.  Just convert each to hex, and we are done.
+
+<p>Notice that the only arithmetic we have to do is converting each chunk
+  of four bits to the equivalent hex digit.  The mental arithmetic
+  involved is limited: we know that (1) we are adding one-digit numbers,
+  (2) at most four of them, and (3) the sum will always be less than 16.
+
+<!--  
+<h3>Example 3</h3>
+
+<p>This technique works in reverse, too.  Let's convert DEADBEEF from
+  hexadecimal to binary:
+  
+  <blockquote><p>???????? = DEADBEEF<sub>16</sub></blockquote>
+
+<p>becomes
+
+  <blockquote><p>1101.1110.1010.1101.1011.1110.1110.1111  = DEADBEEF<sub>16</sub></blockquote>
+
+<h3>Shortcuts</h3>
+
+<p>Now, to be honest, it may seem ridiculous to convert a large hex digit
+like D to binary in your head.  First, you don't have to do it in your
+  head; a few quick calculations on paper will suffice.  Second, if you
+  can manage to remember (memorize) just three values, you can get the
+  rest by mental arithmetic.  Remember:
+  <blockquote><p>A = 10<sub>10</sub> = 8+2 = 1010<br>
+      C = 12<sub>10</sub> = 8+4 = 1100<br>
+      F = 15<sub>10</sub> = 8+4+2+1 = 1111<br>
+</blockquote>
+
+<p>F is the easiest to remember, because it's the <em>largest</em>
+  four-bit number, so <em>all</em> the bits have to be one.  So, F is just
+  1111, with no arithmetic at all.
+
+<p>Then, if we have to convert B, just remember that B is one more than A,
+  so write down the bits for A (1010), but add one and write down 1011.
+
+<p>If we have to convert D, just remember that D is one more than C, and
+  so we write down 1101.
+
+<p>If we have to convert E, just remember that E is one less than F, and
+  so we write down 1110.-->
+  
+  <p>Watch the rest of <a  target="_blank" href="https://www.youtube.com/watch?v=NAJQ3Hn8zRk">Prof. Kurmas
+  from Grand Valley State University on binary numbers and hex
+  numbers</a>. This is a version he edited for us. You watched the first 5
+  minutes for last time; watch the rest for today.
+
+<p>Even better, here's a video
+  with <a target="_blank" href="https://www.youtube.com/watch?v=UIKGV2cTgqA">Tom Lehrer
+  singing <q>New Math</q></a>. It's about 4 minutes long; you'll enjoy it.
+
+
+  <h2 id="colors_in_hex">Colors using Hexadecimal</h2>
+
+<p>We already know that every color in a computer is a combination
+of some amount of each of the three primary colors: red, green and blue.
+The amounts are <em>always</em> given in the same order: red, green,
+blue.  The amounts are numbers from 0 to 255<sub>10</sub>, or, in
+hexadecimal, 00 to FF<sub>16</sub>.  Each primary is expressed as a
+two-digit numeral in hexadecimal, using a leading zero if necessary so
+that the numeral is always two digits.  Three pairs of hexadecimal
+digits completely specifies a color.  Finally, the notation for a
+color always starts with a pound sign (#).  For example, a color like
+(35, 230, 10) would be written #23E60A. 
+
+<!--P>Now you can construct the colors <a href="#vision">above</a> (gold,
+cornflower and DodgerBlue). Furthermore, you can understand the
+middle column of the table at the top.  Let's go back to that table
+and observe the following:
+
+<ul>
+
+    <li>Look at the first four rows: When all three primary colors are
+    equal, the result is a shade of gray.
+
+    <li>The larger the numbers, the brighter the color:
+    <code>FF</code> is greater than <code>80</code>
+
+    <li>Notice that each bright color is preceded by a darker version of
+    the same color, substituting <code>80</code> for <code>FF</code>,
+    which is roughly half the brightness of that primary.  For example,
+    red (<code>#FF0000</code>) is preceded by maroon
+    (<code>#800000</code>).
+    
+    <li>Looking just at the bright colors (every other color after
+    skipping the first four), we go around the rim of the color wheel:
+    <ul class="compact">
+    <li>red
+    <li>yellow (=red+green)
+    <li>green
+    <li>aqua (=green+blue)
+    <li>blue
+    <li>fuchsia (=blue+red)
+    </ul>
+    
+</ul>
+
+<p>Here is a more <A
+HREF="http://www.w3schools.com/html/html_colornames.asp"> complete color
+name list </A>.-->  
+
+<!--div class="ex"><span class="ex">Exercise 2</span>
+         
+    <P>Using a web page you created previously (or this <A
+    HREF="example.html"> example web page </A>), experiment with defining
+    a color numerically.  Use the SPAN tag to color some text. If you
+    can't think of a color to try, try <span style="COLOR:
+    #D2691E">Chocolate</span>. The syntax is:
+         
+<PRE>
+&lt;SPAN style="color: #RRGGBB"&gt; text &lt;/span&gt;
+</PRE>
+         
+   <p>If you want a preview of the color, type the color value you want to
+   try (in the #RRGGBB syntax) in the following form and press
+   return/enter:
+     <script type="text/JavaScript">
+       function setBgcolor(id) {
+           var elt = document.getElementById(id);
+           var txt = elt.value;
+           if( txt == '' ) return;
+           if( txt.match(/#[0-9a-fA-F]{6}/) ) {
+               document.body.style.color = txt;
+           } else {
+               alert("Input must be # followed by six hex digits");
+          }
+       }
+</script>
+
+     <form action="" onsubmit="setBgcolor('testColor');return false;">
+       <input type="text" id="testColor">
+     </form>
+     <p>
+
+</div>
+
+<P>That's it! It takes some practice to get the hang of computing the
+hexadecimal numerals, but nothing you haven't done before.-->
+  
+  
+<div class="bs-callout bs-callout-warning">
+<h4>Exercise 2</h4>
+
+<p>Experiment with defining a color numerically. In the form below, enter 
+  a color value in the syntax #RRGGBB and press return/enter. The box will
+  change its background color to display the entered color value.
+  
+      <script type="text/JavaScript">
+       function setBgcolor(id) {
+           var elt = document.getElementById(id);
+           var txt = elt.value;
+           if( txt == '' ) return;
+           if( txt.match(/#[0-9a-fA-F]{6}/) ) {
+               document.querySelector('#colorDiv').style.backgroundColor = txt;
+           } else {
+               alert("Input must be # followed by six hex digits");
+          }
+       }
+      </script>
+
+      <div id="color_exercise_2">
+        
+        <form onsubmit="setBgcolor('testColor');return false;">
+          <input type="text" id="testColor">
+        </form>    
+
+        <div></div>    
+
+      </div>  
+
+  </div> <!-- end of bs-callout for Exercise 2-->
+  
+
+<H2 id="image_rep">Image Representation</H2>
+         
+<P>Now that we know how to represent a color, we can represent
+<em>images</em>.  You can think of an image as a rectangular 2D grid
+of spots of pure color, each represented as RRGGBB.  A spot of pure
+color is called a <a
+href="http://en.wikipedia.org/wiki/Pixel"><b>pixel</b></a>, short for
+picture element, the atom of a picture. Pixels are better seen if you
+blow up an image several times; here are some examples. Click on the
+picture to enlarge it.
+
+<figure>
+  <a href="colors-and-images-files/scottish-terrier.png"><img src="colors-and-images-files/scottish-terrier.png"
+  alt="A figure of a Scottish terrier as a set of pixels"></a>
+    <figcaption>A figure of a Scottish terrier as a set of pixels</figcaption>
+</figure>
+
+<figure>
+  <a href="colors-and-images-files/mona-lisa-eye.png"><img src="colors-and-images-files/mona-lisa-eye.png"
+  alt="Mona Lisa as a set of pixels, with enlargement of block of pixels"></a>
+    <figcaption>Mona Lisa as a set of pixels, with an enlargement of the
+    pixels comprising one eye</figcaption>
+</figure>
+
+<P>Every image on the computer monitor is represented with pixels. The
+  images on a web page are saved in files that, in addition to the image
+  data, contain information on the size of the image, the set of colors
+  used, the origin of the image, etc. Depending on how exactly this
+  information is saved, we refer to them as <strong>image
+  formats</strong>.  GIF, JPEG, PNG, and BMP are some of the well-known
+  image formats.  We will talk more about image formats below.  For now,
+  we will focus on the number of pixels and the representation of each
+  pixel, and consequently, the file size of the image.
+
+<p>We said above that the amount of each primary color is a number
+from 0 to 255<sub>10</sub> or 00 to FF<sub>16</sub>.  It is no
+coincidence that this is exactly one byte (8 bits).  A byte is a
+convenient chunk of computer memory, so one byte was devoted to
+representing the amount of a single primary color.  Thus, it takes 3
+bytes (24 bits) to represent a single spot of pure color.
+
+<div class="alert alert-info"><p>With 256 values for each primary, we have
+256 x 256 x 256 = 16,777,216 colors.  Humans can distinguish over 10
+million colors, so 24-bit color is sufficient to represent more colors
+than humans can distinguish.  All modern monitors use this so-called
+24-bit color.  Some old monitors used 16-bit or 8-bit color, which were
+relatively impoverished, being only able to represent 65,536 colors (for a
+16-bit monitor) or 256 colors (for an 8-bit monitor).  Of course, a
+black-and-white monitor can only represent two colors, which could be
+called 1-bit color. An example is the Scottish terrier picture,
+above.</div>
+         
+<!--P>Since each pixel takes 24 bits (3 bytes), depending on the pixel amount
+  of your device, a picture might require a lot of space to be stored.
+  <to represent, even a small picture can require a surprising amount of space.
+
+<blockquote id="pic1"><p>Example: A good monitor might have 100 pixels to
+the inch, so a picture the size of a 3x5 index card would be 300 pixels by
+500 pixels.  That's a total of 300x500=150,000 pixels.  Since each pixel
+takes 3 bytes, the file size for the image is at least
+         
+<blockquote><p>300 x 500 x 3 = 450,000 bytes</blockquote>
+
+<P>This is about 450 kilobytes (abbreviated kB, the "k" is lowercase, but
+  the <q>B</q> is uppercase; see
+  the <a href="../compModel/how_computer_works.html#bits_bytes">note on
+  abbreviations</a>) or nearly half a megabyte. Not only is that a lot of
+  storage space, but more importantly it takes significant time to
+  download unless your modem is very fast. For example, if you have an
+  old-style telephone modem that can only handle 56kbps (56k bits per second) =
+  7kBps (7k bytes per second), you will need a little over 1 minute to
+  download it (recall that 1 byte = 8 bits).  That's a lot of time.
+
+</blockquote>
+
+<p>Telephone modems?  Yes, some people still use telephone modems. 
+But faster DSL modems (ranging from 128 kbps to 1500kbps) and 
+cable modems (ranging from 300 kbps to 6000kbps) have become very popular. 
+
+<p>However, the advent of faster connection speeds has been accompanied
+by the rise of websites with content (higher-resolution photos, songs, videos) 
+that completely consumes the additional bandwidth. 
+So no one ever has enough network bandwidth, and it's wise to avoid
+squandering it. If someone in your audience finds your website
+slow to download, they'll move on to another website.>
+
+<div class="ex"><span class="ex">Exercise 3</span>
+
+<p>On the first day of class, Scott took approximately 30 
+digital pictures of students, each of which was about 2MB. 
+
+<ol>
+
+<li>Using a 56kbps modem (that's 56 thousand <em>bits</em> per second),
+how long would it take you to download a folder containing all of these
+pictures?
+
+<li>Test your current Internet connection speed by using 
+this <a href="http://www.speakeasy.net/speedtest/">speed test</a>
+(connect to the New York server, say). 
+At this speed, how long would it take you to download 
+all of the pictures? 
+</ol>
+</div-->
+
+<h2>Image size and download time</h2>
+
+<p>In an uncompressed file format, every pixel needs 24 bits (3 bytes) to
+  be stored. Let's suppose you are going to take pictures of all your 30
+  class peers for a class website, using your iPhone4 camera. According to
+  the
+  <a href="http://www.gsmarena.com/apple_iphone_4-3275.php">phone
+  specifications</a>, its screen has 2592 x 1936 pixels, which amounts to
+  about 5 million pixels, or 5MP (mega-pixels).  Thus, if every pixel
+  takes 3 bytes, and a photo with your camera has 5MP, to store the image
+  you need 15MB (mega bytes). For all your peer photos, you will need 30 x
+  15MB = 450 MB.
+
+  <p>Imagine now that you put all these photos online on your website, in one
+  single page (using the attributes width and height to make them fit in one screen), and
+  then you send the link to this page to your parents. They might have an average
+  Internet connection (e.g. Verizon offers offers a 1-3 Mbs (mega bit per second)
+  to non-<a href="http://en.wikipedia.org/wiki/FIOS">FiOS</a> subscribers). </p>
+  <p>The amount of time that it will take to load a page with all these pictures on 
+  your parent's computer can be calculated as below:</p>
+  
+  <blockquote>
+    <p>content size (450MB) x 8 bits/byte / 1Mbs = 3600 seconds or 1 hour.
+  </blockquote>
+  
+  <p>If each of your photos have been only around 100KB instead (as we
+  require in some of your homework assignments), then the amount of time
+  to load all of them on the page would have been 24 seconds.</p>
+  
+<p>So, how do we get our images to be so small in size? There are two
+  ways: <em>resizing</em> (decrease the number of pixels in the image by
+  judicious cropping), and <em>compressing</em> (decreasing the necessary
+  number of bits per pixel).  We will discuss compression in the next
+  section.</p>
+
+<H2 id="compression">Compression</H2>
+
+<p>Short of making our images smaller (fewer pixels), what can we do
+to speed up the downloads?  We can <em>compress</em> the files.
+
+
+<p>There are two classes of compression techniques:
+
+<ul>
+
+  <li>lossless compression, where clever encoding allows the number of
+  bytes to be reduced but where the original image can be perfectly
+  reconstructed from the compressed form, and
+
+  <li>lossy compression, where we discard less-important information
+  in order to reduce the amount of information to be stored or
+  transmitted.
+
+</ul>
+
+<p>We will look in detail at one kind of lossless compression, which
+is indexed color (GIF encoding), because it gives us a window into the
+kinds of ideas and techniques that matter in designing
+<em>representations</em> of information.
+
+<h2 id="indexed">Indexed Color</h2>
+         
+<p>The idea behind indexed color is that if a particular color is used
+many times in an image, we can create a "shorthand" for it.  In fact,
+if we limit the number of colors, each one can be assigned a
+shorthand.  What will be confusing is that the colors are, of course,
+represented as numerals and so are the shorthands!  For example,
+instead of saying (for the umpteenth time), color #D619E0, we'll just
+say, for example, color number 5. This will only work, however, if the
+shorthands really are shorter.  They are, and we'll see exactly how
+much.
+
+<P>One way to think about indexed color is that we are
+<EM>creating</EM> a <A
+HREF="http://pbskids.org/zoboo/mysteryanimal/paintbynumber/paintbynumber2.html">"paint-by-numbers"</A>
+picture. We choose:
+         
+<OL>
+            <LI>the numbered list of colors
+            
+            <LI>what color (number) each pixel is
+
+</OL>
+         
+<div class="bs-callout bs-callout-warning">
+<h4>Example: Two-color image</h4>  
+Imagine that a 300x500 picture uses only two colors,
+say red and yellow. Suppose we make up a table of colors (two entries)
+and then represent the image with an array of "color indexes," like a
+paint-by-numbers set.
+
+<UL>
+  <li>What is the numbered list of colors?  There are just two:
+  <table class="table-bordered numbers">
+    <tr><th>index</th><th>color</th></tr>
+    <tr><td>0</td><td>#FF0000</td></tr>
+    <tr><td>1</td><td>#FFFF00</td></tr>
+  </table>
+
+  <li>We then paint the picture using just two numbers, 0 and 1.  A
+  zero means a pixel is red, and a one means the pixel is yellow.
+
+  <li>How many bits does it take to represent this image?  Well, there
+  are 300x500 or 150,000 pixels, but each one is just 1 bit, so it
+  takes 150,000 bits or 150,000/8 = 18,750 bytes or about 18 kB.
+  Compare that with the 450 kB (300 x 500 x 3 byte/pixel) of the 
+  uncompressed representation, and you can see
+  this is <em>much</em> smaller.  In fact, it's 1/24<sup>th</sup> the
+  size, since each pixel takes 1 bit to represent rather than 24.
+  It'll be 24 times faster to download.
+
+  <li>What about that table of colors?  That's called the <a
+  href="http://en.wikipedia.org/wiki/Palette_(computing)"><em>color
+  palette</em></a>, by analogy with an artist's palette.  That has to
+  be represented too.  Otherwise, the browser would know there were
+  only two colors in the picture, but wouldn't know what colors they
+  are. There are two entries in this palette, each of which is 3 bytes
+  (24 bits), so add at least 6 more bytes to the representation.
+            
+</ul>
+</div>
+
+<p>You can see the general scheme at work: we create a table of all
+the colors used in the picture.  The shorthand for a color is simply
+its index in the table.  We will limit the table so that the
+shorthands will be at most 8 bits.  Since the shorthands are all
+replacing 24-bit color specifications, the shorthand is <em>at
+most</em> one-third the size.  In the example above, the shorthand is
+1/24th the size.
+
+<div class="bs-callout bs-callout-warning">
+<h4>Example: Four-color image</h4>  
+<p>Let's continue with the example.  What is the
+file size if the image uses 4 colors, say red, yellow, blue and lime?
+In that case, the table looks like this:
+
+  <table class="table-bordered numbers">
+    <tr><th>index</th><th>color</th></tr>
+    <tr><td>00</td><td>#FF0000</td></tr>
+    <tr><td>01</td><td>#FFFF00</td></tr>
+    <tr><td>10</td><td>#0000FF</td></tr>
+    <tr><td>11</td><td>#00FF00</td></tr>
+  </table>
+            
+  <p>As you can see, the shorthand is now two bits instead of one.
+  Therefore, the 150,000 pixels require 300,000 bits or
+  300,000/8=37,500 bytes or about 37.5kB.  Obviously, this is about
+  twice the size of the previous example, since each shorthand is now
+  twice as big.  Nevertheless, it's still much smaller than the 450 kB
+  uncompressed file.
+
+  <p>What about the size of the palette?  That's now twice as big,
+  too.  Four entries at 3 bytes each adds 12 bytes to the file size,
+  which is a negligible increase to the 37.5 kB.
+</div>
+
+<p>What's the pattern here?  The number of colors in the original
+image determines the size of the palette, which determines the number
+of bits in each shorthand, which then determines the size of the file
+as a whole.  The shorthand for a color is simply the binary numeral
+for the row that the color is in the table.  For example, the color
+red in the last example was in row zero (00 in binary) and the color
+lime was in row 3 (11 in binary).  
+  
+<!--However, the relationship between
+the number of colors and the size of the shorthand is not an obvious
+one.  Let's do one more example before we state the rule.
+
+<blockquote id="pic4"><p>Suppose that the same 300x500 image uses 16
+colors, say sixteen of the named colors that we began this lecture with.  In
+that case, the table looks like this:
+
+<TABLE class="colortable" BORDER="1" CELLSPACING="1" CELLPADDING="5">
+<caption class="body">Indexes, Color names, hexadecimal values, and samples</caption>
+<COLGROUP>
+<COL width="10%">
+<COL width="10%">
+<COL width="10%">
+<COL width="30%">
+</COLGROUP>
+<TR>
+    <TH align="center"> shorthand </TH>
+    <TH align="center"> Color name </TH>
+    <TH align="center"> #RRGGBB </TH>
+    <TH align="center"> Example </TH>
+</TR>
+<TR><td>0000</td>
+    <TD> black </TD>
+    <TD> #000000 </TD>
+    <TD style="background: #000000"> <br> </TD>
+</TR>
+<TR><td>0001</td>
+    <TD> gray </TD>
+    <TD> #808080 </TD>
+    <TD style="background: #808080"> <br> </TD>
+</TR>
+<TR><td>0010</td>
+    <TD> silver </TD>
+    <TD> #C0C0C0 </TD>
+    <TD style="background: #C0C0C0"> <br> </TD>
+</TR>
+<TR><td>0011</td>
+    <TD> white </TD>
+    <TD> #FFFFFF </TD>
+    <TD style="background: #FFFFFF"> <br> </TD>
+</TR>
+<TR><td>0100</td>
+    <TD> maroon </TD>
+    <TD> #800000 </TD>
+    <TD style="background: #800000"> <br> </TD>
+</TR>
+<TR><td>0101</td>
+    <TD> red </TD>
+    <TD> #FF0000 </TD>
+    <TD style="background: #FF0000"> <br> </TD>
+</TR>
+<TR><td>0110</td>
+    <TD> olive </TD>
+    <TD> #808000 </TD>
+    <TD style="background: #808000"> <br> </TD>
+</TR>
+<TR><td>0111</td>
+    <TD> yellow </TD>
+    <TD> #FFFF00 </TD>
+    <TD style="background: #FFFF00"> <br> </TD>
+</TR>
+<TR><td>1000</td>
+    <TD> green </TD>
+    <TD> #008000 </TD>
+    <TD style="background: #008000"> <br> </TD>
+</TR>
+<TR><td>1001</td>
+    <TD> lime </TD>
+    <TD> #00FF00 </TD>
+    <TD style="background: #00FF00"> <br> </TD>
+</TR>
+<TR><td>1010</td>
+    <TD> teal </TD>
+    <TD> #008080 </TD>
+    <TD style="background: #008080"> <br> </TD>
+</TR>
+<TR><td>1011</td>
+    <TD> aqua </TD>
+    <TD> #00FFFF </TD>
+    <TD style="background: #00FFFF"> <br> </TD>
+</TR>
+<TR><td>1100</td>
+    <TD> navy </TD>
+    <TD> #000080 </TD>
+    <TD style="background: #000080"> <br> </TD>
+</TR>
+<TR><td>1101</td>
+    <TD> blue </TD>
+    <TD> #0000FF </TD>
+    <TD style="background: #0000FF"> <br> </TD>
+</TR>
+<TR><td>1110</td>
+    <TD> purple </TD>
+    <TD> #800080 </TD>
+    <TD style="background: #800080"> <br> </TD>
+</TR>
+<TR><td>1111</td>
+    <TD> fuchsia </TD>
+    <TD> #FF00FF </TD>
+    <TD style="background: #FF00FF"> <br> </TD>
+</TR>
+</TABLE>
+            
+  <p>As you can see, the shorthand is now four bits.  Therefore, the
+  150,000 pixels require 600,000 bits or 600,000/8=75,000 bytes or
+  about 75 kB.  Larger, but still much smaller than the 450 kB
+  uncompressed file.
+
+  <p>What about the size of the palette?  Sixteen entries at 3 bytes
+  each adds 48 bytes to the file size.
+</blockquote-->
+  
+<p>You can see that the number of bits required for each pixel is the
+key quantity. This quantity is called bits per pixel or "bpp."  It's
+also often called "bit depth" so that the <strong>file size of an image</strong> is
+just <code>width x height x bit depth</code>, almost as if it were a
+physically 3D box.
+
+<p>Finally, we can state the rule:
+
+<blockquote><p>The bit depth of an image must be large enough so that the
+   number of rows in the table is enough for all the colors.  If the bit
+   depth is <em>d</em>, the number of rows in the table is 2<sup>d</sup>.
+</blockquote>
+
+<p>Here's the exact relationship, along with the size of a 300x500 image:
+
+
+  <table class="table-bordered numbers">
+         <caption>Mapping bit-depth to number of colors</caption>
+         <tr><th>bit-depth</th><th>max colors</th><th>file size of 300x500 image</th></tr>
+         <tr><td>1</td><td>2 </td><td>18kB</td></tr>
+         <tr><td>2</td><td>4 </td><td>37kB</td></tr>
+         <tr><td>3</td><td>8 </td><td>55kB</td></tr>
+         <tr><td>4</td><td>16</td><td>73kB</td></tr>
+         <tr><td>5</td><td>32</td><td>91kB</td></tr>
+         <tr><td>6</td><td>64</td><td>110kB</td></tr>
+         <tr><td>7</td><td>128</td><td>128kB</td></tr>
+         <tr><td>8</td><td>256</td><td>147kB</td></tr>
+         </table>
+
+
+<div class="bs-callout bs-callout-warning">
+ <h4>Exercise 3</h4>        
+<p>Consider an image that is 80 x 100 (pixels).
+<UL>
+            <LI>How many bytes are needed to represent this image if it's black and
+            white? Don't forget to represent the color table.
+            
+            <LI>How many bytes if the image uses 4 colors?
+            
+            <LI>How many bytes if the image uses 16 colors?
+            
+            <LI>How many bytes if the image uses 17 colors?
+            
+</UL>
+         
+</div>
+
+<P>In summary, you can reduce your image file size by using fewer
+colors. Of course, this may reduce the quality of your image. It's a
+tradeoff.</P>
+
+
+<!--H3>GIF Indexed Color</H3>
+         
+
+<IMG SRC="color-palette.gif" WIDTH=222 HEIGHT=139 ALT="sample GIF color palette">
+         
+<P>The GIF file format (i.e., image representation) is the best known example of indexed color format.
+Here is how it works: Imagine a mural painter who will go to your house and paint a mural on
+your wall, anything you want. But there's a catch: she'll only make one
+trip to your house, and her van only holds 256 cans of paint. She has a
+warehouse of 16 million cans of paint, and you can choose any 256 that you
+want, but you can't have a mural with more than 256 different colors in
+it.
+         
+<P>This is the essential idea behind GIF images and indexed color.
+
+-->
+<h2 id="computingFileSize">Computing File Size</h2>
+
+<p>We've learned how indexed color works and how it affects file size.
+This is important not only for the theoretical understanding of why
+representations matter, but also for the practical usefulness of
+understanding how to reduce the sizes of your images.  In this section,
+we'll review how to compute the approximate size of an indexed-color
+image.  (Indexed color is one of the tricks used in GIF files, though GIF
+files use other tricks as well.) Why do we do this?  Because it combines
+all the conceptual issues into one small calculation.
+
+<p>A key concept in the computation is the <em>bit-depth</em> of the
+image. Read on page 19 the definition
+of <A HREF="graphics.pdf">bit-depth</A>.  It's the number of bits
+necessary to represent the desired number of colors.  Remember that the
+number of colors is <strong>2<sup>d</sup></strong>, where <strong>d</strong> is the bit depth.  It's an
+<em>exponential</em> relationship.  Adding just one bit to the
+bit-depth <em>doubles</em> the number of colors you can have.
+
+<p>Recall that the indexed-color representation comes in two parts: 
+
+<ol>
+  <li>the pixels
+    (represented by their shorthand values, each of size equal to the
+    bit-depth), and 
+
+<li>the palette (in which the full-color definition is given for
+  each shorthand).  
+</ol>
+
+<p>Thus, our computation breaks down into two parts.
+
+  <ol>
+    <li>The size for just the pixels is essentially the number of pixels,
+    multiplied by the size of each.  We divide by 8 because bit-depth is
+    in <em>bits</em> but file sizes are expressed in <em>bytes</em>.
+    Since a byte equals 8 bits, we divide by 8.
+
+      <!-- We use a table here so that the border is snug around the formula, instead of being defined by the container.  --> 
+
+<table><tr><td class="formula">
+<p>width * height * bit_depth / 8
+</td></tr></table>
+
+    <li>The size for the palette is the number of colors multiplied
+    by the 3 bytes needed to represent each color:
+
+<table><tr><td class="formula">
+<p>num_colors * 3
+</td></tr></table>
+
+  </ol>
+
+<p>To find the rough size of an image, we first determine the
+bit-depth, then we compute the file size using the two formulas above.
+(This is the <q>rough</q> size because, remember, we are omitting some
+fixed overhead and further compression techniques.)  You can combine
+them into one formula:
+
+<table><tr><td class="formula">
+<p>(width * height * bit_depth) / 8 + (num_colors * 3)
+</td></tr></table>
+
+<p>Finally, because the file size will usually be large (thousands or
+millions of byte), we divide by 1000 or 1,000,000 to convert to
+kilobytes or megabytes, as appropriate.
+  
+<div class="alert alert-info">
+  <p>We will continue to discuss file size calculations in lab and homework
+    assignments.
+</div>
+         

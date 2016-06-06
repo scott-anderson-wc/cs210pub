@@ -1,0 +1,286 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>Responsive Design & Javascript Review</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>use media queries for responsive design</li>
+    <li>take the English description of a problem and convert it to Javascript code to solve the problem</li>
+      
+  </ol>
+
+    <h2>Responsive Design</h2>    
+        <p>Let's refresh some CSS knowledge.      
+          
+    <h3>Quiz Question Nr. 1</h3> 
+<p>You're given the following CSS rule:</p>
+
+<pre class="prettyprint">
+  div p {
+    width: 100%;
+    max-width: 500px;
+  }
+</pre>
+<p>When will the elements <code>p</code> within the <code>div</code> have
+  exactly the width 500px?
+    <ol type="A">
+    <li>Always</li>
+      <li>When the parent's width is less than 500px</li>
+      <li>When the parent's width is more than 500px</li>
+    </ol>
+          
+    <h3>Quiz Question Nr. 2</h3> 
+
+    <p>How can you read the following CSS rule (called a media query) in English:
+      
+      <pre class="prettyprint">
+       @media handheld and (max-width: 600px){
+          /* ... */
+       }
+      </pre>
+      
+    <ol type="A">
+        <li>all media elements in a handheld device cannot have a width more than 600px</li>
+        <li>set all media elements in a page to at least 600px of width</li>
+        <li>if the media type is a handheld device and the display's width is greater than 600px do</li>
+        <li>if the media type is a handheld device and the display's width is up to 600px do</li>
+    </ol>
+      
+    <div class="alert alert-warning">
+    <h4>Media Query</h4>  
+      To learn about media types, their properties and how to create media query rules read more at
+      <a href="http://www.w3schools.com/cssref/css3_pr_mediaquery.asp">W3 Schools</a>. 
+    </div>  
+     
+    <h2>Responsive Design Example</h2>
+     <p>You have an opportunity to take a web page with a fixed-width design and convert it to 
+      responsive design that changes appearance based on the width of the device. Download 
+       <a href="foxes.zip">this
+      folder</a> that contains the HTML file and three images. Unzip it on your Desktop.</p> 
+  
+     <h3>Step 1</h3>
+    <p>Change the CSS for the element <code>wrapper</code> to move from fixed-width to fluid width:   
+      
+  <div class="row">
+   <div class="col-md-5"> 
+     <pre class="prettyprint">
+#wrapper {
+  width: 960px;
+  margin: -10px auto 0;
+  background-color: #FFEFDF;
+}
+</pre>
+     <p>Original Version</p>
+     </div>
+      <div class="col-md-5"> 
+        <pre class="prettyprint">
+#wrapper {
+  max-width: 960px;
+  width: 100%;
+  margin: -10px auto 0;
+  background-color: #FFEFDF;
+}
+</pre>
+        <p>Modified Version</p>
+</div>
+</div>
+ <h4>Ask yourself</h4>     
+     <p>What does it mean for the <code>wrapper</code> to have a width of 100%?</p> 
+ <p>Resize the page after this change. What do you see?</p>     
+ <h3>Step 2</h3>     
+ <p>The banner image is not changing because the image width is also 960px. When the page
+   becomes smaller than the image, a horizontal scrollbar is added. We can force the banner image
+   to change its width with the page by creating a rule to set it to 100%. Do that now and test
+   the result.
+   
+  <h3>Step 3</h3>
+   <p>After the first two steps, the page text flows with the page and the banner image shrinks too when
+     we resize. The biggest problem for the moment is the navbar. Let's look at its code:
+     
+   <pre class="prettyprint">
+nav ul li{
+  list-style-type: none;
+  display: inline-block;
+  text-align: center;
+  width: 137px;
+  padding: 20px 0;
+}
+   </pre>  
+ <p>Every value in pixels for the width property is a problem for the fluid design, 
+      we need to convert it to a % value.
+      How do we do that?</p>
+      
+      <h4>Ask yourself</h4>
+      <p>The value 137px doesn't seem random. Why is every list item of the navbar set to 137px? What is 
+      the corresponding in %? Make that change into the code and test the page.</p>
+   
+ <h3>Step 4</h3>     
+  <p>The menu items are showing in a horizontal line because of the property <code>display: inline-block;</code>.
+      If you were to delete the word "inline", you'd see them stacking vertically. However, this is not a behavior
+      you want from the beginning. We want this only when the screen is small. In this case we will need a media 
+      query rule.</p>  
+      
+  <pre class="prettyprint">
+ @media screen and (max-width: 680px){
+    nav ul li {
+      display: block;
+      width: 100%; /* let's fill all available space*/
+      padding: 1% 0; /* 1% of width of element*/
+      border-bottom: 1px solid white;
+    }
+  }
+  </pre>
+   <p>Add this rule to the page and resize it. </p>  
+      
+<h3>Step 5</h3>
+<p>We're almost done. If you resize to a small width, you'll see the images sticking out left and right.
+      This can also be fixed with the following media query:</p>  
+      <pre class="prettyprint">
+@media screen and (max-width: 480px) {
+  #text img {width: 100%};
+}
+      </pre>
+
+ <h2>Javascript Review</h2>     
+ <p>Many of you have still difficulties with the Javascript vocabulary. Practice your understanding
+      by using the right phrase to refer to the code excerpts below (in some cases, only the 
+      parts in bold).</p>  
+      
+  <h2>Vocabulary Practice</h2>   
+  <table class="table table-bordered table-striped">
+   <thead>
+              <tr>
+                <th>Javascript Snippet</th>
+                <th>Explanation in English</th> 
+          </tr>
+    </thead>
+    <tbody>
+      <tr> <td><pre >var name;</pre></td><td></td> </tr>  
+      <tr> <td><pre >name = "Harry";</pre></td><td></td> </tr>  
+      <tr> <td><pre >var grades = <strong>["A", "B", "C", "D", "F"]</strong>;</pre></td><td></td> </tr> 
+       <tr> <td><pre >var h1 = document.querySelector(<strong>"h1"</strong>);</pre></td><td></td> </tr>  
+      <tr> <td><pre >h1.<strong>innerHTML</strong></pre></td><td></td> </tr> 
+      <tr><td><pre >function squareRoot(<strong>value</strong>) {...}</td><td></td></tr>
+      <tr> <td><pre >grades[3]</pre></td><td></td> </tr> 
+      <tr> <td><pre>function cubic(x) { return x*x*x;}</pre></td><td></td> </tr> 
+    </tbody>
+          </table>
+      
+ <h2>Arrays and Loops</h2> 
+  <p>Write a program that iterates through a list of students data from our section and prints out
+      messages for first years, such as:
+  </p>
+      <p><em>Congrats to our first year, Jane Abernathy</em></p>
+      <p><em>Congrats to our first year, Cassie Allen</em></p>  
+   <p>Here are some student names from Scot's section: Jane Abernathy, Class or 2018; Alex Azzi, Class of 2015;
+          Zoe Bethune, Class of 2017; Mika Brooks, Class of 2016; Rachel Dodell, Class of 2018.</p> 
+          
+    <p>Here are some student names from Eni's section: Cassie Allen, Class or 2018; Maggie Benoit, Class of 2016;
+          Taylor Bickford, Class of 2015; Patrice Caldwell, Class of 2015; Ella Chao, Class of 2018.</p> 
+          
+  <p>Breaking down the problem:</p>
+      <ul>
+      <li>You need to store every student as an object. Decide which properties you need.</li>
+      <li>You need to store the objects within an array.</li>
+      <li>You need a <code>for</code>loop to iterate through all elements of the array.</li>
+      <li>You need a condition to test for the class year and print messages only for first years.</li>
+      </ul>
+      
+    <p>Create an array with 3-4 student objects (see names and classes above) 
+      and then write the code to display the messages. You can use
+      either an alert or the console to display the message.</p>
+  
+        <div>
+       <textarea rows=15 cols=85>    
+            </textarea><br>
+    <button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>       
+</div> 
+  <h2>Videos about the reading</h2>
+      
+    <ul>
+      <li><a href="http://youtu.be/6dME3wgaQpM">History of Computers</a> about Alan Turing.</li>
+      <li><a href="http://youtu.be/c539cK58ees">Memex Animation - the machine by Vannevar Bush, 1945.</a></li>
+      <li><a href="http://youtu.be/w18MyqszIYc">The Aspen Movie Map</a> - the predecessor of Google Street View</li>
+      <li><a href="http://youtu.be/1MPJZ6M52dI">Demo of the first mouse</a> (by Doug Engelbart)</li>    
+      <li><a href="http://youtu.be/6gmP4nk0EOE">Web 2.0 The machine is us</a></li>
+    </ul>
+          
+  
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>using media queries to create responsive design
+    <li>translating a problem into Javascript code
+    <li>using arrays of objects with a for loop
+  </ul>
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideAnswer() {
+          $("pre",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+          $("p",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideAnswer);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

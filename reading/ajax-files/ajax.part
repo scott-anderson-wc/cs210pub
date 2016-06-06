@@ -1,0 +1,496 @@
+<!-- Original version by Eni Mustafaraj. Edited and modified by Scott D. Anderson -->
+
+<p>In this reading, we'll learn how the data in a form can be sent to a
+server, rather than staying in the browser.  In web development, the
+browser, tablet, phone or other device that people work directly with is
+often called the <q>front end</q>, in contrast to the servers, databases,
+and other invisible infrastructure that is called the <q>back
+end</q>. Forms and Ajax are one of the primary ways that the front end
+communicates with the back end.
+
+<h2 id="methods">Form Attributes</h2>
+
+<p>When we introduced <a href="forms.html">forms</a> earlier in the
+  semester, we didn't talk about any of the attributes of
+  the <code>&lt;form&gt;</code> element. Here is how it will usually look
+  like:</p>
+         
+<pre class="prettyprint lang-html">
+&lt;form id = "form2" action = "some-script" method = "GET/POST" &gt;
+   &lt;!-- Here go all elements of the form, such as &lt;input&gt;, &lt;button&gt;, etc. --&gt;
+&lt;/form&gt;
+</pre>
+      
+<p>We have seen the <code>id</code> attribute before, so, let's focus on
+  the two other attributes, <code>action</code>
+  and <code>method</code>.</p>
+         
+<ul>
+  <li><strong>action</strong> specifies <em>where</em> the form content will be sent for processing</li>
+  <li><strong>method</strong> specifies <em>how</em> the form content will be sent to the server</li>
+</ul>
+   
+<p>There are two methods of sending the data to the server using the HTTP
+  protocol: GET and POST.  The main difference between GET and POST is how
+  the data is sent to the server.
+  <ul>
+    <li>GET will append the form field names and values onto the end of
+    the URL as key/value pairs.</li>
+
+    <li>POST sends the data at the end of the request, rather than in the
+    URL, and so values are not visible in the URL.
+  </ul>
+      
+<p>
+  The two forms below are identical and they have the same value
+  for <strong>action</strong> (referring to the
+  script <code>simple-script.php</code>), but one uses <code>method=GET</code> and the other
+  <code>method=POST</code>.  Try them out and look at the URL bar to see
+  the difference.
+</p>
+
+<table>
+<tr><td>
+            <form name="getForm" action="ajax-files/simple-script.php" method=GET>
+               <fieldset><legend>GET Form</legend>
+               <p>Your Name: <input name="yourName"></p>
+               <p>Your Class: <input name="yourClass"></p>
+               <input type=submit>
+               </fieldset>
+            </form>
+</td><td>
+</td><td>
+            <form name="postForm" action="ajax-files/simple-script.php" method=POST>
+               <fieldset><legend>POST Form</legend>
+               <p>Your Name: <input name="yourName"></p>
+               <p>Your Class: <input name="yourClass"></p>
+               <input type=submit>
+               </fieldset>
+            </form>
+</td></tr>
+</table>
+
+<p>You probably saw something like this, depending on how you filled the form out:
+
+<figure>
+  <p>GET: <img src="ajax-files/get-method.png"></p>
+  <p>POST: <img src="ajax-files/post-method.png"></p>  
+  <figcaption>The URL bar after submitting the two forms</figcaption>
+</figure>
+
+<div class="alert alert-warning">
+  <p>Because submitting forms generates an HTTP request, you can use the
+    Network tab in the Inspect Element window of the browser to inspect
+    the details of sending forms, including how the data is packaged to be
+    sent to the server.
+</div>
+         
+<p>In this course, we'll stick to POST, but the default is GET, so make
+    sure you always specify <code>method="post"</code> in your forms.
+
+<h2>Scripts on the Server</h2>
+
+<p>Where does the form data go? What happens to it? These questions are
+mostly outside the scope of this course, but we'll give you a peek at
+it. The data goes to a server somewhere on the internet, wherever you
+specified in the <code>action</code> attribute of the form. Once there, it
+gets processed by some <em>script</em> (a program running on the server).
+
+<p>That script could do anything (update a database, charge your credit card,
+transmit instructions to someone at a warehouse, etc.) In this course, we
+won't explore those further.  We will, however, look at some scripts that
+can do a few simple things.
+
+<h2 id="php">Simple PHP to process your Forms</h2>
+
+<p>A widespread, server-side language called PHP can be used to process
+  the form data sent from a browser and email it to someone. To avoid the
+  PHP script being exploited by spammers, the PHP script will have the
+  destination <q>hard-coded</q> into the script. That is, the form data
+  can only be sent to a destination of your choosing, not the sender's.
+  This is perfect for emailing a "contact us" form to your organization's
+  secretary, emailing the contents of an order form to your organization's
+  fund-raising chair, and so forth.
+
+<p>We will not burden you with having to learn PHP just to use this
+  ability.  Instead, we'll provide you with a mechanism for creating a PHP
+  script that sends email to your desired recipient
+  (the <q><em>to</em></q> address).  It will work a lot like the
+  following, except that you won't be able to specify the
+  recipient. (Here, we've limited the appeal to spammers by fixing the
+  text that is sent.).
+
+<p>Fill out and submit the form below, and then check your
+email.</p>
+
+<div id="deathday-form-html" style="border: 2px solid #2e9ad3; padding: 2em">
+  <h3>RSVP to Nick's Deathday Party</h3>
+  
+  <form method="post" action="http://cs.wellesley.edu/~cs110/php/deathday-rsvp.php">
+      <p><label>Your Name:
+          <input type="text" name="from_name">
+        </label>
+      <p><label>Your Email:
+          <input type="text" name="from_email">
+        </label>
+      <p><input type="submit" value="Submit form">   
+   </form>
+</div>
+
+<p>(Here is <a href="ajax-files/deathday-form.html">the form in its own
+web page</a>.)
+
+<p>In order for the script to access your name and address, the form needs
+to contain an input named <code>from_name</code> and another
+named <code>from_email</code>. Here is the code of our simple form:</p>
+         
+<pre id="deathday-form-pre" class="prettyprint lang-html"></pre>
+
+<script>
+document.getElementById('deathday-form-pre').innerText =
+document.getElementById('deathday-form-html').innerHTML; 
+</script>
+
+<h2 id="ajax">Ajax Technology</h2>  
+      
+  <p>The problem with the first above-shown technique is that it redirects
+    the user to a new web page. In fact, every time a form is submitted,
+    the browser page is automatically either refreshed, or redirected to
+    the result sent by the server. In the example above, the response was
+    fairly ugly (JSON notation), while in practice we would make the
+    result look a lot prettier. Nevertheless, it will still be a new
+    page.</p>
+        
+    <p>Sometime we might desire this, but sometimes not. In fact, it is
+      quite common to expect to get notifications on the same page that we
+      are already using.  For that purpose, we will use a technology named
+      Ajax.</p>
+
+<p>Ajax, which stands for "Asynchronous JavaScript and XML", is a way of
+  passing data in a structured format between a web server and a browser,
+  often without the user being aware of such a transaction, because there
+  is no page refresh or redirection to a new page.  Thus, with Ajax and
+  some DOM manipulation, you can load or reload only a portion of the page
+  with jQuery and JavaScript. It's spelled either <q>AJAX</q>
+  or <q>Ajax</q>; we'll use the latter.</p>
+
+<p>To think about Ajax in action, consider Facebook: when
+  you <em>like</em> an item, that doesn't just update the page you're
+  looking at; it sends information to scripts running on FaceBook's
+  servers to record that fact in a database, so that it can count and
+  display the number of likes.  The browser sends that information using
+  Ajax, so that nothing interferes with your reading of the page. When you
+  comment on a post, you're filling out a little form and submitting it to
+  Facebook's servers, again using Ajax.  When Facebook sends you new
+  updates without your having to re-load the page, that's Ajax again.
+
+<p>(Although when the technology was introduced, the XML format (a
+relative of HTML) was used for exchanging data between the server and the
+client, nowadays, JSON (Javascript Object Notation) is the preferred
+format. This is what we will use as well.  In fact, you might have noticed
+that the ugly non-Ajax response above was, in fact, JSON notation, which
+is a variant of our JS Object literal notation. The main difference you've
+seen is that property names are in quotation marks.)</p>
+        
+<p>The way Ajax works is summarized in the graphics below:</p>
+<figure class="text-center">
+  <img src="ajax-files/ajax.png" class="img-thumbnail">
+  <figcaption>The Ajax technology for client-server communication. From "Head First jQuery" book.</figcaption>        
+</figure>
+
+<p>The Ajax technology is implemented within the jQuery library and can be
+    used easily in our Javascript applications. In this course, we won't
+    explore Ajax in all its glory, but we will use it to gracefully send
+    email using a special PHP script on the server.
+        
+<h2 id="postajax">Posting Data Using Ajax</h2>
+        
+<p>We can use Ajax to send data to a back-end server in the same way
+as <code>method=post</code> in our form. 
+
+<p>Let's first see it in action.  Here is the previous <q>RSVP</q>
+  example, with the addition of a button to submit the form via Ajax. Try
+  both!  (In real life, we would probably remove
+  the <code>type=submit</code> button, rather than have both. But for now,
+  we want to compare the behavior.)
+
+<div id="deathday-form-ajax" style="border: 2px solid #2e9ad3; padding: 2em">
+  <form id="rsvp-form" method="post" action="http://cs.wellesley.edu/~cs110/php/deathday-rsvp.php">
+    <p><label>Your Name:
+        <input type="text" name="from_name">
+    </label></p>
+    <p><label>Your Email:
+        <input type="text" name="from_email">
+      </label></p>
+    <p><input id="normal_send_button" type="submit" value="Submit form normally"></p>
+    <p><input id="ajax_send_button" type="button" value="Submit form via Ajax"></p>
+  </form>
+   
+  <p id="response_element"></p>
+</div>
+
+<script id="ajax-send-1">
+$("#ajax_send_button").click(sendmail);
+
+function handleResponse(responseObj) {
+    console.log("response is "+responseObj.status+" and "+responseObj.text);
+    if( responseObj.status == "ok" ) {
+       $("#response_element").html(responseObj.text).css("color","green");
+    } else {
+       $("#response_element").html(responseObj.text).css("color","red");
+    }
+}
+
+function sendmail () {
+    var where = $("#rsvp-form").attr("action");
+    var fn = $("#rsvp-form [name=from_name]").val();
+    var fe = $("#rsvp-form [name=from_email]").val();
+    var what = {from_name: fn, from_email: fe };
+    $.post( where, what, handleResponse, "json");
+}       
+</script>
+
+<p>You can also use the form in its own web
+page: <a href="ajax-files/deathday-form-ajax.html">Deathday form Ajax</a>.
+
+<p>First, let's look at the HTML:
+
+<pre id="deathday-form-ajax-pre" class="prettyprint lang-html"></pre>  
+
+<script>
+document.getElementById('deathday-form-ajax-pre').innerText =
+document.getElementById('deathday-form-ajax').innerHTML; 
+</script>
+
+<p>You'll notice that we added a <code>type=button</code> button.  We also
+created a place on the page to put the response from the back-end
+server. We don't have to do that; we could signal the user in some other
+way, or we could completely ignore the response.
+
+<p>Now, let's examine the JavaScript code:
+
+<pre id="deathday-pre" class="prettyprint lang-js linenums"></pre>
+
+<script>
+document.getElementById("deathday-pre").innerText =
+document.getElementById("ajax-send-1").innerText; 
+</script>
+
+<p>The first line just makes <code>sendmail</code> the event handler for
+  the Ajax button, which is just a plain <code>button</code>, rather than
+  a <code>submit</code> button.
+
+<p>The <code>sendmail</code> function prepares for just one call to the
+  jQuery <code>.post()</code> method.  Notice that
+  the <code>.post()</code> method doesn't have a selector, because it's
+  not operating on a particular element, but instead is doing an Ajax
+  request, submitting the form using <code>POST</code>.
+
+<p>The <code>.post()</code> method takes four arguments:
+  <ol>
+    <li>The first argument is <em>where</em> to send the data. This is
+    typically a URL. Here, we've just retrieved the data from the
+    form's <code>action</code> attribute.
+      
+    <li>The second argument is <em>what</em> data to send. This is a
+    JavaScript Object, consisting of properties and values corresponding
+    to the <em>names</em> and <em>values</em> of form controls.  Here, we only
+      have two inputs to send.
+      
+    <li>The third argument is a <em>function</em> that
+      will <em>handle</em> the response from the back-end server.  Here,
+      we've said that the <code>handleResponse</code> function will get
+      and process the response. More on this in a moment.
+      
+    <li>The fourth argument is the <em>type</em> of data we expect the
+      response to be.  Here, we've specified JSON.  (The particular
+      scripts we will be using in CS 110 will always respond using JSON.)
+  </ol>
+
+<p>It takes us a few steps to get ready for
+calling <code>.post()</code>. First (line 14), we retrieve
+the <code>action</code> attribute. Then, on lines 15 and 16, we pull two
+values out of the form.  On line 17, we construct a JS object out of both
+of them.  Finally, we call <code>.post()</code>.
+
+<p>The JSON response from the back-end will be converted into a JavaScript
+object, and the handler function will be invoked with that object.  So,
+let's look at the <code>handleResponse</code> function next.
+
+<p>As we know, that function gets invoked with a JS object. In this case,
+the object will contain two properties: <code>status</code>
+and <code>text</code>. The <code>status</code> property has two possible
+values: <code>"ok"</code> and <code>"fail"</code>, both strings.  The rest
+of the <code>handleResponse</code> function is straightforward code using
+a conditional to check whether the status is <code>"ok"</code>, and if it
+is, giving a cheery green notice, and other wise giving notice in scary
+red.  In either case, the notice is just the <code>text</code> of the
+response, inserted into the <code>response_element</code>.
+
+<h2 id="dedicated_mail">Sending Mail to a Fixed Address</h2>
+
+<p>The next step is to discuss a more general kind of back-end script,
+than the script above that is only good for accepting an invitation to
+Nearly Headless Nick's Deathday party.  The script we'll discuss is one
+that will send email to a predetermined address, such as the secretary of
+your student org or the sales clerk for your fund-raiser &mdash; whoever
+should get the email that your website will allow people to send.
+
+<p>In class, we'll talk you through the process of creating and
+downloading a special-purpose PHP script that you can put on your back-end
+server (in the same folder with your HTML pages) that can be
+the <code>action</code> for your forms. It will have an email address
+of <em>your</em> choosing embedded in it.  
+
+<p>Here's an example of the kind of <a target="_blank"
+  href="../php/mailto_scott_anderson_at_wellesley_edu.html"> email
+  script</a> we will use.
+
+<p>You'll notice that it takes four fields:
+<ul>
+  <li><strong>from_name</strong>: this is the real name of the sender (the
+    person filling out the form), like "Wendy Wellesley" or "Cathy
+    Customer"
+    
+  <li><strong>from_email</strong>: this is the email address of the
+    sender, like <code>wwellesley@gmail.com</code>
+    or <code>ccustomer@hotmail.com</code>.
+    
+  <li><strong>subject</strong>: this is just like the subject line of any
+  normal email message.
+
+  <li><strong>body</strong>: this is just like the body of any normal
+  email message.
+
+</ul>
+
+<p>The last two are self-explanatory, since all of us are very experienced
+with email. The first two are sorta new, because that's usually handled by
+our email software, like Gmail or whatever. Here, we need them because the
+person visiting our website is otherwise anonymous.  (In fact, we can't
+prevent them from lying to us, or sending useless emails; let's hope that
+doesn't happen.)
+
+<p>When we write our JavaScript to use this PHP script via Ajax, we'll
+have to construct a JS object using those four properties. Like this:
+
+  <pre class="prettyprint lang-js">
+var what = {from_name: "Harry Potter",
+            from_email: "hpotter@hogwarts.ac.uk",
+            subject: "My Scar",
+            body: "Dear Padfoot, my scar's been bothering me lately ..."};
+$.post(where, what, ...);
+</pre>
+
+<h2 id="formatted-email-messages">Formatted Email Messages</h2>
+
+<p>Of course, we don't want to restrict our forms to those four
+fields. We'd like to have forms where we can ask to be added to an email
+list, order Weasley Wizarding Wheezes, or any of many other things we
+might want.
+
+<p>To do that, we're going to build on our knowledge of how to
+do <em>Madlibs</em>. Think of the madlib as the <em>body</em> of the
+formatted email message that we want to send. We can write JavaScript code
+that will take our arbitrary form, insert the key data into a hidden
+element much like our MadLibs story, then extract the whole contents of
+the MadLibs using jQuery's <code>.html()</code> method.  (Or, better,
+use <code>.text()</code> method, which will give us just the text,
+omitting all the HTML markup.)
+
+<p>The following form demonstrates the idea. It really sends the data to a
+back-end script, but this script just describes the email
+that <em>would</em> have been sent (but doesn't really send one). So, feel
+free to try this as much as you'd like.  The response text is printed to
+the JS console; open it up to see.
+
+<div id="wheezes-form-html" style="border: 2px solid #2e9ad3; padding: 2em">
+<form id="wheezes-form"
+      action="http://cs.wellesley.edu/~cs110/php/mailto_fake.php"
+      method="POST">
+  <p><label>Fainting Fancies: <input type="number" name="fancies"></label></p>
+  <p><label>Fever Fudge: <input type="number" name="fudge"></label></p>
+  <p><label>Nosebleed Nougat: <input type="number" name="nougat"></label></p>
+  <p><label>Puking Pastille: <input type="number" name="pastille"></label></p>
+  <p><label>From: <input type="text" name="from_name"></label></p>
+  <p><label>Email: <input type="text" name="from_email"></label></p>
+  <p><button type="button" id="order-button">place order</button></p>
+  <output id="response"></output></p>
+</form>
+</div>
+
+<p>Here's the <q>madlib</q> letter that we will send. In real life, we
+would use <code>display:none</code> in CSS or the
+jQuery <code>.hide()</code> method to make this text invisible, but you'll
+want to see it:
+
+<div id="wheezes-email" style="border: 2px solid #2e9ad3; padding: 2em">
+  <p>Dear Fred and George,</p>
+  <p>Please send by return owl the following:
+  <p>    <span class="fancies"></span> fainting fancies
+  <p>    <span class="fudge"></span> fever fudge
+  <p>    <span class="nougat"></span> nosebleed nougat
+  <p>    <span class="pastilles"></span> puking pastilles
+  <p>Signed <span class="fn"></span> (<span class="fe"></span>)
+</div>    
+
+<script id="wheezes-script">
+$("#order-button").click(placeOrder);
+
+function formatLetter() {
+    var ff1 = $("#wheezes-form [name=fancies]").val();
+    var ff2 = $("#wheezes-form [name=fudge]").val();
+    var nn = $("#wheezes-form [name=nougat]").val();
+    var pp = $("#wheezes-form [name=pastille]").val();
+    $("#wheezes-email .fancies").html(ff1);
+    $("#wheezes-email .fudge").html(ff2);
+    $("#wheezes-email .nougat").html(nn);
+    $("#wheezes-email .pastilles").html(pp);
+    var fn = $("#wheezes-form [name=from_name]").val();
+    var fe = $("#wheezes-form [name=from_email]").val();
+    $("#wheezes-email .fn").html(fn);
+    $("#wheezes-email .fe").html(fe);
+}
+
+function placeOrder() {
+    formatLetter();
+    var where = $("#wheezes-form").attr("action");
+    var fn = $("#wheezes-form [name=from_name]").val();
+    var fe = $("#wheezes-form [name=from_email]").val();
+    // Now, prepare the POST
+    var what = {from_name: fn,
+                from_email: fe,
+                subject: "Wheezes Order",
+                body: $("#wheezes-email").text()
+               };
+    $.post( where, what, orderResponse, "json");
+}       
+    
+// global variable, in case you want to look at the response object
+var wheezesResponse;
+
+function orderResponse(responseObj) {
+    // save the argument in a global variable
+    wheezesResponse = responseObj;
+    // print the response status and text
+    console.log("response is "+responseObj.status+" and "+responseObj.text);
+    if( responseObj.status == "ok" ) {
+       $("#response").html("Your order would have been placed").css("color","green");
+    } else {
+       $("#response").html("I'm sorry, a failure occurred.").css("color","red");
+    }
+}
+</script>
+
+<p>Finally, of course, you should take a look at the JavaScript. You can
+see that we've added one new function, <code>formatLetter</code>, which
+looks a lot like your MadLibs code.  The <code>placeOrder</code> function
+first calls <code>formatLetter</code>, and then proceeds as it did before,
+except that now the <code>body</code> comes from the formatted letter.
+
+<pre id="wheezes-code-pre" class="prettyprint lang-js linenums"></pre>
+
+<script>
+document.getElementById("wheezes-code-pre").innerText =
+document.getElementById("wheezes-script").innerText; 
+</script>

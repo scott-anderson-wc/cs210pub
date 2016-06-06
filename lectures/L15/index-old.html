@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<!-- Lecture on Arrays, for loops, and object literals.
+Written by Eni Mustafaraj in Spring 214.
+Date: March 25, 2014
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>CS110: Deeper into Javascript</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+		<style>
+      textarea {
+        margin-bottom: 10px;
+        color: gray;
+        font-weight: 200;
+        font-family: "consolas", "Lucida Console", "Monaco", "DejaVu Sans Mono", monospace;
+      }
+			
+			#newbooks, #books {
+				border: 3px blue solid;
+				width: 600px;
+				padding: 5px;
+				margin: 20px 5px;
+			}
+			
+			#newbooks span{
+				font-weight: bold;
+			}
+			#newbooks p{
+				font-style: italic;
+			}	
+			.title {
+					font-style: italic;	
+				  color: rgb(80,150,200);
+				}
+			.author {
+					color: gray;
+			}
+			.year{
+				font-style: italic;
+			}
+			.price{
+				font-weight: bold;
+			}
+		</style>
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>Deeper into Javascript&nbsp; <small>Arrays and Loops</small></h1>
+			<hr>
+			<div class="alert alert-info">Reading from <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript & jQuery: The Missing Manual</a> - Arrays (pp 59-66), Loops (pp 93-98), Objects (pp 70-72).<br>
+				Alternatively, the <a href="LocalOnly/chapter2_html5.pdf">Chapter 2</a> of Head First HTML5 has 
+				information about Loops (pp 46-51) and Arrays (pp 67-75).<br>
+				For more interactive examples, check the W3Schools pages: <a href="http://www.w3schools.com/js/js_obj_array.asp">Arrays</a>, <a href="">for loops</a>, and 
+				<a href="http://www.w3schools.com/js/js_loop_for.asp">Objects</a>.
+         </div>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+         <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li><a href="#arrays">Arrays</a></li>
+              <li><a href="#forArrays"><code>for</code> loops for Arrays</a></li>
+              <!--li><a href="#objects">Literal Objects</a></li-->
+              <li><a href="#forObjects"><code>for</code> loops for Objects</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+					
+					
+			  <div class="col-md-9">	
+				
+  <h2 id="arrays">Arrays</h2>
+      <p>So far we have seen four kinds of data types in Javascript: numbers, strings,
+					booleans, and objects (e.g. Date). A special kind of object that is commonly used in 
+				Javascript and other programming languages is an <em>Array</em>. Arrays are
+					very useful to store collections of values together under one name. Let's 
+					see some examples:</p> 
+					
+					<pre>
+var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+</pre>
+					
+<p>Notice how we can create an array by simply using the square brackets notation
+					<code>[ ]</code> and separating with comma the values inside them.
+					Such notation is known as creation of an <em>array literal</em> (can you notice
+  the similarity with the <a href="objectliterals.html">object literal</a>?. In books and
+					the Web you will see other ways to create arrays, that are a bit more complex.
+					A common one uses the the constructor notation, see example:</p>	
+					
+					<pre>
+var powersOfTwo = new Array();
+powersOfTwo[0] = 1;
+powersOfTwo[1] = 2;
+powersOfTwo[2] = 4;
+powersOfTwo[3] = 8;
+</pre>
+          
+ <p>As you can see, this is a verbose way for creating and populating arrays with values, and we will avoid it.
+	However, it showcases how we can access the elements of the array: by using <em>index</em>
+	values (which, as always in Javascript will start at 0). Notice how in this case the 
+	 square brackets are used for another purpose, to access a certain element of the array,
+	 based on the value of its index. In English, we read the statement 
+	 <code>powersOfTwo[0] = 1;</code> as <q>powerOfTwo <em>sub</em> 0 gets value 1</q>.
+	 (<em>sub</em> is the short form of the word <em>subscript</em>).
+	 Now, let us see a useful example of using arrays for websites.</p>        
+					
+	<div class="bs-callout bs-callout-danger">
+		<h4 id="ex1">Exercise 1: Display the day name</h4>	
+		As you know, the Javascript object <code>Date</code> has a method <code>.getDay()</code>
+		that returns a number from 0 to 6 to refer to the day of the week, not its name. 
+		This makes sense, since weekdays in different countries are named differently.
+		Below is a Javascript program that uses
+		arrays to display the right name of the day based on the language of your browser. 
+		The browser is represented within the DOM model by the object <code>navigator</code>. Using 
+		the properties and methods of the <code>navigator</code> you can access different kinds
+		of information, such as the browser type or your geolocation.
+	</div>				
+	
+<div>
+<textarea rows=16 cols=100>
+var userLang = navigator.language; // collects the language code: "en-US", "fr-FR", etc.
+var weekDays = []; // empty array, will be assigned values later
+var message = ""; // empty string to store the message we will show
+if (userLang == "en-US") {
+	weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	message = "Today is ";
+}
+else if (userLang == "fr-FR"){
+	weekDays = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+	message = "Aujourd'hui c'est ";
+}
+// We can have more else-if statements here for other languages
+var today = new Date();              // get current date
+var dayIndex = today.getDay();       // get value for day of week
+alert(message + weekDays[dayIndex]); // display full message
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>       
+</div>
+<br>            
+<p>In the variable <code>dayIndex</code> we store a numerical value (a number from 0 to 6) that represents
+  the day, and then we use that value as an index to access the day name from the <code>weekDays</code>
+  array. Assuming the value for <code>dayIndex</code> is 3, the expression <code>weekDays[dayIndex]</code>
+  will return the value "Wednesday".
+
+<div class="bs-callout bs-callout-warning">
+	<h4>Properties and Methods of Arrays</h4>
+	<p>An array object has many useful properties and methods. While you might not need
+	most of them, it's worth to be aware of what's available. W3Schools has 
+	<a href="http://www.w3schools.com/jsref/jsref_obj_array.asp">a list of
+	all of them</a>, together with snippets of Javascript code to explain each.</p>
+	<p>Here are the ones you should know:
+		<ul>
+			<li><code>.length</code> - a property that returns the number of elements in an array</li>
+			<li><code>.push()</code> - a method that adds new elements at the end of an array</li>
+			<li><code>.indexOf()</code> - a method that returns the index of an element in the array</code></li>
+		  <li><code>.pop()</code> - a method that removes the last element from an array</code></li>
+			<li><code>.sort()</code> - a method that sorts the elements of an array</code></li>
+	</ul>
+		Play with the following code to understand each of them.
+	</p>
+</div>
+
+<h4 id="ex2">Exercise 2: Array Operations</h4>
+<div>
+<textarea rows=9 cols=80>
+var vowels = ['e', 'i', 'o', 'u'];
+alert("vowels has " + vowels.length + " elements.");
+vowels.push('a');
+alert("After push: vowels = " + vowels);
+alert("vowels now has " + vowels.length + " elements.");
+vowels.sort();
+alert("After sort: vowels = " + vowels);
+alert("index of 'o' is: " + vowels.indexOf('o'));
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>
+ 
+<h2 id="forArrays"><code>for</code> loops for Arrays</h2>
+<p>Imagine that you run a website about new paperback book releases, and every 
+	week you have to update one page with the new titles and their prices. Here is 
+	the HTML code for a few entries of the page:
+</p>
+<pre>
+&lt;div id="newbooks"&gt;
+  &lt;p&gt;Mockingjay &lt;span&gt;$4.99&lt;/span&gt;&lt/p&gt;
+  &lt;p&gt;Fahrenheit 451 &lt;span&gt;$2.99&lt;/span&gt;&lt/p&gt;
+  &lt;p&gt;Persuasion &lt;span&gt;$1.99&lt;/span&gt;&lt/p&gt;
+  ...
+&lt;/div&gt;
+</pre>
+<p>This markup is very simplified, you can imagine that we would also have the author name for 
+every book, together with a link to the description and buy page. Manually updating this content
+every week is tedious work. </p>
+
+<p>It makes sense to automate this process and because the structure of the page is 
+repetitive, we can use a <em>loop</em> to organize our code. We will show the code and
+its results below and then explain how it works. Click on the "Execute it" button to
+see the results in the blue-bordered box.</p>
+
+  <h4 id="ex3">Exercise 3: Dynamic HTML with Arrays and Loops</h4>
+<div>
+<textarea rows=11 cols=80>
+var books = ["Mockingjay", "Fahrenheit 451", "Persuasion", "Middlemarch"]; // line 1
+var prices = ["$4.99", "$2.99", "$1.99", "$0.99"];                         // line 2
+var divElement = document.querySelector("#newbooks");                      // line 3
+var html = "";                                                             // line 4
+	
+for (var i=0; i < books.length; i=i+1){                                    // line 5
+  var oneLine = "<p>" + books[i] + " <span>" + prices[i] + "</span></p>";  // line 6                             
+  html = html + oneLine;                                                   // line 7 
+}
+divElement.innerHTML = html;                                               // line 8
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>
+
+<div id="newbooks">
+</div>
+
+<p>For this solution, we imagine that we received two arrays of titles and prices 
+	(maybe they were columns in a spreadsheet).
+By plugging them in in the Javascript code, the page will show the new content 
+	every time we have new data.</p>
+
+<p>Let us explain each line of code.</p>
+	<ul>
+		<li>Line 1 declares the array <code>books</code> that stores a list of book titles.</li>
+	  <li>Line 2 declares the array <code>prices</code> that stores the corresponding prices for each book. 
+		These two arrays have the same length.</li>
+		<li>Line 3 declares a variable that will refer to the div element in the HTML page where
+		the book titles will be displayed. (In our example, it refers to the blue-bordered box.)</li>
+		<li>Line 4 declares a variable that will store the HTML code we will generate automatically.
+		Initially its value is an empty string.</li>
+		<li>Line 5 is the statement that declares a <code>for</code> loop. This loop repeats the same
+		statements (line 6 and 7) inside its <code>{ }</code> for a certain number of times (the 
+          length of the array). Some time
+		you'll see the expression <code>i++;</code> as a shortcut for <code>i = i + 1;</code>.</li>
+        <li>Line 6 assigns to the variable <code>oneLine</code> the string value created by 
+      concatenating together some HTML tags and their text values from the two arrays of data.</li>
+		<li>Line 7 is a reassignment statement. Every time it concatenates new lines of HTML code to the
+			variable <code>html</code>.</li>
+		<li>Line 8 sets the <code>innerHTML</code> property of <code>divElement</code> to the created new HTML code.</li>
+	</ul>
+
+<p>Play with the given code. Add more book titles and prices to the two arrays or change the order of the
+items. Then execute the code again. Notice how every time it does the right thing. (If you are wondering
+about the styling of the created elements, our HTML file has document-level CSS styles for 
+the elements <code>#newbooks p</code> and <code>#newbooks span</code>.)</p>
+
+<p>Let us now turn our attention to the <code>for</code> loop, which was a new construct you have not
+encountered before.</p>
+
+<figure class="text-center">
+	<img src="images/for-loop.png" alt="for loop syntax" class="img-thumnail">
+	<figcaption>The syntax of a <code>for</code> loop.</figcaption>
+</figure>
+
+A <code>for</code> loop consists of up to three statements inside the parentheses immediately following 
+the keyword <em>for</em>, as well as a body of statement(s) enclosed in curly braces (<code>{ }</code>).
+
+<ol>
+	<li>The first statement is an assigment statement that declares a variable that will serve as 
+	an index for the array. Most commonly you'll see the statement <code>var i = 0;</code>
+	in this position. This statement is executed <strong>only the first time</strong> we enter the loop.</li>
+	<li>The second statement contains a boolean expression that tests whether the loop should continue
+	to be executed. This is evaluated in every iteration. In the moment that the expression evaluates
+	to <code>false</code>, the loop is ended.</li>
+	<li>The third statement updates the index variable, so that the loop can eventually end
+	after a certain number of iterations. Failing to update the index variable, will put the program
+	in a state of an endless loop which will eventually crash the browser.</li>
+</ol>
+
+<p>This is how to explain a <code>for</code> loop in plain English: for as long as the 
+	test condition is true, keep repeating the code inside the body of the loop. This is 
+	what happens in every step of the loop in the example with
+	the book titles.</p>
+
+<table class="table">  
+	<thead>  
+		<tr>  
+			<th>Index value <br>before test</th>  
+			<th>Condition <br> <code>i &lt; books.length</code></th>  
+			<th>Enter loop?</th>  
+			<th>array[index]</th> 
+			<th>Index value <br>after update</th> 
+		</tr>  
+	</thead>  
+	<tbody>  
+		<tr> 
+			<td>0</td>
+			<td>0 < 4</td>
+			<td>yes</td>
+			<td>books[0]</td>
+			<td>1</td>
+		</tr>
+		<tr> 
+			<td>1</td>
+			<td>1 < 4</td>
+			<td>yes</td>
+			<td>books[1]</td>
+			<td>2</td>
+		</tr>
+		<tr> 
+			<td>2</td>
+			<td>2 < 4</td>
+			<td>yes</td>
+			<td>books[2]</td>
+			<td>3</td>
+		</tr>
+		<tr> 
+			<td>3</td>
+			<td>3 < 4</td>
+			<td>yes</td>
+			<td>books[3]</td>
+			<td>4</td>
+		</tr>
+		<tr> 
+			<td>4</td>
+			<td>4 < 4</td>
+			<td>no</td>
+			<td></td>
+			<td></td>
+		</tr>
+</table>
+
+<p><code>for</code> loops are one of the most important programming constructs in
+every programming language. Understanding how to write and use them properly will make you
+a better programmer.</p>
+
+
+<h2 id="forObjects"><code>for</code> loops for Objects</h2>
+
+<p>By using object literals, we can store more data in a more useful format. For example,
+the information about the new books page that we discussed earlier in these notes,
+can be better stored as an array of book objects, each object containing more information
+about every book.</p>
+
+<pre>
+var books = [{title: "Mockingjay", author: "Suzanne Collins", price: "$4.99", year: 2010},
+             {title: "Fahrenheit 451", author: "Ray Bradbury", price: "$2.99", year: 1953},
+             {title: "Persuasion", author: "Jane Austen", price: "$1.99", year: 1818},
+             {title: "Middlemarch", author: "George Eliot", price: "$0.99", year: 1874}
+]
+</pre>
+
+<p>How would we create our books page now that the information is not in
+different arrays that we could access with the same index (remember, books and prices).
+We will use a <code>for</code> loop to iterate through all the books in the array and another 
+<code>for</code> loop to iterate through the properties of every book object. These two
+<code>for</code> loops have slightly different syntax, to reflect the fact that one works
+with an array and the other with properties of an object.</p>
+
+<p>We will again show the code that generates the page and then discuss the special 
+<code>for</code> syntax for objects. Click on the "Execute it" button to see the results 
+	in the blue-bordered box.</p>
+
+  <h4 id="ex4">Exercise 4: Dynamic HTML with Arrays, Objects and nested loops</h4>
+<div>
+<textarea rows=22 cols=90>
+var books = [{title: "Mockingjay", author: "Suzanne Collins", price: "$4.99", year: 2010},
+             {title: "Fahrenheit 451", author: "Ray Bradbury", price: "$2.99", year: 1953},
+             {title: "Persuasion", author: "Jane Austen", price: "$1.99", year: 1818},
+             {title: "Middlemarch", author: "George Eliot", price: "$0.99", year: 1874}
+]	/* 1 */
+
+var divElement = document.querySelector("#books");                                     /* 2 */                  
+var oneBook = '<span class="title"></span> by <span class="author"></span>. ' + 
+ 'First published in <span class="year"></span>. Current price: <span class="price"></span>'; /* 3 */
+	
+for (var i=0; i < books.length; i=i+1){  /* 4 */                                    
+  var p = document.createElement("p");   /* 5 */
+  p.innerHTML = oneBook;                 /* 6 */
+  var book = books[i];                   /* 7 */
+	
+  for (var propName in book){               /* 8 */
+    p.querySelector("." + propName).innerHTML = book[propName]; /* 9 */
+  }
+  divElement.appendChild(p);                                    /* 10 */
+}
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>
+
+<div id="books">
+</div>
+
+<p>Although this example has twice the amount of data from the one that used arrays,
+the number of code lines we had to write is almost the same. Here is an explanation
+of very line:</p>
+
+<ul>
+		<li>Line 1 declares the array <code>books</code> that stores a list of book <strong>objects</strong>.</li>
+		<li>Line 2 declares the variable <code>divElement</code>that will refer to the 
+			div element in the HTML page where the book entries will be displayed.</li>
+		<li>Line 3 declares the variable <code>oneBook</code> that contains the HTML template af a line that
+	will display the book information. Notice that we are using four <code>&lt;span&gt;</code>
+	elements with class names, in order to allow for their styling with CSS. But all these <code>span</code>
+	elements have no text, it will be added through our code.</li>
+		<li>Line 4 is the statement that declares a <code>for</code> loop that will iterate over
+	all items in the array <code>books</code>.</li>
+		<li>Line 5 creates a new HTML element for the tag <code>p</code>. This will be used to store
+	display every book line.</li>
+		<li>Line 6 sets the <code>innerHTML</code> property of the newly created <code>p</code>
+			to the desired template.</li>
+	  <li>Line 7 declares the variable <code>book</code> that stores one book object at a time.</li>
+	<li>Line 8 is the <code>for</code> statement that will iterate over all property names
+	of a book object.</li>
+	<li>Line 9 is an assignment statement. On the right side, <code>book[propName]</code> will
+		be evaluated to the property values such as "Mockingjay", etc. The left side
+	refers to the <code>span</code> element that will display as content such values. For example:
+	<code>p.querySelector(".title").innerHTML</code>. In order for this "trick" to work,
+	we have to ensure that the class names for the span elements are the same as the properties
+	of the book objects. This way, they can be created by concatening <code>"." + propName</code>.</li>
+	<li>Line 10 appends every created (and populated with information) <code>p</code>
+	element to the container that will display all the books.</li>
+	</ul>
+
+<p>Notice in line 8 the new syntax of the <code>for</code> loop. It is much simpler
+than the one we saw for iterating over elements of an array. In English we can read
+<code>for (var propName in book) {// statement(s);}</code> like this: for every property name in 
+the <code>book</code> object, store the name in the variable <code>propName</code>, and then
+execute the body of the loop. 
+
+<p>Below is an example that shows a loop for only one of the book objects:</p>
+
+<pre>
+var book = {title: "Mockingjay", author: "Suzanne Collins", price: "$4.99", year: 2010};
+for (var propName in book){
+	console.log("property name is: " + propName + ". Its value is: " + book[propName]);
+}
+</pre>
+<p>If you copy these lines in the console, you'll see the following result:</p>
+
+<figure class="text-center">
+	<img src="images/forObjectExample.png" alt="for loop for object properties" class="img-thumnail">
+	<figcaption>Using a <code>for</code> loop to iterate through properties of an object.</figcaption>
+</figure>
+
+<div class="bs-callout bs-callout-warning">
+	<h4>Important: Two ways to access values of properties</h4>
+    <p>In the examples of this lecture we saw two different ways to access the values
+    of object properties:
+    <ol>
+    <li>Using the <code>.</code> notation, as in: <code>person.firstName</code>.</li>
+    <li>Using the <code>[]</code> operator, as in <code>book[propName]</code>.</li>
+    </ol>
+    Both of them return the value stored in that property but they cannot be 
+    used interchangeably. For example, we cannot write  
+    <code>person[firstName]</code> or <code>book.propName</code>. In the first case, 
+    Javascript will complain
+    of a ReferenceError, in the second case it will not complain but it will return
+    <em>undefined</em>, instead of the value. Therefore, remember these rules when 
+    accessing properties:
+    <ul>
+    <li>Use the <code>.</code> notation when you are directly referring to a property
+    by its name. For example: <code>book.year</code>, <code>person.firstName</code>.</li>
+    <li>Use the <code>[]</code> operator when you are using a variable that was assigned
+    the name of the property. For example, <code>book[propName]</code>.</li>
+    </ul>
+</div>
+
+</div><!--end of "col-md-8"-->
+            
+</div><!--end of "row"-->
+
+<!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+</div> <!--end of container>
+        
+        
+<!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+</body>
+
+</html>

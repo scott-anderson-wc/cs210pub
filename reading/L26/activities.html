@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>Jeopardy Day</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+             
+
+  <div class="alert alert-info">
+    <p>To review the course material in a fun and engaging way we will play Jeopardy.
+      The link to the <a href="/~cs110/solutions/jeopardy/jeopardy.html">Jeopardy Board</a>
+      is available only to the instructors.
+    </p>
+  </div>
+  <h2>Rules</h2>        
+   <ol>
+    <li>Students create teams of 3-4 students and find a name for their team. First team
+     to come up with a name will go up first.</li>  
+     <li>All team names are written on the whiteboard, to keep track of each team's score.</li>
+     <li>The team that has control of the board choses a question, for example "CSS for 3". All
+     teams start working on the solution and the team who is the fastest, gets a shot at the answer. If
+       they get it wrong, other teams can try giving their answer, until the right answer
+     is found and that team earns the available points. A team doesn't get to answer twice the same question,
+     though they can continue to try to figure out the solution for their own sake.</li>
+     <li>Questions with high points are a bit more challenging that questions with few points.</li>
+     <li>Once a question is selected, it is open to the entire class to answer it.  The team that has control of the board merely selects the category and point value, then all teams vie to get the correct answer and win the points.</li>
+     <li>After a team gets a question correct, they have control of the board.  If there is a question that stumps all teams (or, all teams attempt and get it initially wrong), then the team with the fewest points will get control of the board.</li>
+     <li>At the end of the class, a copy of all question/answers will be distributed.</li>
+  </ol>  
+          
+     <div class="alert alert-warning">
+       <h4>No Computers Allowed</h4>
+    <p>Clearly, students are not allowed to consult a computer or any electronic device connected to the Internet.
+      However, personal notes may be consulted.
+    </p>
+  </div>       
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideItem() {
+          // hide a PRE or a P inside the LI (this). Don't hide the
+          // whole LI, or the numbering changes.
+          $(this)
+              .find("pre,p")
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideItem);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

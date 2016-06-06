@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+<!-- condensed version of lecture notes, used for lecture and handout - ellen -->
+
+<head>
+    <title>CS110: How Computers Work</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name=author content="Takis Metaxas, Scott D. Anderson and the CS110 Staff">
+    <meta name=description content="The fetch-execute cycle, the von Neumann architecture and related concepts.">
+    <meta name=keywords content="">
+    <link rel="stylesheet" type="text/css" href="../../cs110-main-style.css">
+    <style type="text/css">
+        body {
+            width: 750px;
+        }
+
+        .main {
+           color: #006600;
+           font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>How Computers Work</h1>
+
+<h2>Computer components</h2>
+
+<ul>
+   <li><strong class="main">Central Processing Unit</strong>, or <em>processor:</em>
+   the "intelligence" of the computer, follows instructions written by
+   the programmer (Control Unit) and performs basic arithmetic calculations
+   (Arithmetic-Logic Unit)
+   
+   <li><strong class="main">Memory Unit:</strong> temporarily stores data and instructions
+   
+   <li><strong class="main">Input/Output Unit:</strong> communicates with the outside world
+
+   <li><strong class="main">Clock:</strong> controls the computational speed of the computer
+  
+   <li><strong class="main">Bus:</strong> wires connecting computer components
+</ul>
+
+<p><img SRC="computer-labels.png" ALT="computer comprising processor, memory and I/O devices" >
+<p><strong class="main">Computer operations follow the <em>fetch/execute cycle:</em></strong>
+
+<ol>
+   <li><em>fetch</em> instruction from memory
+   
+   <li><em>decode</em> instruction
+   
+   <li><em>execute</em> instruction
+   
+   <li><em>REPEAT!</em></li>
+</ol>
+
+<h2>How information is represented: it's all "bits"</h2>
+
+<p><strong class="main">How do computers represent numbers, text, pictures, sound, movies, 
+instructions?</strong>
+
+<p>Computers are electronic devices that understand <em>only two states</em><br>
+(analogous to <a href="http://en.wikipedia.org/wiki/Morse_code">Morse code</a>)
+
+<p>Computers represent information using a <em class="main">binary arithmetic system</em> in which
+numbers are represented using the binary digits ("bits") 0 and 1:
+
+<p><table border=1>
+   <tr>
+      <th>Decimal</th><th>Binary</th>
+    </tr>
+   <tr><td align="right">0</td><td align="right">0</td></tr>
+   <tr><td align="right">1</td><td align="right">1</td></tr>
+   <tr><td align="right">2</td><td align="right">10</td></tr>
+   <tr><td align="right">3</td><td align="right">11</td></tr>
+   <tr><td align="right">4</td><td align="right">100</td></tr>
+   <tr><td align="right">5</td><td align="right">101</td></tr>
+   <tr><td align="right">6</td><td align="right">110</td></tr>
+   <tr><td align="right">7</td><td align="right">111</td></tr>
+   <tr><td align="right">8</td><td align="right">1000</td></tr>
+   <tr><td align="right">9</td><td align="right">1001</td></tr>
+   <tr><td align="right">10</td><td align="right">1010</td></tr>
+   <tr><td align="right">11</td><td align="right">1011</td></tr>
+   <tr><td align="right">12</td><td align="right">1100</td></tr>
+   <tr><td align="right">13</td><td align="right">1101</td></tr>
+   <tr><td align="right">14</td><td align="right">1110</td></tr>
+   <tr><td align="right">15</td><td align="right">1111</td></tr>
+</table>
+
+<p>Both systems are <em class="main">positional</em> - the position of each digit in the
+number determines its value:
+
+<ul>
+<li>The meaning of 1492 in the decimal system is:<br>
+ <p>&nbsp;&nbsp;&nbsp;&nbsp;1492 = 1*1000 + 4*100 + 9*10 + 2*1
+<li>Similarly, the number 10011 in the binary system means 19, because:
+ <p>&nbsp;&nbsp;&nbsp;&nbsp;19 = 1*16 + 0*8 + 0*4 + 1*2 + 1*1
+</ul>
+
+<p> The decimal system is also called "base 10" and the binary system "base 2"
+
+<p><strong class="main">Other binary systems:</strong>
+
+<p>
+<table border=0 cellpadding=6 width="100%">
+<tr><td>
+<table border=1>
+<tr> <td>2 Jacks</td><td>1 Gill</td></tr>
+<tr><td>2 Gills</td><td>1 Chopin</td></tr>
+<tr><td>2 Chopins</td><td>1 Pint</td></tr>
+<tr><td>2 Pints</td><td>1 Quart</td></tr>
+<tr><td>2 Quarts</td><td>1 Pottle</td></tr>
+<tr><td>2 Pottles</td><td>1 Gallon</td></tr>
+<tr><td>2 Gallons</td><td>1 Peck</td></tr>
+</table>
+</td>
+<td>
+<table border=1>
+<tr><td>2 Pecks</td><td>1 DemiBushel</td></tr>
+<tr><td>2 DemiBushels</td><td>1 Bushel</td></tr>
+<tr><td>2 Bushels</td><td>1 Kilderkin</td></tr>
+<tr><td>2 Kilderkins</td><td>1 Barrel</td></tr>
+<tr><td>2 Barrels</td><td>1 Hogshead</td></tr>
+<tr><td>2 Hogsheads</td><td>1 Pipe</td></tr>
+<tr><td>2 Pipes</td><td>1 Tun</td></tr>
+</table>
+</td></tr>
+</table>
+
+<p><strong class="main">Number converter:</strong>
+
+<p>Experiment with this form to convert between bytes (8-bit binary numbers) 
+and decimal numbers - what's the largest decimal number you can represent?
+
+<p><!--
+This file retrieved from the JS-Examples archives
+http://www.js-examples.com
+100s of free ready to use scripts, tutorials, forums.
+Author: dickmann.org - http://www.dickmann.org/ 
+
+Bugs fixed by Scott D. Anderson, Summer 2005
+-->
+
+<script type="text/JavaScript">
+
+<!--
+function d2b(form) {// Decimal to Binary
+        j = form.decimal.value;
+        for (i=0; i<8; ++i) {
+                l = eval("form.a"+i);
+                if (j & 1) 
+                        l.checked=true;
+                else
+                        l.checked=false;
+                        j >>>= 1;
+        }
+}
+
+function b2d(form) {// Binary to Decimal
+        j=0;
+        for (i=7; i>=0; --i) {
+                j <<= 1;
+                l = eval("form.a"+i);
+                if (l.checked) 
+                    j |= 1;
+        }
+        form.decimal.value=j;
+}
+// -->
+
+</script>
+
+<FORM action="">
+   
+<P><TABLE BORDER=1>
+      <TR>
+         <TD>
+            Binary:
+         </TD>
+         <TD>
+            <P><TABLE BORDER=1>
+               <TR>
+                  <TD>                     128
+                  </TD>
+                  <TD>                     64
+                  </TD>
+                  <TD>                     32
+                  </TD>
+                  <TD>                     16
+                  </TD>
+                  <TD>                     8
+                  </TD>
+                  <TD>                     4
+                  </TD>
+                  <TD>                     2
+                  </TD>
+                  <TD>                     1
+                  </TD>
+               </TR>
+               <TR>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a7 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a6 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a5 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a4 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a3 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a2 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a1 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+                  <TD>                     <INPUT TYPE=checkbox NAME=a0 VALUE=ON onclick="b2d(this.form)">
+                  </TD>
+               </TR>
+            </TABLE>
+         </TD>
+      </TR>
+      <TR>
+         <TD>
+            <P>Decimal:</P>
+         </TD>
+         <TD>            <P><INPUT TYPE=text NAME=decimal VALUE="" SIZE=20 onchange="d2b(this.form)"></P>
+         </TD>
+      </TR>
+   </TABLE>
+</FORM>
+
+<P>What's so grand about a positional system? Arithmetic calculations are
+easier than in non-positional systems, like Roman numerals - imagine what second
+grade would be like if you had to calculate XLVIII + LXVII = CXV !!
+
+<h2>Text representation</h2>
+
+<p>Text is represented with the ASCII code, captured in this table:
+
+<p><IMG SRC="ascii.gif" ALT="The ASCII character set" WIDTH="457" height="266">
+
+<p>Add the row and column numbers to get the ASCII code - A is represented by decimal number 
+65 or binary number 01000001, and "Hi!" is represented by the sequence 72 105 33, or 
+binary 010010000110100100100001
+
+<p><strong class="main">Control characters and line endings</strong>
+
+<p>The table starts with ASCII code 32 (space character) - 
+the first 32 characters are <em class="main">control characters</em>, used to 
+control the early printers
+
+<p>Representing <em class="main">line endings</em> is tricky: 
+the Mac represents the end of a line with a carriage return character
+(CR, ASCII code 13), Linux uses a line feed character (NL, ASCII code 10),
+and Windows uses <em>both</em>
+
+<p>Usually, when you transfer a text file from system to system, the FTP
+program (e.g. Fetch or WinSCP) substitutes the appropriate line
+ending - the "text mode" of transfer says to make these substitutions,
+"binary mode" makes no substitutions and is more suitable for non-text
+files, such as images or programs
+
+<p><strong class="main">Unicode:</strong>
+
+<p>The early ASCII system had space for 256 symbols, only enough to represent
+all English characters, punctuation marks, numbers, etc.
+
+<p>The <em class="main">global community </em> has shifted to a much larger
+code called <a href="http://www.unicode.org/unicode/standard/WhatIsUnicode.html">Unicode</a>
+
+<h2>Representing other information</h2>
+
+<P>Once you can represent numbers and characters, you can also represent
+<em>instructions</em>! This observation led von Neumann and his collaborators 
+to create the first general purpose, re-programmable computer
+
+<P>In future lectures, we'll learn how the computer represents images, sound
+and movies
+
+<h2>Bits and bytes</h2>
+
+<p>A group of bits used to represent a character came to be known as a 
+<a href="http://en.wikipedia.org/wiki/Byte">byte</a>, which is 8 bits
+
+<p>Names for larger groups of bytes:
+
+  <ul>
+    <li>Kilobytes (kB), or 1000 bytes (about a quarter of a page of text)
+      
+    <li>Megabytes (MB), or 1000 kilobytes (about 250 small books worth of text)
+
+    <li>Gigabytes (GB), or 1000 MB (about the amount of text in a small library)
+  </ul>
+
+<p>Modern computers come with <strong class="main">huge amounts of storage space</strong> 
+  on the hard drive (often hundreds of GB), but are usually able to process only a few GB 
+  at a time (their <em>main memory</em> or RAM)
+
+</body>
+</html>

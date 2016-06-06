@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name=author content="Lyn Turbak and Scott Anderson">
+    <meta name=description content="An example of modularization with JavaScript functions">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>JavaScript Modularization Example, Page B</title>
+  </head>
+  <body>
+<header id="banner_and_nav"></header>
+
+<p>Here's the main body of the page.
+  
+<p>This paragraph has some content that is unique to <strong>page B</strong>.
+
+<p>Sed nunc enim, gravida id auctor sed, mattis non mi. Pellentesque habitant
+morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut
+enim elit, sodales in rhoncus eget, ullamcorper non mauris. Morbi non
+mauris orci. Integer eros turpis, viverra eu laoreet vitae, luctus at
+nisi. Nam nec velit nulla. Aenean nec augue sed purus tempus convallis at
+et metus. Nunc ultrices vulputate viverra.
+
+<footer id="icons"></footer>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="header-footer-jq.js"></script>
+<script>
+  addHeader("#banner_and_nav");
+  addFooter("#icons");
+</script>
+  </body>
+</html>

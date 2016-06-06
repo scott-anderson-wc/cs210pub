@@ -1,0 +1,27 @@
+<html>
+<head>
+   <title>Operation Random</title>
+   <script type="text/JavaScript">
+      // returns a random integer between 0 and (limit-1)
+      function randomInt (limit) {
+         return Math.floor(limit*Math.random());
+      }
+   </script>
+   <script type="text/JavaScript" src="randomColor.js"></script>
+</head>
+
+<body>
+  <h3>A header with three words in random colors will appear below, after you add your
+     definition of the <strong>randomColor()</strong> function:
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/JavaScript">
+      var color1 = randomColor();
+      var color2 = randomColor();
+      var color3 = randomColor();
+      document.write("<h2> <span style='color: " + color1 + "'>three <\/span>");
+      document.write("<span style='color: " + color2 + "'>random <\/span>");
+      document.write("<span style='color: " + color3 + "'>colors <\/span> <\/h2>");
+  </script>
+</body>
+</html>
+

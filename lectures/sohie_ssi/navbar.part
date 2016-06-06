@@ -1,0 +1,10 @@
+	<div id="nav">
+	        <ul> 
+		    <li><a href="example.html">Home</a>  </li> 
+		    <li><a href="noseats.html">Toilets with no seats</a>  </li> 
+		    <li><a href="twoflush.html">Toilets with two flush buttons</a>  </li> 
+		    <li><a href="options.html">Toilets with many options</a>  </li> 
+
+                </ul>
+
+		</div>

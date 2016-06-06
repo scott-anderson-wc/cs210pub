@@ -1,0 +1,479 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+
+    <div class="container">
+      <h1>Forms, Ajax, and Email</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<!--  <div class="alert alert-warning"> </div> -->
+
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li><p>Have a working PHP script that sends email to <em>you</em>
+    <li><p>Use jQuery to send form data to you using that script and Ajax</li>
+  </ol>
+  
+<h2>Recap</h2>
+
+<p>We learned about two major topics: Form Submission, and Form submission
+  via Ajax.
+
+<h2>Form Submission</h2>
+
+<ul>
+  <li>Forms are the primary way that users <em>send</em> information to
+  the server (back end), rather than receive it.
+    
+  <li>Even things that don't look like forms are probably just forms in
+    disguise, such as Facebook updates.
+    
+  <li>Forms require:
+    <ul>
+      <li>a set of <em>input</em> elements. We've see these before
+      in <a href="../../reading/forms.html">the forms reading</a>.
+        
+      <li>each input must have a <em>name</em>.  The browser sends
+        name-value pairs to the server when the form is submitted.  The
+        names are determined by the programmer, while the values come from
+        the user. (mostly; there are hidden inputs and such)
+        
+      <li>the <code>form</code> tag has an <code>action</code> attribute
+      that specifies the script (on the server) that will get and process
+      the data submission
+        
+      <li>the <code>form</code> tag also has a <code>method</code>
+      attribute that chooses either <code>GET</code>
+      or <code>POST</code>.  (The default is <code>GET</code>.)
+        <ul>
+          <li>GET puts all the data in the URL, so it is limited in length
+          and vulnerable to shoulder surfing and such, but nice for
+          emailing, bookmarking and such.
+            
+          <li>POST sends the data later in the request, so it can be
+          essentially unlimited in length and can be slightly more
+          secure. 
+
+          <li>neither is really secure without HTTPS
+        </ul>
+    </ul>
+</ul>
+
+<h2>Ajax</h2>
+
+<ul>
+  <li>In the olden days, forms were only submitted by the browser and the
+    page with the form was replaced by the response from the back-end
+    script.  This is still the most universal and accessible
+    mode. (Assistive software doesn't always execute JavaScript properly.)
+    
+  <li>In modern times, forms can be submitted by JavaScript while the user
+    continues to interact with the page.
+
+  <li>JavaScript can also set up a <em>response handler</em>, which is
+  yet another kind of event handler.  In this case, the response handler
+  is a function that gets invoked when the response from the back-end
+  script arrives.
+    
+  <li>The function gets invoked with the response as its argument, so it
+  can look at the response and figure out what to do. 
+
+</ul>
+
+<p>This capability is called <em>Ajax</em>.  Ajax allows a web browser to
+  act like a desktop application.  Think Gmail and Google apps.
+
+<p>Ajax can either be used to receive info from the server (e.g. Facebook
+  updates, new mail from Gmail) or to send info to the server
+  (e.g. Facebook posts, sending mail).
+
+<p>In this course, we'll only use it to send mail, but you should know its
+  wider applicability.
+
+  <h2>Quiz Question Nr. 1</h2>
+  <p>The <code>action</code> attribute specifies
+  <ol type="A">
+    <li><p>what data to send</p></li>
+    <li><p>whether to send the data</p></li>
+    <li><p>where to send the data</p></li>
+    <li><p>how to send the data</p></li>
+  </ol> 
+          
+  <h2>Quiz Question Nr. 2</h2>
+  <p>To put the form data in the URL when submitting the form, the page
+  author should use
+  <ol type="A">
+    <li><p>the GET method
+    <li><p>the POST method
+    <li><p>either A or B
+    <li><p>none of the above
+  </ol> 
+
+  <h2>Quiz Question Nr. 3</h2>
+
+  <p>Ajax ...
+  <ol type="A">
+    <li><p>is something that happens in the browser
+    <li><p>is something that happens on the server
+    <li><p>is a way to pass data from the browser to the server
+    <li><p>is a way to pass data from the server to the brower
+  </ol> 
+
+<h2>Ajax Recap</h2>
+
+<p>Ajax is tricky because we can't use the following reasonable idea:
+<pre class="prettyprint lang-js">
+// the following does *not* work:
+var data = $.get("url");
+processResult(data);
+</pre>
+
+<p>The reason is because of the fact that, from a computer's point of
+  view, it takes <em>forever</em> (millions of cycles) for the data to
+  arrive from the server. So, it doesn't want to wait that long
+  for <code>.get</code> to return and assign a value to <code>data</code>.
+  The browser doesn't want to freeze for all that time, waiting for the
+  data to arrive. It wants to pay attention to the user.
+
+<p>Instead, Ajax requires you to supply a function, an <em>event
+    handler</em>, which will then get invoked when the data does
+    arrive. This event handler is also called a <em>callback</em>. The
+    callback is invoked with the data as its argument, since that's
+    presumably why you requested it.  In our example
+    above, <code>processResult</code> is perfect as a callback
+    function. Therefore, we do:
+
+<pre class="prettyprint lang-js linenums">
+$.get("url", processResult);
+</pre>
+  
+<h2>Task #1, analysis</h2>
+
+<p>With a partner, using the following <a target="_blank"
+  href="Forms/ajax-v1.html">Ajax example</a> and your JavaScript console,
+  determine the following:
+
+<ul>
+
+  <li>How long does it take for the data to arrive?
+    
+  <li>Does it take the same amount of time every time?
+    
+  <li>What URL is the data gotten from?
+    
+  <li>If you visit that URL (just copy/paste it into your browser location
+  bar), you can see the actual data that is sent. Or look at
+  the <code>serverData</code> global variable.
+
+</ul>
+
+<h2>Ajax and Email Forms</h2>
+
+<p>We can also use Ajax to <em>send</em> data to the server.  We will send
+  data from a form, and we will use the POST method.  Let's first figure
+  out, though, the data we're going to send and how we will send it.
+
+<p>Let's start with specific examples from the reading.
+
+<ul>
+
+  <li><a target="_blank" href="Forms/deathday-form-ajax.html">email form  w/ and w/o Ajax</a>.
+    
+</ul>
+
+<p>Let's make sure the JavaScript code is clear:
+<pre class="prettyprint lang-js linenums">
+function handleResponse(responseObj) {
+    console.log("response is "+responseObj.status+" and "+responseObj.text);
+    if( responseObj.status == "ok" ) {
+       $("#response_element").html(responseObj.text).css("color","green");
+    } else {
+       $("#response_element").html(responseObj.text).css("color","red");
+    }
+}
+
+function sendmail () {
+    var where = $("#rsvp-form").attr("action");
+    var fn = $("#rsvp-form [name=from_name]").val();
+    var fe = $("#rsvp-form [name=from_email]").val();
+    var what = {from_name: fn, from_email: fe };
+    $.post( where, what, handleResponse, "json");
+}       
+
+$("#ajax_send_button").click(sendmail);
+</pre>  
+
+
+<h2>Quiz Question Nr. 4</h2>
+
+<p>These forms claim to be RSVP, but they always say "yes I'm coming." Can
+  we modify these forms to send a Yes/No, rather than always saying "yes"?
+
+  <ol type="A">
+    <li><p>Yes, just add a SELECT menu to the form.</p></li>
+    <li><p>Yes, just add a BODY property to the JS object literal in the Ajax code</p></li>
+    <li><p>Yes, but only in the Ajax version; the normal version can't do that.</p></li>
+    <li><p>No, because the back-end script doesn't allow it</p></li>
+  </ol> 
+
+<h2>Restricted Web Email</h2>
+
+<p>Both of the above forms allowed you to specify the <em>recipient</em>
+  (so you could send it to yourself) but not the <em>content</em>.
+  Couldn't we provide a more flexible form that would allow you to specify
+  all the email essentials:
+  <ul>
+    <li>from
+      
+    <li>to
+      
+    <li>cc
+
+    <li>subject
+      
+    <li>body
+  </ul>
+
+<p>Yes, we could, but it would be a <em>very bad</em> idea. Spammers would
+  find that form in about ten minutes and start using it to send
+  spam. Even if you look at our PHP scripts and figure out how to do
+  this, <em>don't.</em>  You'll get your server blacklisted and then you
+  won't be able to send legitimate email.
+
+<p>In our examples, we will restrict the email in various ways to make it
+  unappealing to spammers.  The primary way is to restrict
+  the <em>recipient</em>. The bad guys could fill up the recipient's email
+  box, but they can already do that.
+
+<h2>Submitting the form using Ajax</h2>
+
+<p>The back-end script determines what form inputs are meaningful. Our
+  email scripts look for the following:
+
+  <ul>
+    <li><code>from_name</code></li>
+      
+    <li><code>from_email</code></li>
+      
+    <li><code>subject</code></li>
+      
+    <li><code>body</code></li>
+  </ul>
+
+<p>If additional inputs are sent, they are silently ignored.  
+
+<p>In the two examples above, we used a different back-end script that
+  only let you specify the first two inputs: the subject and body of the
+  email were pre-specified.
+
+<h2>Echoing Data</h2>
+
+<p>For the next task, we'll use a script that just echoes the data back to
+  the browser. It's not useful for any real tasks, but scripts like this
+  are invaluable for debugging. Think of it as like
+  a <code>console.log</code> for Ajax requests. Click on it!
+
+<p><a href="http://cs.wellesley.edu/~cs110/php/echo.php">http://cs.wellesley.edu/~cs110/php/echo.php</a></p>
+
+<p>You can see that the script sends back a little bit of HTML.
+
+<p>Try the following (we are using the GET method):
+  <ul>
+    <li><a href="http://cs.wellesley.edu/~cs110/php/echo.php?pet=hedwig&house=gryffindor">http://cs.wellesley.edu/~cs110/php/echo.php?pet=hedwig&house=gryffindor</a>
+    <li><a href="http://cs.wellesley.edu/~cs110/php/echo.php?addr=number+4+privet+drive&town=Surrey">http://cs.wellesley.edu/~cs110/php/echo.php?addr=number+4+privet+drive&town=Surrey</a>
+  </ul>
+
+<h2>Task #2: Sending Data</h2>
+
+<ol>
+  <li>Write some JS/JQ code to send some data, like the first example
+  above (hedwig and gryffindor), to the <code>echo.php</code> script.
+  Hint: use a JS object literal.
+
+  <li>The server will send back that bit of HTML. Write a response handler
+  (a function) that will get the response and insert it onto this page in
+  the box below whose ID is <code>response1</code>.  Hint: you might use
+  the <code>.html()</code> method.
+    
+  <li>Use the execution box below to test your code.
+
+</ol>
+
+<div id="response1" style="border: 3px solid green; padding: 1em;">response1</div>
+
+<p>
+<form action="">
+<div>
+<textarea rows=12>
+function responseHandler (??) {
+   // insert response into the page
+    ??
+}
+
+$.post("http://cs.wellesley.edu/~cs110/php/echo.php",
+   // JS object literal here
+    ??,
+   // event handler here
+    ??);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js linenums executable">
+function responseHandler (chunk) {
+    $("#response1").html(chunk);
+}
+
+$.post("http://cs.wellesley.edu/~cs110/php/echo.php",
+       {pet: "Hedwig", house: "Gryffindor"},
+       responseHandler);
+  </pre>
+
+</div>
+
+<h2>Formatting an Email</h2>
+
+<p>Suppose we give the user some choices about the body of the email but
+  not the recipient. If we further allow ourselves to format the result
+  more nicely than those bullet lists earlier, we can get something like
+  <a href="../../reading/ajax.html#formatted-email-messages">the example from the
+  reading</a>.
+
+<p>We'll switch to that other page and make sure everyone is comfortable
+  with all that code.
+
+<h2 id="generating-a-PHP-script">Generating a PHP Script</h2>
+
+<p>If you want to use this facility, we need a way for you to create the
+  appropriate PHP script.  Rather than teach you the language just for
+  this one purpose, we've created a <q>meta-script</q>: a script that
+  writes a PHP script for you.  It has a form for you to fill out with
+  your email address and your desired default values, and then gives you a
+  PHP script in your <code>Downloads</code> folder (or wherever your
+  browser puts it).
+
+<h2>Task #3: Email Forms</h2>
+
+<p>This task will ensure that the basics of email form submission work for
+you.
+  <ol>
+    <li>Fill out the <a href="../../php/make-eform.php">creation</a>
+    form.  When you submit it, it'll send back a personalized PHP script
+    that your browser will download.
+      
+    <li>Using CyberDuck (or some other FTP client), create a "mail-form"
+    folder on the server, in your <code>public_html</code>.
+      
+    <li>Copy the downloaded PHP script to the <code>mail-form</code> folder.
+      
+    <li>Download a copy of this <a href="Forms/tiny-form.html">tiny-form.html</a>.
+      
+    <li>Edit it (use TextWrangler) to specify your PHP script in the
+      action attribute, replacing the bogus value in the original. Use a
+      relative URL, meaning just the name of the custom PHP script. That's
+      the only change!
+      
+    <li>Copy it to the server into the <code>mail-form</code> folder, so
+    that the relative URL for the PHP script is correct.  You will now
+    have a folder with an HTML file and a PHP file: the HTML file has a
+    form that uses the PHP file to send mail to <em>you</em>.
+      
+    <li>Test it by filling out the form and sending yourself an email
+    message.
+
+  </ol>
+
+<h2 id="sec_summary">Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of 
+  <ul>
+
+    <li>Ajax can be used to get info, such as a list of students, or the
+    latest Facebook updates, from a server.
+
+    <li>Ajax can also be used to sent info, such as form data, to a
+    server.
+
+    <li>The
+      jQuery <a href="http://api.jquery.com/post"><code>.post()</code></a>
+      method needs:
+      <ul>
+        <li>a URL
+          
+        <li>some data to send, though this is optional (sometimes the URL
+        is all we need)
+          
+        <li>a <em>callback</em> function to handle the response.
+
+        <li>an expected response type
+      </ul>
+      
+    <li>Those methods can be used to send a form to a server.
+      
+  </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+  
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions">
+
+<p>Quiz answers:
+<pre>
+1. C
+2. A
+3. C and D. In CS110, we'll use Ajax to send data to server (option C).
+4. D
+</pre>
+
+
+</div>
+
+<!--#include virtual="/~cs110/modularity/footer-rel.part" -->
+    
+</div> <!--end of container>
+        
+<!--#include virtual="/~cs110/modularity/bs-footer-rel.part" -->
+<script>
+  revealLater("04/12/2016 1:00 PM"); 
+</script>
+
+</body>
+</html>

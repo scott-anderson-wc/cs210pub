@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- Author: Eni Mustafaraj
+Date: March 2014
+Purpose: Showing how to include different social plugins on a page
+Filename: plugins.html
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Eni Mustafaraj">        
+    <title>Social Plugins</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300|Geo' rel='stylesheet' type='text/css'>
+    <style>
+        body {width: 960px;}
+    </style>
+  </head>
+  
+  <body> 
+    <!-- This code is added here in order to use Facebook Like and Facebook comments on the page-->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=275908045906968";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+  
+    <h1>Examples of Incorporating Social Plugins</h1>
+    <section>
+        Mauris turpis risus, sodales at massa eget, aliquam pharetra tortor. 
+        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices 
+        posuere cubilia Curae; Donec vitae risus elit. Sed eu magna eu nunc 
+        ultricies fringilla. Nam fringilla, nulla id interdum interdum, ipsum 
+        sem suscipit tellus, ut lobortis tortor felis at leo. Fusce commodo 
+        feugiat elementum. Praesent sit amet lectus libero. Integer vulputate 
+        semper nibh, vel luctus quam fermentum cursus. Nullam nec libero et sem 
+        facilisis vestibulum eget ut massa. Vestibulum rhoncus magna id neque 
+        ultrices eleifend. In rutrum, libero ac rhoncus ultricies, libero diam 
+        adipiscing justo, at dapibus felis orci nec nibh. Aliquam suscipit metus 
+        lacus, nec suscipit neque hendrerit at. Aenean vulputate ultrices dui 
+        ac auctor. Mauris et arcu a diam molestie vulputate ac non dui.
+    </section>
+    <br>
+    <div class="fb-comments" data-href="http://cs.wellesley.edu/~cs110/" 
+    data-numposts="5" data-colorscheme="light"></div>
+    
+    <h2>Embedding a Youtube Video</h2>
+    <iframe src=
+   "http://www.youtube.com/embed/DNsYNZuutTM?autoplay=1&controls=1&showinfo=1"
+   frameborder="1" width="534" height="400"></iframe>
+   
+   <h2>Facebook Like button</h2>
+       <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcs.wellesley.edu%2F%7Ecs110%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=80&amp;appId=275908045906968" 
+       scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" 
+       allowTransparency="true"></iframe>
+       
+    <h2>Twitter Feed</h2>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],
+    p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);
+    js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <div>
+     <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/Wellesley" 
+     data-widget-id="450818279653658624">Tweets by @Wellesley</a>
+    </div>
+  </body>
+</html>  
+
+

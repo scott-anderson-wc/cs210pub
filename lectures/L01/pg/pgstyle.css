@@ -1,0 +1,17 @@
+/* 
+Filename: pgstyle.css
+Purpose: Style the photo gallery 
+*/
+
+img {
+	width: 280px;
+}
+
+/* this rule will apply to iPads */
+@media screen and (max-width : 1024px) {
+	img {
+		width: 180px;
+		padding: 3px;
+		border: 1px solid gray;
+	}
+}

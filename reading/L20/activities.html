@@ -1,0 +1,516 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>jQuery Effects</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+ <div class="alert alert-warning">
+   <p>Be patient and determined in hwk7; you're doing well.
+   <p>Use <code>localStorage.clear()</code> if your localStorage is messed
+     up by earlier mistakes.  Refreshing the web page won't work.  It's
+     not a bad idea to put  <code>localStorage.clear()</code> in
+     your <code>.js</code> file.
+   <p>We added
+     two <em>obfuscated</em> <a href="../../a07/a07.html#how_it_works">solutions</a>
+     that you can play with.  
+   <p>We added an <a href="../../a07/a07.html">optional enhancement</a>
+     that you can use if you want. We'll send out an announcement about that
+     today.
+ </div>
+
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li><p>Feel more comfortable with localStorage
+    <li><p>Create simple animations using jQuery</li>
+    <li><p>Know the common traps when using jQuery
+    <li><p>Write stuff like the animation that happens when you click on
+    this list item. (Try it!)
+  </ol>
+  
+<p>If we are lucky, we might get to:
+  <ol start="5">
+    <li><p>Understanding <code>$(document).ready()</code>
+    <li><p>Using <code>setTimeout</code> or <code>setInterval</code> to have
+        things happen automatically at set times
+  </ol>
+          
+<p>Here's the code for those animations. It's shockingly short.
+  
+<pre class="prettyprint lang-js linenums">
+      function hideItem() {
+          // hide a PRE or a P inside the LI (this). Don't hide the
+          // whole LI, or the numbering changes.
+          $(this)
+              .find("pre,p")
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("ol>li").click(hideItem);
+</pre>
+
+<p>Let's take a minute to make sure we understand that code, including the
+  use of <code>this</code>, the use of <em>chaining</em>, and even the
+  animation method, <code>.fadeOut()</code>.
+
+<p>The code could have been even <em>more</em> concise by using an
+  anonymous function instead of naming it <code>hideItem</code> and then
+  binding it.
+
+<h2>Revisit localStorage</h2>
+
+<p>Here is an example that is intended to give you some insight into the
+  management of localStorage in this
+  homework:  <a target="_href" href="grow-shrink.html">Alice's Bank Balance</a>
+
+<p>To do:  
+  <ul>
+    <li>Open the JS console and display the contents of the localStorage.
+    <li>Experiment with the buttons.
+    <li>Draft some code for the "shrink" button.
+  </ul>
+  
+
+<h2>Recap of Reading on jQuery Effects</h2>
+
+<ul>
+  <li>jQuery has a powerful, flexible method to do animations,
+  called, <a href="http://api.jquery.com/animate/">animate()</a>. (That
+  link tells you more than you'd ever want to know, but also has some nice
+  examples.)
+    
+  <li>The <code>animate()</code> method changes <em>numerical</em> CSS
+  properties over <em>time</em>.
+    
+  <li>There is a default duration of 400 ms, and also named values "fast"
+  (200 ms) and "slow" (600 ms). So the duration is often omitted.
+    
+  <li>The first argument is an <em>object</em> containing properties and
+  their <em>target</em> values. That's what you want them
+  changed <em>to</em> from whatever they are now.
+    
+  <li>You can chain the animations, so one follows another. However, if
+  you mix these with non-animations, the non-animated ones come first.
+</ul>
+
+<p>One very common use for animations is to change the size or position of
+  something on the page. To do that successfully, you have to position
+  things the <q>right</q> way:
+
+  <ul>
+    <li>Things that are positioned using <code>position: absolute</code>
+    are independent of other elements on the page: they can overlap, etc.
+
+    <li>Something positioned using <code>position: absolute</code> also
+    needs two other values, usually <code>top</code>
+    and <code>left</code>, which are distances in pixels between the
+    corresponding edges of the element and the ancestor that it is
+    positioned relative to.
+      
+    <li>You can choose the ancestor that an absolute element is positioned
+    relative to by using <code>position: relative</code>.
+      
+    <li>Things that are located using <code>position: absolute</code> can
+    be re-positioned and re-sized with animations without affecting other
+    things.  
+
+  </ul>
+
+ <h2>Examples Page</h2> 
+
+   <p>This is the <a href="jqueryEffects-ex.html" target="_blank">jQuery
+   examples</a> page. We will use it to demo some of the jQuery statements
+   in the quiz questions.</p>
+
+<h2>Quiz Question Nr. 1</h2> 
+<p>Suppose we have a button on the page whose id is "greetme" and when
+  it's clicked on, we want an alert to pop up saying "hi!" Which of the
+  following does that:
+<ol type="A">
+ <li><pre class="prettyprint lang-js">
+ $("greetme").click(alert("hi"));
+ </pre></li>         
+   <li><pre class="prettyprint lang-js">
+ $("#greetme").click(alert("hi"));
+ </pre></li>  
+   <li><pre class="prettyprint lang-js">
+ $("#greetme").click(function () {alert("hi");});
+ </pre></li>         
+   <li><pre class="prettyprint lang-js">
+function sayhi () {
+    alert("hi");
+}
+ $("#greetme").click(sayhi);
+ </pre></li>
+</ol>          
+
+<h2>Quiz Question Nr. 2</h2>           
+<p>Suppose we have a button on the page whose id is "shy" and when it's
+  clicked on, we want the button to disappear.  Which of the following
+  does that:
+
+<ol type="A">
+ <li><pre class="prettyprint lang-js">
+ $("#shy").hide();
+ </pre></li>         
+   <li><pre class="prettyprint lang-js">
+ $("#shy").click(hide());
+ </pre></li>  
+   <li><pre class="prettyprint lang-js">
+ $("#shy").click($(this).hide());
+ </pre></li>         
+   <li><pre class="prettyprint lang-js">
+ $("#shy").click(function () { $(this).hide()});
+ </pre></li>
+</ol>          
+
+<h2>Quiz Question Nr. 3</h2>           
+
+<p>Suppose we have a the same button on the page whose id is "shy" and we
+  make a typo in our solution and we use <code>"#syh"</code> as the
+  selector.
+  What happens?
+
+  <ol type="A">
+    <li><p>jQuery gives an error because there is no matching element
+    <li><p>jQuery gives an error because there's nothing to <code>hide</code>.
+    <li><p>there's no error; your code just silently fails.
+  </ol> 
+
+<h2>Major Pitfall: Empty Sets</h2>
+
+<p>jQuery returns a <em>wrapped set</em> of elements that match the
+  selector, and allows you to operate on the wrapped set.  However,
+  the <em>empty set</em> is perfectly valid as far as jQuery is
+  concerned. Maybe you know what you're doing, and the empty set is not an
+  error.
+
+<p>This is a <em>very</em> common error, so if something doesn't have any
+  effect, and you don't see an error message, consider the possibility
+  that your jQuery code is operating on an empty set.
+
+
+
+<h2>Moving things on the Screen</h2>
+
+<p>Some of the animations we may want to do involve moving things on the
+  screen. That requires a bit more set-up work, because jQuery animations
+  rely on changing a <em>number</em> to a target value over several steps.
+  So, we need the positioning of the moveable element to be
+  a <em>number</em>, as opposed to letting it be determined by
+  the <q>flow</q>.  Therefore, ....
+
+ <h2>Quiz Question Nr. 4</h2>         
+<p>Which of the following techniques do we use to position an element? If
+  more than one are useable, choose the <em>best</em> or
+  most <em>common</em>.
+          
+  <ol type="A">
+    <li><p>position: absolute;
+    <li><p>position: relative;
+    <li><p>position: fixed;
+    <li><p>position: static;
+  </ol> 
+
+<h2>Task 1</h2>
+
+<p>We'll build an animation about tennis. Let's start with the following
+  <a href="http://jsfiddle.net/o753fp7g/5/" target="_blank">starting jsfiddle</a>.
+
+<p>To do:
+  <ul>
+    <li>Add a behavior so that when you click on the h1, it grows to be
+    50px tall. 
+      
+    <li>Have it also turn red when it's clicked.
+
+    <li>Can you have it turn red <em>after</em> the animation finishes?
+  </ul>
+  
+<h2>Minor Pitfall: Hyphens</h2>
+
+<p>Were you able to get the font size to grow?  You learned that you had
+  to do one of these:
+<pre class="prettyprint lang-js">
+  $("h1").css({fontSize: "50px"});    // arg is an object
+  $("h1").css({"font-size": "50px"}); // arg is an object
+  $("h1").css({"fontSize": "50px"});  // arg is an object
+  $("h1").css("font-size", "50px");   // two args, both strings
+</pre>
+
+<p>and not one of these:
+
+<pre class="prettyprint lang-js">
+  $("h1").css({font-size: "50px"}); // arg is an object 
+  $("h1").css(font-size, "50px");   // two args
+</pre>
+
+<p>Both of the latter would be treated as a subtraction by JavaScript, and
+  it would get dreadfully confused.
+
+<h2>Minor Pitfall: Animations</h2>
+
+<p>Animations run separately from the <q>main</q> code, so both of the
+  following are equivalent:
+
+<pre class="prettyprint lang-js linenums executable">
+$("selector")
+    .css("color","red")
+    .animate({"letter-spacing":15});
+</pre>  
+
+<pre class="prettyprint lang-js linenums executable">
+$("selector")
+    .animate({"letter-spacing":15})
+    .css("color","red");
+</pre>  
+
+<p>If you want to have something happen <em>after</em> the animation, you
+  can do so with an extra callback. Talk to me if you'd like to learn how
+  to do that.
+
+<h2>Task 2</h2>
+
+<p>Let's make an animation that will make a tennis ball fly across the
+  page from left to right, "down the line"
+  
+<p>To do:
+  <ul>
+    <li>Add a behavior so that when you click on the "down the line"
+    button, the ball goes left to right in about 400ms.
+      
+    <li>Add similar behavior so that when you click on the "cross court"
+    button, the ball goes left to right and bottom to top in about
+    400ms.
+
+  </ul>
+  
+<h2>Optional Material</h2>
+
+<p>We will probably not get to the following material, but we might.
+
+<h2>$(document).ready()</h2>
+
+<p>The <code>$(document).ready()</code> method is a jQuery method where
+  the caller can hand come code to jQuery to be executed later (yet
+  another kind of <em>callback</em>).  We will (mostly) not use it in this
+  course, but instead use the more modern and efficient technique of
+  putting our JS/JQ code at the end of the file.
+
+<p>Nevertheless, you will
+  see this in tutorials and examples, so it's good to have a little
+  familiarity with it.
+
+  <h2>Quiz Question Nr. 5</h2>
+  <p>the <code>document.ready()</code> method takes as its argument...
+  <ol type="A">
+    <li><p>some code to execute
+    <li><p>an object literal containing some code
+    <li><p>a function (usually anonymous) to invoke
+    <li><p>a method containing some code
+  </ol> 
+          
+    <h2>Quiz Question Nr. 6</h2> 
+  <p>The <code>document.ready()</code> method executes the code it gets..
+          
+  <ol type="A">
+    <li><p>when jQuery is ready
+    <li><p>when the DOM is all built
+    <li><p>when the code is ready
+    <li><p>when the browser is ready
+  </ol> 
+          
+  
+
+<h2>Using setTimeout</h2>
+
+<p>We've had lots of examples of setting up <em>event handlers</em>, where
+  the set-up method takes a callback function as an argument and arranges
+  for that function to be invoked at the appropriate time, namely when the
+  event occurs.
+
+<p>The <code>setTimeout</code> function is similar, except that the event
+is just the passage of a certain amount of time.  Thus, it takes two
+  arguments: a function and a <em>delay</em>.  The delay is the number of
+  milliseconds to wait before invoking the function.
+
+<p>Here's an example:
+<pre class="prettyprint lang-js linenums executable">
+  function sayhi () {
+      alert("hi");
+  }
+  setTimeout(sayhi, 800);  // almost a second
+</pre>
+
+<p>Note that your book uses a deprecated alternative:
+<pre class="prettyprint lang-js linenums executable">
+  function sayhi () {
+      alert("hi");
+  }
+  setTimeout("sayhi()", 800);
+</pre>
+
+<p>jsFiddle will complain if you use this alternative and click on
+  the <q>JSHint</q> button. The reason has to do with what happens to the
+  string.
+
+<p>But, what really happens under the covers is that the string is
+  converted into the body of an anonymous function:
+<pre class="prettyprint lang-js linenums executable">
+  function sayhi () {
+      alert("hi");
+  }
+  setTimeout(function () { sayhi(); }, 800);
+</pre>
+
+<p>But, since the anonymous function is equivalent to
+  the <code>sayHi</code> function, it's better to just use that.  
+
+
+<h2>Task 3</h2>
+
+<p>Have the ball return to its original position about 2 seconds after the
+  animation completes.  
+
+<p>To do:
+<ul>
+  
+  <li>Define a function to move the ball back to the beginning
+    
+  <li>Create a button to test that function
+    
+  <li>Use the <code>setTimeout</code> function to invoke your reset
+  function after the animation completes. Invoke
+  the <code>setTimeout</code> function when the button is clicked.
+
+</ul>
+
+<h2>Challenge</h2>
+
+<p>We hid the solution from you, below, so that you wouldn't peek. But we
+  also didn't want to forget to reveal it. So, we wrote some JS code to
+  automatically <q>show</q> the solution after a specified <q>release</q>
+  time. Think about how we did that.  Feel free to view the source of this
+  page to see if you are right.
+
+<h2 id="sec_summary">Summary</h2>
+<p>We hope that after these activities you have a good understanding of 
+  <ul>
+
+    <li>jQuery animations
+
+    <li>adding event handlers to buttons.
+      
+    <li>The major pitfall of <em>wrapped sets</em> that are empty.
+
+    <li>The minor pitfall of using DOM syntax over CSS syntax for
+    property names that have hyphens in them: <code>font-size</code>
+    versus <code>fontSize</code>.
+      
+    <li>The minor pitfall of mixing animations with other jQuery methods and
+    expecting the methods to be delayed by the animations.
+      
+    <li>Using <code>setTimeout</code> to invoke a function after some delay
+  </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span></p>
+
+<div id="solutions" style="display: none">
+<p>The solution to the Alice's Bank Balance:
+<pre class="prettyprint lang-js linenums executable">
+function shrink() {
+    balance -= 40;
+    localStorage.setItem("balance", balance);
+    $("#balance").animate({height: balance+"px"}, 1000);
+}
+</pre>  
+
+<p>The solution to quiz question Nr. 1 is <em>either</em> C or D.
+
+<p>The solution to quiz question Nr. 2 is D.
+
+<p>The solution to quiz question Nr. 3 is C.
+
+<p>The solution to quiz question Nr. 4 is A.
+
+<a href="http://jsfiddle.net/futLf71g/9/">solution to tennis animation as a jsFiddle</a>
+
+</div>
+
+<script>
+var now = new Date();
+var later = new Date("4/16/2015 5:00 PM");
+document.querySelector("#later").innerHTML = later.toLocaleString();
+if( now > later ) {
+    document.querySelector("#solutions").style.display = "block"; // $("#solutions").show();
+    document.querySelector("#solutions_later").style.display = "hidden"; // $("#solutions").show();
+}
+</script>
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideItem() {
+          // hide a PRE or a P inside the LI (this). Don't hide the
+          // whole LI, or the numbering changes.
+          $(this)
+              .find("pre,p")
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideItem);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

@@ -1,0 +1,297 @@
+  
+<!-- Feb 2014: Eni made significant changes to introduce the new web fonts
+which make away with the problem of not having fonts installed in your own computer.-->
+  
+      <div class="alert alert-info">
+        Reading: We strongly suggest you read chapter 8
+        of <em><a href="http://shop.oreilly.com/product/9780596159924.do">Head
+        First HTML and CSS</a></em> with these notes. 
+      </div>
+
+          <h2 id="fonts">Traditional Fonts</h2>
+          <p>One of the most important aspect of a page that can be controlled with CSS
+          is the <em>font</em>.    
+            A font is a
+            collection of <em>pictures of letters</em>. A <q>letter</q> is some
+            kind of Platonic ideal, like perfect circles or archetypal chairs.  It's
+            also a unit of <em>information</em>.  Any particular letter is drawn by
+            some person.  Some are simple block letters, others are works of art 
+            (like medieval illuminated manuscripts).  A font is a
+            collection of these pictures, one for each character in the character set.
+        </p>
+          
+          <p>Fonts are studied in the field of <em>typography</em>, and their study is
+          outside the scope of this course. If you are interested in their history and technique
+          you should take the <em>ART 222: Introductory Print Methods</em> course offered
+          by the <a href="http://www.wellesley.edu/lts/collections/bookarts">Book Arts program</a>.
+            
+          </p>
+          
+          <p>For many years, fonts in web pages were restricted by the fonts that came 
+            already pre-installed in a computer. This didn't allow for a lot of variety in styling. 
+            This changed with CSS3 and the introduction of <em>web fonts</em>, which don't need to 
+            be installed in one's computer. Furthermore, with the use of the Google Fonts API it is 
+            very easy to incorporate such fonts in a website, as we will demonstrate in these notes.</p>
+          
+          <p>Read the suggested chapter 8 in <em>Head First HTML and CSS</em> for a more detailed 
+            account on styling fonts. In the following, we give a very concise summary.</p>
+          
+          <h2>Font Properties</h2>
+
+          <p>There are systematic ways in which fonts can be characterized:</p>
+          
+          <ul>
+          
+              <li>Font-families: serif, sans-serif, monospace, etc.  
+              Serifs are the little marks at the end of
+              the strokes of a letter. Along the baseline, they are horizontal, and
+              can help guide your eye along the line.  Some fonts have them, some
+              don't.  ("sans" is French for "without.")  Times is a serif font;
+              Arial is sans-serif.
+          
+              <li>Font names: Verdana, Arial and Geneva are all sans-serif fonts, yet
+              they look different: they are different <em>fonts</em>.  Each
+              font is the creative product of some artist or foundry.
+          
+              <li>Style: some fonts are upright or <em>normal</em>, others are
+              slanted with a little extra curliness that we call <em>italic</em>.
+              Some font artists define several styles for their font families.
+          
+              <li>Size: fonts might be 10 point, 12 point, or many other <a
+              href="http://www.w3.org/TR/REC-CSS2/fonts.html#font-size-props">font
+              sizes</a>.  (A point is 1/72nd of an inch.)  Some fonts simply scale
+              the "design size," so, for example, 12 point is simply 20 percent
+              larger than 10 point.  Other fonts modify the scaling for artistic
+              beauty.  You can also use seven abstract "absolute" sizes (they
+              specify elements of a table of font sizes kept by the browser) named:
+          
+                <ul>
+                  <li style="font-size: xx-small">xx-small
+                  <li style="font-size: x-small">x-small
+                  <li style="font-size: small">small
+                  <li style="font-size: medium">medium
+                  <li style="font-size: large">large
+                  <li style="font-size: x-large">x-large
+                  <li style="font-size: xx-large">xx-large
+                  <li>
+                </ul>
+          
+              <p>You can also use abstract <q>relative</q> sizes named <q>larger</q> and
+              <q>smaller,</q> that are relative to the surrounding font.
+          
+              <li>Weight: The designer may produce variant fonts with thicker or
+              thinner lines. Fonts with thicker lines are often called <em>bold</em>.
+          
+          </ul>
+          
+          <h2>Examples</h2>
+          <p>In the following we show two examples of using different font families for 
+                the elements <code>&lt;p&gt;</code> and <code>&lt;em&gt;</code>. Notice
+                how the text changes when the second rule is added.</p>
+
+          <h3>Example 1</h3>
+          <figure class="text-center">
+              <img class="img-thumbnail" src="fonts-files/font1.png" alt="code to show font styling">            
+              <img class="img-thumbnail" src="fonts-files/result1.png" alt="result of applying font styling">
+            <figcaption>Applying a font to the element <code>&lt;p&gt;</code>.</figcaption>
+            </figure>
+                
+          <hr>
+          <h3>Example 2</h3>      
+          <figure class="text-center">
+              <img class="img-thumbnail" src="fonts-files/font2.png" alt="code to show font styling">
+              <p>
+              <img class="img-thumbnail" src="fonts-files/result2.png" alt="result of applying font styling">
+            <figcaption>Adding a font for the element <code>&lt;em&gt;</code>.</figcaption>
+          </figure>
+          
+          <h2 class="the_line">Optional Reading</h2>
+
+          <p>Beyond here is optional reading for the interested
+          student. The material is well within your abilities, and you're
+          encouraged to read it, but it is not required.
+
+          <h2 id="webfonts">Web Fonts</h2>
+          <p>As we mentioned, with traditional fonts that come pre-installed in our machines, we have
+             only a limited number of choices (since the fonts need to be installed in the machine of the 
+            viewers of the page too, not only your own). 
+            However, with web fonts (supported by all modern browsers) there are new ways to deliver fonts
+            (either by having your files as part of your website, or by linking to other web servers)
+            so that everyone can see the pages with the font we intended. </p>
+                
+          <p>Be aware that not all fonts on the Web are free. For some of them you need to pay.
+            Thus, it is better to start your search with one of the services that aggregate fonts that are
+            free for use. Such a website is <a href="http://www.fontsquirrel.com/">Font Squirrel</a>,
+            from which you can download the fonts you like. Suppose after browsing the available fonts,
+            you decided to use the handdrawn font <a href="http://www.fontsquirrel.com/fonts/Desyrel">Desyrel</a>.</p>
+            
+            <figure class="text-center">
+              <img class="img-thumbnail" src="fonts-files/desyrel.png" alt="screenshot from Font Squirrel site"> 
+              <figcaption>A screenshot from the FontSquirrel website showing the page for the Desyrel font.</figcaption>
+            </figure>
+                
+            <p>Clicking on the <q>Download TTF</q> button, you can get the file with the font (after unzipping),
+                <code>desyrel.ttf</code>. Then, you can create a subfolder <code>fonts</code> in the folder
+                where your HTML and CSS files are stored and then use this font as shown below:</p>
+                
+                <pre>
+@font-face {
+       font-family: desyrel;
+       src: url("fonts-files/desyrel.ttf") format("truetype");
+       font-weight: normal;
+       font-style: normal;
+}
+
+p {
+       font-family: desyrel, cursive;
+       font-size: xx-large;
+}
+                </pre>
+                
+              <hr>  
+                  <p id="desyrel">This sentence was written with the <em>Desyrel</em> font, downloaded from 
+                  FontSquirrel.</p>
+              <hr>
+          <p>Unfortunately, things are not so simple. Because there are so many browsers and platforms, to make
+                sure that all of them will display the desired font, we will need to provide the font in many
+                different formats (Chapter 8 in your book explains these formats). Thus, the rule for 
+                <code>@font-face</code> will look a bit more complicated. The good news is that this 
+                code and all the files can be automatically created for you by 
+                <a href="http://www.fontsquirrel.com/">Font Squirrel</a>, using its menu for 
+                <em>WebFont Generator</em>, after you upload the file <code>desyrel.tff</code> (or some other font). 
+            Here is how the automatically generated CSS will look like:</p>  
+                
+            <pre>
+@font-face {
+    font-family: 'desyrelregular';
+    src: url('desyrel-webfont.eot');
+    src: url('desyrel-webfont.eot?#iefix') format('embedded-opentype'),
+         url('desyrel-webfont.woff') format('woff'),
+         url('desyrel-webfont.ttf') format('truetype'),
+         url('desyrel-webfont.svg#desyrelregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+            </pre>
+                
+          <p>Notice that the files are referred directly, and you might need to add the relative path
+                to the folder you'll be storing these files.</p>      
+         
+          <p>If this looks like a lot of work, there is an easier way, that doesn't involve having
+                to keep the font files on our own server, we explain this method in the next section.</p>
+               
+          <h2 id="googlefonts">Google Fonts API</h2>
+          <p>The easiest way to incorporate fancy fonts in your pages is to use the free service provided
+                by <a href="https://developers.google.com/fonts/docs/getting_started">Google Fonts API</a>. API stands for Application Programming Interface. With
+                this method, you only need to perform a few simple steps:</p>
+                
+                <ul>
+                  <li>Find fonts that you like from the list of <a href="http://www.google.com/fonts">Google Fonts</a>
+                    , and click the button <q>Add to Collection</q>.</li>
+                  <li>On the bottom part of the browser, in the Collection tab, click on the button <q>Use</q> and
+                  verify your choices.</li>
+                  <li>Copy the provided <code>&lt;link&gt;</code> code from <q>Step 3</q> to your HTML file (it goes
+                  in the <code>&lt;head&gt;</code> section).</li>
+                  <li>Add the CSS code from <q>Step 4</q> to the CSS rules you want.</li>
+                </ul>
+                
+            <p>You're done. Google takes care of providing all needed format files, you don't have to
+                provide such formats as part of your website.</p> 
+                
+            <p>Here is an example of the code you need to write to create the shadowed header below:</p>
+                <p>The <code>&lt;link&gt;</code> line goes into the HTML file:</p>
+                
+<pre>
+  &lt;head&gt;
+    ...
+    &lt;link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' &gt;
+ &lt;/head&gt;
+</pre>
+                <p>The <code>font-family</code> style goes in the CSS file (inside the rule for the desired element):</p>
+
+<pre>
+  h2 {
+      font-family: 'Wallpoet', cursive;
+      font-size: 200%;
+      color: black;
+      text-shadow: 4px 4px 4px gray;
+}
+</pre>
+                
+<hr>
+<div>
+<style scoped>
+      @import url(https://fonts.googleapis.com/css?family=Wallpoet);
+
+       #wallpoet {
+      font-family: 'Wallpoet', cursive;
+      font-size: 200%;
+      color: black;
+      text-shadow: 4px 4px 4px gray;
+      }
+</style>
+<h2 id="wallpoet">This header uses Wallpoet from Google Fonts</h2>
+</div>
+                
+<p>The font was created
+    by <a href="https://profiles.google.com/punktlars/about">Lars Berggren</a>.</p>
+<hr>
+                
+<h2 id="at-import">Putting fonts into your CSS File</h2>
+      
+<p>The previous code works fine, but if you have a dozen pages in your
+site, and you want to use Wallpoet in all of them, every one of those
+pages would have to have the <code>link</code> tag in the
+<code>head</code>. That is a lot of redundancy and is contrary to our goal
+of stating the CSS information once in the shared external CSS file.
+
+</p><p>What we can do instead is, in the Google Fonts browser, instead
+      of using the default <code>link</code> code, switch to the <em>@import</em> tab.
+
+<!--
+        <figure>
+          <img src="fonts-files/at-import2.png" alt="the CSS tab in Google Fonts">
+          <figcaption>the CSS tab in Google Fonts</figcaption>
+        </figure>
+-->
+
+</p><p>In that tab, you'll find code like this (it's the same URL as in the link):
+
+    <pre class="prettyprint">@import url(https://fonts.googleapis.com/css?family=Wallpoet);</pre>
+
+</p><p>Copy/paste that into your shared CSS file, and you'll be able
+    to use Wallpoet in any file that uses that CSS file. 
+
+</p><h2>Google Fonts can break HTML Validation</h2>
+
+<p>When you use several Google Fonts for a page, the URL generated by
+Google contains the operator <code>|</code> to separate the different
+fonts. HTML doesn't like such special characters, thus, your page will not
+deemed valid by the W3 validator.  To fix this issue, you should replace
+the character <code>|</code> with <code>%7C</code>.
+         
+</p> <h2 id="choosing">Choosing a method</h2>   
+
+<p>We showed here three different ways of styling fonts and that can be confusing at first. 
+    Here are some tips for you to decide what to use:
+
+</p><ul>
+
+    <li>If the website you are building is simple and you feel overwhelmed by the choices 
+            we provided, stay with traditional fonts.
+
+    <li>If you want a more sophisticated look for your website (maybe for a book or music band), get
+        familiar with how to use Google Fonts API.</li>
+
+    <li>If your website needs a particular kind of font that Google dosn't provide, learn how to 
+        incorporate Web Fonts by using the services provided by the FontSquirrel website. 
+        Chapter 8 of your book is required reading in this case.</li>          
+</ul>  
+
+<div class="alert alert-warning">
+<p>Keep in mind that your choice must be informed by the needs of the
+ website you're building. Is the font important to convey something
+ particular about the nature of the website? If the answer is yes, then
+ you should make all the efforts to learn the advanced techniques we
+ described.</p></div>
+                

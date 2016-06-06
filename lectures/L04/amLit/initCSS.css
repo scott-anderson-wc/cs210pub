@@ -1,0 +1,107 @@
+/* initial CSS style for cs.wellesley.edu/~cs110/ellen/amLit/initPage.html */
+
+/* style properties that apply to the entire body */
+
+body {
+    font-family: sans-serif;
+    font-size: medium;
+    background-color: wheat;
+}
+
+/* style the div that surrounds all the page content */
+
+#allcontent {
+   padding: 10px;
+}
+
+/* style the page header */
+
+header {
+   border-bottom: 4px double maroon;
+   border-top: 4px double maroon;
+   background-color: tan;
+   padding: 10px;
+}
+
+/* remove the bold style of the headers */
+
+h1, h2, h3 {
+   font-weight: normal;
+   color: maroon;
+}
+
+/* style the navbar of hyperlinks */
+
+nav {
+   margin-top: 20px;
+   padding: 10px;
+   background-color: tan;
+   border: 2px solid maroon;
+}
+
+/* style the three states of the links in the navbar */
+
+nav a {
+   text-decoration: none;
+}
+
+nav a:link {
+   color: maroon;
+}
+
+nav a:visited {
+   color: navy;
+}
+
+nav a:hover {
+   color: white;
+}
+
+/* style the main div for a two-column layout */
+
+#main {
+}
+
+/* style the introductory paragraph and its image */
+
+#intro {
+   line-height: 125%;
+}
+
+#intro img {
+   width: 150px;
+}
+
+/* style the div around the Reading List header */
+
+#read {
+}
+
+/* create a generic optional class to use with any tag */
+
+.optional {
+   color: maroon;
+}
+
+/* create a class to style the div for each week of readings */
+
+.week {
+   clear: both;
+   background-color: tan;
+   padding: 20px;
+   margin: 20px;
+   border: 2px solid maroon;
+   line-height: 125%;
+}
+
+/* style the photo class for the div around each photo and label */
+
+.photo {
+}
+
+/* style the footer around the validation icons */
+
+footer {
+   margin-top: 20px;
+   border-top: 3px double maroon;
+}

@@ -1,0 +1,392 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>User-defined Functions</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<div class="alert alert-danger">
+  We will initially complete some of the activities from the 
+  <a href="../L15/activities-for.html">previous lecture</a>, especially
+  the exercises related to the Animals gallery.
+</div>
+          <hr>
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>use the appropriate vocabulary to talk about functions
+      
+    <li>define functions with parameters
+      
+    <li>define functions that return a value
+      
+    <li>understand the difference between local and global variables
+  </ol>
+
+  <h2 id="recap">Recap</h2>
+
+  <p>We'll make functions more general and powerful.
+    <ul>
+      <li>They can handle a  broader set of situations by
+      taking <em>arguments</em>.
+        
+      <li>Inside the function definition, the name given to an argument is
+        <em>parameter</em> (but we won't be pedantic about this).
+        
+      <li>Parameters only <em>exist</em> inside the function. They don't
+        exist outside it.  They live and die during one function
+        execution. This is a good thing.
+        
+      <li>Local variables of a function should be declared
+        with <code>var</code>. This makes them like parameters.
+        
+      <li>Functions can also return values to their caller. Think of this
+        as the answer to a question that the caller has asked.  This is a
+        good thing.
+
+      <li>A picture can help your understanding of this.
+
+      <li>Variables that are visible and usable in every function are
+      called <em>global</em>. Variables that are visible and usable only
+      in one function are called <em>local</em>.
+
+      <li>Local variables are better because they minimize the chance that
+      one value will step on or overwrite another.  Imagine the following,
+      which actually happened in a computer graphics program I once wrote:
+
+<pre class="prettyprint lang-js">
+tan = Math.sin(angle)/Math.cos(angle);  // compute tangent of angle
+
+tan = "#FFCC99";     // compute a shade of tan 
+</pre>
+
+      <li>We can describe functions in terms of:
+        <ul>
+          <li>return values:  some functions return values
+            
+          <li>side effects:  something that the function <em>does</em>
+          rather than something it returns.  For example,
+          the <code>showImage</code> event handler from the exercise at
+          the end of the last class, sets the <code>src</code>
+          and <code>alt</code> of an image element, in order to show a
+          larger version. That's its <em>side-effect</em>.
+        </ul>
+
+      <li>Functions can have return values or side-effects or both. A
+      function that has neither would be useless.
+
+    </ul>
+
+   <h2>The "Who am I?" game</h2> 
+          
+  <p>A bunch of JavaScript attendees, in full costume, are playing a party game, “Who am I?” 
+    They give you a clue, and you try to guess who they are, based on what they say. Assume they 
+    always tell the truth about themselves.</p>
+          
+    <h2>Quiz Question Nr. 1a</h2> 
+
+    <p><strong>CLUE:</strong> I get passed into a function.
+    <ol type="A">
+        <li><p>parameter</li>
+        <li><p>argument</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+          
+    <h2>Quiz Question Nr. 1b</h2> 
+
+    <p><strong>CLUE:</strong> I am everywhere
+    <ol type="A">
+        <li><p>parameter</li>
+        <li><p>argument</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+          
+  <h2>Quiz Question Nr. 1c</h2> 
+  <p><strong>CLUE:</strong> Where I can be seen
+    <ol type="A">
+        <li><p>return</li>
+        <li><p>scope</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+
+<h2>Quiz Question Nr. 2</h2>  
+<p>You are given two alternative definitions of a function: </p> 
+ 
+<h4>Definition 1</h4>          
+<pre class="prettyprint lang-js">
+function displayDate(){               
+  var today = new Date();                     
+  document.querySelector("#date").innerHTML = today.toLocaleDateString();
+}
+</pre>
+<br>
+ <h4>Definition 2</h4>          
+<pre class="prettyprint lang-js">
+function displayDate(dateStr, elemID){               
+  var date = new Date(dateStr);                     
+  document.querySelector(elemID).innerHTML = date.toLocaleDateString();
+}
+</pre>
+<br> 
+<p>Which of the following statements is true? Explain your answer.</p>
+          
+<ol type="A">
+<li><p> The two definitions are equivalent.
+<li><p> Definition 1 is better than Definition 2.
+<li><p> Definition 2 is better than Definition 1.
+</ol>
+<br>
+<h2>Quiz Question Nr. 3</h2> 
+<p>Which of the following function/method calls causes a side effect 
+  instead of returning a value.<br>
+ <ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+Math.random()
+</pre>
+
+<li>
+<pre class="prettyprint lang-js">
+prompt("Enter your name:")
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+document.querySelector("img")
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+alert("Hello")
+</pre>  
+</ol>                
+<br>      
+<h2>Quiz Question Nr. 4</h2> 
+<p>What is the output of executing the following code:
+<pre class="prettyprint lang-js">
+function isSquare(a, b, angle){ 
+  if (a == b && angle == 90) 
+    return true
+}
+alert(isSquare(10,11,90));
+</pre>
+<br>
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+true
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+false
+</pre>
+  <li>
+<pre class="prettyprint lang-js">
+NaN
+</pre>
+<li>
+<pre class="prettyprint lang-js">
+undefined
+</pre>  
+</ol>
+
+
+<h2>Quiz Question Nr. 5</h2>
+<p>What is the result of the following statements?
+
+<pre class="prettyprint lang-js">
+var restaurantBill = 100;
+
+function amountToPay(amount){
+  amount = amount + 0.0625 * amount             // add state tax
+  return amount
+}
+amountToPay(restaurantBill);
+console.log(restaurantBill);
+</pre>
+<br>
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+100
+</pre>
+  <li>
+<pre class="prettyprint lang-js">
+106.25
+</pre> 
+</ol>
+<br>
+         
+<p>Note the difference between the global
+  variable <code>restaurantBill</code> and the
+  parameter <code>amount</code>. The parameter is generic, since the
+  function could be used in a wide variety of situations. The global is
+  particular to a situation. We might also have globals
+  like <code>amazonCharge</code> and <code>victoriaOutlay</code>.
+
+<p>Note also that the name for the global and the name for the local are
+  unrelated. It's a common misconception that they must be the same.
+
+ <h2>Exercise 1</h2>
+<p>Modify the function <code>amountToPay</code> from the last quiz question to 
+  include a second parameter, <code>stateTax</code>, so that it can calculate the amount
+  to pay depending on a buyer's state. You can that try to call the function a few 
+  times such as below:
+  <pre class="prettyprint lang-js">
+alert(amountToPay(100, 8.47))   // NY tax is 8.47%
+alert(amountToPay(50, 8.89))    // LA tax is 8.89%
+</pre>
+<div>
+<textarea rows=8 cols=100>
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+
+ <h2>Midterm Stats Fun</h2>
+  <p>The midterm results are back and you would love to know some stats:
+          did I do better than average, how many students got more than 90 points,
+          what was the median, etc. Here is your chance to write some simple
+          and fast Javascript functions to do these tasks for you.</p>
+          
+<h2>Exercise 2a</h2>
+<p>Write the function <code>findAvrg</code> that given a list of scores returns
+  the average for the section. Then test the function for the following
+  arrays:
+  
+<div>
+<textarea rows=10 cols=100>
+var sec01 = [92, 87, 73, 94, 61, 83, 79.5, 47, 95, 99, 80];
+var sec02 = [86, 93, 59, 78, 97, 54, 81.5, 94, 89, 81, 68];
+
+// define function findAvrg
+
+  
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div> 
+          
+  <h2>Exercise 2b</h2>
+<p>Write the function <code>moreThanScore</code> which given a list of scores
+  and a certain score calculates the number of students who got a score equal
+  to or above the given one. Then, test the function for the following
+  arrays. When you test the first array with the score 87, you should get 5
+  and for the second array 4.
+  
+<div>
+<textarea rows=10 cols=100>
+var sec01 = [92, 87, 73, 94, 61, 83, 79.5, 47, 95, 99, 80];
+var sec02 = [86, 93, 59, 78, 97, 54, 81.5, 94, 89, 81, 68];
+
+// define function moreThanScore
+
+  
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div> 
+          
+<h2>Exercise 2c</h2>
+<p>Write the function <code>findMedian</code> which given a list of scores
+  finds the median score. Then test the function for the following
+  arrays. 
+  
+<div>
+<textarea rows=10 cols=100>
+var sec01 = [92, 87, 73, 94, 61, 83, 79.5, 47, 95, 99, 80];
+var sec02 = [86, 93, 59, 78, 97, 54, 81.5, 94, 89, 81, 68];
+
+// define function findMedian
+
+  
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>
+          
+<h2>Challenge</h2>
+<p>As you know, when a list has an even number of items, the median is the mean
+          of the two middle values. Extend the <code>findMedian</code> function
+          above to do the right thing depending on whether the given array
+          has an even or odd number of elements. The remainder operator <code>%</code>
+          is useful for finding if a number is odd or even.</p>
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>how to talk about functions and know the meaning of parameter, argument, return, etc.
+    <li>scope, global variables, and local variables
+    <li>define simple functions with parameters
+    <li>define functions that return a value
+    </ul>
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideAnswer() {
+          $("pre",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+          $("p",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      var answers = $("ol[type='A'] > li");
+      console.log("making hide-able "+answers.length);
+
+      $("ol[type='A'] > li").click(hideAnswer);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- Author: Eni Mustafaraj
+Date: March 2014
+Purpose: Showing how to include different social plugins on a page
+Filename: plugins.html
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Eni Mustafaraj">        
+    <title>Social Plugins</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300|Geo' rel='stylesheet' type='text/css'>
+    <style>
+        body {width: 960px;}
+    </style>
+  </head>
+  
+<body>
+  <!-- This code is added here in order to use Facebook Like and Facebook comments on the page-->
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=275908045906968";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <strong>This page needs to be uploaded on the server to work.</strong>
+  <h2>Facebook Like button</h2>
+       <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcs.wellesley.edu%2F%7Ecs110%2F&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=80&amp;appId=275908045906968" 
+       scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" 
+       allowTransparency="true"></iframe>
+       
+  <h2>Facebook Comments</h2>
+    <div class="fb-comments" data-href="http://cs.wellesley.edu/~cs110/" 
+    data-numposts="5" data-colorscheme="light"></div>
+   
+</body>
+</html>

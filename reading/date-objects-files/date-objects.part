@@ -1,0 +1,645 @@
+<!-- 
+
+[Scott, October 2015, resurrected these notes from the October 2013
+version, and adapted them for the newer, simpler CS 110, but with the new
+Bootstrap template. Removed a lot of material.]
+
+[Scott, October, 2013, changed the example of date formatting to use
+jQuery. Removed the new material on JS Object literals, deferring that
+discussion.]
+
+[Scott, February 2013, added new material on JavaScript Object literals.
+Deleted the widgets example/exercise.  Changed some formatting.  Added
+more sectioning. ]
+
+[Scott, major revision, to eliminate a lot of the stuff on precedence,
+concatenation vs addition, prompt(), all of which we did in the previous
+lecture. Removed the re-assignment in the overhead exercise.  Added
+material on re-assignment of variables.]
+
+[scott, 2009/10/13, made examples with more numerical context, so that
+the variable names could be sensible, rather than numA and such,
+particularly since we're encouraging them to use sensible names.]
+
+[lyn, 3/11/09] Did an overhaul on content of lectures/L07-types to produce this, 
+     which is consistent with lectures/JSprogramming. Major changes include: 
+
+     * Made sure that all variables are declared with var. 
+       It's evil and confusing to do otherwise!
+
+     * Overhauled the review of values, expressions, and statements. 
+
+     * Updated the coverage of Date objects to show all the common date methods. 
+     
+     * Removed the_month = the_month + 1 example from date coverage, 
+       which is unnecessarily confusing. Instead, talk about incrementing/changing 
+       variables in a separate section. 
+
+     * Changed the prompt() example section to explain why the following code is 
+       bad style and should be avoided:
+
+           var myNumber = prompt("Enter a number", ""); // line 1
+           myNumber = parseFloat(myNumber); // line 2
+
+     * Moved variable swapping from intro programming lecture to here, 
+       since it's an advanced topic. 
+     --> 
+<!-- 10/05 Jennifer cleaned up inconsistencies in variable names
+     in first ex. and also typos -->
+<!-- Sohie Jan 2005, made the first example actually use descriptive variable
+     names, as opposed to x and y and z and b -->
+<!--Sohie Jan 22, 2002Sohie June 26,2001 Scott January, 2002:  rearranged the 
+    topics so that the DOM is first, since we need to make sure we cover 
+    that for the upcoming homework. -->
+<!-- Takis Sep 27, 2002: Removed DOM, edited var declaration to comform
+     with the book's notation, inserted description on the date object -->
+
+   <style scoped>
+    TH.exp, TD.exp, TH.val, TD.val {font-family: monospace; font-size:110%; padding: 0.5ex 0.5em; }
+     
+    TH.exp, TD.exp { color: green }
+    TH.val, TD.val { color: blue; text-align:right }
+    TH.note, TD.note {font-family: Verdana, Arial, sans-serif; font-style: italic; color: black;}
+    TABLE {margin: 0 auto;}
+
+    #date_today, #date_today2 {
+        border: 2px solid green;
+        width: 80%;
+        margin: 0.5em auto;
+        padding: 0.5em;
+        }
+  </style>
+
+<p>Earlier, we imagined prompting the user for time-related values such
+  as <code>month</code>, <code>hour</code> and <code>minute</code> and
+  dynamically computing whether it is spring or lunchtime and so
+  forth. We'll now see how to do that using the computer's clock instead
+  of <code>prompt()</code>.  Note that this is not the processor (CPU)
+  clock that keeps a tempo for the hardware, but the conventional <q>time,
+  day and date</q> clock.
+         
+<h2 id="dynamic-date">Displaying the Date Dynamically </H2>
+
+<p>We can display the current date and time on a web page, using some
+  built-in JavaScript to access the computer clock, and the string
+  concatenation operators we already know. For example, the following box
+  displays the current date and time, as reported by your computer:
+
+<div id="date_today">
+  <p>You loaded this page on <span id="date1"></span> at <span id="time1"></span></p>
+</div>
+
+<p>If you reload this page, you'll notice that the date and time change appropriately. You may see a
+slight flaw in the appearance (missing a leading zero in the minutes or
+seconds); we'll fix that later.
+
+<p>Before we explain the JavaScript code that can do this, 
+   we need to understand how time is represented in JavaScript. 
+   We begin by creating a <code>Date</code> object: 
+
+<pre class="prettyprint lang-js">
+var dateObj2 = new Date(); 
+</pre>
+
+<p> As we've seen before, the keyword <code class="sh_keyword">var</code>
+in <code><span class="sh_keyword">var</span> dateObj2</code> creates a new
+variable box named <code class="sh_keyword">dateObj2</code> for storing a
+value.  What we haven't seen before is the keyword
+<code class="sh_keyword">new</code>, which causes a
+JavaScript <em>object</em> to be created.  In this case, the object
+represents the current date and time.  JavaScript comes equipped with lots
+of pre-defined object types like <code>Date</code>.  Stay tuned for a
+<a href="#objects">general description of objects</a>.  For now, you can
+think of an object as a <em>collection</em> of information.
+
+<h2 id="example-date-methods">Example Date Methods</h2>
+
+<p>We can extract information from a <code>Date</code> object by
+invoking <em>methods</em> on it. The table below shows some of the
+important methods that <code>Date</code> objects understand.  The elements
+of the <b>Value</b> column are dynamically computed by evaluating the
+JavaScript expressions in the
+<b>Expression</b> column, so reloading the page will update
+these appropriately. 
+
+    <table id="date_examples" class="bordercells">
+      <tr>
+        <TH class = "exp">Expression</TH>
+        <TH class = "val">Value</TH>
+        <TH class = "note">Notes</TH>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getFullYear()</TD>
+        <TD class = "val"></TD>
+        <TD class = "note">Full year</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getYear()</TD>
+        <TD class = "val"></TD>
+        <TD class = "note">Avoid this! Varies from browser to browser</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getMonth()</TD>
+        <TD class = "val"> </TD>
+        <TD class = "note">0=Jan, 1=Feb, ..., 11=Dec</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getDate()</TD>
+        <TD class = "val"> </TD>
+        <TD class = "note">1 to 31</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getDay()</TD>
+        <TD class = "val"> </TD>
+        <TD class = "note">0=Sun, 1=Mon, ..., 6=Sat</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getHours()</TD>
+        <TD class = "val"> </TD>
+        <TD class = "note">0 to 23</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getMinutes()</TD>
+        <TD class=val> </TD>
+        <TD class = "note">0 to 59</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getSeconds()</TD>
+        <TD class = "val"> </TD>
+        <TD class = "note">0 to 59</TD>
+      </TR>
+      <TR>
+        <TD class = "exp">dateObj2.getTime()</TD>
+        <TD class = "val"> </TD>
+        <TD class = "note">Milliseconds since Jan 1, 1970 (the "epoch")
+      </TR>
+    </TABLE>
+
+<p>You'll note that all of these methods return numbers, extracting one
+piece of information out of the collection that the object comprises.
+Usually, they are pretty intuitive:
+  <ul>
+    <li><code>.getMinutes()</code> returns a number from 0 - 59</li>
+    <li><code>.getFullYear()</code> returns a number like 2015</li>
+    <li><code>.getHours()</code> returns a number from 0 - 23, which is
+    intuitive for everyone in the world except for Americans.</li>
+    <li><code>.getDate()</code> returns a number from 1 - 31, depending on
+    the month.</li>
+    <li><code>.getDay()</code> returns a number from 0 - 6, depending on
+    the day of the week. You might think it would be 1-7, but the
+    designers of JavaScript chose to number the days of the week starting
+    at zero. Odd, but bearable.</li>
+    
+    <li><code>.getMonth()</code> returns a number from 0 - 11, depending
+    on the month. This is deeply unintuitive for anyone except computer
+    scientists, who are accustomed to things being numbered starting at
+    zero.  And they still get tripped up by things
+    like <code>.getMonth()</code></li>
+    
+  </ul>
+
+<p>Later, when we talk about arrays, we'll try to justify why certain
+things are numbered starting at zero.  But for now, we'll just understand
+that these are what we have to work with.
+
+<p>W3 Schools has a <a href="
+http://www.w3schools.com/jsref/jsref_obj_date.asp">complete list of
+methods for <code>Date</code> objects</a>.
+
+<h2 id="object-notation">Object Notation</h2>
+
+<p>Let's discuss the notation for objects.  First, imagine that we
+create <em>two</em> Date objects, a few seconds apart:
+
+<pre class="prettyprint lang-js executable">
+var obj1 = new Date();
+alert("obj1: "+obj1);
+var obj2 = new Date();
+alert("obj2: "+obj2);
+var sec1 = obj1.getSeconds();
+var sec2 = obj2.getSeconds();
+alert("seconds from obj1: "+sec1+" and obj2: "+sec2);
+var diff = sec2 - sec1;
+alert("difference is "+diff);
+</pre>
+
+<p>You can think of each <code>new Date()</code> expression as taking
+a <q>snapshot</q> of the computer clock, recording those values at that
+moment in time.
+
+<p>Our mental picture of this example might be like this:
+
+<figure>
+  <img src="date-objects-files/two-date-objects.png" alt="two date objects">
+  <figcaption>Two date objects and info extracted from them</figcaption>
+</figure>
+
+<p>Because objects contain a collection of information, possibly quite
+large, we picture it as a round thing. (Here, each object is a light blue
+circle.)  We can store these things in variables (labeled boxes), just
+like we store anything in variables, including numbers, strings, and
+booleans. The other variables just contain numbers; we're used to those.
+
+<p>Given an object in a variable, we use a <em>method</em> to do something
+with it (such as extracting some data) using the following syntax:
+
+  <pre class="prettyprint lang-js">var_containing_object.method_name(args);</pre>
+
+<p>The dot is important: it separates the object (or a variable containing
+an object) from the method that is being used.  Some methods need
+additional arguments; we haven't seen any yet, but we will later in the
+course.  For now, we'll just see an empty pair of parentheses, but these
+are required.
+
+<p>The examples we saw above fit that pattern:
+<pre class="prettyprint lang-js">
+var sec1 = obj1.getSeconds();  // get seconds out of obj1
+var sec2 = obj2.getSeconds();  // same, but for obj2
+</pre>  
+
+<h2>Methods and the Chrome Inspector</h2>
+
+<p>The Chrome Inspector has a nice feature. If you type the name of a
+  variable that contains an object, and then a dot (as if you were going
+  to type the name of a property or method), it supplies you with a menu
+  of your options, so you don't have to remember them all. Here's a
+  screenshot:
+
+<figure>
+  <img src="date-objects-files/date-methods-chrome-inspector.png"
+       alt="Chrome inspector showing a menu of date methods">
+  <figcaption> Chrome inspector showing a menu of date methods </figcaption>
+</figure>
+
+<h2 id="date_formatting">Date Formatting</h2>
+
+<p>Now let's return to our date and time display.  A date object contains
+  a collection of information about the date and time, but for
+  human-readability, we will need to <em>format</em> that data in some
+  conventional way, using, for example, slashes and commas to separate the
+  various numbers.
+
+<p>Here is the date, formatted as is done in the United States and a small
+handful of other countries.  This box has text in Spanish, unlike our
+  earlier box:
+
+<div id="date_today2">
+  <p>Ha cargado esta página en <span id="date2"></span>
+    a las <span id="time2"></span></p>
+</div>
+
+<p>The HTML for that box above is just this:
+<pre class="prettyprint lang-html">
+&lt;div id="date_today2"&gt;
+  &lt;p&gt;Ha cargado esta página en &lt;span id="date2"&gt;&lt;/span&gt;
+    a las &lt;span id="time2"&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Here is some JavaScript code that inserts the formatted date and time
+  into the box above. (Note the two empty <code>span</code> elements with
+  IDs that we'll use below.)
+
+<pre class="prettyprint lang-js linenums">
+// create a date object, representing this moment, and store it
+var dateObj = new Date();
+
+// format info about the day
+var the_date = dateObj.getDate();
+var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+var the_year = dateObj.getFullYear();
+var current_date = the_month + "/" + the_date + "/" + the_year;
+
+// format info about the time
+var the_hour = dateObj.getHours();
+var the_minute = dateObj.getMinutes();
+var the_second = dateObj.getSeconds();
+var current_time = the_hour + ":" + the_minute + ":" + the_second;
+
+// insert the formatted strings into the document.
+document.querySelector("#date2").innerHTML = current_date;
+document.querySelector("#time2").innerHTML = current_time;
+</pre>
+
+<p>(You can also view the page created by embedding this code in
+a <a href="date-objects-files/date-display.html">complete HTML file for
+displaying the date</a>.)
+
+<p>Let's examine the code. It is a sequence of JavaScript statements,
+which will be executed sequentially by the browser.  The first statement
+(line 2) creates a <code>Date</code> object representing the current date
+and time, and stores it in a variable named <code>dateObj</code>.  The
+next block of statements (lines 4-8) extract components of
+this <code>Date</code> object and piece them together to construct a
+description of the date, like 10/13/2015.  The next block of statements
+(lines 10-14) similarly extract components of this <code>Date</code>
+object and piece them together to construct a description of the time,
+like 17:22:44.
+
+<p>The final <code>document.querySelector("#id").innerHTML</code>
+statements each inserts a string into the span with the given ID, thereby
+displaying the date and time on the page.  The surrounding text is
+fixed. You've seen this sort of trick in lab; we'll do more with this
+later in the course.  Here's another copy of the HTML code they inserted
+it into:
+
+<pre>
+  &lt;p&gt;Ha cargado esta página en &lt;span id="date2"&gt;&lt;/span&gt;
+    a las &lt;span id="time2"&gt;&lt;/span&gt;&lt;/p&gt;
+</pre>
+
+<P>Practice the behavior of the code by using the execution box below.
+Change the code to display the date in the format that most of the world
+uses, namely, DD/MM/YYYY.
+
+<p>Remember:
+
+<ul>
+
+  <li>In the execution boxes you do not need
+    the <code>&lt;script&gt;</code> tags.  They are implied.
+
+  <li>We suggest replacing the <code>.html()</code> code with
+  an <code>alert()</code>, so that the code is obvious when it's running.
+</ul>
+
+<div class="ex"><h2>Exercise on Date Formatting</h2>
+<form action="">
+<div>
+<textarea rows=20></textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+</div>
+
+<h2 id="objects">Objects in General</h2>
+
+<p>Dates are one kind of object.  In JavaScript, an <em>object</em> is a
+kind of value that has two important characteristics:
+
+<ul>
+  <li><strong>state</strong>, which is given by what JavaScript calls
+      <em>properties</em>. This is the collection of information in the
+      object.  Different kinds of objects have different kinds of
+      information in them: an object about an element of your document
+      might have information
+      like <code>width</code>, <code>height</code>, <code>margins</code>,
+      <code>color</code> and much more.  Date objects wouldn't have that.
+
+  <li><strong>behaviors</strong>, which are specified by what JavaScript calls
+      <em>methods</em>. Methods allow you to operate on the object,
+      extracting information and even modifying the information. For
+      example, we can change the text inside a document element to
+      dynamically change what the document shows.
+</ul>
+
+<p>Both properties and methods are selected from an object using <em>dot
+notation</em>.  In the examples above, we only used methods. You can tell
+we're using a method rather than selecting a property by the presence of
+parentheses after the name.
+
+<h2>Other Methods</h2>
+
+<p>We've used the example of dates to teach you about:
+  <ul>
+    <li>Objects (encapsulations of data and methods to operate on it)
+    <li>Methods (ways to extract or modify the data in an object)
+  </ul>
+
+<p>Lots of other objects and methods exist in JavaScript.
+
+<p>Here's another method, this time on <em>numbers</em>,
+  the <code>toFixed()</code> method:
+  
+<form action="">
+<div>
+<textarea rows=8 cols=80>
+var radius = 10;
+var circumference = 2*radius*Math.PI;
+alert("circumference is "+circumference);
+alert("circumference is "+circumference.toFixed(1));
+alert("circumference is "+circumference.toFixed(2));
+alert("circumference is "+circumference.toFixed(3));
+alert("circumference is still "+circumference);
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+
+<p>The <code>toFixed()</code> method returns a string representation of
+  the number, with the number of decimal places given by the argument.  It
+  does not change the value of the variable, as the last step shows.
+
+<p>The <code>toFixed()</code> method operates on <em>numbers</em>.  A
+method that operates on <em>strings</em> instead is
+the <code>.indexOf()</code> method. See if you can guess what it does:
+
+<form action="">
+<div>
+<textarea rows=6 cols=80>
+var name = "He who must not be named";
+alert("indexOf('He') is " +name.indexOf('He'));
+alert("indexOf('who') is "+name.indexOf('who'));
+alert("indexOf('e') is "  +name.indexOf('e'));
+alert("indexOf('Tom') is "+name.indexOf('Tom'));
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+  
+<p>Yes, the <code>indexOf()</code> method searches for one string inside
+the main string object.
+
+<p>Wait, are numbers and strings objects?  Earlier in this reading, we
+suggested that objects (pictured with light blue circles) were collections
+of information, unlike simple values like numbers and strings. It turns
+out that objects and methods are such a useful way of organizing
+information that many programming languages treat everything as a kind of
+object. JavaScript allows numbers and strings to be treated as objects
+when it's convenient, as it is here.
+
+<p>Later in the course, we'll see how parts of the HTML document can be
+represented and manipulated using objects. This is the Document Object
+Model, or DOM.
+
+<h2 id="month-names">Names for Months and Days</h2>
+
+<p>The earlier date manipulation code was all numerical.  That's partly
+  because JavaScript is used around the world, and they decided not to
+  have a built-in function to map month zero to <q>January</q> when it
+  could just as easily have been Janvier (French), Enero (Spanish) or
+  Styczen (Polish).
+
+<p>Despite this, we decided to implement a simple function that maps
+  month-numbers (ranging from 0 to 11) to English month-names. The
+  function is named <code>monthName()</code>.  We also wrote one to map
+  day-numbers (ranging from 0 to 6) to English day-names. Try them out:
+
+<form action="">
+<div>
+<textarea rows=7 cols=80>
+alert("Month zero is "+monthName(0));
+alert("Day zero is "+dayName(0));
+var dateObj = new Date();
+var this_month = dateObj.getMonth();
+var this_day = dateObj.getDay();
+alert("Today is " + dayName(this_day) + " in the month of " + monthName(this_month));
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>We'll show you how it's implemented a bit later, but for now, please
+  take it on faith.  
+
+<div class="ex"><span class="ex">Exercise</span>
+  <p>How would you print the name of the month 10 months from now?
+</div>
+
+<h2>Date Objects for Other Dates</h2>
+
+<p>All along, we've created Date objects as a snapshot of the current
+computer clock, but we don't have to. We can create a Date object for any
+date of our choosing, just by giving a string to the <code>Date()</code>
+function. Here's a bit of code that will tell us what day of the week
+Christmas falls on in 2015:
+
+<form action="">
+<div>
+<textarea rows=4 cols=80>
+var xmas = new Date("12/25/2015");
+var xmas_day = xmas.getDay();
+alert("Christmas falls on " + dayName(xmas_day));
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note, though, that if you mess up the syntax of the string describing
+the date and time, you'll get an invalid Date object and nothing good will
+happen:
+
+<form action="">
+<div>
+<textarea rows=3 cols=80>
+var santa = new Date("12/25/2015 1:15am");   // this doesn't work
+alert("Santa arrives at "+santa);
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>You can fix the above by removing the "am" part; remember that "13:15"
+would be "1:15pm", so the "am/pm" part is unnecessary.
+
+<h2 id="summary">Summary</H2>
+         
+<ul>
+
+  <li> The <code>Date</code> object is used to manipulate dates and time. 
+       The expression <code>new Date()</code> creates a 
+       <code>Date</code> object representing the current date and time. 
+       Methods like <code>getMonth()</code> and <code>getHours()</code>
+       are used to extract components from a <code>Date</code> object. 
+            
+  <li>We've taught you about Date objects primarily to introduce the
+  concepts of
+    <ul>
+      <li>complex data that is encapsulated in an object, and</li>
+      <li>methods that can pull that data out.
+    </ul>
+
+  <li>In general, objects are collections of related data. Objects
+  have <em>methods</em> to extract information from the object and to
+  modify the object.
+    
+  </ul>
+
+<h2 id="solutions">Solutions to Exercises</H2>
+         
+         <ul>
+            <li>Exercise on Date formatting, non-American style:
+
+<form action="">
+<div>
+<textarea rows=14>
+var dateObj = new Date();
+
+var the_date = dateObj.getDate();
+var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+var the_year = dateObj.getFullYear();
+var current_date = the_date + "/" + the_month + "/" + the_year;
+
+var the_hour = dateObj.getHours();
+var the_minute = dateObj.getMinutes();
+var the_second = dateObj.getSeconds();
+var current_time = the_hour + ":" + the_minute + ":" + the_second;
+
+alert(current_date + " at " + current_time);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+              
+            <li>How would you print the name of the month 10 months from
+            now?
+              <form action="">
+<div>
+<textarea rows=4>
+var today = new Date();
+var month_then = (today.getMonth()+10)%12;
+alert(monthName(month_then));
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+         </ul>
+
+
+
+<script src="../js/date-functions.js"></script>
+<script>
+// Yes, these will all be globals. Students are welcome to look at them.
+
+    var dateObj = new Date();
+
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // format info about the time
+    var the_hour = dateObj.getHours();
+    var the_minute = dateObj.getMinutes();
+    var the_second = dateObj.getSeconds();
+    var current_time = the_hour + ":" + the_minute + ":" + the_second;
+
+    document.querySelector("#date1").innerHTML = current_date;
+    document.querySelector("#date2").innerHTML = current_date;
+    document.querySelector("#time1").innerHTML = current_time
+    document.querySelector("#time2").innerHTML = current_time
+
+// This code does the computations 
+// for the table of date method examples 
+
+(function () {
+    var examples = $("#date_examples td.exp");
+    var i, n = examples.length;
+    for( i = 0; i < n; i++ ) {
+        var exp_elt = examples[i];
+        var val_elt = $(exp_elt).next();
+        val_elt.text(eval("var dateObj2 = new Date(); "+$(exp_elt).text()));
+    }
+})();
+   
+
+</script>

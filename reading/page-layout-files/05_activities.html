@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>Lecture 5:  Class Acitvities</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>Lecture 5 &nbsp; <small>Class Activities for CSS</small></h1>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">         
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul id="insert_TOC_here" class="nav bs-sidenav">  
+            </ul>
+          </div>
+
+        </div><!--end of "col-md-3" div-->
+        
+        <!-- Nine columns of the grid are reserved for the main content-->
+        <div class="col-md-9">
+         <div class="alert alert-warning">
+          <h4>Challenge yourself</h4>
+           <p>For all the activities below, we also show the answers. However, in order
+           for you to assess yourselves, we always recommend that you try to solve the exercises
+           on your own, and then check the solution. Looking at the solutions without engaging
+             in the activities
+           will give you a false sense of confidence that you understand the material. </p>
+           <p>If you have seen these examples in the reading, challenge yourself by trying to
+           solve them without looking at your or our notes.</p>
+          </div>
+          
+            <h2>Quiz Question Nr. 1</h2> 
+
+          <p><code>Float</code> means
+            <ol type="A">
+              <li><p>Other block elements flow around me</p></li>
+              <li><p>Other inline elements flow around me</p></li>
+              <li><p>I flow around other block elements</p></li>
+              <li><p>I flow around other inline elements</p></li>
+              
+            </ol>
+
+            <h2>Quiz Question Nr. 2</h2> 
+
+          <p><code>Clear</code> means
+            <ol type="A">
+              <li><p>stop floating</p></li>
+              <li><p>Move other stuff below me</p></li>
+              <li><p>Move me below non-floating elements</p></li>
+              <li><p>Move me below floating elements</p></li>
+              
+            </ol>
+
+
+
+          <h3>Fixed-width and floating images</h3>
+          <p>You are given this <a href="layout_examples/ex1.html" target="_blank">simple page</a>. Resize the 
+            browser window. <em>Notice what happens to the text and the images</em>.
+            
+           Then, using the Inspector window do the following:</p>
+          <ol>
+            <li>Apply styling to the <code>body</code> element to center the page, give it
+            a width of 960px and change the background to lightgray. Resize the window again. <em>What
+              happens to the text and the images.</em></li> 
+            <li>Apply styling to the <code>img</code> elements to float them on the right side. </li>
+            <li>Can you guess without looking at the source code why 
+              <a href="layout_examples/ex1.html" target="_blank">this page</a> looks different from 
+              <a href="layout_examples/ex3.html" target="_blank">this page</a>. 
+              Write your answer down, and then look at
+              the code of each page to check if you're correct.</li> 
+            <li>Apply styling to the <code>figure</code> element of 
+              <a href="layout_examples/ex3_1.html" target="_blank">
+               this page</a> to make it look like 
+            <a href="layout_examples/ex4.html" target="_blank">this one</a>.</li>
+            <li>This is the <a href="layout_examples/ex2.html" target="_blank">solution</a> for items 1 and 2 of the list.
+              <em>Do you think that it looks different from  <a href="layout_examples/ex4_1.html" target="_blank">this page</a>? If so, in what ways and why?</em></li>
+          </ol>
+          
+          <h3>Layout with columns</h3>
+          <ol>
+            <li>Starting with <a href="layout_examples/ex6_1.html" target="_blank">this page</a>, 
+              add styling to the appropriate elements 
+            in order to create the two-column layout shown in 
+              <a href="layout_examples/ex7.html" target="_blank">this page</a>.</li>
+            <li>Starting with <a href="layout_examples/ex8_1.html" target="_blank">this page</a>, 
+              add styling to the appropriate elements 
+            in order to create the three-column layout shown in 
+              <a href="layout_examples/ex8.html" target="_blank">this page</a>.</li>
+          </ol>
+          
+          <h3>Float problems</h3>
+          <ol>
+            <li>Explain what is wrong with 
+              <a href="layout_examples/ex9.html" target="_blank">this page</a> and why? Hint: Use the 
+            Inspect Element window as an investigating tool (highlight the different elements to look
+            at their size).</li>
+            <li>What can you do to fix this problem, so that the page looks like 
+            <a href="layout_examples/ex10.html" target="_blank">this one.</a></li>
+            <li>Try to predict if setting the margin-top property for the footer element would
+            push that element down. Is your prediction correct?</li>
+            <li>Finally, what can you do so that you turn 
+              <a href="layout_examples/ex11.html" target="_blank">this page</a> into
+            <a href="layout_examples/ex12.html" target="_blank">this one</a>?</li>
+          </ol>
+          
+          <div class="alert alert-danger">
+            <h4>Advanced Challenge</h4>
+            <p>All previous activites were explained in the reading and the solutions are given.
+            If you completed them quickly, here is a challenge that you haven't encountered before.
+            By adding <strong>only one</strong> new container element to the 
+            <a href="layout_examples/ex12.html" target="_blank">last version of Hunger Games file</a>
+            and applying some styling to the different elements of the page, make it look like 
+            <a href="challenge.jpg" alt="screenshot of challenge">this image</a>. Don't worry about
+            matching the colors, go for the layout. We'll post the solution after class.</p>
+          </div>
+          
+          <h3>Positioning</h3>
+          <ol>
+            <li>Can you explain what is the difference between the styles:
+            <code>position: absolute</code> and <code>position: fixed</code>?</li>
+            <li>Given <a href="layout_examples/ex14.html" target="_blank">this page version</a>, 
+            how can you change the CSS code to make it look like 
+              <a href="layout_examples/ex14_1.html" target="_blank">this page</a>? Scroll
+            the page to see what happens to the image.</li>
+            <li>By making one very small change in the CSS file, how can you turn
+              the <a href="layout_examples/ex14_1.html" target="_blank">last example</a> 
+              into looking like <a href="layout_examples/ex14_2.html" target="_blank">this example</a>.
+            Scroll the page down to see the difference.</li>
+          </ol>
+          
+          <h3>Cool CSS3 Effects</h3>
+          <ol>
+            <li>Open <a href="../L06/css3_examples/ex2-2.html" target="_blank">this example</a>
+            and try to guess (without looking at the source code), how this page is generated.</li>
+            <li>Open the Inspect Element window and play with the CSS rules for <code>header</code>.
+            Try disabling/enabling all properties one by one to see what happens to the page.
+            Also, play with changing the different values to see their effect.</li>
+            <li>Open <a href="../L06/css3_examples/ex4.html" target="_blank">this example</a>
+            and try to guess how each <code>div</code> was styled. Then check your guesses.</li>
+          </ol>
+        </div>
+            
+      </div>
+
+    <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      
+      /* This effect allows you to click on an answer that has been "ruled
+      out" for some reason. It will fade out. */
+      function hideAnswer() {
+          $("pre",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+          $("p",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideAnswer);
+    </script>
+
+  </body>
+</html>

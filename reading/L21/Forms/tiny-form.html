@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments</title>
+    <style>
+    .ok {  font-size: normalsize; color: green; }
+    .failed { font-size: bigger; color: red; }
+    </style>
+    
+  </head>
+  <body>
+
+<h1>Commentary</h1>
+
+<p>(Save this form to your local computer. <code>File &gt; Save Page
+    As</code> in Chrome.)  Save it as <q>Webpage, HTML, Only</q>, not <q>Webpage, Complete</q>.
+
+<h2>Example Form</h2>
+
+<p>Here's our example form.  You'll modify the ACTION attribute.
+
+  <form id="comment_form" method="post"
+         action="mailto_YOURACCT_at_wellesley_edu.php">
+    <p>How would you rate this topic?
+    <p><label>Rating:
+        <select name="rating">
+          <option value="">Choose one
+          <option value="5">Awesome!</option>
+          <option value="3">Very nice</option>
+          <option value="1">Acceptable</option>
+        </select>
+        <p>What else do you have to say?
+        <p><label>Comments
+            <textarea name="comments"></textarea>
+        </label></p>
+ <p><button id="format_button" type="button">Just format</button></p>
+ <p><button id="submit_button" type="button">Submit order</button></p>
+</form>
+
+<p>The response is here:
+<p id="mail_response"></p>
+
+<h2>Template</h2>
+
+<p>Here's the email message we want to send:
+
+<div id="email_body">
+  <p>I rated it a <span class="rating"></span>
+  <p class="comments"></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<script id="script_format_message">
+// copies all data from the form to the #email_body. 
+function format_message() {
+    $("#email_body .rating").text( $("#comment_form [name=rating]").val() );
+    $("#email_body .comments").text( $("#comment_form [name=comments]").val() );
+ }
+
+$("#format_button").click(format_message);
+</script>
+
+<script id="script_email_order">
+function email_comments() {
+    format_message();
+    var msg = {from_name:  "anonymous reviewer",
+               from_email: "unknown",
+               subject: "comments",
+               body: $("#email_body").html()}
+    $.post( $("#comment_form").attr("action"),
+       msg,
+       function (response) {
+           console.log(response.status);
+           if(response.status == "ok") {
+               $("#mail_response")
+                   .html("Your comments were sent")
+                   .addClass("ok");
+           } else {
+               $("#mail_response")
+                   .html("Your comments were <em>not</em> sent")
+                   .addClass("failed");
+           }
+       },
+       "json");
+}
+
+$("#submit_button").click(email_comments);
+</script>
+
+</body>
+</html>

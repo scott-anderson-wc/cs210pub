@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- Filename: jqueryEx_start.html
+     Author: Eni Mustafaraj
+     Date: Apr 13, 2014
+     Purpose: Use as a starting point for explaining jQuery in class.
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Play with jQuery</title>
+  <link href='http://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  
+  <!-- using document-level styling in order to quickly change things if needed.-->
+  <style>
+    body {
+      margin: 0px 0px;
+      font-family: Nunito, sans-serif;
+    }
+    header {
+      height: 100px;
+      background-color: #AAA;
+      }
+    nav {
+      height: 50px;
+      background-color: #DDD;
+    }
+    nav ul{
+      list-style: none;
+      margin-top: 0px;
+    }
+    nav li {
+      display: inline-block;
+      padding: 13px 5px;
+      width: 110px;
+      height: 100%;
+      text-align: center;
+      border-left: 1px solid #DDD;  /* borders are there, but not visible */
+      border-right: 1px solid #DDD;
+    }
+    /* The trick with the border is to avoid movement of items during hovering */
+    nav li:hover {
+      cursor: pointer;
+      color: #D77;
+      border-left: 1px solid #D77; /* make border visible */
+      border-right: 1px solid #D77;
+    }   
+    section {
+      width: 400px;
+      margin: 20px;
+      padding: 10px;
+      float: left;
+      border-right: 1px solid #AAA;
+      min-height: 460px;
+      display: none; /* added so that we can see the effect of hide/show*/
+      }
+    
+    #firstColumn div{
+      width: 170px;
+      height: 170px;
+      background-color: #ACA;
+      float: left;
+      margin: 10px;
+    }
+    #secondColumn div{
+      margin: 10px;
+      height: 200px;
+      width: 85%;
+      background-color: #CAA;
+    }
+    section div{
+      padding: 5px;
+    }
+    
+    .topborder{
+      border-top: 10px solid #D85;
+    }
+    
+  </style>
+</head>
+  
+<body>
+
+  <header>
+  </header>
+  
+  <nav>
+    <ul>  
+      <li>Show Columns</li>
+      <li>Hide Columns</li>
+    </ul>
+  </nav>
+  
+  <main>
+    <section id="firstColumn">
+      <div></div>
+      <div></div>
+    </section>
+    
+    <section id="secondColumn">
+      <div></div>
+      <div></div>
+    </section>
+    
+  </main>
+  
+</body>
+</html>

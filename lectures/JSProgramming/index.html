@@ -1,0 +1,904 @@
+<!doctype html>
+<!--[lyn, 3/8/09] Created this new document for introducing simple JavaScript 
+    coding, with a focus on statements, expressions, and variables. 
+
+    Some of this document is new, but it reuses and/or modifies many parts from 
+    introJS/basic_JS_code.html and L05-dynamic/index.html. 
+
+    Unlike previous lecture notes, this one does the following:
+
+    (1) defines statements and the sequential execution of statements. 
+
+    (2) gives lots of examples of expressions (including prompt) *before* introducing variables. 
+
+    (3) Uses Execution Boxes for many of the examples. (Also, uses the name
+        "Execution Box" rather than "Evaluation Box", because Execution Boxes
+        contain statements to be executed and not expressions to be evaluated.)
+
+    (4) Punts certain things until later lectures: 
+        + swapping variables is delayed until next lecture. 
+        + booleans are punted until boolean/conditional lecture. 
+
+    (5) Motivates variables as a means of memory. 
+
+Scott: Major changes.  Introduced the notion of a Gather/Compute/Report
+        model of computation, with the Gather stage saving stuff in
+        variables, so this version introduces variables earlier.  It uses
+        a series of examples to generalize the notion of computing
+        stuff. It puts off annoying details of things, such as the %
+        operator, dealing with embedded quotation marks, breaking strings
+        across line boundaries and nested comments.  It banishes all
+        examples with heavy embedding, which we only did to put off the
+        introduction of variables.
+
+        I've removed mention of the % operator.  Let's punt that until
+        Date object processing, when we can introduce it in the context of
+        an example like "5 days from now" (which might wrap around a
+        weekend).
+
+  sohie  march2012  Fixed solutions to match the exercises in the document.
+
+Scott (February 2013):  Added jQuery material.
+
+Scott (September 2013): removed document.write; script tags at the end of 
+    file, and do things as much as possible in a jQuery way.
+
+    TODO: make the page template pretty
+    regularize the execute boxes, so that they're easier to do and more uniform
+
+Eni (February 2014): moved to new website. 
+- I left out the Javascript applications lecture notes (need rewriting with new examples),
+thus I put the first paragraph of those notes here.
+- Cut down the number of examples from 7 to 4. These are sufficient for a first taste.
+- Changes the section on Javascript scheleton, to make it analogue to CSS.
+- Commented out the whole jQuery section, which will be introduced later in the semester.
+ --> 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Scott D. Anderson, Lyn Turbak and the CS110 Staff">
+        
+    <title>CS 110: Intro to Javascript</title>
+    
+    <style>
+      textarea {
+        margin-bottom: 10px;
+        color: gray;
+        font-weight: 200;
+        font-family: "consolas", "Lucida Console", "Monaco", "DejaVu Sans Mono", monospace;
+      }
+      
+      #grail {  
+          border: 5px solid gray;
+          color: gray;
+          width: 50%;
+          margin-bottom: 15px;
+        }
+      th.exp {color:green;}
+      th.val {color:blue;}
+      /* td {font-size:24;} */
+      td.exp {color:green;}
+      td.val {color:blue;}
+      table {text-align:center; margin: 20px auto;}
+    </style>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+      <h1>Introduction to Javascript&nbsp; <small>Give behavior to your web pages</small></h1>
+      <hr>
+       <div class="alert alert-info">
+         <p>In addition to these notes, we suggest that you read
+         Chapter 1 and 2 of the recommended book <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript & jQuery: The Missing Manual</a>.
+           <p>If you don't have the book, here is <a href="../../LocalOnly/chap_01_HFJP.pdf">Chapter 1</a>
+         from the book <a href="http://wickedlysmart.com/head-first-javascript-programming-2/">Head First Javascript Programming</a>.</p>
+         </div>
+        </div>
+      </div>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li><a href="#apps">Javascript Applications</a></li>
+              <li><a href="#simple">Simple Javascript Examples</a></li>
+              <li><a href="#js2html">Javascript and HTML</a></li>
+              <li><a href="#learn">Learning the Language</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+        
+        <div class="col-md-8">
+          <h2 id="apps">Javascript Applications</h2>
+
+<P>So far we've learned two languages: HTML and CSS.  Today, we start
+learning the third of the three languages taught in CS110: JavaScript.
+We will just begin talking about it, so don't worry if you don't
+understand everything immediately.
+
+<P>JavaScript is a programming language for making <em>dynamic</em> web
+pages, i.e., pages that can interact with the user and vary each time they
+are loaded. Although the names are similar, JavaScript is
+<strong>not</strong> the same language as Java, which is the
+programming language used in CS111 (until Spring 2014). 
+
+<P>As part of your project you are required to write four distinct
+JavaScript applications &mdash; each student must do two of the four.  The
+four applications must all be different from each other and you will
+be rewarded for the complexity of these applications. We will also
+look at how well the applications are integrated into the site &mdash; do
+they fit naturally or are they &ldquo;tacked on&rdquo;?
+
+<P>During the upcoming design phase of the project (P2) you must clearly
+indicate how you and your partner plan to fulfill this JavaScript
+requirement.
+
+<!-- Feb 2014: Eni commented this out, because is planning to change what
+kind of applications can be used to fulfill the Javascript requirement.->>
+<!--p>We'll start by looking at a number of examples to help you
+understand what types of website features can be implemented using
+JavaScript.  Since you haven't yet learned to write
+JavaScript, we won't be looking at the code that created these
+examples at first.  Rather, we will just explore what they are and how they
+work.  These examples should be used as a guide and inspiration as you
+think about those JavaScript features that you would like in your
+final site.<!-->
+ 
+<p>In the lectures to come, you will see plenty of examples of Javascript,
+   that you can use to inspire you to choose applications for your
+   website. <!--Our project documentation will also specify the level of 
+   difficulty for the applications, to let you choose according to your
+   skill level.</p--> You can see some examples of applications that 
+  students have implemented for their projects in the <a href="/~cs110/project/gallery/">
+  Hall of Fame</a>. The last assignment in the semester brings together many
+  of the skills you will learn in the next weeks: generating content
+  dynamically, keeping track of user choices, roll-over effects, jQuery user interface
+  elements, filling and submitting forms. Here is a short 
+  <a href="checkout_level3.mov">screencast of the completed assignment</a>.
+          
+<h2 id="simple">Simple Javascript Examples</h2>  
+          
+<p>We will begin our investigation of JavaScript by presenting a series of
+  simple but working examples.  We'll show you the code, but you
+  should <em>not</em> try to completely understand it at this point.
+  Instead, you should read it, make some guesses as to what various things
+  might mean, and try to get the gist of what is happening without
+  worrying about all the details.  Later, after we have explained some of
+  the notation and its meaning, we can go back to these examples and
+  understand them more fully.
+
+<p>(This is a little like trying to learn a foreign language by walking
+  around the country, listening to the words people say and observing what
+  they do.  You'll miss a lot, especially at first, but it's way more
+  interesting than trying to start by reading a dictionary and memorizing
+  vocabulary and syntax.)          
+          
+ <h3 id="hello">Example 1: Hello</h3>
+
+<p>Here, we <em>gather</em> data in the form of the user's name, then we <em>compute</em> a
+  response string by gluing their name onto the end of a common greeting,
+  and finally <em>output</em> the result with a popup window.
+
+<div>
+<textarea rows=4 cols=80>
+var name = prompt("What is your name?");
+var response = "Hello, " + name;
+alert(response);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+
+<p>We would probably never do this greeting in a real website, but
+  someone's name could be filled into a form, added to a roster, guest
+  list or signup sheet, emailed to someone, ...  
+  
+  <div class="bs-callout bs-callout-warning">
+      <h4>Experiment</h4>
+    Delete the part <code>var name =</code> in the first line and execute the code again.
+    What happens? Can you explain it? What roles are <code>name</code> and <code>response</code>
+    playing?
+  </div>
+
+<h3 id="namelength">Example 2: Name Length</h3>
+
+<p>This is almost the same, but we tell them the length of their name.
+
+
+<div>
+<textarea rows=5 cols=80>
+var aName = prompt("What is your name?");
+var len = aName.length;
+var response = aName + ", your name has " + len + " letters.";
+alert(response);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute It </button>
+</div>
+
+
+<p>Again, not useful in itself, but it's nice to know that we can find out
+  the length of a string.  For example, we can limit the length of
+  people's posts in an application like a Facebook wall.          
+          
+   <div class="bs-callout bs-callout-warning">
+      <h4>Experiment</h4>
+     <ol>
+       <li>What is the result if you enter a full name, like <em>Harry Potter</em>. Is the
+     length you get what you expected?</li>
+       <li>Delete the part <code>var aName =</code> in the first line and execute the code again.
+    Can you explain what happens this time? Open the Inspect Element and switch to the Console tab.
+       Anything interesting there?</li>
+     </ol>
+    
+     
+  </div> 
+          
+<h3 id="weight">Example 3: Weight Conversion</h2>
+
+<p>Here, we ask for a number and use it in a calculation.
+
+<div>
+<textarea rows=6 cols=80>
+// You should enter a number (usually from 100 to 300).
+var lbs = prompt("What is your weight in pounds (you may lie)?");
+var kg = lbs / 2.2;
+var response = "That weight in kilograms is " + kg + ".";
+alert(response);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute It</button>        
+</div>
+          
+   <div class="bs-callout bs-callout-warning">
+      <h4>Experiment</h4>
+      <p>You probably saw a very long number as an answer. For example, the
+     result for 130, is 59.090909090909086. It would be nice to round it up. And you can.
+     If you copy the <code>Math.round(59.090909090909086)</code> in the Inspect Element's Console,
+        you'll see the result 59. Can you find a way to put <code>Math.round</code> in the code above, so that 
+     it gives you a rounded value in the prompt window.</p>
+  </div> 
+          
+<h3 id="quest">Example 4: Homage to Monty Python and the Holy Grail</h3>
+
+<p>Here, we ask for the person's name, quest, and favorite color.  We then
+  modify the box below, which was created with the following HTML and CSS:
+  
+  <div class="row">
+    <div class="col-md-5">
+      <pre>
+&lt;div id="grail"&gt;
+  Your name here
+&lt;/div&gt;
+</pre>
+    </div>
+    <div class="col-md-5">
+      <pre>
+#grail {  
+  border: 5px solid gray;
+  color: gray;
+  width: 50%;
+}
+</pre>
+    </div>
+  </div>
+
+  <div id="grail">Your name here</div>
+<div>
+<textarea rows=9 cols=80>
+var name = prompt("What is your name?", "Arthur, King of the Britons");
+var quest = prompt("What is your quest?", "To seek the grail");
+var color = prompt("What is your favorite color?", "blue");
+var text = name + ": " + quest;
+var box = document.querySelector("#grail");
+box.innerHTML = text;
+box.style.borderColor = color;
+box.style.color = color;
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>       
+</div>
+
+   <div class="bs-callout bs-callout-warning">
+      <h4>Experiment</h4>
+    Add at the bottom of the given code some other style property for the box.
+     For example, try to set the padding to 10px or to set the value of the background color.
+     If you don't see the desired effect, open Inspect Element and click on the Console
+     tab. If there was an error in your code, it will show here in a message in red.
+  </div> 
+          
+<h2 id="js2html">Javascript and HTML</h2>  
+  <p>Javascript, just like CSS, is a different language from HTML. You might remember that
+        HTML is responsible for defining the structure of a document, CSS for defining its
+        appearance, and Javascript for defining the behavior of a page. Similarly to the way
+          CSS interacts with HTML through <em>inline styles</em>, <em>document-level styles</em>
+          and an <em>external stylesheet</em>, Javascript has the same three ways, but with a 
+          different syntax.</p>
+          
+          <ol>
+            <li><em>inline Javascript</em> - In this case, the Javascript code is given as a
+            value to an attribute of the HTML element. An example is the way all the 
+            <code>Execute it</code> buttons in the four examples above worked. Here is the code:</li>
+            <pre>
+&lt;button onclick=<strong>"eval(this.parentNode.firstElementChild.value);"></strong>Execute it&lt;/button&gt; 
+</pre>
+          <li><em>document-level Javascript</em> - In this case, the Javascript code will be 
+          entered within the tag <code>&lt;script&gt;</code>. Differently from CSS, where
+          the <code>&lt;style&gt;</code> tag could be only included in the <code>&lt;head&gt;</code>
+          part of the document, in Javascript you can put <code>&lt;script&gt;</code> either in
+          the <code>&lt;head&gt;</code> or anywhere inside the the <code>&lt;body&gt;</code>.
+          <strong>A usual practice</strong> is to put the code just before the closing tag for <code>body</code>. Here is an example:</li>
+          <pre>
+&lt;body&gt;
+  ...
+  &lt;p&gt;Mouse over this paragraph to see a cool effect.&lt;p&gt;
+  ...
+  &lt;script&gt;
+    var p = document.querySelector("p");
+    function hideMe() { this.style.visibility = "hidden";}
+    function showMe() { this.style.visibility = "visible";}
+    p.onmouseover = hideMe;
+    p.onmouseout = showMe;
+  &lt;/script&gt;
+&lt;/body&gt;
+</pre>
+          
+          <li><em>external Javascript</em> - This is the most common way to have Javascript
+          communicate with HTML (it's also good for modularity and website maintenance). 
+          The entire Javascript code is in a separate file and we simply refer to it through
+          the <code>script</code> tag. Here is an example:</li>
+          <pre>
+  &lt;script src="myJScode.js"&gt; &lt;/script&gt;
+</pre>
+          </ol>
+   
+        <p>We'll be using all three ways in our examples, but for your project, you
+        should strive to have all your code in external Javascript files.</p>
+
+<h2 id="learn">Learning the Language</h2>
+
+<p>In the following sections, we'll get a first look at various facets of
+  the language.  There's more to say about all of these, but this brief
+  tour will help you see how these different aspects of the language fit
+  together.  After all, when you learn a natural language (e.g. French or
+  Chinese), you don't try to learn all the verbs first, before tackling
+  any of the nouns or adjectives.  
+
+<h3 id="variables">Variables</h3>
+
+<p>Variables are just named storage locations for a program.  We used them
+  in the examples above to store stuff that we computed (such as weight in kg) 
+  or stuff that came from the user (such as their name or height).  
+  The technical name for <q>stuff</q> might be <q>data</q>
+  or <q>values</q>.
+
+<p>You can put a value into a variable, using an <em>assignment</em>
+  statement, like these examples:
+
+  <div class="row">
+    <div class="col-md-5">
+<pre class="sh_javascript">
+    var name = "Harry Potter";
+    var lbs = 150;
+</pre>
+      </div>
+</div>
+<p>Note that this use of the equals sign is <em>very</em> different from
+  how it is used in mathematics.  In math, the equals sign is an assertion
+  that two things have the same value.  In computer science, the equals
+  sign means <q>Put the value on the right into the storage location on
+  the left</q>.  <!--(Yes, this is confusing.  Some programming languages use
+  a different symbol, but most use the equals sign.)-->
+
+<p>Because the equals sign doesn't mean equality, we often pronounce it
+  differently.  Instead of saying <q>lbs equals 150</q>, we
+  say <q>lbs <em>gets</em> 150,</q> short for <q>gets assigned the
+  value</q>.
+
+<p>After it has been assigned to, the value can be retrieved and used just
+  by giving the name of the variable.  For example, the following two
+  statements <em>retrieve</em> the values of <code>name</code>
+  and <code>lbs</code>, perform an operation on them, and then <em>assign</em> the
+  new values to two new variables
+  called <code>len</code> and <code>kg</code>.
+
+    <div class="row">
+    <div class="col-md-5">
+<pre class="sh_javascript">
+    var len = name.length;
+    var kg = lbs*2.2;
+</pre>
+    </div>
+</div>
+        
+   <p>We will return to the concept of variables in future lectures.</p>   
+        
+<h3 id="alert">The <code>alert()</code> Statement</h2>
+
+<p>The first few examples accomplished the <em>reporting</em> of the
+  response by use of the <code>alert()</code> function.  It looked like
+  this:
+  
+    <div class="row">
+    <div class="col-md-5">
+<pre class="sh_javascript">
+      alert(response);
+</pre>
+    </div>
+</div>
+
+<p>This built-in function will pop up a window that displays whatever
+  value is supplied to the <code>alert()</code> function by placing it in
+  the parentheses.  In this case, it reported the value that was in the
+  variable named <code>response</code>.  In later examples, we
+  saw <code>alert()</code> with an expression inside the parentheses. This
+  expression is evaluated and then <code>alert()</code> reports the
+  result.
+
+<p>Alerts are annoying in working code, but they are very useful when
+  testing and developing code, because they stop the execution of the
+  program until you acknowledge them:
+
+<div style="margin-bottom:15px;">
+<textarea rows=5 cols=80>
+alert("This is alert 1");
+alert("This is alert 2");
+alert(42);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value)">Execute It</button>       
+</div>
+
+
+<p> A statement like <code>alert("foo")</code> is an example of a
+<strong>function call</strong> or <strong>function invocation</strong>,
+where <code>alert</code> is the name of a standard JavaScript function and
+the expression in parentheses (in this case, <code>"foo"</code>) is
+the <strong>argument</strong> of (that is, <q>input to</q>) the function.
+
+<h3 id="console_log">The <code>console.log()</code> Statement</h2>
+
+<p>Very similar to <code>alert()</code> but much less annoying
+is <code>console.log()</code>.  It's used in almost exactly the same way:
+you put a value (or a variable containing a value) into the parentheses,
+and that value gets reported.  However, the difference is
+that <code>alert()</code> demands that the user acknowledge it,
+while <code>console.log</code> writes it to a hidden place that only web
+developers know about, and keeps going, so the user is not annoyed or
+delayed by the message.
+
+<p>The console is also where the browser writes error messages. <!--It writes
+  them there so that the muggles won't see them and worry about them, but
+  the wizards and witches of the web (such as yourselves) can easily see
+  them.-->  As of this writing, here's how you can find them:
+  <ul>      
+    <li>Chrome: View &gt; Developer &gt; JavaScript Console.  Or, use the
+    keyboard shortcut: option-command-j
+      
+    <li>Firefox: Tools &gt; Web Developer &gt; Error Console.  Or, use the 
+      keyboard shortcut: command-shift-J on a Mac.
+      
+    <li>Safari: Develop &gt; Show Error Console.  Or, use the keyboard
+    shortcut: option-command-C
+  </ul>
+
+<p>Try it!  Click the button below to execute those
+  two <code>console.log</code> statements and then look for them in the
+  console of your current browser.
+
+<div style="margin-bottom:15px;">
+<textarea rows=3 cols=80>
+console.log("five plus three equals ...");
+console.log(8);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value)">Execute It</button>  
+
+</div>
+
+
+<p>We will use <code>console.log</code> and <code>alert</code> a lot as a
+way of getting some insight into what our code is doing and to help
+understand it and debug it.  So it's worth becoming comfortable with
+finding and looking at the console.
+  
+  
+<h3 id="comments">Comments</h2>
+         
+<p>You should always add comments to your JavaScript code to explain its purpose.
+As shown in the example below, JavaScript supports two kinds of comments: 
+
+<ol>
+
+  <li> A <strong>block comment</strong> starting with <code style="color:red">/*</code>
+       and ending with <code style="color:red">*/</code> that may span several lines. 
+       (This is the same form as a CSS comment.)
+
+  <li> A <strong>line comment</strong> that starts with <code style="color:red">//</code>
+       and goes to the end of the line. 
+
+</ol>
+
+<pre>
+ &lt;script&gt;
+                  
+    <span style="color: red">/* (Block Comment) Pop up an alert box with a
+      message making sure that you
+    all are awake because at this time of day, you might be sleepy. 
+    Of course, a lot of it depends on what you were doing last night...  */</span>
+    alert("Hey you there -- wake up!");
+
+    <span style="color: red">// (Line Comment) The user must be awake if we reach this point!</span>
+    console.log("User has woken up"); 
+
+&lt;/script&gt;
+</pre>
+
+<p>In addition to explaining the code, we can use comments to 
+to <q>comment out</q> a line of code that we don't want to run (sometimes when
+  we are debugging to find where the error lies).
+
+<h3 id="expressions">Values and Expressions</h2>
+
+<p>JavaScript programs manipulate <strong>values</strong>. The two basic
+kinds of values we've seen today are:
+
+<ol>
+
+<li><strong>Numbers</strong>: These include both integers (e.g. 17, -42)
+and floating point numbers (e.g. 3.14159, -273.15). 
+
+<li><strong>Strings</strong>: These are sequences of characters, 
+which are written using matched pairs of 
+the double quote character (<code>&quot;</code>) or
+the single quote character (<code>'</code>): 
+
+<pre class="sh_javascript">
+"Harry Potter"
+'grail'
+</pre>
+
+</ol>
+
+<p>An <strong>expression</strong> is a JavaScript phrase that 
+<strong>denotes a value</strong>. The simplest numeric expression
+is a number itself. We can also create more complex numeric 
+expressions using the numeric operators
+<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>
+and <code>%</code>:
+
+   <table border=2 style="margin: 0px auto;">
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>27</code></td>
+     <td class="val"><code>27</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 + 10</code></td>
+     <td class="val"><code>37</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 - 10</code></td>
+     <td class="val"><code>17</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 * 10</code></td>
+     <td class="val"><code>270</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 / 10</code></td>
+     <td class="val"><code>2.7</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 % 10</code></td>
+     <td class="val"><code>7</code></td>
+    </tr>
+   </table>
+
+<p>The % operator is the <em>remainder</em> or <em>modulus</em> operator.
+  Its value is the <em>remainder</em> when the first number is divided by
+  the second.  <!--We saw it in the example when converting centimeters to
+  feet and inches.--> Here is an example of when it can be used.  
+  An average size woman might be 64 inches tall. To find
+  the number of feet, we divide 64 by 12 and round down, to get 5.  To get
+  the number of leftover inches, we divide 64 by 12 and take the
+  remainder, using the % operator.  That gives us the 4.  The remainder
+  operator is more useful than you might think. But don't worry about it;
+  you can think of it as a weird kind of division.
+
+<h2 id="precedence">Precedence</h2>
+
+<p>For the most part, JavaScript follows the
+  algebraic <a href="http://en.wikipedia.org/wiki/Order_of_operations">precedence
+  rules</a> that you learned in school years ago.<!--, often with a mnemonic
+  like <q>Please Excuse My Dear Aunt Sally</q> or <q>PEMDAS</q> or
+  something.  That just says:-->
+  <ul>
+    <li>Parenthesized expressions
+      
+    <li>Exponents (we won't use these much)
+      
+    <li>Multiplication and Division (and Remainder)
+        
+    <li>Addition and Subtraction
+      
+  </ul>
+
+<p>JavaScript follows these rules, so your prior experience will serve as
+  a good guide.  There are a few new operators that you'll learn, such as
+  the <code>%</code> or remainder operator, <!--also called
+  the <em>modulus</em> operator,--> which has, unsurprisingly, the same
+  precedence as division.
+
+<p>Try to guess what the following will evaluate to:
+
+<div style="margin-bottom:15px;">
+<textarea name="code" rows=1>
+alert( (1 + 5 % 2) );</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+
+<!--h2 id="eval">Evaluating Expressions</h2>
+
+<p>Expressions can be organized into trees of operations that can be
+arbitrarily complex. For example, the expression denotes a tree of numeric
+operations:
+  <blockquote><p><code>((3 * 5) + (8 / 4)) - (9 % 2)</code> 
+  </blockquote>
+
+<p><img src="eval-tree.png" alt="evaluation tree for ((3 * 5) + (8 / 4)) - (9 % 2)">
+
+<p>The process of determining the value of an expression is called 
+<strong>evaluation</strong>.  Expressions are evaluated as you'd expect,
+starting at the leaves of the tree and working left to right, combining
+branches until only one value remains.  Here are the evaluation steps for
+our example:
+
+<pre>
+   ((3 * 5) + (8 / 4)) - (9 % 2)
+=> (  15    + (8 / 4)) - (9 % 2)
+=> (  15    +    2   ) - (9 % 2)
+=>         17          - (9 % 2)
+=>         17          -    1
+=>                     16
+</pre>
+
+<p>The arguments to functions and methods like <code>alert()</code> 
+and <code>document.write()</code> can be arbitrary expressions. 
+This provides an easy way to test expression evaluation:<br>
+
+<form action="">
+<div>
+<textarea name="code" rows=1>
+alert( ((3 * 5) + (8 / 4)) - (9 % 2) );</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form-->
+
+<h3 id="quote_marks">Strings and Quotation Marks</h2>
+
+<p>Literal strings can be denoted by either single or double quotes, which
+  gives you some flexibility about how to handle awkward situations such
+  as quotation marks inside a string:
+
+   <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>"Let's play Tag!"</code></td>
+     <td class="val"><code>Let's play Tag!</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>'Not "it"!'</code></td>
+     <td class="val"><code>Not "it"!</code></td>
+    </tr>
+   </table>
+
+<p>These examples show that you can put a single quote inside double
+  quotes and a double quote inside single quotes.
+
+<h3 id="concatenation">Concatenation of Strings</h3>
+
+<p>The main operation on strings is the concatenation
+operator, <code>+</code>:
+
+   <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>"CS" + "110" + " rocks!"</code></td>
+     <td class="val"><code>CS110 rocks!</code></td>
+    </tr>
+    <tr>
+      <td class="exp"><code>"Harry" + "Cho"</code></td>
+      <td class="val"><code>HarryCho</code></td>
+    </tr>
+   </table> 
+
+<p>We saw this many times in the examples, as we created our response text
+  out of literal strings, values supplied by the user, and computations
+  from them.
+
+<h3 id="parseInt">The <code>parseInt()</code> and <code>parseFloat()</code> Functions</h2>
+
+<p>We'll see that there are many situations where it's necessary to
+convert from a string of digits to numbers. The
+  <a href="http://www.w3schools.com/jsref/jsref_parseint.asp"><code>parseInt()</code></a>
+and
+  <a href="http://www.w3schools.com/jsref/jsref_parsefloat.asp"><code>parseFloat()</code></a>
+  functions are used for this purpose. The first one is used with integer numbers
+  and the second one with decimal numbers.<!--We saw that in the examples when
+  we prompted the user for a number that we wanted to compute with.-->
+
+  <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseInt("243")</code></td>
+     <td class="val"><code>243</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseInt("cs110",10)</code></td>
+     <td class="val"><code>NaN <I>(Not a Number)</i></code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseFloat("3.141")</code></td>
+     <td class="val"><code>3.141</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseInt("3.141")</code></td>
+     <td class="val"><code>3</code></td>
+    </tr>
+   </table>
+
+<!--p>The second argument to <code>parseInt</code> is the <em>radix</em>
+  or <code>base</code> that you want to use.  It can be 10 for decimal
+  number, 16 for hexadecimal numbers and 8 for octal numbers (base 8).
+  It's a good idea to supply this value, to avoid JavaScript inadvertently
+  doing the wrong thing.-->
+
+<p>You can test any of the above expressions here:<br>
+
+
+<div style="margin-bottom:15px;">
+<textarea name="code" rows=2 cols=80>
+alert( parseInt("2.718") );
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+
+
+<h3 id="prompt"><a href="#prompt">The <code>prompt()</code> Function</a></h2>
+
+<p>Like <code>alert()</code>, invoking the <code>prompt()</code> function
+pops up a small window, but (1) it also allows the user to type in a
+string and (2) the string entered by the user is returned as the value of
+invoking the <code>prompt()</code> function.
+
+<p><!--em>Warning: The <code>prompt()</code> function does not work properly
+in certain browsers, especially some versions of Internet Explorer. So
+it's best not to use it in projects. We will use forms instead, which are
+much better.  However, <code>prompt()</code> is helpful for teaching
+certain aspects of JavaScript in an interactive setting, so we will use it
+in class for examples.</em-->
+ 
+<div class="bs-callout bs-callout-warning">
+<h4>Note</h4>
+<p>The <code>prompt()</code> method is not a good use of Javascript and you will
+          not use it in your projects. Instead we will either use HTML forms,
+          or the jQuery library.</p>
+</div>
+          
+<p>For example, the following statement prompts the user
+for a first name and then stores it in a variable.
+
+<div style="margin-bottom:15px;">
+<textarea rows=2 cols=80>
+var first_name = prompt("What's your first name?");
+console.log(first_name);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+
+
+<p>The result of invoking the <code>prompt()</code> function is always a
+string, <strong>NOT</strong> a number, even if it's all digits, so it's necessary
+to use
+<code>parseInt()</code> or <code>parseFloat()</code> to convert sequences
+of digits entered by the user to numbers.  Compare the following two
+examples:
+
+<div style="margin-bottom:15px;">
+<textarea rows=5 cols=80>
+var a = prompt("Enter a decimal number");
+var b = prompt("Enter an integer number");
+var result = a + b;
+alert("The result is " + result);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+
+
+<p>In this example, we convert the strings into numbers, then add the
+  numbers and report the result.
+
+
+<div style="margin-bottom:15px;">
+<textarea rows=7 cols=80>
+var a = prompt("Enter a decimal number");
+var b = prompt("Enter an integer number");
+var x = parseFloat(a);
+var y = parseInt(b);
+var result = x + y;
+alert("The result is " + result);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+
+
+<p>Note that if we never need the strings <code>a</code>
+  and <code>b</code>, we can take the value of <code>prompt</code> and
+  immediately convert it to a number using <code>parseInt</code>:
+
+<div style="margin-bottom:15px;">
+<textarea rows=5 cols=80>
+var x = parseFloat(prompt("Enter a decimal number"));
+var y = parseInt(prompt("Enter an integer number"));
+var result = x + y;
+alert("The result is " + result);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+</form>
+
+<h3>Default values</h3>
+
+<p>The first argument of the <code>prompt()</code> function is displayed
+above the input area of the prompt box. 
+The <code>prompt()</code> function takes an <em>optional</em> second argument
+that, if supplied, is used as a default value for the input area. 
+For example: 
+
+<div style="margin-bottom:15px;">
+<textarea rows=3 cols=80>
+var school = prompt("What is your school?", "Wellesley");
+alert("Oh, you go to "+school+". How nice.");
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>
+</div>
+</form>
+
+<p>Using a default value makes it easier on the user when the default is
+right, but allows him or her to correct (override) the value when it's wrong.
+        
+        </div><!--end of "col-md-8"-->
+            
+      </div><!--end of "row"-->
+
+    <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+
+</html>

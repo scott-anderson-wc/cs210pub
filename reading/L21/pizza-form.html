@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+        
+    <title>CS110: Emailing a Form, Formatted</title>
+
+  </head>
+  <body>
+
+<h1>Emailing a Form, Formatted</h1>
+
+<p>The goal here is to be able to put a special-purpose form on a website,
+  such as allowing people to make suggestions, order merchandise, or
+  express preferences.  Submitting that form causes the data to be sent in
+  an email to someone in your organization whose job is to handle them.
+
+<p>We'll even do allow the form data to be nicely formatted, using
+  techniques like the madlibs we did much earlier.  We can also do the
+  form submission using Ajax.
+
+<p>The basic idea here involves the following steps:
+  <ul>
+    <li>Create the form.
+      
+    <li>Create a template for the formatted data.
+      
+    <li>Have a button that submits the form.
+
+    <li>The button invokes an event handler that copies the data into a
+    template.  In this example, the template will be visible, but in
+    general it could be hidden.
+      
+    <li>Once the data is filled in, the template's contents are made the
+      body of an email message and sent using Ajax.
+  </ul>
+
+<h2>Example Form</h2>
+
+<p>Here's our example form:
+
+  <form id="pizza-form" method="post"
+         action="email_to_cs110a_at_cs_wellesley_edu">
+ <p><label>Customer name: <input name="customer"></label></p>
+ <p><label>Telephone: <input type=tel name="phone"></label></p>
+ <p><label>E-mail address: <input type=email name="addr"></label></p>
+ <fieldset>
+  <legend> Pizza Size </legend>
+  <p><label> <input type=radio name="size" value="small"> Small </label></p>
+  <p><label> <input type=radio name="size" value="medium"> Medium </label></p>
+  <p><label> <input type=radio name="size" value="large"> Large </label></p>
+ </fieldset>
+ <fieldset>
+  <legend> Pizza Toppings </legend>
+  <p><label> <input type=checkbox name="tops" value="bacon"> Bacon </label></p>
+  <p><label> <input type=checkbox name="tops" value="cheese"> Extra Cheese </label></p>
+  <p><label> <input type=checkbox name="tops" value="onion"> Onion </label></p>
+  <p><label> <input type=checkbox name="tops" value="mushroom"> Mushroom </label></p>
+ </fieldset>
+ <p><label>Preferred delivery time:
+     <input name="due" type=time min="11:00" max="21:00" step="900">
+    </label></p>
+ <p><label>Delivery instructions:
+     <textarea name="instructions"></textarea>
+ </label></p>
+ <p><button id="format_button" type="button">Just format</button></p>
+ <p><button id="submit_button" type="button">Submit order</button></p>
+</form>
+
+<p>The response is here:
+<p id="order_response"></p>
+
+<h2>Template</h2>
+
+<p>Here's the email message we want to send:
+
+<div id="email_body">
+  <p>My name is <span class="customer">CUSTOMER</span> and my phone number
+     is <span class="phone">PHONE</span>.
+     Email address is <span class="addr">EMAIL</span>.
+
+     
+  <p>I would like a <span class="size">SIZE</span> pizza,
+  with <span class="tops">TOPPINGS</span>.
+
+  <p>Please deliver it at <span class="due">DUE</span> via
+  <p class="instructions">DELIVERY INSTRUCTIONS</p>
+
+</div>
+
+<h2>Format Message</h2>
+
+<p>Let's start with the code to format the message:
+
+<pre id="pre_format_message"></pre>
+
+<p>Most of the code is pretty straightforward, but checkboxes are tricky
+  because multiple selections are possible. To handle that, don't use
+  the <code>.val()</code> method.  Instead, we select the checked boxes,
+  which returns an <em>array</em> of the matched elements. We then process
+  that array using the function <code>checked_values</code>.
+
+<p>The <code>checked_values</code> function goes through the array,
+  collecting their values.  It then uses a built-in method for arrays
+  called <code>.join</code>, which converts an array into a string,
+  splicing the given connector (in this case, a comma) between the
+  elements.
+
+<h2>Sending Mail</h2>
+
+<p>Our next step is to take the HTML of the formatted message and make it
+  the <em>body</em> of an email message. Remember that our back-end PHP
+  script wants up to <em>four</em> pieces of information:
+  <ul>
+    <li>from_name
+      
+    <li>from_email
+      
+    <li>subject
+      
+    <li>body
+  </ul>
+  <P>We can give default values for any of these when we create the
+  back-end script, but we can also provide them when the actual email is
+  sent.
+
+  <p>We do that by creating a JavaScript <em>object</em>.  For example, we
+  could do the following:
+
+<pre>
+var msg = {from_name: "Barack Obama",
+           from_email: "president@whitehouse.gov",
+           subject: "state of the union",
+           body: "The union is perfect. Here's my plan to make it more perfect."};
+</pre>    
+
+<p>Of course, we'll do something more prosaic, like a pizza order, so we
+  might say something like this:
+
+<pre>
+var msg = {from_name:  $("#pizza_form [name=from_name]").val(),
+           from_email: $("#pizza_form [name=from_email]").val(),
+           subject: "pizza order",
+           body: $("#email_body").html()}
+</pre>    
+
+<p>Notice that we can make the body of the email be the HTML of our
+  formatted message.
+
+<p>The next step is to send the email, using the
+  jQuery <code>.post()</code> method:
+
+<pre>
+$.post("url of our backend script",
+       msg,
+       function (response) {
+         alert("response status is "+response.status);
+       }
+       "json");
+</pre>  
+  
+<p>Let's put this all together into our finished pizza order form
+
+<pre id="pre_email_order"></pre>
+        
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>  
+
+<script id="script_format_message">
+// copies all data from the form to the #email_body. 
+function format_message() {
+    $("#email_body .customer").text( $("#pizza-form [name=customer]").val() );
+    $("#email_body .phone").text( $("#pizza-form [name=phone]").val() );
+    $("#email_body .addr").text( $("#pizza-form [name=addr]").val() );
+    $("#email_body .size").text( $("#pizza-form [name=size]").val() );
+    $("#email_body .tops").text( checked_values($("#pizza-form [name=tops]:checked")) );
+     $("#email_body .due").text( $("#pizza-form [name=due]").val() );
+     $("#email_body .instructions").text( $("#pizza-form [name=instructions]").val() );
+ }
+
+function checked_values(jq_set) {
+    var len = jq_set.length; vals = [];
+    for( var i = 0 ; i < len; i++ ) {
+        console.log(i, jq_set[i], jq_set[i].value );
+        vals.push( jq_set[i].value );
+    }
+    return vals.join(",");
+}
+
+$("#format_button").click(format_message);
+
+</script>
+
+<script id="script_email_order">
+function email_order() {
+    format_message();
+    var msg = {from_name:  $("#pizza_form [name=from_name]").val(),
+               from_email: $("#pizza_form [name=from_email]").val(),
+               subject: "pizza order",
+               body: $("#email_body").html()}
+    $.post( $("#pizza_form").attr("action"),
+       msg,
+       function (response) {
+           console.log(response.status);
+           if(response.status == "ok") {
+               $("#order_response")
+                   .html("Your order was sent")
+                   .addClass("ok");
+           } else {
+               $("#order_response")
+                   .html("Your order was <em>not</em> sent")
+                   .addClass("failed");
+           }
+       },
+       "json");
+}
+
+$("#submit_button").click(email_order);
+</script>
+
+
+
+<script>
+  // Copies the script code to the PRE element
+    $("#pre_format_message").text( $("#script_format_message").text() );
+    $("#pre_email_order").text( $("#script_email_order").text() );
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CSS: Understanding the box model</title>
+  <meta charset="utf-8">
+<style type="text/css">
+  #wrap {
+      border: 1px solid green;
+      font-size: 16px;
+  }
+
+  .mypar {
+      color: navy;
+      background-color: white;
+      font-size: 20px;
+  }
+
+  #lorem {
+      font-family: Verdana;
+      font-size: 12px;
+  }
+
+  #praesent {
+      font-family: Arial;
+      font-size: 10px;
+  }
+
+  /* doesn't choose both colors */
+  a:link {
+      color: yellow;
+  }
+
+  a:visited {
+      color: orange;
+  }
+
+  #passage {
+      font-style: italic;
+  }
+
+  #passage:hover {
+      text-decoration: underline;
+  }
+
+</style>
+
+</head>
+  
+<body>
+
+<div id="wrap">
+<p id="lorem" class="mypar">
+  <a href="http://www.lipsum.com/">Lorem ipsum</a> dolor sit amet, consectetur 
+  adipiscing elit. Maecenas sit
+  amet urna gravida orci pharetra gravida tincidunt id nunc. Cum sociis
+  natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+  mus. Ut feugiat elementum massa, quis laoreet sem semper vitae. Quisque
+  ligula dolor, dapibus non tempus eu, dapibus nec lacus. Aenean convallis
+  dapibus magna varius tristique. Vivamus nunc felis, semper non sagittis
+  a, pulvinar sit amet tellus. Aliquam interdum sem ac massa pellentesque
+  feugiat. Nulla facilisi. 
+
+<p id="praesent" class="mypar">
+Praesent sem quam, lacinia ac gravida at, adipiscing vitae velit. Sed
+vitae erat et leo aliquet laoreet id nec mi. Lorem ipsum dolor sit amet,
+consectetur adipiscing elit. Nullam quam ligula, lobortis ornare tempor
+vitae, dignissim eu sapien. Lorem ipsum dolor sit amet, consectetur
+adipiscing elit. <span id="passage">Phasellus lacinia, lorem id scelerisque semper, magna
+sapien pharetra ante, eget fringilla enim nunc vel tellus. Morbi tincidunt
+lacus in dolor tincidunt nec congue nibh euismod. Ut aliquet posuere
+metus, eu posuere tellus pretium ac. </span> Morbi ultrices, leo sed rutrum
+tincidunt, lorem diam suscipit mi, ut suscipit dui lectus vel
+tellus.
+</div>
+
+<h3>Activities</h3>
+<p>Using Chrome's Inspect Element, do the following:
+  <ol>
+    <li>Navigate to the paragraph whose id is "lorem."  Click on it (the
+    tag itself) to select it.  Look at the "Styles" pane to the right and
+    look at how the font-size is set
+    by <code>#lorem</code>, <code>.mypar</code> and <code>#wrap</code>.
+    You may need to scroll down a bit to see the <code>#wrap</code>
+    selector.
+    <li>Add a 10px padding to the #wrap div.  First select the element so
+    that you can see its stylesheet to the right. You can add a property
+    by clicking on the last existing property value and pressing
+    return/enter to start a new line.
+    <li>Add a 5px margin to the #lorem paragraph.
+    <li>Add a 15px padding to the #praesent paragraph.
+    <li>Add a border to both paragraphs, like "1px solid red,"  using the
+    "mypar" class. (Note that
+    if you were doing this using a CSS file, you'd could also use a 
+    descendant selector, but we can't create those via this part of
+    Inspector.)
+    <li>Add a yellow background color (<code>background-color:
+    yellow</code>) to both paragraphs.  What is and isn't colored yellow?
+    <li>How does the yellow background affect the hyperlink in the first
+    paragraph?  How is the hyperlink's color specified?  It uses
+    a <em>pseudo-class</em>. 
+    <li>Set the width of the #wrap div to 500px.  Set the width of the #lorem
+    paragraph to 80%.  Set the width of the #praesent paragraph to 60%.
+    What are these percentages of?  You can switch to the "Computed" tab in
+    right-side of Inspector to see the box model.
+    <li>Compare adding a 25px padding-top to the div with adding a 25px
+    margin-top to the #lorem paragraph.  Is there a difference?
+    <li>Suppose you wanted 10px top/bottom padding on the #praesent
+    paragraph and 30px left/right padding.  There are (at least) three
+    ways to do that.  Try them whichever one you like best.
+      <ol>
+        <li>padding: 10px 30px 10px 30px;
+        <li>padding: 10px 30px;
+        <li>padding-top: 10px; padding-bottom: 10px; padding-left: 30px;
+        padding-right: 30px;
+      </ol>
+    <li>A shorthand way to add a big line down the left side of the
+    paragraphs is to add to the div:  <code>border-left: 3px solid
+    red</code>.  The longhand way is <code>border-width-left: 3px;
+    border-style-left: solid; border-color-left: red</code>  Which do you
+    like best?
+    <li>Let's look at inline elements.  Try setting the width (say to
+    300px), margins (say to 50px), padding (50px again) and borders (say,
+    5px solid teal) for the #passage.  Set the background color, too.
+    Which of these are obeyed and which are ignored?
+    <li>Notice the :hover pseudo-class for the #passage.  (Move the mouse
+    over the second paragraph to see the effect.)
+    <li>Finally, let's look at margin <q>collapse</q>.  Try setting a 60px
+    margin-bottom for the #lorem paragraph and a 50px margin-top for the
+    #praesent paragraph.  How far apart are the two element borders?
+    Read more about <a href="http://www.sitepoint.com/web-foundations/collapsing-margins/">
+    collapsing margins</a>.
+      
+  </ol>
+
+</body>
+</html>

@@ -1,0 +1,2059 @@
+<!--[lyn, 3/8/09] Created this new document for introducing simple JavaScript 
+    coding, with a focus on statements, expressions, and variables. 
+
+    Some of this document is new, but it reuses and/or modifies many parts from 
+    introJS/basic_JS_code.html and L05-dynamic/index.html. 
+
+    Unlike previous lecture notes, this one does the following:
+
+    (1) defines statements and the sequential execution of statements. 
+
+    (2) gives lots of examples of expressions (including prompt) *before* introducing variables. 
+
+    (3) Uses Execution Boxes for many of the examples. (Also, uses the name
+        "Execution Box" rather than "Evaluation Box", because Execution Boxes
+        contain statements to be executed and not expressions to be evaluated.)
+
+    (4) Punts certain things until later lectures: 
+        + swapping variables is delayed until next lecture. 
+        + booleans are punted until boolean/conditional lecture. 
+
+    (5) Motivates variables as a means of memory. 
+
+Scott: Major changes.  Introduced the notion of a Gather/Compute/Report
+        model of computation, with the Gather stage saving stuff in
+        variables, so this version introduces variables earlier.  It uses
+        a series of examples to generalize the notion of computing
+        stuff. It puts off annoying details of things, such as the %
+        operator, dealing with embedded quotation marks, breaking strings
+        across line boundaries and nested comments.  It banishes all
+        examples with heavy embedding, which we only did to put off the
+        introduction of variables.
+
+        I've removed mention of the % operator.  Let's punt that until
+        Date object processing, when we can introduce it in the context of
+        an example like "5 days from now" (which might wrap around a
+        weekend).
+
+  sohie  march2012  Fixed solutions to match the exercises in the document.
+
+Scott (February 2013):  Added jQuery material.
+
+Scott (September 2013): removed document.write; script tags at the end of 
+    file, and do things as much as possible in a jQuery way.
+
+    TODO: make the page template pretty
+    regularize the execute boxes, so that they're easier to do and more uniform
+
+ --> 
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <title>CS110: An Introduction to JavaScript Programming</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name=author content="Scott Anderson, Lyn Turbak and the CS110 Staff">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <link rel="stylesheet" type="text/css" href="../../cs110-main-style.css">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="../../js/shjs-0.6/sh_style.css">
+    <style type="text/css">
+      h1 { margin-top: 2em; border-top: 4px double green; }
+      /* th {font-size:24;} */
+      th.exp {color:green;}
+      th.val {color:blue;}
+      /* td {font-size:24;} */
+      td.exp {color:green;}
+      td.val {color:blue;}
+      table {text-align:center; margin: 20px auto;}
+    </style>
+  </head>
+<body onload="sh_highlightDocument();">
+
+<h1>An Introduction to JavaScript Programming</h1>
+
+
+<div class="reading">
+
+<p>Reading: JavaScript and jQuery, pages 1-60.
+
+</div>
+
+<div id="insert_TOC_here"></div>         
+
+<p>Today we'll learn some basic JavaScript programming through a sequence
+of simple examples. 
+
+<h2 id="skeleton">The JavaScript Skeleton</h2>
+
+<p>JavaScript is a different language from HTML or CSS.
+But, as with CSS, 
+we can include JavaScript code inside an HTML document.
+JavaScript code can be embedded 
+inside both <strong>the head</strong> and <strong>the body</strong>
+of an HTML document. 
+Use the <code>&lt;script&gt;</code> HTML tag to tell the browser
+that you are about to write JavaScript code (just as the
+<code>&lt;style&gt;</code> tag introduces CSS code):
+
+<pre>
+&lt;html&gt;
+  &lt;head&gt;
+    <span style="font-style:italic">...head elements...</span>
+    <span style="color: red">&lt;script type="text/JavaScript"&gt;
+      <span style="font-style:italic">...JavaScript code...</span>
+    &lt;/script&gt;</span>
+    <span style="font-style:italic">...more head elements...</span>
+  &lt;/head&gt;
+  &lt;body&gt;
+    <span style="font-style:italic">...body elements...</span>
+    <span style="color: red">&lt;script type="text/JavaScript"&gt;
+      <span style="font-style:italic">...more JavaScript code...</span>
+    &lt;/script&gt;</span>
+    <span style="font-style:italic">...more body elements...</span>
+    <span style="color: red">&lt;script type="text/JavaScript"&gt;
+      <span style="font-style:italic">...even more JavaScript code...</span>
+    &lt;/script&gt;</span>
+    <span style="font-style:italic">...even more body elements...</span>
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>In the above skeleton, there are three segments of JavaScript code
+spread out over the head and body of an HTML document. 
+In general, there can be any number of JavaScript code segments 
+delimited by <code>&lt;script&gt;</code> tags in an HTML document. 
+
+<h2 id="external">External JS Files</h2>
+
+<p>JavaScript code can also be put in external files, which facilitates
+  sharing JS code among several HTML pages.  This is exactly like external
+  CSS files and for exactly the same reasons.  In fact, the modern
+  approach is to keep all or almost all of the JavaScript code separate
+  from the HTMl file. The tag to do so is pretty simple:
+  <pre>&lt;script type="text/JavaScript" src="url/of/file.js"&gt;&lt;/script&gt; </pre>
+
+<p>As you know, we'll be using a JavaScript library
+called <a href="http://jquery.com/">jQuery</a>, so whenever you want to
+use that library of code (specifically, version 1.8), you will put the
+following tag in your HTML file:
+
+  <pre>&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"&gt;&lt;/script&gt;</pre>
+  
+<h2>JavaScript at the Bottom</h2>
+
+<p>Because JavaScript typically adds <em>behavior</em> to an existing
+  document, we will be putting our <code>script</code> tags
+  at <em>end</em> of the file, after all our HTML/CSS and right before
+  the <code>&lt;/body&gt;</code> tag that closes the body. You will find
+  books and tutorials and other resources that advocate
+  putting <code>script</code> tags in the head (including prior offerings
+  of CS110), but putting them at the bottom has several advantages:
+  <ul>
+
+    <li>The web pages will load faster. The browser can load several files
+    in parallel, but when it gets to a <code>script</code> tag,
+    particularly a tag that loads an external JavaScript file, it has no
+    choice but to wait for the whole file to load, because that file might
+    create additional HTML/CSS that needs to be processed before the
+    browser goes on. By putting the script tags at the bottom, the user
+    will see the top of the file right away and may not even notice the
+    several extra seconds required to load the JS.
+      
+    <li>It means we don't have to learn about <code>onLoad</code> event
+    handlers in order to have our JS run after the page loads.  The page
+    will already be loaded when our JS runs.
+
+  </ul>
+
+<p>So, for this course, you will put your JS script tags at the end of the
+  HTML page. Your page template will look like this:
+
+<pre class="html example">
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;meta name=author content="your name here"&gt;
+    &lt;link rel="stylesheet" type="text/css" href="path/to/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- HTML here --&gt;
+
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+/* your JavaScript/jQuery code here */
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>Feel free to copy/paste that template when you're starting a new web page.
+
+<h2 id="computing">Computing</h2>
+
+<p>We're going to use JavaScript to do interesting things, to solve
+  problems, to interact with the user.  Over the rest of the course, we'll
+  see lots of ways to do things using JavaScript, but for now, we're going
+  to talk about a conventional way of thinking about computing.
+
+<p>Computing often works like this sequence of steps:
+  <ol>
+    <li>Gather the data (inputs)
+    <li>Compute an answer using the data
+    <li>Report the answer (give some output)
+  </ol>
+
+<p>(These terms of gather/compute/report are <em>not</em> standard in the
+  field; we just made them up.  If you think of better terminology, let us
+  know.)
+
+<p>We will begin our investigation of JavaScript by presenting a series of
+  simple but working examples.  We'll show you the code, but you
+  should <em>not</em> try to completely understand it at this point.
+  Instead, you should read it, make some guesses as to what various things
+  might mean, and try to get the gist of what is happening without
+  worrying about all the details.  Later, after we have explained some of
+  the notation and its meaning, we can go back to these examples and
+  understand them more fully.
+
+<p>(This is a little like trying to learn a foreign language by walking
+  around the country, listening to the words people say and observing what
+  they do.  You'll miss a lot, especially at first, but it's way more
+  interesting than trying to start by reading a dictionary and memorizing
+  vocabulary and syntax.)
+
+<h1>JavaScript Examples</h1>
+
+<h2 id="random">Example 1: Random Values</h2>
+
+<p>In this first example, we gather data from a built-in random number
+  generator.  This gives a value between 0 and 1.  We then just report it
+  in a popup window, using the <code>alert()</code> function.  Note that
+  your book always uses <code>window.alert()</code>, but these are the
+  same thing in every browser that we are aware of, so we will use the
+  shorter name.
+
+<form action="" method="POST">
+<div>
+<textarea rows=3>
+var x = Math.random();
+alert(x);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>In this second example, we process the number by multiplying it by 6,
+  rounding the value down, and then adding 1.  The result is a random
+  number from 1 to 6, which might be a useful replacement for rolling
+  dice.
+
+<form action="" method="POST">
+<div>
+<textarea rows=4>
+var x = Math.random();
+var die = Math.floor(x*6)+1;
+alert(die);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Random numbers are useful because we can use them to vary the content
+  of our pages, say by showing a random image on the home page, or
+  choosing a <q>quote of the day</q> or a testimonial, or ...
+
+<h2 id="hello">Example 2: Hello</h2>
+
+<p>Here, we gather data in the form of the user's name, then we compute a
+  response string by gluing their name onto the end of a common greeting,
+  and finally output the result with a popup window.
+
+<form action="" method="POST">
+<div>
+<textarea rows=4>
+var name = prompt("What is your name?");
+var response = "Hello, " + name;
+alert(response);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>We would probably never do this greeting in a real website, but
+  someone's name could be filled into a form, added to a roster, guest
+  list or signup sheet, emailed to someone, ...
+
+<h2 id="namelength">Example 3: Name Length</h2>
+
+<p>This is almost the same, but we tell them the length of their name.
+
+<form action="" method="POST">
+<div>
+<textarea rows=8>
+// the following would set the variable to a fixed string
+// name = "Harry Potter";
+// instead, we ask the user for a value
+var name = prompt("What is your name?");
+var len = name.length;
+var response = "Your name has " + len + " letters";
+alert(response);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Again, not useful in itself, but it's nice to know that we can find out
+  the length of a string.  For example, we can limit the length of
+  people's posts in an application like a Facebook wall.
+
+<h2 id="weight">Example 4: Weight Conversion</h2>
+
+<p>Here, we ask for a number and use it in a calculation.
+
+<form action="" method="POST">
+<div>
+<textarea rows=6>
+// var lbs = 150;
+var lbs = prompt("What is your weight in pounds (you may lie)?");
+var kg = lbs / 2.2;
+var response = "That weight in kilograms is " + kg;
+alert(response);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Finally, we've gotten to something that's almost useful.  Imagine a
+  website where you're asking for data in metric units, but you know
+  that's a mental hazard for some Americans, so you provide a little
+  conversion calculator.
+
+<h2 id="height">Example 5: Height Conversion</h2>
+
+<p>Here, we gather numbers using a form and report the result using the
+  same form.  We have two buttons to do two conversions.  You can also use
+  the code boxes.
+
+<form name="heightform" action="">
+  <p>Convert your height:
+  <p>Antiquated units:
+    <label for="feet">feet</label> <input type="text" id="feet" name="feet">
+    <label for="inches">inches</label> <input type="text" id="inches" name="inches">
+  <p><input type="button" value="to metric" onclick="
+ var inches = parseInt($('#feet').val(), 10) * 12 + parseInt($('#inches').val(), 10);
+ $('#cm').val(Math.round(inches * 2.54))">
+    <input type="button" value="to English" onclick="
+ var inches = Math.round(parseInt($('#cm').val(),10) / 2.54);
+ $('#feet').val(Math.floor(inches / 12));
+ $('#inches').val(inches % 12);">
+  <p>Metric units: <label for="cm">cm</label> <input type="text" id="cm" name="cm">
+</form>
+
+<form action="">
+<div>
+<textarea rows=6>
+ var feet = parseInt($('#feet').val(), 10);
+ var inches = parseInt($('#inches').val(), 10);
+ var total_inches = feet * 12 + inches;
+ var cm = Math.round(total_inches * 2.54);
+ $('#cm').val(cm);
+</textarea><br>
+<input type=button value="to Metric" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<form action="">
+<div>
+<textarea rows=7>
+var cm = parseInt($('#cm').val(),10);
+var total_inches = Math.round(cm / 2.54);
+var feet = Math.floor(total_inches / 12);
+var inches = total_inches % 12;           // remainder after dividing by 12
+$('#feet').val(feet);
+$('#inches').val(inches);
+</textarea><br>
+<input type=button value="from Metric" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h2 id="username">Example 6: Username</h2>
+
+<p>Here, we ask for two strings, and then compute the first possible
+  Wellesley username for this person, following the rule of first letter +
+  lastname up to 7 letters.
+
+<form action="">
+<div>
+<textarea rows=7>
+var first_name = prompt("What's your first name?");
+var last_name = prompt("What's your last name?");
+var first_initial = first_name.substring(0, 1);
+var last_up_to_7 = last_name.substring(0, 7);
+var username = first_initial + last_up_to_7;
+alert("Your username might be " + username);
+</textarea><br>
+<input type=button value="execute" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+  
+<h2 id="quest">Example 7: Homage to Monty Python and the Holy Grail</h2>
+
+<p>Here, we ask for the person's name, quest and favorite color.  We then
+  modify the following box:
+
+  <div id="grail" style="border: 5px solid gray; color: gray; width: 50%;
+  margin: 10px auto;">Your name here</div>
+
+<form action="">
+<div>
+<textarea rows=9>
+var name = prompt("What is your name?", "Arthur, King of the Britons");
+var quest = prompt("What is your quest?", "To seek the grail");
+var color = prompt("What is your favorite color?", "blue");
+var message = name + ": " + quest;
+$('#grail')
+    .text(message)
+    .css('border color',color)
+    .css('color',color);
+</textarea><br>
+<input type=button value="execute" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+  
+<h1>Learning the Language</h1>
+
+<p>In the following sections, we'll get a first look at various facets of
+  the language.  Here's more to say about all of these, but this brief
+  tour will help you see how these different aspects of the language fit
+  together.  After all, when you learn a natural language (e.g. French or
+  Chinese), you don't try to learn all the verbs first, before tackling
+  any of the nouns or adjectives.  
+
+<h2 id="variables">Variables</h2>
+
+<p>Variables are just named storage locations for a program.  We used them
+  in the examples above to store stuff that we computed (such as random
+  numbers) or stuff that came from the user (such as their name or height)
+  or stuff that we computed based on those values (such as their height in
+  centimeters).  The technical name for <q>stuff</q> might be <q>data</q>
+  or <q>value</q>.
+
+<p>You can put a value into a variable, using an <em>assignment</em>
+  statement, like these examples:
+
+<pre class="sh_javascript">
+  var name = "Harry Potter";
+  var lbs = 150;
+</pre>
+
+<p>Note that this use of the equals sign is <em>very</em> different from
+  how it is used in mathematics.  In math, the equals sign is an assertion
+  that two things have the same value.  In computer science, the equals
+  sign means <q>Put the value on the right into the storage location on
+  the left</q>.  (Yes, this is confusing.  Some programming languages use
+  a different symbol, but most use the equals sign.)
+
+<p>Because the equals sign doesn't mean equality, we often pronounce it
+  differently.  Instead of saying <q>lbs equals 150</q>, we
+  say <q>lbs <em>gets</em> 150,</q> short for <q>gets assigned the
+  value</q>.
+
+<p>After it has been assigned to, the value can be retrieved and used just
+  by giving the name of the variable.  For example, the following two
+  statements <em>use</em> the values of <code>name</code>
+  and <code>lbs</code> and the <em>assign</em> two new variables
+  called <code>len</code> and <code>kg</code>.
+  
+<pre class="sh_javascript">
+  var len = name.length;
+  var kg = lbs*2.2;
+</pre>
+
+<p>Stay tuned for <a href="#variables2">more details on variables</a>
+
+<h2 id="alert">The alert() Statement</h2>
+
+<p>The first few examples accomplished the <em>reporting</em> of the
+  response by use of the <code>alert()</code> function.  It looked like
+  this:
+
+<pre class="sh_javascript">
+    alert(response);
+</pre>
+
+<p>This built-in function will pop up a window that displays whatever
+  value is supplied to the <code>alert()</code> function by placing it in
+  the parentheses.  In this case, it reported the value that was in the
+  variable named <code>response</code>.  In later examples, we
+  saw <code>alert()</code> with an expression inside the parentheses. This
+  expression is evaluated and then <code>alert()</code> reports the
+  result.
+
+<p>Alerts are annoying in working code, but they are very useful when
+  testing and developing code, because they stop the execution of the
+  program until you acknowledge them:
+
+<form action="">
+<div>
+<textarea rows=5>
+alert("This is alert 1");
+alert("This is alert 2");
+alert(42);
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p> A statement like <code>alert("foo")</code> is an example of a
+<strong>function call</strong> or <strong>function invocation</strong>,
+where <code>alert</code> is the name of a standard JavaScript function and
+the expression in parentheses (in this case, <code>"foo"</code>) is
+the <strong>argument</strong> of (that is, <q>input to</q>) the function.
+
+<h2 id="console_log">The console.log() Statement</h2>
+
+<p>Very similar to <code>alert()</code> but much less annoying
+is <code>console.log()</code>.  It's used in almost exactly the same way:
+you put a value (or a variable containing a value) into the parentheses,
+and that value gets reported.  However, the difference is
+that <code>alert()</code> demands that the user acknowledge it,
+while <code>console.log</code> writes it to a hidden place that only web
+developers know about, and keeps going, so the user is not annoyed or
+delayed by the message.
+
+<p>The console is also where the browser writes error messages. It writes
+  them there so that the muggles won't see them and worry about them, but
+  the wizards and witches of the web (such as yourselves) can easily see
+  them.  As of this writing, here's how you can find them:
+  <ul>
+    <li>Firefox: Tools &gt; Web Developer &gt; Error Console.  Or, much
+    easier, use the keyboard shortcut: command-shift-J on a Mac.
+      
+    <li>Safari: Develop &gt; Show Error Console.  Or, use the keyboard
+    shortcut: option-command-C
+      
+    <li>Chrome: View &gt; Developer &gt; JavaScript Console.  Or, use the
+    keyboard shortcut: option-command-j
+  </ul>
+
+<p>Try it!  Click the button below to execute those
+  two <code>console.log</code> statements and then look for them in the
+  console of your current browser.
+
+<form action="">
+<div>
+<textarea rows=3>
+console.log("five plus three equals ...");
+console.log(8);
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>We will use <code>console.log</code> and <code>alert</code> a lot as a
+way of getting some insight into what our code is doing and to help
+understand it and debug it.  So it's worth becoming comfortable with
+finding and looking at the console.
+
+<h2 id="write">The document.write() Statement</h2>
+
+<p>Many JavaScript books and websites, as well as past offerings of CS110,
+  used <code>document.write()</code> as a way of putting dynamic content
+  into a web page.  It still has its place, but in CS110 this semester, we
+  will be eschewing <code>document.write</code> in favor of a modern
+  approach using jQuery. So, you can safely ignore it.  If you see
+  examples of its use in our notes, let us know so we can expunge it.
+
+<h2 id="comments">Comments</h2>
+         
+<p>You can (and should) add comments to your JavaScript code.
+As shown in the example below, JavaScript supports two kinds of comments: 
+
+<ol>
+
+  <li> A <strong>block comment</strong> starting with <code style="color:red">/*</code>
+       and ending with <code style="color:red">*/</code> that may span several lines. 
+       (This is the same form as a CSS comment.)
+
+  <li> A <strong>line comment</strong> that starts with <code style="color:red">//</code>
+       and goes to the end of the line. 
+
+</ol>
+
+<pre>
+ &lt;script type = "text/javascript"&gt;
+                  
+    <span style="color: red">/* (Block Comment) Pop up an alert box with a
+      message making sure that you
+    all are awake because at this time of day, you might be sleepy. 
+    Of course, a lot of it depends on what you were doing last night...  */</span>
+    alert("Hey you there -- wake up!");
+
+    <span style="color: red">// (Line Comment) The user must be awake if we reach this point!</span>
+    console.log("User has woken up"); 
+
+&lt;/script&gt;
+</pre>
+
+<p>We saw several occurrences of line comments in the examples, as a way
+to <q>comment out</q> a line of code that we didn't want to run, because
+it was an example or test value.
+
+<h2 id="expressions">Values and Expressions</h2>
+
+<p>JavaScript programs manipulate <strong>values</strong>. The two basic
+kinds of values we've seen today are:
+
+<ol>
+
+<li><strong>Numbers</strong>: These include both integers (e.g. 17, -42)
+and floating point numbers (e.g. 3.14159, -273.15). 
+
+<li><strong>Strings</strong>: These are sequences of characters, 
+which are written using matched pairs of 
+the double quote character (<code>&quot;</code>) or
+the single quote character (<code>'</code>): 
+
+<pre class="sh_javascript">
+"Harry Potter"
+'grail'
+</pre>
+
+</ol>
+
+<p>An <strong>expression</strong> is a JavaScript phrase that 
+<strong>denotes a value</strong>. The simplest numeric expression
+is a number itself. We can also create more complex numeric 
+expressions using the numeric operators
+<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>
+and <code>%</code>:
+
+   <table border=2 style="margin: 0px auto;">
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>27</code></td>
+     <td class="val"><code>27</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 + 10</code></td>
+     <td class="val"><code>37</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 - 10</code></td>
+     <td class="val"><code>17</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 * 10</code></td>
+     <td class="val"><code>270</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 / 10</code></td>
+     <td class="val"><code>2.7</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 % 10</code></td>
+     <td class="val"><code>7</code></td>
+    </tr>
+   </table>
+
+<p>The % operator is the <em>remainder</em> or <em>modulus</em> operator.
+  Its value is the <em>remainder</em> when the first number is divided by
+  the second.  We saw it in the example when converting centimeters to
+  feet and inches.  An average size woman might be 64 inches tall. To find
+  the number of feet, we divide 64 by 12 and round down, to get 5.  To get
+  the number of leftover inches, we divide 64 by 12 and take the
+  remainder, using the % operator.  That gives us the 4.  The remainder
+  operator is more useful than you might think. But don't worry about it;
+  you can think of it as a weird kind of division.
+
+<h2 id="precedence">Precedence</h2>
+
+<p>For the most part, JavaScript follows the
+  algebraic <a href="http://en.wikipedia.org/wiki/Order_of_operations">precedence
+  rules</a> that you learned in school years ago, often with a mnemonic
+  like <q>Please Excuse My Dear Aunt Sally</q> or <q>PEMDAS</q> or
+  something.  That just says:
+  <ul>
+    <li>Parenthesized expressions
+      
+    <li>Exponents (we won't use these much)
+      
+    <li>Multiplication and Division (and Remainder)
+        
+    <li>Addition and Subtraction
+      
+  </ul>
+
+<p>JavaScript follows these rules, so your prior experience will serve as
+  a good guide.  There are a few new operators that you'll learn, such as
+  the <code>%</code> or remainder operator, also called
+  the <em>modulus</em> operator, which has, unsurprisingly, the same
+  precedence as division.
+
+<p>Try to guess what the following will evaluate to:
+<form action="">
+<div>
+<textarea name="code" rows=1>
+alert( (1 + 5 % 2) );</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h2 id="eval">Evaluating Expressions</h2>
+
+<p>Expressions can be organized into trees of operations that can be
+arbitrarily complex. For example, the expression denotes a tree of numeric
+operations:
+  <blockquote><p><code>((3 * 5) + (8 / 4)) - (9 % 2)</code> 
+  </blockquote>
+
+<p><img src="eval-tree.png" alt="evaluation tree for ((3 * 5) + (8 / 4)) - (9 % 2)">
+
+<p>The process of determining the value of an expression is called 
+<strong>evaluation</strong>.  Expressions are evaluated as you'd expect,
+starting at the leaves of the tree and working left to right, combining
+branches until only one value remains.  Here are the evaluation steps for
+our example:
+
+<pre>
+   ((3 * 5) + (8 / 4)) - (9 % 2)
+=> (  15    + (8 / 4)) - (9 % 2)
+=> (  15    +    2   ) - (9 % 2)
+=>         17          - (9 % 2)
+=>         17          -    1
+=>                     16
+</pre>
+
+<p>The arguments to functions and methods like <code>alert()</code> 
+and <code>document.write()</code> can be arbitrary expressions. 
+This provides an easy way to test expression evaluation:<br>
+
+<form action="">
+<div>
+<textarea name="code" rows=1>
+alert( ((3 * 5) + (8 / 4)) - (9 % 2) );</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h2 id="quote_marks">Strings and Quotation Marks</h2>
+
+<p>Literal strings can be denoted by either single or double quotes, which
+  gives you some flexibility about how to handle awkward situations such
+  as quotation marks inside a string:
+
+   <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>"Let's play Tag!"</code></td>
+     <td class="val"><code>Let's play Tag!</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>'Not "it"!'</code></td>
+     <td class="val"><code>Not "it"!</code></td>
+    </tr>
+   </table>
+
+<p>These examples show that you can put a single quote inside double
+  quotes and a double quote inside single quotes.
+
+<h2 id="concatenation">Concatenation of Strings</h2>
+
+<p>The main operation on strings is the concatenation
+operator, <code>+</code>:
+
+   <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>"CS" + "110" + " rocks!"</code></td>
+     <td class="val"><code>CS110 rocks!</code></td>
+    </tr>
+    <tr>
+      <td class="exp"><code>"Harry" + "Cho"</code></td>
+      <td class="val"><code>HarryCho</code></td>
+    </tr>
+   </table> 
+
+<p>We saw this many times in the examples, as we created our response text
+  out of literal strings, values supplied by the user, and computations
+  from them.
+
+<h2 id="parseInt">The parseInt() and parseFloat() Functions</h2>
+
+<p>We'll see that there are many situations where it's necessary to
+convert from a string of digits to numbers. The
+  <a href="http://www.w3schools.com/jsref/jsref_parseint.asp"><code>parseInt()</code></a>
+and
+  <a href="http://www.w3schools.com/jsref/jsref_parsefloat.asp"><code>parseFloat()</code></a>
+  functions are used for this purpose.  We saw that in the examples when
+  we prompted the user for a number that we wanted to compute with.
+
+  <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseInt("243",10)</code></td>
+     <td class="val"><code>243</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseInt("cs110",10)</code></td>
+     <td class="val"><code>NaN <I>(Not a Number)</i></code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseFloat("3.141")</code></td>
+     <td class="val"><code>3.141</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>parseInt("3.141",10)</code></td>
+     <td class="val"><code>3</code></td>
+    </tr>
+   </table>
+
+<p>The second argument to <code>parseInt</code> is the <em>radix</em>
+  or <code>base</code> that you want to use.  It can be 10 for decimal
+  number, 16 for hexadecimal numbers and 8 for octal numbers (base 8).
+  It's a good idea to supply this value, to avoid JavaScript inadvertently
+  doing the wrong thing.
+
+<p>You can test any of the above expressions here:<br>
+
+<form action="">
+<div>
+<textarea name="code" rows=2>
+alert( parseInt("2.718",10) );
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h2 id="prompt"><a href="#prompt">The prompt() Function</a></h2>
+
+<p>Like <code>alert()</code>, invoking the <code>prompt()</code> function
+pops up a small window, but (1) it also allows the user to type in a
+string and (2) the string entered by the user is returned as the value of
+invoking the <code>prompt()</code> function.
+
+<p><em>Warning: The <code>prompt()</code> function does not work properly
+in certain browsers, especially some versions of Internet Explorer. So
+it's best not to use it in projects. We will use forms instead, which are
+much better.  However, <code>prompt()</code> is helpful for teaching
+certain aspects of JavaScript in an interactive setting, so we will use it
+in class for examples.</em>
+
+<p>For example, the following statement prompts the user
+for a first name and then stores it in a variable.
+
+<form action="">
+<div>
+<textarea rows=2>
+var first_name = prompt("What's your first name?");
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>The result of invoking the <code>prompt()</code> function is always a
+string, <em>NOT</em> a number, even if it's all digits, so it's necessary
+to use
+<code>parseInt()</code> or <code>parseFloat()</code> to convert sequences
+of digits entered by the user to numbers.  Compare the following two
+examples:
+
+<form action="">
+<div>
+<textarea rows=5>
+var a = prompt("Enter first number");
+var b = prompt("Enter second number");
+var result = a + b;
+alert("The result is " + result);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>In this example, we convert the strings into numbers, then add the
+  numbers and report the result.
+
+<form action="">
+<div>
+<textarea rows=7>
+var a = prompt("Enter first number");
+var b = prompt("Enter second number");
+var x = parseInt(a,10);
+var y = parseInt(b,10);
+var result = x + y;
+alert("The result is " + result);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note that if we never need the strings <code>a</code>
+  and <code>b</code>, we can take the value of <code>prompt</code> and
+  immediately convert it to a number using <code>parseInt</code>:
+
+<form action="">
+<div>
+<textarea rows=5>
+var x = parseInt(prompt("Enter first number"));
+var y = parseInt(prompt("Enter second number"));
+var result = x + y;
+alert("The result is " + result);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h3>Default values</h3>
+
+<p>The first argument of the <code>prompt()</code> function is displayed
+above the input area of the prompt box. 
+The <code>prompt()</code> function takes an <em>optional</em> second argument
+that, if supplied, is used as a default value for the input area. 
+For example: 
+
+<form action="">
+<div>
+<textarea rows=3>
+var school = prompt("What is your school?", "Wellesley");
+alert("Oh, you go to "+school+". How nice.");
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Using a default value makes it easier on the user when the default is
+right, but let's him or her correct (override) the value when it's wrong.
+
+<h2 id="summary">Summary</h2>
+
+<p>Let's take a moment to revisit our general approach to computing,
+  namely the gather/compute/report sequence.
+
+<p>We've seen a variety of ways to gather data:
+  <ul>
+    <li>assignment statements of literal values.  Of course, if all the
+    gathered data are literal values, the computation will always yield
+    the same result. (It's <em>deterministic</em>.)  That's not so useful.
+    However, literal values can be useful for setting certain <q>test</q>
+    values, as we saw.
+      
+    <li>assignment statements of random values.  
+
+    <li>prompting the user to supply values (which are then assigned to
+    variables).
+      
+    <li>Extracting the values from an HTML form that the user fills out.
+      Don't worry about this for now.  We'll learn about HTML forms and
+      processing the values using JavaScript in
+      a <a href="../Forms/">later lecture on forms</a>.  You're welcome to
+      look ahead if you like.
+
+  </ul>
+
+<p>We've also seen a variety of ways to report the data:
+  <ul>
+    <li>using <code>alert()</code> to put the result in front of the user,
+    though this is intrusive in practice and should usually be avoided in
+    finished code.
+
+    <li>inserting the result into a form.  As with extracting info from
+    forms, we'll learn about this in the <a href="../Forms/">later lecture
+    on forms</a>.
+
+    <li>inserting the result into the page using the
+    jQuery <code>text()</code> method. We saw an example of this in the
+    <a href="#quest">homage to Monty Python</a>. Don't worry about the
+    details of this for now.  We'll learn how to do this very soon.
+      
+    <li>(We could also use <code>document.write()</code> to put the result
+    into the page that is being built, but we won't do that.)
+
+  </ul>
+
+<p>Computing generally seems to always consist of a sequence of steps in
+  which new variables are assigned values computed from earlier variables.
+  This won't always be the case, but it's a reasonable approximation for
+  now.
+
+<p>Now that we have a general idea of these computing concepts, and we've
+  seen some examples, let's dig into them in more detail.
+
+<h1 id="jquery">Using jQuery</h1>
+
+<p>We will learn more about using jQuery later, but let's learn one fairly
+simple but powerful thing, just to get our feet wet.
+
+<p>First, remember you always have to load the jQuery library using the
+incantation we saw above.  Here it is again:
+  
+<pre>&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"&gt;&lt;/script&gt;</pre>
+
+<p>Loading that library creates a variable called <code>jQuery</code>.  It also
+creates a shorthand of the <code>jQuery</code> variable whose name is the dollar
+sign ($).  Everything we do using jQuery will start with a dollar sign.
+
+<h2 id="text">Dynamic Text Using jQuery</h2>
+
+<p>The following HTML/CSS code creates an empty, green-bordered box on the
+page, whose ID is <code>pandora</code>.
+
+<pre>
+&lt;div id="pandora"&gt;&lt;/div&gt;
+&lt;style&gt;
+  #pandora {
+      width: 50%;
+      margin: 0 auto;
+      border: 2px solid green;
+      padding: 5px;
+  }
+&lt;style&gt;
+</pre>
+
+<div id="pandora" style="width: 50%; margin: 0 auto; border: 2px solid green; padding: 5px"></div>
+
+<p>Suppose we wanted to put some text dynamically into it. The following lines of JavaScript do the trick:
+
+<form action="">
+<div>
+<textarea rows=4>
+var contents = prompt("What to put in Pandora's box?", "all evils");
+console.log("putting "+contents+" into Pandora's box");
+$('#pandora').text(contents);
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Try putting <q>hope</q> into the box instead.
+
+<p>Let's try to understand this example of jQuery code.  (Remember, jQuery
+is an extension of JavaScript, not a whole different language, but it can
+seem like a different language at times.)  Here it is, with fancy color
+highlighting:
+
+<pre class="sh_javascript">
+var contents = prompt("What to put in Pandora's box?", "all evils");
+console.log("putting "+contents+" into Pandora's box");
+$('#pandora').text(contents);
+</pre>  
+
+<p>The first two lines of code are things we have seen
+before: <code>prompt()</code> gets a string from the user and the first
+statement stores that string in a variable
+called <code>contents</code>. The second line glues a few strings together
+(some of which are string <em>literals</em> and one of which is in
+the <code>contents</code> variable) and then writes the combined string
+onto the console log.
+
+<p>The third line puts the string into the box, using a jQuery
+incantation:
+
+<pre>
+$(<span style="color:red">#pandora</span>).<span style="color:green">text</span>(<span style="color:blue">contents</span>);
+</pre>
+
+<p>How does the incantation work?  There are basically three things going
+on here:
+  
+<pre>
+$(<span style="color:red">selector</span>).<span style="color:green">method</span>(<span style="color:blue">stuff</span>);
+</pre>
+
+<ul>
+  <li><span style="color:red">selector</span> This is a string
+  that <em>selects</em> an element or set of elements within the
+  document. We can then do something to all of those elements.  jQuery
+  uses the same ways of selecting elements that CSS does.  In this case,
+  it's is choosing exactly one, unique element, the one whose id
+  is <code>pandora</code>.  Hence it uses <code>#pandora</code>, exactly
+  like the CSS does. Thus, all your skills with selecting elements using
+  CSS will serve you well when using jQuery.
+    
+  <li><span style="color:green">method</span> This is one of the built-in
+  jQuery methods.  Here, we used
+  the <a href="http://api.jquery.com/text/">text</a> method, which
+  replaces the textual contents of an element with some string. Using
+  the <code>.text()</code> method replaces the contents of all the
+  elements that were chosen by the selector (in this case, just one).
+
+  <li><span style="color:blue">stuff</span> This is the stuff that we want
+    to replace the contents of the selected elements.  In this example, we
+    replaced with the string that the user gave us in the first line.
+</ul>
+
+<p>So, in summary, we used jQuery to find the div and insert the user's
+input into it.  What we haven't shown you is how to trigger this behavior
+in a more elegant way than one of these execution boxes.  That will have
+to wait for a later lecture.  Be patient.
+
+<p>However, believe it or not, you now know enough JavaScript to do the
+  first homework assignment!  Nevertheless, let's also see another
+  example.
+
+<h2 id="append">Lists Using jQuery</h2>
+
+<p>In general, one use of JavaScript is adding dynamic behavior to a page
+that would otherwise be static.  For example, we could allow a user to add
+items to a grocery list:
+
+  <ol id="groceries">
+    <li>Apples
+  </ol>
+    
+<form action="">
+<div>
+<textarea rows=3>
+var item = prompt("What do you want to add?");
+$('#groceries').append('<li>'+item);
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p><strong>Note:</strong> This list isn't saved anywhere; it's like Firebug: it
+just lives in your browser.  In a much later lecture on Ajax, we'll learn how to
+save these to a database.  Before then, we'll learn how to create an <q>add
+item</q> button.
+
+<h3>How it works</h3>
+
+<p>First, you'll notice that there was already a list on the page, consisting
+just of the item <q>apples.</q>  That was done like this:
+
+<pre>
+  &lt;ol id="groceries"&gt;
+    &lt;li&gt;Apples
+  &lt;/ol&gt;
+</pre>  
+
+<p>Notice that there is an id on this grocery list.  That's because we'll want
+to choose it (distinguishing it from all the other OL elements that might be on
+this page).
+
+<p>As before, the jQuery code for adding to the list is very compact:
+<pre>
+$(<span style="color:red">#groceries</span>).<span style="color:green">append</span>(<span style="color:blue">'&lt;li&gt;'+item</span>);
+</pre>
+
+<p>How does it work?  There are the same three things going on here as in
+the Pandora's box example.
+  
+<pre>
+$(<span style="color:red">selector</span>).<span style="color:green">method</span>(<span style="color:blue">stuff</span>);
+</pre>
+
+<ul>
+  <li><span style="color:red">selector</span> This is a string
+  that <em>selects</em> a set of elements.  In this case, it's is choosing
+  exactly one, unique element, the one whose id is <code>groceries</code>.
+    
+  <li><span style="color:green">method</span> This is one of the built-in jQuery
+  methods.  Here, we used the <a href="http://api.jquery.com/append/">append</a>
+  method, which adds some HTML to an existing element.
+
+  <li><span style="color:blue">stuff</span> This is the HTML that we want
+  to add to the selected element.  Here, we added an LI element, together
+  with the text that we got from the user.
+</ul>
+
+<h2 id="jquery_tabs">Tabs using jQuery</h2>
+
+<p>Another example of adding dynamic behavior to a page that would
+otherwise be static is <q>tabs</q>, which we also saw on the first day of
+class. They look like this:
+
+<div id="doors">
+  <ul>
+    <li><a href="#door1">Door #1</a>
+    <li><a href="#door2">Door #2</a>
+    <li><a href="#door3">Door #3</a>
+  </ul>
+  <div id="door1">
+    <h3>Goat</h3>
+    <p>Sorry, you got a goat
+  </div>
+  <div id="door2">
+    <h3>Goat</h3>
+    <p>Sorry, this door also hides a goat
+  </div>
+  <div id="door3">
+    <h3>Prize!</h3>
+    <p>Yay!! You win the prize!
+  </div>
+</div>
+
+<p>To use tabs in jQuery is a bit more complicated than adding to a grocery
+list, but it's not too bad.
+
+<p>First, in addition to loading the jQuery library, we also have to load the
+jQuery UI (user interface) library and some CSS. So, we add the following to
+our document.  Note that you have to load the jQuery
+UI <em>after</em> you load the jQuery library, because the UI library depends on
+the jQuery library.
+
+<p>Put this at the foot of your page, right after
+the <code>&lt;script&gt;</code> that loads jQuery:
+
+<pre>
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>You could put the following <code>&lt;link&gt;</code> anywhere, but you
+might as well put it either in the <code>head</code> where your other CSS
+is, or in the foot, with the jQuery and jQuery UI code.
+
+<pre>
+&lt;link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/base/jquery-ui.css"&gt;
+</pre>
+
+<p>Second, we have to create some HTML that meets the expectations of
+the <code>tabs</code> method, namely a DIV that contains a UL with
+hyperlinks to DIVs that are inside the outer DIV.  That looks like this:
+
+<pre>
+&lt;div id="doors"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#door1"&gt;Door #1&lt;/a&gt;
+    &lt;li&gt;&lt;a href="#door2"&gt;Door #2&lt;/a&gt;
+    &lt;li&gt;&lt;a href="#door3"&gt;Door #3&lt;/a&gt;
+  &lt;/ul&gt;
+  &lt;div id="door1"&gt;
+    &lt;h3&gt;Goat&lt;/h3&gt;
+    &lt;p&gt;Sorry, you got a goat
+  &lt;/div&gt;
+  &lt;div id="door2"&gt;
+    &lt;h3&gt;Goat&lt;/h3&gt;
+    &lt;p&gt;Sorry, this door also hides a goat
+  &lt;/div&gt;
+  &lt;div id="door3"&gt;
+    &lt;h3&gt;Prize!&lt;/h3&gt;
+    &lt;p&gt;Yay!! You win the prize!
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Finally, we invoke the <code>tabs()</code> method of jQuery, applying
+it to the item whose id is <code>doors</code>.  The
+following <code>&lt;script&gt;</code> element goes in the foot, after
+loading jQuery and jQuery UI.
+
+<pre>
+&lt;script&gt;
+$('#doors').tabs();
+&lt;/script&gt;
+</pre>
+
+<p>You'll notice that the code pattern is very similar to what we saw with
+appending to a shopping list:
+
+<ul>
+  <li><span style="color:red">selector</span> In this case, we select the DIV
+  that contains all the tabs, namely the one whose id is <code>doors</code>.  (We
+  could have called it something else, of course.)
+    
+  <li><span style="color:green">method</span> In this case, the method is
+  the <a href="http://jqueryui.com/tabs/">tabs</a> method.  
+
+  <li><span style="color:blue">stuff</span> This is unnecessary in this
+  simple case, but there are options we can specify if desired.  For
+  example, by default, the first tab is pre-selected, but if we wanted to
+  start with the second tab selected, we could add that.
+</ul>
+
+<p>So, in summary, to use tabs, we just (1) load the jQuery UI and CSS in
+addition to jQuery itself, (2) set up the HTML, and (3) activate the tabs
+behavior.  Here, you really have all the code necessary to implement this very
+cool JavaScript behavior.  (There are some improvements we'll learn later, but
+this will work.)
+
+<p>Here is a <a href="tabs-example.shtml">complete, self-contained example</a>
+of the tabs behavior.  Try it out and look at the source code.  Here is
+the <a href="tabs-markup.shtml">exact same HTML tabs code</a>, only without
+turning on the tabs behavior.  It's important to make sure that your website
+still works for those without JavaScript.
+
+<h2 id="jquery_methods">jQuery Methods</h2>
+
+<p>In the <a href="#quest">homage to Monty Python</a>, the text was
+  inserted into the current document <em>without</em>
+  using <code>document.write</code>. That turns out to be a much better
+  technique, since <code>document.write</code> can <em>only</em> be used
+  when the page is being built (loaded) and not afterwards. This is why we
+  are avoiding <code>document.write</code> and only using jQuery.
+
+<p>Let's learn how to use this technique.  There are two steps:
+  <ol>
+    <li>build the HTML structures, labelling the ones you want to modify
+    with classes or IDs, as desired (just as we did with CSS for styling
+    them), and
+      
+    <li>modify them using a jQuery method.  You have a few choices:
+      <ul>
+        <li><code>.text()</code> if the content you want to insert is simple
+        text, 
+        <li><code>.html()</code> if the content you want to insert is
+        general HTML, and
+        <li><code>.append()</code> if we want to add the new content onto
+        existing structures.
+      </ul>
+  </ol>
+
+<p>There are other (<em>many</em> other) jQuery methods we could use, but
+this will get us started.
+
+<p>Here's an example.  The follow box is a div whose ID is 'feedback':
+
+  <div id="feedback" style="border: 2px solid green; padding: 3px
+  1em;">Your message here</div>
+
+<p>The following execution box has some JavaScript code that allows you to
+  modify the contents of the box dynamically.  Notice the jquery pattern
+  we've seen before:
+  <pre class="sh_javascript">$(selector).method(stuff);</pre>
+
+<form action="">
+<div>
+<textarea rows=3>
+$('#feedback').html('<ol><li>cool<li>awesome</ol>');
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+  
+<p>Modify the content string and try to insert other stuff!
+
+<!--
+<p>Note: there are times when the <code>.html()</code> is exactly the
+  right tool, but it has two disadvantages: (1) it's hard to debug the
+  HTML code that is hidden in the <q>stuff</q>, and (2) there are security
+  risks that can occur when untrustworthy <q>stuff</q> is inserted into a
+  page.  We will talk more about this later, but for now, just try to use
+  -->
+
+<h2 id="class_targets">Using CSS classes as Targets</h2>
+
+<p>Here's the same idea, but with <code>prompt</code> and inserting the
+  text in several places using IDs <em>and</em> CSS classes as selectors
+  (descendent selectors).  The following box has an id of "story" and
+  two <code>span</code> elements of class <code>gift</code>.
+
+<pre>
+ &lt;div id="story" style="border: 2px solid green; padding: 3px
+  1em;"&gt;For Xmas, my wife got me a &lt;span class="gift"&gt;noun&lt;/span&gt; and I
+  got her a  &lt;span class="gift"&gt;noun&lt;/span&gt; too!&lt;/div&gt;
+</pre>
+
+<style>
+  .gift { font-weight: bold; }
+</style>
+
+ <div id="story" style="border: 2px solid green; padding: 3px
+  1em;">For Xmas, my wife got me a <span class="gift">noun</span> and I
+  got her a  <span class="gift">noun</span> too!</div>
+
+<p>Now, ask the user for some content to insert:
+<form action="">
+<div>
+<textarea rows=3>
+var noun = prompt("what gift?","book");
+$('#story .gift').text(noun);
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h1>More on JavaScript</h1>
+
+<h2 id="variables2">More on Variables</h2>
+
+<p>As we've seen, the purpose of a <strong>variable</strong> in any
+programming language, including Javascript, is to <q>remember</q> a value
+so that it can be used later. It can be useful to think of a variable as
+a <em>named box</em> that can store a single value. We can then access the
+contents of the box by referring to the name of the variable.
+
+<P>In JavaScript we create a new box with
+name <span style="color:red"><code><i>variable-name</i></code></span> that
+holds the value
+of <span style="color:red"><code><i>expression</i></code></span> using a
+variable declaration that looks like this:
+
+<pre>
+var <span style="color:red"><code><i>variable-name</i></code></span> = <span style="color:red"><code><i>expression</i></code></span>; 
+</pre>
+
+<p>For example: 
+         
+<BLOCKQUOTE>
+  <TABLE cellpadding = "10" class = "code">
+    <TR>
+      <TD align="left">var ron_age = 17; </TD>
+      <TD ALIGN=left>
+        <TABLE BORDER = "1"> <TR> <TD> 17 </TD> </TR> </TABLE>
+        <br>ron_age
+      </TD>
+      <td></td>
+    </TR>
+    <TR>
+      <TD align="left">var ginny_age = ron_age - 1;</td>
+      <TD ALIGN="center">
+        <TABLE BORDER = "1"> <TR> <TD> 17 </TD> </TR> </TABLE>
+        <br>ron_age
+      </TD>
+      <TD ALIGN="center">
+        <TABLE BORDER = "1"> <TR> <TD> 16 </TD> </TR> </TABLE>
+        <br>ginny_age
+      </TD>
+    </TR>
+  </TABLE>
+</BLOCKQUOTE>
+
+<p>The value stored in a variable may be any JavaScript value, for example, it could
+be a number or a string. The contents of a variable box can be used later
+in the program by using the name of the variable. For example: 
+
+
+<form action="">
+<div>
+<textarea rows=6>
+var x = 5; 
+alert(x); 
+var x_squared = x * x; 
+alert(x_squared); 
+var result = "When x is " + x + ", the value of x*x is " + x_squared; 
+alert(result);</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Variables are particularly helpful because they provide a way to name the values typed in by a user so that we can use the entered value later:
+
+<form action="">
+<div>
+<textarea rows=6>
+var name = prompt("What is your name?");
+var age = parseInt(prompt("What is your age?"));
+alert("Hello, " + name + ". "); 
+alert("You are currently " + age + " years old. "); 
+alert("AARP membership in just " + (50 - age) + " years! ");
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Notes: 
+
+<ul>
+
+    <LI>In JavaScript, a variable name can be (almost) any sequence of letters,
+    digits or underscores that starts with a letter.  Even though the
+    computer does not care what you name a variable, you will do yourself
+    a big favor by giving variables <em>descriptive</em> names.  So,
+    <CODE>current_age</CODE> is a much better variable name than
+    <CODE>x</CODE>.  It is also a very good practice to use
+    underscores or alternating case (a.k.a. <a href="http://en.wikipedia.org/wiki/CamelCase">"CamelCase"</a>) 
+    to make it easier to read variables whose names have
+    multiple words.  For example:
+
+  <table border=2 class="code">
+    <tr class="body">
+     <th>underscores</th>
+     <th>camelCase</th>
+    </tr>
+    <tr>
+     <td><code>current_age</code></td>
+     <td><code>currentAge</code></td>
+    </tr>
+    <tr>
+     <td><code>sum_to_date</code></td>
+     <td><code>sumToDate</code></td>
+    </tr>
+    <tr>
+     <td><code>temp_in_Fahrenheit</code></td>
+     <td><code>tempInFahrenheit</code></td>
+    </tr>
+    <tr>
+     <td><code>expenses_year_2002</code></td>
+     <td><code>expensesYear2002</code></td>
+    </tr>
+   </table>
+
+        <LI> Why <I> almost </I> any sequence of letters, digits or
+        underscores that starts with a letter?  In JavaScript you can't
+        use <I>reserved words</I> as names for variables.  Generally,
+        reserved words are words used by JavaScript and HTML as part of
+        the language syntax.  For instance, you can't name a
+        variable <code>var</code>, <code>input</code>, <code>form</code>,
+        <code>class</code>, <code>function</code>, <code>if</code>,
+        <code>document</code> and lots more.  Right now, you don't know
+        what all these terms mean &mdash; we will learn about them in
+        upcoming lectures.  In the meantime, if you are having problems
+        with a variable and you can't figure out what is wrong, you may be
+        running into such a problem.  Try renaming the variable and see if
+        that helps.  Here's a complete list
+        of <a href="https://developer.mozilla.org/en/JavaScript/Reference/Reserved_Words">JavaScript
+        reserved words</a>.
+
+        <li>You <em>can</em> name a varible <code>alert</code>
+        or <code>prompt</code>, but that would destroy the existing
+        definitions of those functions, so don't do that.
+
+        <LI>JavaScript is <em>case-sensitive</em>, unlike HTML, meaning
+          that capitalization does matter.  Consequently, names such as
+          <CODE>sum</CODE>, <CODE>Sum</CODE>, and <CODE>SUM</CODE> each
+          represent different variables.
+
+    <LI>In JavaScript (and many other programming languages), the equal
+        sign, <code>=</code> is
+        pronounced <q>gets,</q> <strong>not</strong> "equals".  So "var x
+        = 5" is pronounced "var x gets five".  Using "gets" emphasizes
+        that the variable box is "getting" a new value.  We avoid "equals"
+        because in mathematics it implies that the value never changes,
+        but we'll see below that the values of variables <em>can</em>
+        change over time. (Why do you think they're called "vary"ables?)
+
+</UL>
+
+<div class="ex"><h2 id="ex_variables_and_execution">Exercise on Variables and Execution</h2>
+
+<p>You can type JavaScript code into the Execution Box below and execute
+it.  Try the following statements, computing the cost of getting ready for
+the first day at Hogwarts.
+
+<p>Remember that Hagrid states: <q>The gold ones are Galleons. Seventeen
+silver Sickles to a Galleon and twenty-nine Knuts to a Sickle, it's easy
+enough.</q>
+(See <a href="http://www.hp-lexicon.org/wizworld/money.html">Harry Potter
+Lexicon</a>.)
+
+<pre class="sh_javascript">
+var books = 5 * 4;   // five books at 4 sickles each
+var cauldron = 2;    // one cauldron is 2 galleons even
+var subtotal = cauldron * 17 + books;  // in sickles
+var tax = Math.round(subtotal * 0.15);  // even wizards pay tax
+var total = subtotal + tax;
+var galleons = Math.floor(total / 17);
+var sickles = total % 17;
+var ron_cost = "Ron spent "+galleons+" galleons "+
+               "and "+sickles+" sickles";
+</pre>
+         
+<P>For each line, type in the line and an <CODE>alert()</CODE> command
+with the appropriate variable to show the value. Before you evaluate each
+thing, see if you can predict what will show up in the alert box.
+
+<form action="">
+<div>
+<textarea rows=10 cols=60>
+
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+</div><!-- end of exercise -->
+
+<h2 id="bugs">Bugs and How to Squash Them</h2>
+
+<p>Errors in programs are usually known as <a
+href="http://en.wikipedia.org/wiki/Software_bug">bugs</a> and getting rid
+of them is known as <q>debugging.</q>  There are several <em>kinds</em> of
+bugs, such as <em>syntax errors</em> (the browser didn't understand what
+you said, probably due to some typo) and <em>logic errors</em> (the code
+runs to completion, but computes the wrong answer).  Let's look briefly at
+a few syntax errors and the messages they produce.  To learn more about <a
+href="../../documentation/debugging.html#js">debugging JavaScript,</a>
+please consult our lengthy essay on the topic.
+
+<p>Your main tools for debugging are (1) the error console and (2) Firebug
+or its equivalent.  Every browser has an error console (though some hide
+it better than others).  In Firefox, you'll usually find it on the Tools
+menu.  Make sure you can find it.  Refer to it often when you're debugging
+JavaScript.
+
+<div class="ex">
+<h2 id="bugs_exercise">Exercise on Bugs</h2>
+
+<p>The following snippets of JavaScript code contain errors.  Copy/paste
+them into the execution box, execute them, and consult the error console
+so that you can see the error messages.  Or, copy/paste them into Firebug
+or the equivalent.
+
+<pre>
+
+alert(&#x22;Hello out there in user land!);
+
+alert(&#x22;I wonder how long the message in an alert box can be?
+Is it possible to print too much stuff if I just run on and on?&#x22;);
+
+alert(&#x27;It&#x27;s fun making errors on purpose!&#x27;);
+
+alert(bugs are not fun);
+
+alert(this is cool);
+
+alert(3 * 5%);
+
+alert(weird);
+
+Alert("Hi!");
+</pre>
+
+
+<form action="" method="post" name="ex1alt">
+<div>
+<textarea name="code" rows=2 cols=60>
+</textarea><br>
+<input type="button" value="execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+</div> <!-- end of exercise -->
+
+<h2 id="temperature_conversion">Temperature Conversion</h2>
+
+<p>The following formula can be used to convert a temperature in degrees
+Fahrenheit to Celsius.  This would be the middle step of a three-step
+gather/compute/report computation to convert temperature readings.
+         
+<PRE CLASS="SH_JAVASCRIPT">
+
+var temp_in_Celsius = (5 / 9) * (temp_in_Fahr - 32);
+
+</PRE>
+         
+<div class="ex"><h2>Exercise on Temperature Conversion</h2>
+
+<P>Use this in a JavaScript program consisting of three statements: 
+
+<ol>
+
+<li> a statement that prompts the user for a temperature in Fahrenheit and names it <CODE>temp_in_Fahr</CODE>
+
+<li> a statement that computes the temperature in Celsius
+
+<li> an <CODE>alert()</CODE> statement that reports the converted temperature. Make
+the <code>alert()</code> nice and descriptive, like this:
+
+</ol>         
+<BLOCKQUOTE><p><CODE>You entered 32 degrees Fahrenheit. That's equivalent
+to 0 degrees Celsius.</CODE></BLOCKQUOTE>
+         
+<P>Use your code to convert each of the following temperatures from
+Fahrenheit to Celsius, and report the corresponding temperatures.
+         
+<ul>
+  <li>98.6
+    
+  <li>100
+    
+  <li>212
+      
+  <li>0
+</ul>
+<p>If you're feeling ambitious, insert the sentence into the following box, whose id is "box_f2c":
+
+  <div id="box_f2c" style="width:80%;border:3px solid purple; padding: 10px;"></div>
+
+</div><!-- end of exercise -->
+         
+<p><form action="">
+<div>
+  <textarea rows="7" cols="60">
+  // your code here
+  </textarea><br>
+  <input type="button" name="button" 
+         value="execute it"
+         onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+         
+<P>What value of Fahrenheit is the same as the value in Celsius?
+
+<p
+
+<p>Copy the following skeleton code into a new HTML document that you create
+with TextWrangler, and insert your JavaScript code into the body of the
+document. Remember to include the <code>&lt;script type="text/JavaScript"&gt;</code> 
+and <code>&lt;/script&gt;</code> tags!
+
+<pre>
+&lt;html&gt;
+&lt;!-- Wendy Wellesley   cs110  9/21/01 --&gt;
+&lt;!-- Converts a temperature from Fahrenheit to Celsius --&gt;
+
+&lt;head&gt;
+   &lt;title&gt; Fahrenheit to Celsius &lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+
+         
+<h2 id="pitfalls">Pitfalls</h2>
+
+<p>Please don't skip these sections.  These pitfalls crop up all the time,
+  and you'll save yourself lots of head-scratching, hair-pulling, and
+  other signs of frustration if you read over these, particularly
+  re-reading them when you run into difficulties.
+
+<h2>Comments Don't Nest</h2>
+
+<p>Programmers frequently use comments to <q>comment out</q> a block of
+  code that (they suspect) isn't working right or they just want to have
+  the JS engine skip.  Thus:
+
+<pre>
+ &lt;script type = "text/javascript"&gt;
+                  
+    <span style="color: red">/* Comment out the following:
+       /* The following is supposed to make the program intelligent,
+          but it's not working yet. */</span>
+       think(deeply);
+
+       You might think this is part of the outer comment, but it's not,
+       since the outer comment ended above! */
+    alert("Done thinking");
+
+&lt;/script&gt;
+</pre>
+
+<p>Sadly, as in CSS, block comments do not nest properly, which causes
+  great pain.  
+
+<p> A pox on language designers who do not support nested block comments!
+
+<h2 id="quotes">Embedded Quotation Marks</h2>
+
+<p>In the section on <a href="quote_marks">Strings</a>, we said that you
+  could use either single or double quotes, and that helps with embedding
+  the other kind of quote.  But what if you have both?  In that case,
+  where the one-inside-the-other trick doesn't work, you can use a
+  backslash character to have a quotation mark treated as an ordinary
+  character, instead of one that ends a string.  (Technically, this is
+  called an <q>escape</q> character, since the character <em>escapes</em>
+  from its usual interpretation.  We saw this above with the backslash
+  preceding a slash in the HTML in a <code>document.write()</code>.)
+
+   <table border=2>
+    <tr>
+      <td class="exp"><code>'You\'re "it"!'</code></td>
+      <td class="val"><code>You're "it"!</code></td>
+    </tr>
+    <tr>
+      <td class="exp"><code>"You're \"it\"!"</code></td>
+      <td class="val"><code>You're "it"!</code></td>
+    </tr>
+   </table>
+
+<p>Try it:
+<form action="">
+<div>
+<textarea rows=2>
+alert( "Let's not play \"Tag\" after all");
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+         onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h2 id="long_strings">Long Strings</h2>
+
+<p>One unfortunate limitation of string literals (text in quotation marks)
+  in JavaScript is that they can't cross line boundaries.  For example,
+  try the following.  You won't get the alert.  Instead, you'll get an
+  error about an <q>unterminated string literal</q> (check the error
+  console).
+
+<form action="">
+<div>
+<textarea rows=5>
+alert('Into every generation she is born: one girl in all the world, a
+chosen one. She alone will wield the strength and skill to fight the
+vampires, demons, and the forces of darkness; to stop the spread of their
+evil and the swell of their number. She is the Slayer.')
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+         onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Please understand that there's no limit on the length of a string,
+  short of running out of computer memory.  This is only a limitation on
+  line breaks within the quotation marks.
+
+<p>But what if we want to have a long quotation like the above?  How to
+handle that?  The easiest thing is to do it to break it into one-line
+chunks and then use the concatenation operator (<code>+</code>) to glue
+them together:
+
+<form action="">
+<div>
+<textarea name="code" rows=5>
+alert("Into every generation she is born: one girl in all the world, a "+
+   "chosen one. She alone will wield the strength and skill to fight the "+
+   "vampires, demons, and the forces of darkness; to stop the spread of their "+
+   "evil and the swell of their number. She is the Slayer.");
+</textarea><br>
+<input type=button name=Button value="Execute It" 
+         onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<h2 id="plus">Plus is Ambiguous</h2>
+
+<p>The expression 3+4 evaluates to 7, because the <code>+</code> operator
+  means to <em>add</em>.  The expression "three"+"four" evaluates to
+  "threefour" not "seven", because the <code>+</code> operator means
+  to <em>concatenate</em>.  
+
+<p>The fact that the <code>+</code> operator means different things for
+numbers and strings is a source of confusion and bugs in JavaScript
+programs.  This is made worse by the fact that any attempt to <q>add</q> a
+number and a string in JavaScript succeeds by first automatically
+converting the number to a string of digits:
+
+  <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>"foo" + 27</code></td>
+     <td class="val"><code>"foo27"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>10 + "bar"</code></td>
+     <td class="val"><code>"10bar"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"foo" + 27 + "bar" + 10</code></td>
+     <td class="val"><code>"foo27bar10"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"foo" + 27 + 10</code></td>
+     <td class="val"><code>"foo2710"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"foo" + (27 + 10)</code></td>
+     <td class="val"><code>"foo37"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 + 10 + "foo"</code></td>
+     <td class="val"><code>"37foo"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>27 + (10 + "foo")</code></td>
+     <td class="val"><code>"2710foo"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"" + 27 + 10 + "foo"</code></td>
+     <td class="val"><code>"2710foo"</code></td>
+    </tr>
+  </table>
+
+<p>You can test any of the above expressions here:<br>
+
+<form action="">
+<div>
+<textarea rows=2>
+</textarea><br>
+<input type=button value="Execute It" 
+        onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Here's a realistic example, where we try to add one to someone's
+age. Before you click the button, guess what the value will be.  Then see
+if you are right.
+
+<form action="">
+<div>
+<textarea rows=4>
+var age = prompt("how old are you?");
+var next = age + 1;
+alert("Next year, you will be " + next);
+</textarea><br>
+<input type=button value="Execute It" 
+        onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>If this weren't confusing enough already, it turns out that for 
+arithmetic operators <em>other than</em> <code>+</code>, JavaScript
+will automatically convert strings of digits to numbers!
+
+  <table border=2>
+    <tr>
+     <th class="exp">Expression</th>
+     <th class="val">Value</th>
+    </tr>
+    <tr>
+     <td class="exp"><code>"27" + "10"</code></td>
+     <td class="val"><code>"2710"</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"27" * "10"</code></td>
+     <td class="val"><code>270</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"27" / "10"</code></td>
+     <td class="val"><code>2.7</code></td>
+    </tr>
+    <tr>
+     <td class="exp"><code>"27" % "10"</code></td>
+     <td class="val"><code>7</code></td>
+    </tr>
+  </table>
+
+<p>You can test any of the above expressions here:<br>
+
+<form action="" method="POST" name="ex2b2">
+<div>
+<textarea name="code" rows=1>
+alert( "27" * "10" );</textarea><br>
+<input type=button name=Button value="Execute It" 
+       onclick="eval(document.ex2b2.code.value)">
+</div>
+</form>
+
+<h2 id="case-sensitive">JavaScript is Case-Sensitive</h2>
+
+<p>JavaScript is <strong>case-sensitive</strong>, which means that lower-case
+and upper-case versions of a character are treated differently in 
+function, method, and variable names. 
+
+<ul> 
+
+<li> You can't write <code>Alert("foo")</code> or <code>ALERT("foo")</code> in place of <code>alert("foo")</code>.
+
+<li> <code>document.Write()</code> and <code>Document.write()</code> are 
+     <em>not</em> the same thing as <CODE>document.write()</CODE>. 
+     Only the last one works.
+
+<li> If you define a variable named <code>Sum</code>, you can't later try to 
+     refer to it as <code>sum</code> or <code>SUM</code>.
+
+</ul> 
+
+<!-- Added by Tyler 9/30/2011 -->
+<h2 id="codeorder">Order of Operations When Evaluating Expressions</h2>
+            
+<p>We have <a href="#expressions">already explained</a> that JavaScript
+statements are executed in order from top to bottom, and individual
+statements are executed from left to right.  However, the order of
+operations still applies, which means that nested expressions are
+evaluated first, even if they are not on the left side of the statement.
+
+<p>For example, consider the expression:
+<pre class="sh_javascript">
+3 * (4 - 2)
+</pre>
+
+<p>We know from learning algebra that the expression inside the
+parentheses <code>(4-2)</code> is evaluated first, even though it appears
+on the right.  The res ult of that expression (2) is then multiplied by 3.
+
+<p>Another way to think of the expression above is to treat the
+multiplication and subtraction operators as functions:
+
+<pre class="sh_javascript">
+multiply(3, subtract(4,2))
+</pre>
+
+<p>In this case, the subtract(4,2) function is evaluated, and its result
+is then passed to the multiply function as an argument.
+
+<p>Now consider a JavaScript statment that includes a nested function call:
+<pre class="sh_javascript">
+alert("Hi " + prompt("What's your name?"))
+</pre>
+
+<p>The <code>prompt()</code> function is executed first, because it is
+nested inside the <code>alert()</code> function.  Next, the
+string <q>Hi</q> is concatenated with the value returned by
+the <code>prompt()</code> function.  Finally, the concatenated string is
+passed to the <code>alert()</code> function, which is evaluated last.
+
+<p>While we have been conditioned to respect order of operations when
+dealing with numbers, it is easy to forget that the same rules still apply
+when writing code that includes nested functions.
+
+<h2 id="solutions">Solutions to Exercises</h2>
+            
+<ul>
+  
+  <li>Variables Exercise needs no solution.
+
+  <li><a href="bugs.html">Bugs Exercise</a>
+    
+  <li><a href="ex4.html">Temperature Conversion Exercise</a> and <a href="ex4a.html">Temperature Conversion as a separate file</a>
+
+    
+</ul>
+
+<!--#set var="reltop" value="../.." -->         
+<!--#include virtual="../../navigation/footer.html" -->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
+  <script type="text/JavaScript" src="../../js/shjs-0.6/sh_main.js"></script>
+  <script type="text/JavaScript" src="../../js/shjs-0.6/lang/sh_html.js"></script>
+  <script type="text/JavaScript" src="../../js/shjs-0.6/lang/sh_javascript.js"></script>
+  <script type="text/JavaScript" src="../../js/shjs-0.6/lang/sh_javascript_dom.js"></script>
+    <script type="text/JavaScript" src="../../js/addOnLoad.js"></script>
+    <script type="text/JavaScript" src="../../js/TOC.js"></script>
+    <script type="text/JavaScript" src="../../js/verbatim.js"></script>
+<script type="text/JavaScript">
+$('#doors').tabs();
+</script>
+
+</body>
+</html>

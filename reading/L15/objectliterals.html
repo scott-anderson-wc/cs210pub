@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!-- Lecture on Arrays, for loops, and object literals.
+Written by Eni Mustafaraj in Spring 214.
+Date: March 25, 2014
+
+Modifications: 
+Eni - On Oct 17, 2014, removed it from the Arrays + Loops lecture and
+made it a module on its own.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>CS110: Deeper into Javascript</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+		<style>
+      textarea {
+        margin-bottom: 10px;
+        color: gray;
+        font-weight: 200;
+        font-family: "consolas", "Lucida Console", "Monaco", "DejaVu Sans Mono", monospace;
+      }
+			
+			#newbooks, #books {
+				border: 3px blue solid;
+				width: 600px;
+				padding: 5px;
+				margin: 20px 5px;
+			}
+			
+			#newbooks span{
+				font-weight: bold;
+			}
+			#newbooks p{
+				font-style: italic;
+			}	
+			.title {
+					font-style: italic;	
+				  color: rgb(80,150,200);
+				}
+			.author {
+					color: gray;
+			}
+			.year{
+				font-style: italic;
+			}
+			.price{
+				font-weight: bold;
+			}
+		</style>
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>Deeper into Javascript&nbsp; <small>Our Own Objects</small></h1>
+			<hr>
+			
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+         <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li><a href="#constructor">Create Objects with a Constructor</a></li>
+              <li><a href="#literal">Object Literals</a></li>
+              <li><a href="#why">Why Objects?</a></li>
+              <li><a href="#json">JSON</a></li>
+              <li><a href="#methods">Adding Methods</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+					
+					
+			  <div class="col-md-8">	
+
+
+<h2 id="constructor">Create Objects with a Constructor</h2>
+
+<p>When we introduced <a href="../L11/dom.html#object">objects</a> earlier, we discussed how even
+primitive data types such as numbers and strings are objects in Javascript. Other examples
+are the <a href="../L12/dates.html">Date object</a> we saw today, the Array object (next lecture), 
+and all the objects of the DOM model (<code>document</code> and its children). 
+What all these objects had in common is the fact that
+they were already defined inside the Javascript language or the browser application, and we
+simply used them. However, because Javascript is a powerful programming language, it allows us
+to create our own objects. </p>
+
+<p>You can copy the following code in the console of the browser to execute it.</p>
+
+<pre>
+var student1 = new Object();
+student1.firstName = "Harry";
+student1.lastName = "Potter";
+student1.age = 17;
+console.log(person);
+</pre>
+
+<p>The result you will see is the following:</p>
+
+<img class="img-thumbnail" src="images/object-harry.png" alt="object in the console" >
+
+<p>Let's see what the code does. In the first line, we declare a variable that will be storing
+  an object, by invoking a special kind of function, called constructor. When we created 
+  dates, we also used the constructor for dates, <code>new Date()</code>.
+  We know that we're using a constructor, because of the special keyword <code>new</code>.
+  
+<p>You might remember that when we 
+  declared variables before, we likened the process as one of storing a value in a box with a label.
+  The role of the <em>constructor</em> is to create a special kind of box, that allows us to store 
+  many other values (properties) inside the box, instead of only one value at a time.</p>
+  
+<p>Then, in the following three lines, we added three properties to this object: <code>firstName</code>,
+	<code>lastName</code> and <code>age</code> by also assigning them values. Printing the
+	object on the console shows how all this information is now stored inside the variable
+	<code>person</code>. 
+</p>
+<p>Visually, we can represent how this variable is stored in the computer memory, as shown below:</p>                
+ <img class="img-thumbnail" src="images/student1.png" alt="model of the object variable" width="300px">               
+
+
+<h2 id="literal">Object Literals</h2>
+  
+<p>There is another (more compact) way for creating Javascript objects through the use of 
+the <em>object literal</em> notation. </p>
+
+<p>Concretely, the example we just saw can be rewritten in this way:</p>
+
+<pre>
+var student1 = {firstName: "Harry", lastName: "Potter", age: 17}
+</pre>
+<p>If you copy and paste this in the console, you will get the same object as before.</p>
+
+ <p><strong>Definition: </strong>An object literal is a list of zero or more pairs of property names and 
+   associated values of an object, enclosed in curly braces ({}).</p>               
+                
+
+<p>We are not limited to simple objects like the one above, we can create objects that are composed of
+other objects. Let us see an example:</p>
+
+<pre>
+var hogwartsHouses = {<strong>gryffindor</strong>: 
+                       {founder: "Godric Gryffindor", mascot: "lion", value: "courage"},
+                      <strong>hufflepuff</strong>:  
+                       {founder: "Helga Hufflepuff", mascot: "badger", value: "hard work"},
+                      <strong>rawenclaw</strong>: 
+                       {founder: "Rowena Rawenclaw",mascot: "eagle",value: "intelligence"},
+                      <strong>slytherin</strong>: 
+                       {founder: "Salazar Slytherin", mascot: "serpent", value: "ambition"}
+}
+</pre>
+
+<p>In this example, the object <code>hogwartsHouses</code> has four properties and each of them
+has as a value an object. Running this code on the console and accessing the properties, will verify
+this fact:</p>
+
+<img class="img-thumbnail" src="images/composedobjects.png" alt="composed objects">
+
+<h2 id="why">Why Objects?</h2>
+ <p>Objects can be used to pack in one entity multiple values that belong together.
+  We can then write Javascript programs to do something with these values. The 
+                example we'll work with for <a href="screencast.html">class activities</a>, uses
+                objects to store all information about animals.</p>
+                
+   <img class="img-thumbnail" src="images/thumbnails.jpg" alt="animals example" width="800">             
+                <p>The thumbnails above were dynamically added to the webpage,
+                by using the data in the list of objects shown in the code excerpt below:
+                </p>
+                
+  <img class="img-thumbnail" src="images/animals.png" alt="animals example" width="800">             
+  
+                
+      <p>The Wendy Wellesley shopping site in HW7 and HW8 makes also a heavy use 
+                of object literals. We will also encounter objects when studying the
+                jQuery library.</p>
+                
+	<h2 id="json">JSON</h2>
+	<p>JSON (JavaScript Object Notation) is the most popular open format for transmiting 
+		data objects consisting of property/value pairs over the Web. It uses the Javascript
+		object literal notation to represent objects and it can be parsed by every programming
+		language. It can only contain properties, not method definitions. 
+	</p>
+	<p>All major websites use JSON to transmit data from their servers to the clients. Here 
+	are two examples:</p>
+	<ul>
+		<li>Facebook uses JSON to transmit data from the Graph API. Here is the information
+			for the <a href="https://graph.facebook.com/obama">page of Barack Obama in JSON</a>.</li>
+		<li>Google uses JSON to transmit data from all of its services. Here is an example
+		of Google Books API that has information about all published versions of 
+		<a href="https://www.googleapis.com/books/v1/volumes?q=ISBN:9780486284736">Pride and Prejudice</a>.</li>
+	</ul>
+
+ <h2 id="methods">Advanced Material: Adding Methods</h2>   
+                
+  <p>In addition to adding properties to an object on the fly, we can also define methods for it,
+as shown below:</p>
+<pre>
+// define a method
+student1.tell = function(){return "I'm " + student1.firstName + " " + student1.lastName + ".";}
+// invoke the method
+student1.tell()
+</pre>
+
+
+<p>Notice that we have to go through two steps: defining the method, and then invoking it.
+	When we invoke it, we must include parantheses after the method name. As you know,
+  methods are actually functions, but to invoke them we always need an object, so that we
+  can use the syntax: <code>objectName.methodName()</code>
+ 
+<p>When we define an object literal, we can also include the method definition, as shown
+                in the example below:</p>
+  <pre>
+var student1 = {firstName: "Harry", lastName: "Potter", age: 17,
+             tell: function(){return "I'm " + this.firstName + " " + this.lastName + ".";}
+}
+</pre>
+<p>In the screenshot below, notice the difference between using the method name without
+                and with parentheses. </p> 
+        
+<img class="img-thumbnail" src="images/method.png" alt="a method definition"-->
+                
+ <p>Finally, you might have noticed that in the latter method definition, instead of 
+                writing <code>student1.firstName</code>, we wrote <code>this.firstName</code>,
+                but we got the expected result when executing the code. The variable <code>this</code>,
+                is a special variable to refer to the object within its methods. We will use it
+                often in the weeks to come.</p>               
+</div><!--end of "col-md-8"-->
+            
+</div><!--end of "row"-->
+
+<!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+</div> <!--end of container>
+        
+        
+<!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+</body>
+
+</html>

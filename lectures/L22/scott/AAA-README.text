@@ -1,0 +1,82 @@
+This exercise is fun and instructive, but it requires some setup.
+
+The basic idea is that we pretend there's been security breach and six
+crucial files, each containing one function definition, have been lost.
+The students break up into teams to write the functions, test them, then
+upload to:
+
+~cs110d/MI6
+
+Note the "d" in the account name.  Password is java67script
+
+================================================================
+
+The six functions that need to be defined are in these files:
+
+changeColor.js
+moveDown.js
+moveLeft.js
+moveRight.js
+moveUp.js
+randomColor.js
+
+The filename matches the function name.  
+
+================================================================
+
+There are two applications, art.html and play.html, and two "solved"
+versions of each: art-solved.html and play-solved.html.  The only
+difference between the two is where they read the function definition
+files from:
+
+solved reads from the "solved" sub-directory of this directory
+non-solved reads from ~cs110d/MI6
+
+================================================================
+
+The instructions are in files named do-XYZ.shtml, where the XYZ is one of
+the six functions, above.  The instructions 
+
+There are also files used to test their functions.  They are named
+test-XYZ.html, where the XYZ is one of the six functions above. Those
+files reference a ".js" file in the "testing" sub-directory.
+
+================================================================
+
+With that in mind, here's how to prepare to run this exercise:
+
+(0) Edit the directions.part file to put in the instructors names.
+
+(1) copy all the .js files from solved to testing:
+
+cp solved/*.js testing/
+chmod a+r testing/*
+
+(2) In a web browser, visit the MI6.shtml page and print all 6 of the
+instructions (all the do-XYZ.html pages).  I print 5 of each and shuffle
+them a bit, so that the students are put in "random" groups based on which
+task they get. Only operation Change and operation Random Color need to be
+printed in color. Print to the color printer and choose to print
+"background graphics" or the colors won't show in operation Change.
+
+(3) remove all the solutions, so that the students can't see them until
+the exercise is over.
+
+rm testing/*.js
+rm ~cs110d/public_html/MI6/*.js
+
+(4) collect all the .js files to hand out as solutions. The a2ps command
+prints it nicely, with 11pt font.
+
+cat solved/*.js > all.js
+a2ps -1 -f11 all.js
+
+================================================================
+
+To reset between lecture sections, delete all the files in
+~cs110d/public_html/MI6
+
+rm ~cs110d/public_html/MI6/*.js
+
+The password for the cs110d account is java67script
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5 -->
+<!-- CreationDate: Mon Sep 27 00:20:00 2010 -->
+<!-- Magnification: 1.000 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="2.0in" height="2.0in" viewBox="1188 1788 2424 2424">
+<g style="stroke-width:.025in; stroke:black; fill:none">
+<!-- Line: box -->
+<rect x="1200" y="1800" width="2400" height="2400" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polygon points="1800,3900
+3000,3900
+3300,3300
+2550,3300
+2400,3600
+2250,3300
+1500,3300
+1800,3900
+" style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="2700" y="2100" width="600" height="900" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="1800" y="1875" width="900" height="150" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="1500" y="2100" width="375" height="900" rx="105" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="1875" y="1950" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="120" text-anchor="start">instruction</text>
+<!-- Text -->
+<text xml:space="preserve" x="2100" y="3825" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="120" text-anchor="start">ALU</text>
+<!-- Text -->
+<g transform="translate(2925,2175) rotate(-270.00063138)" >
+<text xml:space="preserve" x="0" y="0" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="120" text-anchor="start">regs</text>
+</g><!-- Text -->
+<g transform="translate(1650,2175) rotate(-270.00063138)" >
+<text xml:space="preserve" x="0" y="0" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="120" text-anchor="start">Cntrl</text>
+</g></g>
+</svg>

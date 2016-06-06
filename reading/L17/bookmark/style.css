@@ -1,0 +1,108 @@
+/* 
+File: style.css
+Author: Eni Mustafaraj
+Date: April 5, 2014
+Purpose: CSS rules for the file "storageEx.html", the webpage that
+implements the "implicit bookmarking" example.
+*/
+
+body {
+  font-family: Roboto, sans-serif;
+}
+
+/* This is for older browsers.*/
+main, aside {
+  display: block;
+}
+
+/* Leave some margin on the right side for the aside element */
+main {
+  margin-right: 225px;
+  border: 1px gray solid;
+  font-size: 90%;
+  padding: 10px;
+}
+ 
+/* This element will stay fixed on the upper-right corner of the page.*/
+aside {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 200px;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  background-color: #FFFF88;
+  border: 2px solid #FFAA33;
+  border-radius: 10px;
+  font-size: small;
+}
+
+/* This div is not visible at the beginning, it will become so through 
+the Javascript code once the <aside> element is clicked by the uers.*/
+#getInfo{
+  display: none;
+}
+
+/*---------------------------------------------------------------------------*/
+/* The following CSS rules were not written by me, they were directly copied
+from the HTML page which contained the text for the Pride and Prejuice book:
+http://www.gutenberg.org/files/42671/42671-h/42671-h.htm.
+*/
+
+ h1,h2,h3,h4,h5,h6 {
+    text-align: center; /* all headings centered */
+    clear: both;
+}
+
+p {
+    margin-top: .75em;
+    text-align: justify;  
+    margin-bottom: .75em;
+}
+
+hr {
+    width: 33%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+
+.blockquot {
+    margin-left: 5%;
+    margin-right: 10%;
+}
+
+.center   {text-align: center;} 
+
+/* Images */
+.figcenter   {
+    margin: auto;
+    text-align: center;
+}
+
+.figleft {
+    float: left;
+    clear: left;
+    margin-left: 0;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    margin-right: 1em;
+    padding: 0;
+    text-align: center;
+}
+
+.figright {
+    float: right;
+    clear: right;
+    margin-left: 1em;
+    margin-bottom:
+    1em;
+    margin-top: 1em;
+    margin-right: 0;
+    padding: 0;
+    text-align: center;
+}
+

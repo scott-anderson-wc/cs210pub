@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Effects - Examples</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Exo%7CNunito:300%7CSignica' rel='stylesheet'>
+  
+  <style>
+    #boxDiv {
+      position: absolute;
+      top: 120px;
+      left: 100px;
+      width: 200px;
+      height: 200px;
+      background-color: #39e; /* shortcut for #3399ee */
+      color: white;
+      font-family: Nunito, sans-serif;
+      padding: 10px;
+      cursor:pointer;
+    }
+    nav {
+      margin: 30px;
+    }
+    .redBox{
+      background-color: #f77;
+    }
+    
+    .blueBox{
+      background-color: #39e;
+    }
+ </style>
+</head>
+
+<body>
+  <nav>
+    <button id="toggle">Toggle (show/hide)</button>
+    <button id="fadeout">Fade Out</button>
+    <button id="fadein">Fade In</button>
+    <button id="fadetoggle">Fade Toggle</button>
+    <button id="fadeto">Fade To</button>
+    <button id="slideup">Slide Up</button>
+    <button id="slidedown">Slide Down</button>
+    <button id="slidetoggle">Slide Toggle</button><br><br>
+    <button id="width">Animate Width</button>  
+    <button id="font">Animate Font</button>
+    <button id="left">Animate Left</button>
+    <button id="right">Animate Right</button>
+    <button id="spacing">Animate Spacing</button>
+    <button id="combo">Animate Combo</button>
+    <button id="repeat">Repeat Fading</button>
+  </nav>
+  <div id="boxDiv" class="blueBox">
+    <p>Wendy Wellesley loves CS</p>
+  </div>
+
+  
+<script>
+$(document).ready(function(){
+  
+  $("#toggle").click(function(){ // toggle element between show and hide
+    $("#boxDiv").toggle();
+  });
+  $("#fadeout").click(function(){
+    $("#boxDiv").fadeOut("slow"); // use one of the strings "slow", "fast"
+  });
+  $("#fadein").click(function(){
+    $("#boxDiv").fadeIn(1500); // use time in milliseconds
+  });
+  $("#fadetoggle").click(function(){
+    $("#boxDiv").fadeToggle(2000); // use time in milliseconds
+  });
+  
+  $("#fadeto").click(function(){
+    $("#boxDiv").fadeTo(1500, 0.3); // give opacity value for fading
+  });
+  
+  $("#slideup").click(function(){
+    $("#boxDiv").slideUp(1500); 
+  });
+  
+  $("#slidedown").click(function(){
+    $("#boxDiv").slideDown(1500); 
+  });
+  
+  $("#slidetoggle").click(function(){
+    $("#boxDiv").slideToggle(1500); 
+  });
+  
+  $("#width").click(function(){
+    $("#boxDiv").animate({'width': 600}, 1500);
+  });
+  
+  $("#font").click(function(){
+    $("#boxDiv").animate({'font-size': 40}, 1500);
+  });
+  
+  $("#left").click(function(){
+    $("#boxDiv").animate({'left': "-=400"}, 1500);
+  });
+
+  $("#right").click(function(){
+    $("#boxDiv").animate({'left': "+=200"}, 2500, "linear");
+  });
+  
+  $("#spacing").click(function(){
+    $("#boxDiv p").animate({'letter-spacing': 15}, 1500);
+  });
+  
+  $("#combo").click(function(){
+    $("#boxDiv").animate({'width': 400, 'height': 400, 'left': 500, 'opacity': 0}, 2500);
+  });
+  
+  $("#repeat").click(function(){
+    foreverFade(2200);
+  });
+  
+  // A one-time effect timed to happen 2000 milliseconds after page is loaded
+  setTimeout("doubleFade()", 2000);
+  
+});
+    
+  function doubleFade(){
+    $("#boxDiv").fadeOut(1000).fadeIn(1000);
+  }
+  
+  // An effect that will keep repeating every t milliseconds.
+  function foreverFade(t){
+    setInterval("doubleFade()", t);
+  }
+  
+</script>
+</body>
+</html>
+

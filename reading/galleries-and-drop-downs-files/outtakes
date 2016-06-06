@@ -1,0 +1,60 @@
+<h2>Click Anywhere to Close</h2>
+
+<p>There's one small flaw with that drop-down menu, and that is the
+  expectations that users have. If they open the menu and then decide that
+  they don't want to go to any of those pages, they have to click again on
+  the header to close the menu.  Most people are used to being able to
+  click anywhere else on the page to close an open menu.
+
+<p>Doing that is cool and worthwhile, but tricky and requires some
+  additional concepts.  The first concept is putting an event handler on
+  the whole document (the top of the DOM tree). That event handler will
+  close the open menu. Try this:
+
+<ul id="ex4">
+  <li>Main Character Menu
+    <ul>
+      <li><a href="http://harrypotter.wikia.com/wiki/Harry_Potter">Harry</a></li>
+      <li><a href="http://harrypotter.wikia.com/wiki/Ron_Weasley">Ron</a></li>
+      <li><a href="http://harrypotter.wikia.com/wiki/Hermione_Granger">Hermione</a></li>
+    </ul>
+</ul>
+<style scoped>
+#ex4 {
+    position: relative;
+    height: 4em;
+}
+#ex4 ul {
+    position: absolute;
+    top: auto;
+    left: auto;
+}
+</style>
+
+<script id="ex4-script">
+function toggle4() {
+    var child = $("#ex4 ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        child.show();
+    } else {
+        child.hide();
+    }
+}
+$("#ex4").click(toggle4);
+</script>
+
+<script id="ex4-closeall">
+function closeAll() {
+    $("#ex4 ul, #ex5 ul").hide();
+}
+
+$(document).
+</script>
+
+<p>Note that we named the function <code>closeAll</code>, because it will
+  close any open menu on the screen. 
+  
+
+
+

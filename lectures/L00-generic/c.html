@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>TITLE</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul id="insert_TOC_here" class="nav bs-sidenav">  
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8"><!-- beginning of row -->
+
+#include "basic.part"
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      /* This effect allows you to click on an answer that has been "ruled
+      out" for some reason. It will fade out. */
+      function hideAnswer() {
+          $("pre",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+          $("p",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideAnswer);
+    </script>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

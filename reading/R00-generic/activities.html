@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+
+    <div class="container">
+      <h1>TITLE</h1>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+         <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <nav id="insert_TOC_here" class="nav bs-sidenav affix hidden-print">
+          </nav>
+        </div>
+
+        <div class="col-md-9">
+          
+<div class="alert alert-danger">IF NECESSARY</div>
+          <hr>
+
+<h2>Goals</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>
+      
+    <li>
+      
+    <li>
+      
+    <li>
+  </ol>
+
+   <h2>TOPIC 1</h2> 
+          
+  <p>with three sub-topics:
+
+    <h3>HTML</h3>
+
+    <p>Here's a sample
+
+      <pre class="prettyprint lang-html">
+        &lt;p style="color: gold"&gt;
+          Now is the winter of our discontent
+          turned glorious summer by this &lt;em&gt;son&lt;/em&gt; of York.
+        &lt;/p&gt;
+      </pre>
+        
+    <h3>CSS</h3>
+
+    <p>Here's a sample
+
+      <pre class="prettyprint lang-css">
+        pre {
+            color: chartreuse;
+        }
+      </pre>
+        
+      <h3>JavaScript</h3>
+
+      <pre class="prettyprint lang-js">
+        // I have no idea what this function might do
+        function foo(x, y) {
+           var i;
+           for( i = 0 ; i &lt; x; i++ ) {
+              if( g(i) ) {
+                 return i;
+              }
+           }
+       }
+      </pre>                            
+          
+    <h2>Quiz Question Nr. 1</h2> 
+
+    <!-- gotta have the P inside the LI in order for the "make this
+    disappear" effect to work -->
+    <p>QUESTION
+    <ol class="hideable" type="A">
+        <li><p>parameter</li>
+        <li><p>argument</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+          
+
+<!-- this question shows how to display JS code -->
+
+<h2>Quiz Question Nr. 2</h2>  
+
+<p>You are given two alternative definitions of a function: </p> 
+ 
+<h3>Definition 1</h3>          
+<pre class="prettyprint lang-js">
+function displayDate(){               
+  var today = new Date();                     
+  document.querySelector("#date").innerHTML = today.toLocaleDateString();
+}
+</pre>
+<br>
+ <h3>Definition 2</h3>          
+<pre class="prettyprint lang-js">
+function displayDate(dateStr, elemID){               
+  var date = new Date(dateStr);                     
+  document.querySelector(elemID).innerHTML = date.toLocaleDateString();
+}
+</pre>
+<br> 
+<p>Which of the following statements is true? Explain your answer.</p>
+          
+<ol class="hideable" type="A">
+<li><p> The two definitions are equivalent.
+<li><p> Definition 1 is better than Definition 2.
+<li><p> Definition 2 is better than Definition 1.
+</ol>
+<br>
+
+<!-- This shows JS code in an answer -->
+
+<h2>Quiz Question Nr. 3</h2> 
+<p>Which of the following function/method calls causes a side effect 
+  instead of returning a value.<br>
+ <ol class="hideable" type="A">
+  <li>
+<pre class="prettyprint lang-js">
+Math.random()
+</pre>
+
+<li>
+<pre class="prettyprint lang-js">
+prompt("Enter your name:")
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+document.querySelector("img")
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+alert("Hello")
+</pre>  
+</ol>                
+<br>      
+
+<h2>Quiz Question Nr. 4</h2> 
+<p>What is the output of executing the following code:
+<pre class="prettyprint lang-js">
+function isSquare(a, b, angle){ 
+  if (a == b && angle == 90) 
+    return true
+}
+alert(isSquare(10,11,90));
+</pre>
+<br>
+<ol class="hideable" type="A">
+  <li>
+<pre class="prettyprint lang-js">
+true
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+false
+</pre>
+  <li>
+<pre class="prettyprint lang-js">
+NaN
+</pre>
+<li>
+<pre class="prettyprint lang-js">
+undefined
+</pre>  
+</ol>
+
+<!-- This shows an execution box used in an exercise. We could also use 
+  JSfiddle for this, but it's not necessary in this case. -->
+
+ <h2>Exercise 1</h2>
+<p>Modify the function <code>amountToPay</code> from the last quiz question to 
+  include a second parameter, <code>stateTax</code>, so that it can calculate the amount
+  to pay depending on a buyer's state. You can that try to call the function a few 
+  times such as below:
+  <pre class="prettyprint lang-js">
+alert(amountToPay(100, 8.47))   // NY tax is 8.47%
+alert(amountToPay(50, 8.89))    // LA tax is 8.89%
+</pre>
+<div>
+<textarea rows=8 cols=100>
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+
+          
+<h2>Challenge</h2>
+<p>As you know, when a list has an even number of items, the median is the mean
+          of the two middle values. Extend the <code>findMedian</code> function
+          above to do the right thing depending on whether the given array
+          has an even or odd number of elements. The remainder operator <code>%</code>
+          is useful for finding if a number is odd or even.</p>
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>how to talk about functions and know the meaning of parameter, argument, return, etc.
+    <li>scope, global variables, and local variables
+    <li>define simple functions with parameters
+    <li>define functions that return a value
+    </ul>
+
+<!-- this shows how you can have solutions that will automatically be released after class. -->
+
+<h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions" style="display: none">
+
+<p>SOLUTION APPEARS HERE
+  
+</div>
+
+<script>
+var now = new Date();
+var later = new Date("11/20/2014 1:00 PM"); // date and time for solution to be released
+document.querySelector("#later").innerHTML = later.toLocaleString();
+if( now > later ) {
+    document.querySelector("#solutions").style.display = "block"; // $("#solutions").show();
+    document.querySelector("#solutions_later").style.display = "hidden"; // $("#solutions").show();
+}
+</script>
+
+
+
+      </div><!--end of column -->
+    </div><!-- end of row -->
+  <!--#include virtual="/~cs110/modularity/footer-rel.part" -->
+
+  </div><!-- end of class=container -->
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer-rel.part" -->
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ajax v1</title>
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+    }
+    nav {
+      margin: 30px 0px;
+      height: 60px;
+      border-bottom: 1px solid #BBB;
+    }
+     h2 {
+        cursor: pointer;
+     }
+   </style>
+</head>
+
+<body>
+  <header><h1>Update the page with AJAX calls</h1></header>
+
+  <main>
+   <h2 id="sec1">Section 1 - Students List</h2>
+   <ol id="sec1_list"></ol>
+   <h2 id="sec2">Section 2 - Students List</h2>
+   <ol id="sec2_list"></ol>
+  </main>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>   
+  
+ <script>
+    $("h2").click(function () {
+        var id = $(this).attr("id");
+        console.log("Requesting data from the server for section "+id);
+        $.get("students-fall14.json",
+              function (data) {
+                  console.log("Got data from the server for "+id);
+                  display_students(id, data);
+              });
+    });
+        
+// Function will take values from the ajax() method and display names on page 
+function display_students(keyName, data) {
+    var students = data[keyName]; // grab student list
+    var parentList = $("#" + keyName).next(); // select list immediately after element with ID=keyName 
+    // just the first three
+    for (var i=0; i< 3; i=i+1){
+        $("<li>").text(students[i])
+            .appendTo(parentList);
+    }
+}
+
+// Don't worry about how this works. It allows you to delete elements by clicking.
+
+$("ol").click(function (event) {
+    ol_click = event;
+    if(event.target.tagName=="LI") {
+        $(event.target).remove();
+    }
+});
+
+</script> 
+
+</body>
+</html>

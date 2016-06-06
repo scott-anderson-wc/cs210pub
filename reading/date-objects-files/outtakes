@@ -1,0 +1,216 @@
+<h2 id="re-assign">Re-assigning Variables</h2>
+
+<p>In all of our examples so far, we have created new variables to assign
+  the next step of the calculation to.
+  <ul>
+
+    <li>Is there any limit to the number of variables in a JS program?
+    No, not really.
+
+    <li>Should you reduce or minimize the number of variables in a JS
+    program?  No, not really.  You should use any variables that you feel
+    makes your code clearer, easier to understand, and easier to debug.
+    (Variables can help with debugging because you can print intermediate
+    steps to check that part of the calculation.)
+
+    <li>Is there any advantage to re-using a variable?  No.  In fact, in
+    most cases, if you re-use a variable to hold a different value, you
+    will increase the chance of confusing anyone reading your code,
+    including yourself.  Thus, we <em>discourage</em> you from
+    re-assigning to a variable.  
+
+  </ul>
+
+<p>Here's an example of poor use of re-assignment:
+  
+<form action="">
+<div>
+<textarea rows=10>
+var radius = 10;
+var val = 2*radius*Math.PI;
+alert("circumference is "+val);
+val = Math.PI*radius*radius;
+alert("area is "+val);
+val = (4/3)*Math.PI*Math.pow(radius,3);
+val = val.toFixed(3);
+alert("volume of sphere is "+val);
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Ask yourself: what kind of value does <code>val</code> hold?  It
+  depends on where in the code you're looking; it changes from place to
+  place.  That's why we gave the variable such a vague and unhelpful name:
+  we couldn't use anything more specific.  In fact, the value even
+  changes <em>datatype</em> from place to place (in the last assignment,
+  it becomes a string).  Since we know that the <code>+</code> operator
+  treats strings differently from numbers, this sort of confusion can be a
+  big problem.
+
+<p>The moral here is that it's not good enough for the JavaScript program
+to work. The underlying JavaScript code should be easy to read and
+understand as well!
+
+<h2 id="good-re-assignment">Good Re-assignment</h2>
+
+<ul>
+  <li>Is there <em>ever</em> a time when you should re-use a
+  variable?  <em>Yes.</em>
+</ul>
+
+<p>Let's turn to that now.  It makes sense to re-assign to a variable when
+  it holds the same information (the same meaning and same datatype), but
+  that the old value needs to be updated.  For example, suppose you are
+  counting something, and the count has changed.  In an online shopping
+  application, you might be counting the number of items the user has in
+  her cart.  Suppose that the variable <code>item_count</code> stores the
+  current number of items in the cart.   When she adds another item to the
+  cart, you want to increase that variable's value by one.  Here's how:
+  
+<pre class="prettyprint lang-js">
+  item_count = item_count + 1;
+</pre>
+
+<p>Notice that if that were a mathematical equality statement, it would be
+  impossible: no number can equal one more than itself.  But this is not
+  equality, this is assignment, so it says to take the current value
+  of <code>item_count</code>, add one to it, and store that value back
+  into the variable.
+
+<p>Here's a specific example, where we count mouse clicks:
+
+<form name="click_speed" action="">
+  <div style="border: 2px dashed green; padding: 10px">
+    <p>How fast can you click? Click like mad in
+    the yellow area, and then move out of the area to stop the timing.
+    <input type="button" id="click_reset" value="reset">
+    <p style="height:100px;background-color: yellow" id="click_area">
+      click here
+    </p>
+    <p>You clicked <input type="text" size="4" id="click_number"> times in
+    <input type="text" size="5" id="click_time"> milliseconds, which is
+    <input type="text" size="5" id="click_speed"> clicks per second.
+  </div>
+</form>
+
+<p>Here's an execution box that will add one more click to your click
+  count and report the current values.
+
+<form action="">
+<div>
+<textarea rows=5 cols=80>
+click_count = click_count + 1;  // add a fake click
+alert("click_count is " + click_count)
+alert("total_time is " + total_time)
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>There are three things worth noticing from the code above:
+<ol>
+<li>When we re-assign a variable, we <em>omit</em>
+  the <code>var</code> out front.  The <code>var</code> tells JavaScript
+  that we are creating a new variable, and, of course, when we are
+  re-assigning, we aren't creating a new variable.
+
+<li>Remember that <code>=</code> should be read as "gets".  So in the
+first line, we are <em>not</em> saying that click_count is equal to
+click_count plus one.  That would be impossible!  Instead, we are saying
+that the value assigned to click_count should be updated to the current
+value of click_count plus one.
+
+</ol>
+
+<h2>Shortcuts for Incrementing a Variable</h2>
+
+<p>Increasing a variable by some amount is such a common operation in
+  programming that most languages have a shortcut syntax, and JavaScript
+  is no exception.  For example, the following two statements mean the
+  same thing:
+
+<pre class="prettyprint lang-js">
+  item_count = item_count + 1;
+  item_count += 1;
+</pre>
+
+<p>In fact, increasing a variable by one is so common that there's an even
+  <em>shorter</em> cut.  All three of the following mean the same thing:
+
+<pre class="prettyprint lang-js">
+  item_count = item_count + 1;
+  item_count += 1;
+  item_count++;
+</pre>
+
+<p>All these do is save you some typing.  You don't need to use them if
+  you don't want to.
+
+<h2 id="swapping">Swapping Values is Tricky!</h2>
+
+<p>Re-assignment also occurs when we are moving values around. For
+  example, suppose we are keeping a <q>high score</q> list of the fastest
+  clicking users.  If someone moves up on the list (gets a new personal
+  best), we may need to <em>sort</em> the list.  One important step in
+  sorting is <em>swapping</em> values.
+
+<p>Digging into real sorting algorithms is outside the scope of this
+  course, but we do want to look at the issue of swapping values, because
+  it brings up some important issues about how computation works.  
+
+<p>Suppose that we declare two variables as follows: 
+
+<pre class="prettyprint lang-js">
+var elmo = 21;
+var grover = 18;
+</pre>
+
+<p>How can we swap the values in the two variables?  That is, how can we
+   change <code>elmo</code> to have <code>grover</code>'s value of 18 and
+   change <code>grover</code> to have <code>elmo</code>'s value of 21?
+
+<p>The following solution attempt does not work. Why?
+
+<pre class="prettyprint lang-js">
+elmo   = grover;
+grover = elmo; 
+</pre>
+
+Use the execution box below (1) to verify that the above solution does not work
+and (2) to develop a solution that does work. 
+
+<p><em>Note:</em> Your code should work no matter what values are in the
+two variables.  We are using 18 and 21 for concreteness only, but your
+code should work if they are 7 and 27 or 3 and 92 or ...  
+
+<div class="ex"><h2>Exercise on Swapping Values</h2>
+<form action="">
+<div>
+<textarea rows=11 cols=80>
+// gather test data
+var elmo = 21;
+var grover = 18;
+
+// swap the values
+elmo   = grover;
+grover = elmo; 
+
+// report the values:
+alert("elmo is "+elmo+" and grover is "+grover);
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+</div>
+
+<p>The important points are these:
+  <ul>
+    <li>Execution goes top to bottom. The computer doesn't do any
+    steps <q>simultaneously</q>
+      
+    <li>The computer doesn't understand what you mean; only what you say.
+  </ul>

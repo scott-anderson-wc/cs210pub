@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!doctype html>
+<!-- Filename: googleforms.html
+     Purpose:  Example for the lecture on social plugins. Shows Google Forms.
+     Author: Eni Mustafaraj
+     Date: Apr 23, 2014
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="google.css">
+ 
+ <title>CS110: Example of embedding Gooogle Forms</title>
+  
+  <style>
+    body {
+      color: #666;
+    }
+       #social, p{
+      width: 700px;
+    }
+    h1, h2 {
+      color: #85F;
+    }
+    
+    #originalForm, #modifiedForm {
+      float: left;
+      margin-right: 30px;
+      min-width: 500px;
+    }
+  </style>
+  
+</head>
+  
+<body>
+  
+  <h1>Embedding Google Forms</h1>
+  
+<section id="originalForm"> 
+  <h2>Original Google Form</h2>
+  <p>You can create a Google form and simply embed it in your page with the
+  &lt;iframe&gt; tag. To do this, after creating the form on Google Docs,
+  click on File | Embed and then copy the provided HTML. Paste it on your
+  page. That's it. Below is a simple form we created.</p>
+  
+ <iframe src="https://docs.google.com/forms/d/1SkvcoXcd8VbeKUg8gPGGgOMYjdYGZ-BA7jWEfAq4Lkc/viewform?embedded=true" 
+ width="760" height="1200" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+ 
+</section>
+
+<section id="modifiedForm">
+  <h2>Modified Google Form</h2>
+<p>The form above is <strong>embedded</strong> with the &lt;iframe&gt; tag and
+it will show in the same way that we created it on Google forms. However, it is
+possible to change its appearance if we so wish. To do that, instead of using
+&lt;iframe&gt; to embed the form, we look at its source code (when we go to the 
+Live Form) and copy its HTML and CSS. The form below is the same one, but with
+some modifications to the CSS and HTML.
+</p>
+<p>We also have done some jQuery/Javascript hacking to get the form to not 
+redirect us to the Google Form thank you page, but instead to show a message
+on our page. 
+
+  
+  
+<!-- These two lines will suppress the google form to display a new page after submission -->
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload=""></iframe>
+<div id="fResponse">
+  
+<!-- This simple script will show the response on the same page by replacing the 
+whole form HTML with the simple P element.-->
+<script>
+function show_form_answer(){
+  $("#fResponse").html(
+  $("<p>").text("Thanks for contacting me!")
+          .addClass("answer"));
+ }
+</script>
+
+<h2>Contact Form</h2>
+<form action="https://docs.google.com/forms/d/1SkvcoXcd8VbeKUg8gPGGgOMYjdYGZ-BA7jWEfAq4Lkc/formResponse" 
+method="POST" id="ss-form" target="hidden_iframe"
+onsubmit="show_form_answer(); return false;">
+
+<ol role="list" class="ss-question-list" style="padding-left: 0">
+<div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item ss-item-required ss-text"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_236553074"><div class="ss-q-title">Your Name
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk">*</span></div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<input type="text" name="entry.236553074" value="" class="ss-q-short" id="entry_236553074" dir="auto" aria-label="Your Name  " aria-required="true" required="" title="">
+<div class="error-message"></div>
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item ss-item-required ss-select"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_592513732"><div class="ss-q-title">Your Class Year
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk">*</span></div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<select name="entry.592513732" id="entry_592513732" aria-label="Your Class Year  " aria-required="true" required=""><option value=""></option>
+<option value="2014">2014</option> <option value="2015">2015</option> <option value="2016">2016</option> <option value="2017">2017</option> <option value="Other">Other</option></select>
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item  ss-checkbox"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_580142549"><div class="ss-q-title">Your Interests
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+
+<ul class="ss-choices" role="group" aria-label="Your Interests  "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1102942317" value="Books" id="group_1102942317_1" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Books</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1102942317" value="Movies" id="group_1102942317_2" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Movies</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1102942317" value="Music" id="group_1102942317_3" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Music</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1102942317" value="Volunteering" id="group_1102942317_4" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Volunteering</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.1102942317" value="Athletics" id="group_1102942317_5" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">Athletics</span>
+</label></li></ul>
+<div class="error-message"></div>
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item  ss-date"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1979733805"><div class="ss-q-title">When can you visit us?
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<input type="date" name="entry.1979733805" value="" class="ss-q-date" dir="auto" id="entry_1979733805" aria-label="When can you visit us?  ">
+
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="ltr" class="ss-item  ss-paragraph-text"><div class="ss-form-entry"><label class="ss-q-item-label" for="entry_1530286177"><div class="ss-q-title">Anything else you want to share with us?
+</div>
+<div class="ss-q-help ss-secondary-text" dir="ltr"></div></label>
+<textarea name="entry.1530286177" rows="8" cols="0" class="ss-q-long" id="entry_1530286177" dir="auto" aria-label="Anything else you want to share with us?  "></textarea>
+<div class="error-message"></div>
+</div></div></div>
+<input type="hidden" name="fbzx" value="3595914236494956378">
+<div class="ss-item ss-navigate"><table id="navigation-table"><tbody><tr><td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+<input type="submit" name="submit" value="Submit" id="ss-submit">
+</td>
+</tr></tbody></table></div></ol></form>
+  
+</div> <!-- end of "fContent" div-->
+
+</section>
+  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
+</body>
+</html>

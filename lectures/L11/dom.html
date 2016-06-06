@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+   <title>CS110: The DOM and its Objects</title>
+  </head>
+        
+  <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>The DOM &nbsp; <small>Objects, Properties, Methods</small></h1>
+      <hr>
+       <!-- Reading box -->
+       <div class="alert alert-info">
+         This time we are <a href="/~cs110/LocalOnly/chapter2_html5.pdf">providing you with a chapter
+         </a> from the book <a href="http://www.headfirstlabs.com/books/hfhtml5prog/">Head First HTML5 Programming</a>.
+         The chapter is accessible only within the Wellesley network (or with the password you know if you're not
+         in campus).<br>
+         For the moment, you can skip certain sections which we will cover later in the semester:
+         <em>Doing things over and over ...</em> (pages 46-51), as well as <em>Arrays</em> (pages 67-82).
+         
+       </div>
+    </div>
+        
+<div class="container">
+  <div class="row">            
+    <!-- Three columns of the grid are reserved for the sidebar-->
+    <div class="col-md-3">
+      <div class="bs-sidebar hidden-print" role="complementary">
+        <ul class="nav bs-sidenav">
+          <li><a href="#object">What is an Object?</a></li>
+          <li><a href="#dom">The DOM</a></li>
+        </ul>  
+      </div><!-- end of "bs-sidebar"-->
+    </div><!--end of "col-md-3" div-->
+        
+   <div class="col-md-8">
+          <h2 id="decisions">What is an object?</h2>
+  <p>So far, we have discussed three different kinds of values that are used in
+     our Javascript programs: <em>numbers</em> (for example: 0, -34.5, 2789, etc.),
+     <em>strings</em> (for example: "Harry", 'my message is: ', etc.) and 
+     <em>booleans</em> (<code>true</code> and <code>false</code>). These are also
+     known as <strong>primitive data types</strong>, since they are already built-in
+     in the language and we simply use them without any declaration of what they are.</p>
+     
+  <p>However, writing programs with only three data types is limiting. The information
+     around us is much more complex and we want a way to represent such complex information inside
+     our programs as well. To this purpose, many programming languages offer a construct knwon as
+     <strong>objects</strong>.</p>
+     
+  <p>An <em>object</em> is a kind of value (also known as a data type) that has two important characteristics:
+
+<ul>
+  <li><strong>state</strong>, which is given by what JavaScript calls
+      <em>properties</em>.
+  <li><strong>behaviors</strong>, which are specified by what JavaScript calls
+      <em>methods</em>. 
+</ul>
+
+<p>Both properties and methods are selected from an object using <em>dot
+notation</em>. As it turns out, in Javascript, <strong>everything</strong> 
+  is an object: variables and functions. In fact, all the primitive data types we have
+  seen so far: numbers, strings, and booleans are objects too.  As you might remember,
+  we have already encountered examples of string values as an object: 
+  <ul>
+     <li><code>name.length</code> - where <code>length</code> is a property for the string object.
+    </li>
+    <li><code>var pi = 3.1415926; alert(pi.toFixed(2))</code> - where toFixed() is a method
+    for numbers that we have used to round up to 2 digits after the decimal point.</li>
+    <li><code>var phrase = "CS110 rocks!"; phrase.indexOf("110")</code> - where 
+    <code>indexOf()</code> is a method for the string object, to find the starting
+    index of the substring "110" in the string "CS110 rocks!" (can you guess the result)?</li>
+  </ul>
+  
+ <p>In these examples, the variables are on the left side of the dot, while on the
+     right are the expressions we want to evaluate. Concretely, we are interested in
+     the length of the value stored in the variable <code>name</code>; in the PI value
+   with only two digits after the comma; or in the value 
+     that represents the index of 
+     the given substring ("110") in the string "CS110 rocks!".</p>
+     
+  <p>We distinguish between <em>properties</em> and <em>methods</em> based on their
+     syntax. Properties look like variables, while methods look like functions. They have 
+     parentheses and most of the time an <em>argument</em> (a value) inside them.</p>
+
+    <p>It is easy to find out what the names of properties and methods for an object are.
+     You can use the Console to look them up. Create a variable with a value, then type its
+     name and the dot operator. You will see a drop-down menu that lists every property and
+     method name that applies to that object. See image below for an example.</p>
+     
+    <figure class="text-center">
+      <img src="images/object.png" alt="" class="img-thumbnail" width="250">
+      <figcaption>The list of properties and methods for a variable of type string, which is also
+      an object.</figcaption>
+     </figure> 
+  
+    <p>A few notes about this list of properties and methods. First, it contains many more
+     that you will never need to use or know. For example, simply ignore everything that starts
+     with <code>__</code> (double underscore). Second, this list doesn't distinguish between
+     properties and methods. In that case, you simply try something out (without parenthesis) and
+     check whether you get a value back or a piece of code starting with the word function.
+     
+  <h2 id="dom">The DOM</h2>    
+   <p>The Document Object Model (DOM) is the programming interface (API) to represent and interact with 
+     an HTML (or XML) document.</p> 
+    
+    <p>The DOM respresents the HTML document as a tree of nodes. Every node represents a portion of the document. 
+      Explore below an example of how a simple HTML file is represented by its DOM.</p>
+    
+    <pre>
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;title&gt;My blog&lt;/title&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;script src="blog.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;My blog&lt;/h1&gt;
+  &lt;div id="entry1"&gt;
+    &lt;h2&gt;Great day bird watching&lt;/h2&gt;
+    &lt;p&gt;
+      Today I saw three ducks!
+      I named them
+      Huey, Louie, and Dewey.
+    &lt;/p&gt;
+    &lt;p&gt;
+      I took a couple of photos ...
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+    
+    <figure class="text-center">
+      <img src="images/dom.png" width="800" class="img-thumbnail" alt="">
+      <figcaption>Graphical representation of the DOM for the listed HTML example above. Image from
+      the chapter of your reading.</figcaption>
+    </figure>
+
+    <div class="bs-callout bs-callout-danger">
+     <h4>Important Note</h4>
+      The DOM represents both the structure and the content of the HTML page. All elements of the structure
+      (i.e., tags) are represented by nodes sorrounding with a border in the tree. In the Javascript 
+      representation they are all <strong>objects</strong>. The content of these objects is shown
+      in the graphical representation without a border, and it's accessed by properties of the objects
+      that contain them. You remember properties such as <code>innerHTML</code> or <code>value</code> (for
+      input fields in the form).
+     </div>
+     
+     <p>Out of all the objects in this tree, only one of them can be referred within the Javascript code 
+       with its name, the <code>document</code>. The image on the left below shows how trying to access other
+       objects fails. However, through the <code>document</code> object we can refer to the other objects,
+       as its properties. The image on the right below shows several examples. Unfortunately, only elements
+       that are unique such as <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code> are directly accessible,
+       for all the others we will need to use methods that access them. Additionally, notice that the other properties
+       <code>styles</code>, <code>forms</code>, and <script>scripts</script> are in plural (and the value is an
+       array), since there can be many of them in a document.
+     </p>     
+     
+      <figure class="text-center">
+      <img src="images/doc1.png"  class="img-thumbnail" alt="" width="350">
+      <img src="images/doc2.png"  class="img-thumbnail" alt="" width="350">
+      <figcaption>On the left: only the name <code>document</code> is recognized as a variable. On the right:
+         accessing other elements as properties of <code>document</code>.</figcaption>
+    </figure>
+     
+     <p>We have previously mentioned
+       several methods for accessing the other nodes of the tree: <code>document.getElementById</code>, <code>document.getElementsByTagName</code>, etc. However, the most universal one, that can be used to
+       access <strong>every</strong> element through the use of <em>selector</em> strings is <code>document.querySelector</code>.</p>
+     
+      <p>The query--the string that we pass as an argument to the method--corresponds to the CSS selectors
+     that we will use in the CSS file to style that element (hence the name of the method). 
+        Therefore, all selectors that are known
+     and used in CSS can be used as argument values for <code>document.querySelector</code>.</p>
+     
+     <p>Let's try this interactively. Open <a href="example1.html" target="_blank">this example</a> 
+       and in the Console, try the following expressions:</p>
+     
+    <figure class="text-center">
+      <img src="images/selectors.png"  class="img-thumbnail" alt="" widh="360">
+     <figcaption>Examples of using different query phrases with <code>document.querySelector</code>.</figcaption>
+    </figure>
+     
+     <p>Notice that all expressions evaluate into an <strong>object</strong> value. To see that, store one 
+     of expression in a variable, for example: <code>var h1 = document.querySelector("h1");</code>, and then
+     in the console type the name <code>h1.</code> with the dot. Notice how you get to see the list of
+     all properties and methods of this object? This is the reason why trying to assign a value to such
+     a variable will not change their text in the HTML file. The only thing it will do is to assign to the
+     variable a new value. You will always need to access the <strong>object's properties</strong> in 
+       order to change things.
+     Thus, you would have to say <code>h1.innerHTML</code> to change its text value, or 
+     <code>h1.style.<em>propertyName</em></code> to change some style property of the element.</p>
+     
+     
+    </div><!--end of "col-md-8"-->
+  </div><!--end of "row"-->
+  
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+</div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+    
+</body>
+
+</html>

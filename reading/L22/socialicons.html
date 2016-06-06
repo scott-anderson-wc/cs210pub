@@ -1,0 +1,117 @@
+<!doctype html>
+<!-- Filename: socialicons.html
+     Purpose:  Example for the lecture on social plugins
+     Author: Eni Mustafaraj
+     Date: Apr 20, 2014
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--link href="social.css" rel="stylesheet"-->
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Add the jQuery UI theme ui-lightness -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/ui-lightness/jquery-ui.css" />
+
+  <title>Social Icons Bar</title>
+  
+  <style>
+    body {
+      color: #666;
+      width: 800px;
+    }
+    
+    /* Adding the icons with CSS Rules */
+    .fa-twitter:before{
+      content:  "\f081"; /* icon for twitter-square */
+    }
+    
+    .fa-facebook:before {
+      content: "\f082";
+    }
+    
+    .fa-youtube:before{
+      content: "\f166";
+    }
+    
+    .fa-instagram:before{
+      content:  "\f16d";
+    }
+    
+    .fa {
+      font-family: FontAwesome;
+      color: #9bf;      /* Change the color to match your color scheme */
+      font-size: 40pt;  /* Change the font size to make the font bigger */
+    }
+    
+    h1 {
+       color: #9bf;
+       text-align: center;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+    
+    #socialicons li {
+      display: inline-block;
+      margin: 0px 5px;
+    }
+    
+    #socialicons {
+      margin: 50px 20px;
+    }
+  </style>
+  
+</head>
+  
+<body>
+<h1>How to create a social icons bar in your page?</h1>
+<section>
+  <p>The following social icons bar was built using <a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">FontAwesome</a>, a font family
+  that includes about 479 icons of most things that can be used as icons in web pages. No images
+  are involed, every icon has a hexadecimal code that is inserted with a special CSS property. You 
+  can use CSS to change the color and size of every icon.</p>
+  
+  <p><a href="http://fortawesome.github.io/Font-Awesome/icons/" target="_blank">This page</a> contains a list of all 
+    icons, with the code we need to insert in the CSS file.</p>
+  
+  <p>The color of the icon is the same for all, in order to match the color scheme. However,
+    you can have every icon with a different color. Click the button to see that happen. 
+ </p>
+  <p>The original colors and icons were chosen with CSS (see source code). The changes are 
+  done with jQuery on the fly.</p>
+</section>
+<div id="socialicons">
+<ul>
+  <li><a href="http://twitter.com/wellesley"><span class="fa fa-twitter"></span></a></li>
+  <li><a href="http://facebook.com/WellesleyCollege"><span class="fa fa-facebook"></span></a></li>
+  <li><a href="http://www.youtube.com/user/WellesleyCollege"><span class="fa fa-youtube"></span></a></li>
+  <li><a href="http://instagram.com/wellesleycollege"><span class="fa fa-instagram"></span></a>
+</ul>
+</div>
+  
+  <div>
+    <button>Change Buttons</button>
+  </div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+  
+  <!-- This jQuery code will change the appearance of all icons, to apply a different color
+       to each of them.
+  -->
+    <script>
+      $("button").button()
+        .click(function(){
+          $(".fa").css("font-size", "25pt");
+          $(".fa-twitter").css("color", "##00aced");
+          $(".fa-facebook").css("color", "#3D62B3");
+          $(".fa-youtube").css("color", "#b00");
+          $(".fa-instagram").css("color", "#517fa4");
+      });
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+   <title>Operation Change</title>
+   <link type="text/css" rel=stylesheet href="directions.css">
+</head>
+
+<body>
+  <h1>Operation Change!</h1>
+
+  <p>Your mission, should you decide to accept it, is to define a function
+   named <strong>changeColor</strong> that has three input parameters,
+   representing a row, column, and color. Your
+   <strong>changeColor()</strong> function should perform the following steps:
+
+  <ol>
+    <li>Create a string that concatenates a hash mark, the word "cell" and
+    the values of the parameters <code>row</code> and <code>column</code>
+    (no spaces in the string!).  For example:
+<pre>
+  row = 3;
+  col = 4;
+  result = "#cell34"
+</pre>
+
+    <li>Change the background color of the element with
+    that <strong>id</strong> to the <code>color</code> parameter.
+      You may find the jQuery <code>css()</code> method useful here, along
+    with the CSS "background-color" property.
+      
+  </ol>
+
+<!--#include virtual="directions.part"-->
+
+      <div style="margin: 2em; border: 1px solid black;">
+<!--#include virtual="testing/test-changeColor.html"-->
+   </div>
+
+<!--#include virtual="directions2.part"-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="directions.js"></script>
+    <script>directions("changeColor");</script>
+</body>
+</html>

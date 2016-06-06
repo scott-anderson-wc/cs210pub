@@ -1,0 +1,792 @@
+<!-- All new, Fall 2015, by Scott D. Anderson -->
+
+<p>In this reading, we'll see the DOM and jQuery in action. We'll create
+  an image gallery and then a drop-down menu.
+
+<h2>Image Gallery</h2>
+
+<p>Often, you want to display a set of pictures and allow the user to
+  choose which ones to look at more closely, something like an art
+  gallery. Therefore, we'll call this JavaScript application
+  a <em>gallery</em>. We'll have an arrangement of small pictures, often
+  called <em>thumbnails</em>, and, if the user clicks on any one of them,
+  a larger version is displayed.
+
+  <p>Note that one advantage of a gallery is that a set of thumbnails can
+  load quicker than even one of the larger versions, if the file sizes are
+  much smaller. Therefore, you should go to the extra effort to make
+  thumbnail-size images, using an image editor (like PhotoShop
+  or <a href="http://pixlr.com">Pixlr</a> or
+  the <a href="http://gimp.org">Gimp</a>), rather than just using the
+  width and height attributes to make the squeeze the big files down to a
+  small screen area.
+
+    <h2>Gallery Example</h2>
+    
+  <p>This will just be a small gallery, with just four pictures. In this
+  version of the gallery application, we'll allocate space on the page for
+  the larger version. In this example, we'll put a boring pale-yellow
+  image there. If you decide to build a gallery application, you could choose one of the large
+  images, either randomly or deterministically, or something else
+  entirely.
+    
+    <p>Please try
+    this <a href="../project/min-reqs/gallery/gallery.html#gallery-example">gallery
+    example</a>
+
+    <h2>Lightbox Gallery</h2>
+
+    <p>An alternative is to have the large image take over the window,
+    putting everything else behind a semi-transparent dim filter, so that
+    the user's attention is necessarily on the large image. This is called
+    a <a href="https://en.wikipedia.org/wiki/Lightbox_(JavaScript)">Lightbox</a>,
+    and has been implemented many times since its originator, Lokesh
+    Dhakar. We've implemented a very simple version of it; there are many
+    more sophisticated ones. The lightbox, of course, requires an
+    additional bit of coding to make the image go away so that the user can
+    look at another image or do anything else.
+
+    <p>Please try
+    this <a href="../project/min-reqs/gallery/gallery.html#lightbox-gallery">lightbox
+    gallery</a>
+
+      <h2>How It's done</h2>
+
+      <p>Creating a gallery involves first putting a set of thumbnails on
+      the page. That can easily be done by copy/pasting a bunch of HTML,
+      like this:
+
+
+<pre class="prettyprint lang-html">
+&lt;figure data-bigsrc="../potterpics/harry-potter-big.jpeg" data-alt="Harry Potter"&gt;
+  &lt;img src="../potterpics/harry-potter-thumb.jpeg" alt="Harry Potter"&gt;
+  &lt;figcaption&gt;Harry Potter&lt;/figcaption&gt;
+&lt;/figure&gt;  
+&lt;figure data-bigsrc="../potterpics/hermione-granger-big.jpeg" data-alt="Hermione Granger"&gt;
+  &lt;img src="../potterpics/hermione-granger-thumb.jpeg" alt="Hermione Granger"&gt;
+  &lt;figcaption&gt;Hermione Granger&lt;/figcaption&gt;
+&lt;/figure&gt;  
+...
+</pre>
+
+<p>That's acceptable, but a bit tedious and error prone. When you
+  copy/paste the code, you have to remember to change all the places where
+  we see "Harry Potter" to "Hermione Granger." If you miss one, rabid fans
+  will notice when the caption for Hermione says Harry.
+
+<p>An alternative is to define a function to create one of these gallery
+  items:
+  <pre class="prettyprint lang-js linenums executable">
+function addToGallery(galleryID,thumbsrc,bigsrc,alt) {
+    console.log("add figure "+thumbsrc);
+    var img = $("&lt;img&gt;")
+        .attr("src",thumbsrc)
+        .attr("alt",alt);
+    var cap = $("&lt;figcaption&gt;"+alt+"&lt;/figcaption&gt;");
+    $("&lt;figure&gt;")
+        .attr("data-bigsrc",bigsrc)
+        .attr("data-alt",alt)
+        .append(img)
+        .append(cap)
+        .appendTo(galleryID);
+}
+</pre>
+
+<p>You can then invoke it with the necessary info. You'll notice that
+  there's still a lot of repetition, but because only the key info is
+  shown, it's easy to be thorough. (We could also define a higher-level
+  function that could create the proper URLs, if we used a simple naming
+  scheme. We won't describe that here.)
+
+<pre class="prettyprint lang-js linenums executable">
+addToGallery("#gallery1",
+             "../potterpics/harry-potter-thumb.jpeg",
+             "../potterpics/harry-potter-big.jpeg",
+             "Harry Potter");
+addToGallery("#gallery1",
+             "../potterpics/hermione-granger-thumb.jpeg",
+             "../potterpics/hermione-granger-big.jpeg",
+             "Hermione Granger");
+...
+</pre>  
+
+<h2>DATA attributes</h2>
+
+<p>You probably noticed the two attributes starting
+  with <code>data-</code>. Here's the code again:
+
+<pre class="prettyprint lang-html">
+&lt;figure data-bigsrc="../potterpics/harry-potter-big.jpeg" data-alt="Harry Potter"&gt;
+  &lt;img src="../potterpics/harry-potter-thumb.jpeg" alt="Harry Potter"&gt;
+  &lt;figcaption&gt;Harry Potter&lt;/figcaption&gt;
+&lt;/figure&gt;  
+</pre>
+  
+<p>We've learned about lots of tag attributes in HTML, such as SRC for IMG
+    and HREF for A.  Those are all built into the HTML
+    language. These <code>data-</code> attributes are something new. They
+    aren't built into the language, but we (the authors of the web page)
+    get to <em>make them up</em>.  More precisely, the
+    prefix <code>data-</code> is built into the language, but we get to
+    make up the suffix.
+
+<p>When we click on the figure, which we'll turn to in a moment, we'll
+  need the SRC and ALT for the big version, so we stash the values
+  here. Is this legal?  Yes. The design of HTML5 anticipated the need for
+  data sprinkled throughout the DOM tree, and explicitly allowed the user
+  to create any attributes they want, as long as they start
+  with <code>data-</code>.  So, we're putting that information there so
+  that it'll be there when the event handler needs it.
+
+<h2>Where the Big Picture Goes</h2>
+
+<p>We also need a place to display the big version of the picture. (This
+  is the main difference between the simple and lightbox version of the
+  gallery.) For the simple version, we just need a figure:
+
+<pre class="prettyprint lang-html">
+    &lt;figure id="large_image"&gt;
+      &lt;img src="../potterpics/pale-yellow-266x200.png" alt="filler image"&gt;
+      &lt;figcaption&gt;A pale yellow image filler image&lt;/figcaption&gt;
+    &lt;/figure&gt;
+</pre>
+      
+<p>We put the pale yellow box there just so that the IMG has a SRC when
+  the page loads. We should probably put an image from the gallery in
+  there, but this explanation is a little clearer if there's a different
+  image there at the beginning.  We would use CSS to make this figure
+  larger.
+
+<h2>Adding an Event Handler</h2>
+
+<p>Finally, all the pieces are in place for the image gallery. We'll
+  define a function that will be attached to each thumbnail, and it'll
+  cause the larger version to be displayed in
+  the <code>figure#large_image</code> that we just saw. Here's the code:
+
+<pre class="prettyprint lang-js linenums executable">
+function enlargeGalleryImage() {
+    var bigsrc = $(this).attr("data-bigsrc");
+    var alt = $(this).attr("data-alt");
+    $("#large_image img")
+        .attr("src",bigsrc)
+        .attr("alt",alt);
+    $("#large_image figcaption").html(alt);
+}
+</pre>
+  
+<p>Next, we have to attach it to <em>every</em> thumbnail in the gallery:
+
+<pre class="prettyprint lang-js linenums executable">
+$("#gallery1 figure").click(enlargeGalleryImage);
+</pre>  
+
+<p>This function is hard to understand because it is <em>abstract</em>:
+  there's just the one function, but it's used for 4 or 400
+  thumbnails. For each of those thumbnails, a different enlargement has to
+  be loaded. Fortunately, we put the URL of the enlargement on the figure
+  that was clicked on, so we can find out the URL using the magic
+  variable <code>this</code>. Here's the key part:
+
+  <pre class="prettyprint lang-js linenums executable">
+    var bigsrc = $(this).attr("data-bigsrc");
+</pre>
+  
+<p>Each thumbnail as a <code>data-bigsrc</code> attribute, and the event
+  handler can grab that attribute out of the thumbnail. Which thumbnail?
+  The one that was clicked on, which is stored in <code>this</code>.
+
+<p>All the rest of the code is stuff we've seen before. The key step is
+  here:
+
+<pre class="prettyprint lang-js linenums executable">
+    $("#large_image img")
+        .attr("src",bigsrc)
+</pre>  
+
+<p>That sets the <code>src</code> of the large img to the appropriate
+  value.
+
+<p>The other lines of code are doing similar things for
+  the <code>alt</code> attribute, and we also use the alt attribute to
+  fill in the <code>figcaption</code>.
+
+<h2>How Lightbox Works</h2>
+
+<p>The lightbox is pretty similar, except that the destination is large
+  and takes over the screen, using CSS:
+  
+<pre class="prettyprint lang-html">
+    &lt;div id="lightbox_display"&gt;
+      &lt;div id="lightbox_inner"&gt;
+        &lt;figure&gt;
+          &lt;img src="../potterpics/pale-yellow-266x200.png" alt="filler image"&gt;
+          &lt;figcaption&gt;A pale yellow image filler image&lt;/figcaption&gt;
+        &lt;/figure&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+</pre>
+
+<p>Here's the CSS. 
+  
+<pre class="prettyprint lang-css">
+      #lightbox_display {
+         position: fixed;
+         top: 0px;
+         left: 0px;
+         width: 100%;
+         height: 100%;
+         background: black;
+         background: rgba(0,0,0,0.8);
+         display: none;
+      }
+
+      #lightbox_display figure {
+         background-color: white;
+         width: 75%;
+         margin: auto;
+      }
+
+      #lightbox_display figure img {
+         width: 100%;
+      }
+</pre>
+
+<p>The key ideas are that the outer box, <code>lightbox_display</code>, is
+  fixed and as big as the screen. Inside that is a figure that is slightly
+  smaller and centered, with a white background. Inside that is an image
+  where the big version is displayed.
+
+<p>The event handler is very similar to the simple version, except we add
+  the <code>.show()</code> at the end to make the lightbox visible.
+
+<pre class="prettyprint lang-js linenums executable">
+function openLightboxImage() {
+    var bigsrc = $(this).attr("data-bigsrc");
+    var alt = $(this).attr("data-alt");
+    $("#lightbox_display img")
+        .attr("src",bigsrc)
+        .attr("alt",alt);
+    $("#lightbox_display figcaption").html(alt);
+    $("#lightbox_display").show();
+}
+</pre>  
+
+<p>Of course, since the big version takes over the display, we have to set
+  up a click handler to hide it when the user wants to make it go away:
+
+<pre class="prettyprint lang-js">
+function closeLightboxImage() {
+    $("#lightbox_display").hide();
+}
+
+$("#lightbox_display").click(closeLightboxImage);
+</pre>  
+
+<p>That's the essentials of how image galleries work. 
+
+<h2>Drop-Downs</h2>
+
+<p>We now turn to drop-down menus, which will use many of these same
+  ideas:
+  <ul>
+    
+    <li>The <code>this</code> variable
+    <li>Things that appear and disappear when clicked on, or
+    <li>make <em>other</em> elements appear and disappear.
+  </ul>
+
+<p>Drop-downs also involve some new concepts:
+<ul>
+  <li>finding a child element
+    
+  <li>determining whether an element is shown or hidden
+    
+  <li>event propagation
+</ul>
+
+<p>This will take us a few steps, so be patient.
+
+<h2>Positioning</h2>
+
+<p>When we first learned about <code>.hide()</code>
+  and <code>.show()</code>, the page would have to be re-arranged based on
+  whether the target element was shown or hidden. Try the following
+  example, clicking on the <q>header</q> list item:
+
+<ul>
+  <li id="ex1">header
+    <ul>
+      <li>Harry</li>
+      <li>Ron</li>
+      <li>Hermione</li>
+    </ul>
+  </li>
+</ul>
+  
+<script id="ex1-code">
+function toggle1() {
+    var child = $("#ex1 ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        child.show();
+    } else {
+        child.hide();
+    }
+}
+$("#ex1").click(toggle1);
+</script>
+
+<p>Notice how the page (particularly this paragraph) jumps up and down
+  based on whether the submenu is shown?  We don't want that with a
+  drop-down menu.
+
+<p>We solve this by using <code>position:absolute</code> on the menu,
+  and positioning it relative to the header. Here it is in action:
+
+<div id="ex2-html">
+<ul>
+  <li id="ex2">header
+    <ul>
+      <li>Harry</li>
+      <li>Ron</li>
+      <li>Hermione</li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<style id="ex2-css" scoped>
+#ex2 {
+    position: relative;
+    height: 6em;
+}
+#ex2 ul {
+    position: absolute;
+    top: auto;
+    left: auto;
+}
+</style>
+
+<script id="ex2-script">
+function toggle2() {
+    var child = $("#ex2 ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        child.show();
+    } else {
+        child.hide();
+    }
+}
+$("#ex2").click(toggle2);
+</script>
+
+<p>The html code looks like this:
+
+<pre id="ex2-html-code" class="prettyprint lang-html"></pre>
+
+<script>
+document.getElementById("ex2-html-code").innerText = document.getElementById("ex2-html").innerHTML;
+</script>
+
+<p>And the CSS like this: 
+
+<pre id="ex2-css-code" class="prettyprint lang-css"></pre>
+
+<script>
+document.getElementById("ex2-css-code").innerText = document.getElementById("ex2-css").innerHTML;
+</script>
+
+<p>The <code>auto</code> value makes the browser calculate the value to
+  use, thereby positioning the menu in the same place as it was in the
+  first example, but using absolute positioning.  We added
+  the <code>height</code> just so the menu wouldn't overlap this paragraph
+  when it was shown.
+
+<h2>Toggling</h2>
+
+<p>Now let's turn to the JavaScript. Let's start with toggling whether
+something is open or closed, as we did above.  Here's the JavaScript code
+for the previous example:
+
+<pre id="ex2-code" class="prettyprint lang-js"></pre>
+<script>
+document.getElementById("ex2-code").innerText = document.getElementById("ex2-script").innerText;
+</script>
+
+<p>The event handler gets the menu, using the selector <code>#ex2
+    ul</code>, and determines whether it is hidden. It's hidden when its
+    CSS is <code>display:none</code>, which we can determine via an
+    alternate usage of the <code>.css()</code> method.  We're accustomed
+    to a 2-argument usage, like this:
+
+  <pre class="prettyprint lang-js linenumbers executable">
+$(selector).css("property","value");
+</pre>
+
+  <p>Instead we have this:
+
+<pre class="prettyprint lang-js linenumbers executable">
+var curr = $(selector).css("property");
+</pre>
+
+<p>This usage reads the current value of the property.  In this case,
+  we're reading the <code>display</code> property and putting it in a
+  variable of the same name. The next lines check the value and if it's
+  "none", the child is hidden, so we should <code>show()</code> it,
+  otherwise, <code>hide()</code> it.
+
+<p>If we replaced those list items (Harry, Ron, and Hermione) with
+  hyperlinks, we actually have a working drop-down menu:
+
+<ul id="ex3">
+  <li>Main Character Menu
+    <ul>
+      <li><a href="http://harrypotter.wikia.com/wiki/Harry_Potter">Harry</a></li>
+      <li><a href="http://harrypotter.wikia.com/wiki/Ron_Weasley">Ron</a></li>
+      <li><a href="http://harrypotter.wikia.com/wiki/Hermione_Granger">Hermione</a></li>
+    </ul>
+</ul>
+<style scoped>
+#ex3 {
+    position: relative;
+    height: 6em;
+}
+#ex3 ul {
+    position: absolute;
+    top: auto;
+    left: auto;
+}
+</style>
+
+<script id="ex3-script">
+function toggle3() {
+    var child = $("#ex3 ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        child.show();
+    } else {
+        child.hide();
+    }
+}
+$("#ex3").click(toggle3);
+</script>
+
+<p>Presto! A drop-down menu!
+
+<h2>Multiple Menus</h2>
+
+<p>Chances are, you will have multiple drop-down menus, like this:
+
+<div id="ex4">
+<ul>
+  <li id="ex4a" class="has_submenu">Characters
+    <ul>
+      <li>Harry</li>
+      <li>Ron</li>
+      <li>Herminone</li>
+    </ul>
+  </li>
+  <li id="ex4b" class="has_submenu">Houses
+    <ul>
+      <li>Gryffindor</li>
+      <li>Hufflepuff</li>
+      <li>Ravenclaw</li>
+      <li>Slytherin</li>
+    </ul>
+  </li>
+  <li id="ex4c" class="has_submenu">Teachers
+    <ul>
+      <li>Dumbledore</li>
+      <li>Flitwick</li>
+      <li>McGonagal</li>
+      <li>Snape</li>
+      <li>Sprout</li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<p>We've done a little CSS magic to lay those out horizontally. Note that
+    we use several selectors of the form <code>A &lt; B</code>. That is a
+    child selector, which is a variant on the descendant selectors that we
+    already know, but instead of B being any descendant of A, B must be
+    a <em>child</em> of A.
+  
+<style id="ex4-css" scoped>
+  #ex4 {
+      height: 12em;
+  }
+
+  #ex4 > ul {
+      list-style-type: none;
+  }
+
+  #ex4 > ul > li {
+      display: inline-block;
+      height: 2em;
+      width: 10em;
+      vertical-align: top;
+      border: 2px solid teal;
+      background-color: #ffffcc;
+  }
+</style>
+
+<pre id="ex4-css-code" class="prettyprint lang-css"></pre>
+<script>
+document.getElementById("ex4-css-code").innerText = document.getElementById("ex4-css").innerText;
+</script>
+
+<script id="ex4a-script">
+function toggle4a() {
+    var child = $("#ex4a ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        child.show();
+    } else {
+        child.hide();
+    }
+}
+
+$("#ex4a").click(toggle4a);
+</script>
+
+<script id="ex4bc-script">
+function toggle4() {
+    var child = $(this).find("ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        child.show();
+    } else {
+        child.hide();
+    }
+}
+
+$("#ex4b, #ex4c").click(toggle4);
+</script>
+
+<p>Let's take a look at the JavaScript code to toggle these menus (at
+  least the first one):
+
+<pre id="ex4a-js-code" class="prettyprint lang-js linenumbers executable">
+</pre>
+
+<script>
+document.getElementById("ex4a-js-code").innerText = document.getElementById("ex4a-script").innerText;
+</script>
+
+<p>The code is the same as before, but we'd need two more copies of it
+  (suitably modified), one for each sub-menu.  Later in the course, if
+  there's time, we'll discuss a better, more abstract way to do this.
+  For now, if you'd like, we'll turn to an important but complicated
+  improvement.
+
+<h2 id="click-anywhere-to-close" class="line">Click Anywhere to Close</h2>
+
+<p>(The rest of this reading is optional.)
+
+<p>There's one small flaw with our drop-down menus, and that is the
+  expectation that users have. If they open a menu and then decide that
+  they don't want to go to any of those pages, they have to click again on
+  the header to close the menu.  Most people are used to being able to
+  click anywhere else on the page to close an open menu.
+
+<p>Doing that is cool and worthwhile, but tricky and requires some
+  additional concepts.  The first concept is putting an event handler on
+  the whole document (the top of the DOM tree). That event handler will
+  close the open menu. Let's go back to a simpler menu, but with our first
+  attempt at that behavior.  Try the following, which doesn't work. We'll
+  soon see why, but for now, let's try to understand this attempt.
+
+<div id="ex5-html">
+<ul>
+  <li id="ex5" class="has-submenu">header
+    <ul>
+      <li>Harry</li>
+      <li>Ron</li>
+      <li>Hermione</li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<style id="ex5-css" scoped>
+#ex5-html {
+    height: 6em;
+}
+
+#ex5 {
+    position: relative;
+}
+#ex5 ul {
+    position: absolute;
+    top: auto;
+    left: auto;
+}
+</style>
+
+<script id="ex5-script">
+var ex5counter = 0;
+
+function log5(text) {
+    ex5counter++;
+    console.log(ex5counter+": "+text);
+}
+
+function toggle5() {
+    var child = $("#ex5 ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        log5("showing submenu");
+        child.show();
+    } else {
+        log5("hiding submenu");
+        child.hide();
+    }
+}
+$("#ex5-html .has-submenu").click(toggle5);
+</script>
+
+
+<script id="ex5-closeall">
+function closeAll() {
+    log5("hiding all submenus");
+    $(".has-submenu ul").hide();
+}
+
+closeAll();
+
+$(document).click(closeAll)
+</script>
+
+<p>Here's the source code for the additional behavior, which adds an event
+    handler on the document that closes everything, so that we can close
+    an open menu by clicking someplace else in the document.
+
+<pre id="ex5-closeall-code" class="prettyprint lang-js"></pre>  
+
+<script>
+document.getElementById("ex5-closeall-code").innerText = document.getElementById("ex5-closeall").innerText;
+</script>
+
+<p>Note that we named the function <code>closeAll</code>, because it will
+  close any open menu on the screen. As we've seen, there might be
+  multiple menus, and this function won't necessarily know which one is
+  open, if any. We could go to a lot of effort to figure out which menu is
+  open, or we could just use the power of jQuery to close every one of
+  them, whether they are open or not. We prefer the simpler approach. That
+  is to put a CSS <em>class</em> on each header LI and then select every
+  UL child of those LI elements.  We then invoke the <code>.hide()</code>
+  method on them.
+
+<p>You'll notice that the menu is initially hidden, which is what we
+  usually want to do with drop-down menus. We do this by invoking
+  the <code>closeAll</code> function in our code, above.
+
+<p>We then attach the <code>closeAll</code> function as a click handler to
+  the document.
+
+<p>But why doesn't clicking on the header work to open the sub-menu?  Is
+  the event handler even running? Let's look more closely at the code:
+
+<pre id="ex5-js-code" class="prettyprint lang-js linenumbers executable"></pre>
+
+<script>
+document.getElementById("ex5-js-code").innerText = document.getElementById("ex5-script").innerText;
+</script>
+
+<p>First, we defined a <code>log5</code> function. That's just for
+  debugging: it prints a message to the JS console, along with a counter,
+  so we can tell one message from another. Next, the same event handler
+  code as before, only augmented with the <code>log5</code> calls.
+
+<p>Now, open your JS console and try clicking on the header. You'll see
+  that the <code>toggle5</code> function is indeed being invoked,
+  but the <code>closeAll</code> <em>function is also invoked!</em>. So,
+  the menu is opened and instantaneously closed.  Why?
+
+<p>The answer is that clicking on the header not only counts as clicking
+  on the header but <em>also</em> counts as clicking on the document.
+
+<h2>Event Bubbling</h2>
+
+<p>In retrospect, it makes sense that clicking on the element also counts
+  as clicking on the document, but it's still surprising. This phenomenon
+  is called <em>event bubbling</em>, because an event bubbles up the DOM
+  tree from the leaves to the root, like champagne bubbles going from the
+  bottom to the top of the glass. Every element
+  on the path from the leaf (like the LI) to the root (the document) gets
+  a chance to react to the event.  It's also called <em>event
+  propagation</em>.
+
+<p>In this case, the normal event bubbling gets in our way. Is there a way
+  to cancel the event propagation? Yes, but it takes a few steps.
+
+<p>First, our event handler is, in fact, invoked with an argument; it's
+  just that we've been ignoring it up to now. jQuery ensures that our
+  event handlers is invoked with an object that represents the event,
+  including information about what event it was (click, mouse motion,
+  keyboard events) and stuff like that. That event object has a method
+  called <code>stopPropagation()</code>, which does exactly what we want.
+
+<p>So, our new and improved <code>toggle</code> function is going to
+  accept an argument that is an event object, and it will use that
+  argument to stop the propagation of this event up the tree:
+
+<div id="ex6-html">
+<ul>
+  <li id="ex6" class="has-submenu">header
+    <ul>
+      <li>Harry</li>
+      <li>Ron</li>
+      <li>Hermione</li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<style id="ex6-css" scoped>
+#ex6-html {
+    height: 6em;
+}
+
+#ex6 {
+    position: relative;
+}
+#ex6 ul {
+    position: absolute;
+    top: auto;
+    left: auto;
+}
+</style>
+
+<script id="ex6-script">
+function toggle6(eventObj) {
+    var child = $("#ex6 ul");
+    var display = child.css("display");
+    if( display == "none" ) {
+        log5("showing submenu");
+        child.show();
+    } else {
+        log5("hiding submenu");
+        child.hide();
+    }
+    eventObj.stopPropagation();
+}
+$("#ex6-html .has-submenu").click(toggle6);
+</script>
+
+<p>Here's the source code for fancy new <code>toggle6</code> function:
+
+<pre id="ex6-code" class="prettyprint lang-js"></pre>  
+
+<script>
+document.getElementById("ex6-code").innerText = document.getElementById("ex6-script").innerText;
+</script>
+
+<p>Try it!
+
+<p>You're now prepared to understand all the code in
+  this <a href="../project/min-reqs/drop-down/drop-down.html">drop-down
+  example</a>.
+  

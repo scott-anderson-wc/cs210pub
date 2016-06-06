@@ -1,0 +1,21 @@
+<p>Write your function definition on the whiteboard set aside for your
+  team.  After your definition has been cleared by one of your mission
+  leaders (Scott or Anna), implement and test your function as follows:
+  
+   <ul>
+    <li>Save a copy
+     of <strong><a class="testfile"></a></strong>
+     on your Desktop.  It's probably easiest to visit the file and then do
+     "File &gt; Save Page As." 
+     <li>You do not need to make any changes to this file!  
+     You are welcome to look at it.  Notice that it loads a
+     JavaScript file called <code class="jsfile"></code>.  That's the file
+     you'll be creating.
+    <li>Open Atom and type in your definition for the <strong class="funcname"></strong> 
+     function (just the function definition, with no <strong>&lt;script&gt;</strong> tags)
+    <li>Save the file on your Desktop with the name <strong class="jsfile"></strong>
+    <li>In your browser, use <strong>Open File</strong> in the <strong>File</strong> 
+     menu to open the <strong class="testfile"></strong> file from your Desktop 
+    <li><strong>Debug!</strong> When your function is working, the page should 
+      look exactly like this:
+   </ul>

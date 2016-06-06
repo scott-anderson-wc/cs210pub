@@ -1,0 +1,686 @@
+
+
+<!-- 
+Eni: 10/3/2014
+Divided the material in two lectures to make it easier to cover.
+
+Eni: 3/2/2014: Commented out some examples, because we haven't covered dates
+  * rewrote the examples in the Boolean values to be evaluated without having to
+refresh the page (since that was not working). Also, removed the document.write
+and used a function for the calculations.
+-->
+
+<!-- Scott 2011-10-06, added the example with confirm(). -->
+
+<!-- [lyn, 3/19/2009] 
+  * In string comparison table, added entries showing lexicographic comparisons. 
+  * Added new Exercise 2 on comparing time (relevant to HW5). 
+  --> 
+<!-- [lyn, 3/16/2009] 
+  * Fixed typos notices by Scott. 
+  * Added examples of boolean expressions involving strings. 
+  * Added a section title for Logical Operators.
+  * Added execution boxes in a few spots where they were missing.
+  * Modified HTML so that it validates
+  * Put in the solutions to some exercises (the rest coming soon).
+  -->
+<!-- [lyn, 3/15/2009] 
+  Changes: 
+    * Added boolean material (not covered earlier) at the beginning of lecture,
+      and removed it from if statement section. 
+    * Reorganized exercises and added logical operator exercise and 
+      rock/paper/scissors exercise. 
+    * Explain some gotchas involving boolean expressions. 
+    * Emphasize that parens around test in if statement are *mandatory*
+    * Mention that {}s aren't necessary if only one statement. 
+   Still to do: 
+     * Examples of boolean expressions involving strings
+     * List standard boolean simplification rules. 
+     * Include exercise solutions
+  -->
+<!--Updated by Takis Oct 2002 to use examples from the Thau book -->
+
+    
+<div class="alert alert-info">
+  <p>We recommend that you read pages 77-92 from Chapter 3 of the book 
+    <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript and jQuery: The missing manual</a>.
+</div>
+        
+    
+<h2 id="logical-operators">Logical Operators</h2>
+
+<p>Boolean values can be tranformed and combined via three <strong>logical operators</strong>:
+
+<ol>
+
+<li><code>!</code> (pronounced "not") is a unary (one-argument) operator that negates a boolean value:
+<code>(! true)</code> is <code>false</code> and 
+<code>(! false)</code> is <code>true</code>. If <code>sunny</code> is a
+variable that contains a boolean value, you might use the <em>not</em>
+operator like this:
+
+<pre class="prettyprint lang-js">
+if( ! sunny ) {
+  alert("bring an umbrella");
+  }
+</pre>
+
+<li><code>&&</code> (pronounced "and") is an infix binary (two-argument) operator that returns 
+<code>true</code> if and only if both arguments are <code>true</code>; otherwise it returns 
+<code>false</code>.  If <code>sunny</code> and <code>hot</code> are
+variables that contain boolean values, you might use the <em>and</em>
+operator like this:
+
+<pre class="prettyprint lang-js">
+if( sunny && hot ) {
+  alert("wear a hat");
+  }
+</pre>
+
+<li><code>||</code> (pronounced "or") is an infix binary (two-argument) operator that returns 
+<code>true</code> if and only if at least one of its arguments
+is <code>true</code>; otherwise it
+returns <code>false</code>. If <code>cold</code> and <code>windy</code>
+are variables that contain boolean values, you might use the <em>or</em>
+operator like this:
+
+<pre class="prettyprint lang-js">
+if( cold || windy ) {
+  alert("wear a coat!");
+  }
+</pre>
+
+</ol>
+
+<p>The meaning of the three logical operators is summarized by the following tables, 
+where <span class="input">inputs are shown in blue like this</span>
+and <span class="output">outputs are shown in red like this</span>: 
+
+
+<table>
+  <tr>
+    <th>Negation (not)</th>
+    <th>Conjunction (and)</th>
+    <th>Disjunction (or)</th>
+  </tr>
+  <tr>
+    <td>
+      <table class="bordercells">
+        <tr>
+          <td>&nbsp;</td>
+          <td class="input">true</td>
+          <td class="input">false</td>
+        </tr>
+        <tr>
+          <td class="op">!</td>
+          <td class="output">false</td>
+          <td class="output">true</td>
+        </tr>
+     </table>
+   </td>
+   <td>
+      <table class="bordercells">
+        <tr>
+          <td class="op">&&</td>
+          <td class="input">true</td>
+          <td class="input">false</td>
+        </tr>
+        <tr>
+          <td class="input">true</td>
+          <td class="output">true</td>
+          <td class="output">false</td>
+        </tr>
+        <tr>
+          <td class="input">false</td>
+          <td class="output">false</td>
+          <td class="output">false</td>
+        </tr>
+      </table>
+   </td>
+   <td>
+      <table class="bordercells">
+        <tr>
+          <td class="op">||</td>
+          <td class="input">true</td>
+          <td class="input">false</td>
+        </tr>
+        <tr>
+          <td class="input">true</td>
+          <td class="output">true</td>
+          <td class="output">true</td>
+        </tr>
+        <tr>
+          <td class="input">false</td>
+          <td class="output">true</td>
+          <td class="output">false</td>
+        </tr>
+      </table>
+    </td>
+  </tr>  
+</table>
+
+<br>
+<p>Here are some examples of these operators in action. Type a numeric
+  value into the box and click the <q>Evaluate all!</q> button to see the
+  outcome.
+
+<script>
+  function evalLogical(){
+    var dQs = document.querySelector.bind(document);
+    var x = parseFloat(dQs("[name='xField']").value);
+    dQs('#expr1').innerHTML = (5 &lt;= x) && (x &lt;= 20);
+    dQs('#expr2').innerHTML = (x < 10) || (x > 25);
+    dQs('#expr3').innerHTML = !((15 &lt;= x) && (x &lt;= 30))
+  }
+</script>
+<table class="bordercells">
+      <tr>
+        <th class = "exp">Expression</th>
+        <th class = "val">Value</th>
+        <th class = "note" style="width:400px">Notes</th>
+      </tr>
+      <tr>
+        <td class = "exp">x</td>
+        <td class = "val">
+          <input  type="number" name="xField" value="17" max="100" min=1 style="width:50px">
+          <button onclick="evalLogical();">Evaluate all!</button>
+        </td>
+        <td class = "note">
+      </tr>
+      <tr>
+        <td class = "exp">(5 &lt;= x) && (x &lt;= 20)</td>
+        <td class = "val" id="expr1">
+
+        </td>
+        <td class = "note"><code>x</code> is between 5 and 20 (inclusive)</td>
+      </tr>
+      <tr>
+        <td class = "exp">(x &lt; 10) || (x > 25)</td>
+        <td class = "val" id="expr2">
+
+        </td>
+        <td class = "note"><code>x</code> is not between 10 and 25 (inclusive)</td>
+      </tr>
+      <tr>
+        <td class = "exp">!((15 &lt;= x) && (x &lt;= 30))</td>
+        <td class = "val" id="expr3">
+        </td>
+        <td class = "note"><code>x</code> is not between 15 and 30 (inclusive)</td>
+      </tr>
+    </table>
+
+  <div class="bs-callout bs-callout-warning">
+    <p>One way to think about these conditionals on numbers is by using
+  the number line, where <code>&&</code> means <em>intersection</em>. This
+  is because both conditions have to be true, which is when the regions
+  overlap.  For example, consider modeling the expression:
+
+        <p><code>(X >= 5) && (X &lt;= 30)</code>
+          
+  <p><img src="Conditionals-2-files/numberline.png" alt="x>=5 and x<=30 using the number line" width=600>
+  </div>
+            
+
+<!--div class="ex" style="margin-top: 3ex;"><span class="ex">Exercise 1:</span>
+
+<ol>
+
+<li>For what values of <code>x</code> are <em>all three</em> of the
+boolean expressions in the table above <code>true</code>?
+
+<li>
+Write a single boolean expression involving <code>x</code> that is 
+<code>true</code> only for the values in Part 1.
+
+<form name="ex1Part2" action="">
+<p><textarea name="code" rows="4" cols="60">
+var x = parseFloat(prompt("Enter the value of x")); 
+alert(type-your-boolean-expression-here);
+</textarea><br>
+<input type="button" name="button" value="Execute It" 
+       onclick="eval(document.ex1Part2.code.value);">
+</form>
+
+
+<li>For what values of <code>x</code> are <em>all three</em> of the above boolean expressions 
+<code>false</code>? 
+
+<li> Write a single boolean expression involving <code>x</code> that is <code>false</code>
+only for the values in Part 3. 
+
+<form name="ex1Part4" action="">
+<p><textarea name="code" rows="4" cols="60">
+var x = parseFloat(prompt("Enter the value of x")); 
+alert(type-your-boolean-expression-here);
+</textarea><br>
+<input type="button" name="button" value="Execute It" 
+       onclick="eval(document.ex1Part4.code.value);">
+</form>
+</ol>
+
+</div-->         
+
+<h4>Gotchas</h4>
+
+<ul>
+
+<li> To test whether <code>b</code> is between <code>a</code>
+and <code>c</code> (inclusive), in JavaScript you write <code>(a &lt;= b) &&
+(b &lt;= c)</code>.  Unlike in mathematics, the JavaScript expression <code>a
+&lt;= b &lt;= c</code> does <em>not</em> have the same meaning. Why? Consider the
+evaluation of the following example:
+
+<pre>
+7 &lt; 3 &lt; 10      <span style="color:red">// You might think this expression is false, but it's true. Why?</span>
+=> (7 &lt; 3) &lt; 10 <span style="color:red">// Relational operator associates to the left</span>
+=> false &lt; 10   <span style="color:red">// (7 &lt; 3) is false</span>
+=> 0 &lt; 10       <span style="color:red">// In a numerical context, false is treated as 0, true is treated as 1</span>
+=> true         <span style="color:red">// (0 &lt; 10) is true!</span>
+</pre>
+
+<li> <code>!</code> has a higher precedence than <code>&&</code>, which has a higher
+     precedence than <code>||</code>. For example:
+
+<p style="margin-left: 20px;margin-top:20px">
+<code>! true && false</code> is parsed as <code>(! true) && false</code>
+(which evaluates to <code>false</code>)<br>
+and <em>not</em> <code>!(true && false)</code>
+(which evaluates to <code>true</code>)
+</p>
+
+<p>Although <code>&&</code> and <code>||</code> have a lower precedence than 
+     comparison operators, <code>!</code> has a higher precedence. So
+     <code>! 2 &lt; -1</code> evaluates as <code>(! 2) &lt; -1</code> 
+     (whose value is <code>false</code>) and not <code>! (2 &lt; -1)</code> 
+     (whose value is <code>true</code>). 
+
+<p><em>Moral:</em> Use explicit parentheses if you have any 
+questions about operator precedence!
+
+
+</ul>
+
+<div class="bs-callout bs-callout-danger">
+<h4>Exercise 2</h4>
+<p>Suppose that CS110 lectures are held between 8:30am and 12:20pm.
+Suppose that <code>hour</code> denotes the hour in military time (in the
+range 0 - 23) and <code>min</code> denotes the minute (in the range 0 -
+59).  Our goal is to write a single boolean expression involving
+<code>hour</code> and <code>min</code> that displays an alert box
+with <code>true</code> for times during CS110 lectures
+and <code>false</code> for other times.
+
+<ol>
+
+<li>It seems reasonable to think of this as an <strong>and</strong>
+  operation:  the time is equal to or after 8:30 <em>and</em> before or
+  equal to 12:20.  
+  But the following attempt does <strong>not</strong> work. Why? Sketch the
+  number line regions corresponding to these expressions.  List some times
+  for which the code gives an incorrect result. 
+
+<form name="ex1NewPart1" >
+<p><textarea name="code" rows="4" cols="80">
+var hour = parseInt(prompt("Enter the hour (0 - 23)")); 
+var min = parseInt(prompt("Enter the minute (0 - 59)"));
+alert ((hour >= 8 && min >= 30) && (hour <= 12 && min <= 20));
+</textarea><br>
+<input type="button" name="button" value="Execute It" 
+       onclick="eval(document.ex1NewPart1.code.value);">
+</form>
+
+<li> Fix the boolean expression in the above <code>alert</code> so that it works. 
+
+<li> Another approach for comparing times is to keep track of time in 
+total minutes since the beginning of the day. Based on this idea, 
+flesh out the following skeleton so that it works: 
+
+<form name="ex1NewPart3" >
+<p><textarea name="code" rows="6" cols="80">
+var hour = parseFloat(prompt("Enter the hour (0 - 23)")); 
+var min = parseFloat(prompt("Enter the minute (0 - 59)"));
+var startMinutes = 8*60 + 30; 
+var inputMinutes = hour*60 + min; 
+var stopMinutes = 12*60 + 20; 
+alert ( ... flesh out this boolean expression ... );</textarea><br>
+<input type="button" name="button" value="Execute It" 
+       onclick="eval(document.ex1NewPart3.code.value);">
+</form>
+
+</ol>
+
+<!--p>Yet another approach involves converting the times to strings that can 
+be compared lexicographically (in dictionary order). But we'll need to
+wait for the <code>if</code> statement (see the next section) to do this
+in <a href="#minuteSecondExercise">Exercise 4</a-->.
+
+</div>    
+
+ <h2 id="cascading-ifs">Cascading <code>if</code> Statements</h2>
+
+<P>In its simplest form, an <code>if</code> statement can decide whether
+or not to execute a sequence of statements.  For example, in one of our
+first examples of an <code>if</code> statement, repeated here, the code
+will either display a message on the condition that the name is
+<code>"Grover"</code>, or otherwise it will do nothing at all.
+
+<pre class="prettyprint lang-js">
+if (first_name == "Grover") {
+    alert("Hello Grover, great to see you!");
+}
+</pre>
+
+<p>Using an <code>else</code> case, an <code>if</code> statement can
+decide between two alternative sections of code, as in the example where a
+different message is displayed for <code>"Grover"</code> and any other
+name:
+
+<pre class="prettyprint lang-js">
+if (first_name == "Grover") {
+    alert("Hello Grover, great to see you!");
+} else {
+    alert("Who the heck is " + first_name + "?");
+}
+</pre>
+         
+<P>There are situations, however, in which more than two alternatives must
+be considered. For example, suppose you were to write code for assigning
+letter grades in a class based on the student's final class average.
+         
+<pre class="prettyprint lang-js">
+    if (grade &gt;= 90) {
+        letterGrade = "A";
+    } else if (grade &gt;= 80) {
+        letterGrade = "B";
+    } else if (grade &gt;= 70) {
+        letterGrade = "C";
+    } else if (grade &gt;= 60) {
+        letterGrade = "D";
+    } else {
+        letterGrade = "F";
+    }
+</pre>
+         
+<p>We call this a <em>cascading if statement</em>. The
+term <em>cascading</em> refers to the way that control cascades down the
+statement like water down a multi-tiered waterfall. The topmost test is
+evaluated first, in this case <CODE>(grade &gt;= 90)</CODE>. If this test
+succeeds, the corresponding statements are executed and the whole
+statement is done. If not, control cascades down to the next
+<code>if</code> test, in this case <CODE>(grade &gt;= 80)</CODE>. In
+general, control cascades down the statement from one test to another
+until one succeeds or the end of the statement is reached, possibly with a
+final <code>else</code>.
+         
+<div class="bs-callout bs-callout-danger">
+<h4>Exercise 3</h4>
+
+<p>Augment your solution to <a href="Conditionals-1.html#exPositive">Exercise 1</a> (from Part 1) 
+so that there are three 
+possible messages displayed,
+identifying whether the number is positive, negative, or
+zero.
+
+<form  name="ex3"  method="post">
+<p><textarea name="code" rows="8" cols="80">
+var num = parseFloat(prompt("Enter any num"));
+if (num &gt; 0) {
+     alert("the number is positive");
+}
+</textarea><br>
+<input type="button" name="button" value="Execute it" onclick="eval(document.ex3.code.value);">
+</form>
+</div>
+
+<div class="bs-callout bs-callout-danger">
+<h4>Exercise 4</h4>
+<p>
+This exercise shows how to generate different pronouns in a madlib
+based on the gender of the subject.
+
+<p>In the execution box below insert the statement that will use
+&ldquo;his&rdquo; if the person identifies as male and &ldquo;her&rdquo;
+if the person identifies as female, and &ldquo;their&rdquo; for anything
+else.
+
+<form name="exMadLibPronoun"  method="post" >
+    <p><textarea name="code" rows="6" cols="80">
+var name = prompt("What is the person's name?");
+var gender  = prompt("What is their gender (male/female)?");
+var poss_pronoun;
+
+alert(name + " was driving " + poss_pronoun + " car when suddenly...");
+</textarea><br>
+<input type="button" name="button" value="Execute It" onclick="eval(document.exMadLibPronoun.code.value);">
+</form>
+
+</div>
+
+<h2 id="nested">Nested <code>if</code> Statements</h2>
+
+<p>The braces about the <em>then</em> and <em>else</em> branches of
+  an <code>if</code> statement allow any amount of JavaScript code to be
+  under the control of the conditional &mdash; even other <code>if</code>
+  statements.  This has exactly the effect you would expect: the code
+  comprised by the inner <code>if</code> statement is conditional on both
+  statements. Let's outline an example, where we categorize something by
+  whether it is positive or not and whether it's even or not. That gives
+  us four possibilities:
+
+<pre class="prettyprint lang-js">
+if( even ) {
+    ...
+    if( positive ) {
+        // 1. positive even
+    } else {
+        // 2. non-positive even
+    }
+    ...
+} else {
+    ...
+    if( positive ) {
+        // 3. positive odd
+    } else {
+        // 4. non-positive odd
+    }
+    ...
+}
+</pre>
+
+<p>Of course, the inner blocks of code don't have to consist solely of the
+  inner <code>if</code> statements. As indicated by the ellipses in the
+  outline above, the inner blocks can have additional code precede or
+  follow the inner <code>if</code> statements. Indeed, that elided code
+  could include other conditionals!
+
+<div class="bs-callout bs-callout-danger">
+  <h4>Exercise 5</h4>
+
+<p>
+This exercise shows how to assign the correct honorific based upon a
+person's gender and age.  Females under the age of 18 are referred to as
+Miss, while those 18 and over are referred to as Ms. Similarly, males
+under the age of 18 are called Master, while those 18 and over are called
+Mr.
+
+<p>In the execution box below insert the statements that will assign the correct honorific.
+
+<form name="exHonorific" method="post" >
+    <p><textarea name="code" rows="15" cols="80">
+var age = prompt("What is the person's age?");
+var gender  = prompt("What is the person's gender (male/female)?");
+var honorific;
+
+
+
+
+
+
+
+
+
+
+
+alert(" The person shall be called "+honorific);
+</textarea><br>
+<input type="button" name="button" value="Execute It" onclick="eval(document.exHonorific.code.value);">
+</form>
+
+</div>
+
+<!--h2>Duplicate Outcomes</h2>
+
+<form >
+<div>
+ <textarea name="code" rows="15" cols="80">
+var sunny = confirm("Is it sunny?");
+var warm  = confirm("Is it warm?");
+if( sunny ) {
+    if( warm ) {
+        alert("play");
+    } else {
+        alert("study for midterm");
+    }
+} else {
+    // Don't need to check other condition
+    alert("study for midterm");
+}
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+</div>
+
+<p>But that involves a lot of repetition.  Here's a better way:
+
+<form >
+<div>
+ <textarea name="code" rows="10" cols="80">
+var sunny = confirm("Is it sunny?");
+var warm  = confirm("Is it warm?");
+if( sunny && warm ) {
+    alert("play");
+} else {
+    alert("study for midterm");
+}
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+</div>
+
+
+<p>So, let's now talk about <a href="#logical-operators">logical operators</a>
+
+  <hr!-->
+
+
+
+<!--div class="ex" style="margin-top: 3ex;"><span class="ex">Exercise 7:</span>
+
+<p>Answer these questions for the program below:
+
+<ol>
+
+<li> What is the output for the following inputs: 25, 35, 45, 55, 65, 75, 85, 95? 
+
+<li> Draw a number line from 0 to 100 and break it into labeled segments that show
+     the output for each segment.
+
+</ol>
+
+<form name="exBehavior"  method="post">
+<p><textarea name="code" rows="20" cols="80">
+var x = prompt("Enter a number x"); 
+if (x >= 50) {
+  document.write("A");
+  if (x < 75) {
+    document.write("B"); 
+  } else if (x > 90) {
+    document.write("C"); 
+  } else {
+    document.write("D"); 
+  }
+} else if (x >= 60) {
+  document.write("E"); 
+} else {
+  document.write("F"); 
+} 
+if (x <= 35) {
+  document.write("G"); 
+} else 
+  document.write("H"); 
+  document.write("I"); 
+</textarea><br>
+<input type="button" name="button" value="Execute It" 
+       onclick="eval(document.exBehavior.code.value);">
+</form>
+
+</div-->         
+
+<div class="bs-callout bs-callout-danger">
+  <h4>Exercise 6</h4>
+
+In the two-player game rock/paper/scissors, each player secretly
+chooses one of three values
+(<code>rock</code>, 
+<code>paper</code>, 
+<code>scissors</code>)
+and both players announce their choices at the same time. 
+The rules are: 
+
+<ul>
+
+<li><code>rock</code> beats <code>scissors</code>;
+
+<li><code>scissors</code> beats <code>paper</code>;
+
+<li><code>paper</code> beats <code>rock</code>;
+
+<li>a tie is declared if both players choose the same value. 
+
+</ul>
+
+<ol>
+
+<li>In the following program skeleton, assume that the variables <code>p1</code> and 
+<code>p2</code> each hold one of the three strings
+<code>"rock"</code>, 
+<code>"paper"</code>, 
+or <code>"scissors"</code>
+for player 1 and player 2, respectively. 
+Flesh out the program so that it pops up an alert box displaying 
+
+  <ul> 
+
+  <li> <code>players tie</code> if the players tie. 
+
+  <li> <code>player 1 wins</code> if player 1 wins
+
+  <li> <code>player 2 wins</code> if player 2 wins
+
+  </ul>
+
+<form name="exGame"  method="post">
+<p><textarea name="code" rows="15" cols="80">
+var p1 = prompt("Player 1: enter one of rock,paper,scissors","rock");
+var p2 = prompt("Player 2: enter one of rock,paper,scissors","rock");
+// flesh out the rest of the program ...
+</textarea><br>
+<input type="button" name="button" value="Execute It" 
+       onclick="eval(document.exGame.code.value);">
+</form>
+
+<li> Modify the program so that it complains if either player 
+enters an invalid value. 
+
+<!--li> Modify the program to play 
+<a href="http://www.samkass.com/theories/RPSSL.html">
+rock/paper/scisors/lizard/Spock</a-->.
+
+</ol>
+</div><!-- end of exercise -->

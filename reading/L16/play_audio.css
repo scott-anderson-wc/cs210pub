@@ -1,0 +1,51 @@
+/* 
+File: play_audio.css
+Author: Eni Mustafaraj
+Date: 03/23/2014
+Purpose: CSS style for file "play_audio.html", one of the examples written to 
+show different kinds of Javascript applications for the CS110 project.
+*/
+
+/* this rule is necessary to force the document to fill the whole browser area*/
+html {
+	height: 100%;
+}
+
+/* fixed-width and centered body (also all its children) */
+body {
+  width: 800px;
+	margin: 0px auto;
+	background-color: white;
+	height: 100%;
+	font-family: "Autour One", serif;
+	text-align: center;
+}
+
+/* the words and icons will be nested in a p element*/
+p {
+	width: 400px;
+	margin: 50px auto;
+	text-align: left;
+	height: 55px;
+}
+
+/* styling the element that contains the word to pronounce.
+We float it, so that it can align vertically with the icon image.*/
+span {
+  color: rgb(242, 150, 0);
+	font-size: xx-large;
+	float: left;
+	margin-right: 10px
+}
+
+/* cursor property will help to identify that one can click on the icon*/
+img {
+	  cursor: pointer;
+		width: 40px;
+}
+
+/* add a round border around the icon when it is hovered */
+img:hover{
+	border: 2px solid #6060FF;
+	border-radius: 50px;
+}

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<!-- This lecture was written from scratch on Feb 2014.-->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Eni Mustafaraj">       
+    <title>CS110: CSS Page Layout</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>CSS Page Layout &nbsp; <small>The next step to better design</small></h1>
+      <hr>
+      <div class="alert alert-info">
+        We strongly recommend that you read Chapter 11 of the 
+        <a href="http://shop.oreilly.com/product/9780596159924.do">Head First HTML and CSS</a> book 
+        as a gentle explanation for this topic. The material in these notes comes 
+        from Chapters 11, 12, 13 of the book 
+        <a href="http://shop.oreilly.com/product/9780596802455.do">CSS The Missing Manual</a>.
+        </div>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li><a href="#intro">Introduction</a></li>
+              <li><a href="#layout">How CSS layout works</a></li>
+              <li><a href="#strategy">Layout Strategies</a></li>
+              <li><a href="#float">Float-based Layouts</a></li>
+              <li><a href="#clear">Float Problems</a></li>
+              <li><a href="#position">Positioning Elements</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+        
+        <div class="col-md-8">
+          <h2 id="intro">Introduction</h2>
+          <p>As you have noticed so far, HTML displays content from top to bottom,
+            with most elements stacked as blocks. Today, we will see how to use CSS
+            to put elements everywhere in the page, in order to create more visually
+            appealing pages.
+          </p>
+          <p>Most web page designs on the web fall in one of the two types of layout: 
+            <em>fixed-width</em> or <em>liquid</em>.</p>
+          <p>Fixed-width design gives
+          you more control over how your pages will look, but will cause inconvenience
+          for users with small monitor devices (a lot of scrolling). Liquid designs,
+          which grow or shink to fit a browser window, are better for users, but make
+          things more difficult for you the designer. A compromise between these 
+          two types is the <em>elastic</em> design, which has been declining in use. </p>
+          
+          <ul>
+            <li>A perfect example of a fixed-width layout is the <a href="http://nytimes.com"
+                                                                    target="_blank">
+              NY Times</a> website. Resize your page. Once your screen has become less than
+              970px, you'll see that the scrollbars will show up and the page doesn't change. 
+              Most websites on the web have a fixed width, usually
+            under 1000px (with a common value of 960px).</li>
+            <li>A perfect example of a liquid layout is the new <a href="https://www.google.com/maps/preview/"
+                                                               target="_blank">
+              Google Maps</a> website. Again, resize your browser to see how the page content
+              shrinks or grows with your window size. This type of design makes the best
+            use of available space, but you'll need to make sure that it looks well on all
+            different device sizes. Our own website is also an example of fluid design. Resize
+            the window to experience it.</li>
+          </ul>
+          
+          <h2 id="layout">How CSS layout works</h2>
+          <p>Web page layout involves putting content into different regions of the page.
+            In order to do this, the content needs to be in container tags such as:
+            <code>nav</code>, <code>header</code>, <code>section</code>, <code>footer</code>,
+            <code>picture</code>, <code>aside</code>, and the ubiquitous <code>div</code>.
+            Keep in mind though that you don't need to use <code>div</code> if it's not called
+            for. Elements that are displayed as blocks, such as <code>ul</code>, <code>ol</code>,
+            and <code>p</code> can be also moved everywhere in the page.
+          </p>
+          <h3>Two Techniques for CSS Layout</h3>
+          There are two general techniques used for layout: <em>floats</em> and <em>absolute
+          positioning</em>. Floats are by far the most used. HTML elements have a property
+          <code>float</code>, which will make the element float on the left or the right side
+          of the page. Meanwhile, absolute positioning allows you to place an element anywhere
+          on the page with pixel-like accuracy. This technique doesn't go well with the liquid
+          design, but is good for positioning things like logos, etc. that need always be 
+          in a certain place.
+          
+          <h2 id="strategy">Layout Strategies</h2>
+          <p>Web page layout with CSS is more of an art than science, there is no
+          formula for marking up your HTML page or creating the CSS. CSS layout is 
+          something that you will learn through experience, learning the different
+          CSS propertis, following tutorials, and practicing a lot. What follows in
+          this section is a set of guidelines that can be useful as you start learning
+          about this topic.</p>
+          
+          <ol>
+            <li><strong>Start with your content.</strong> Design starts with your 
+            content (headlines, text, links, photographs, etc.), not with colors,
+            fonts, or icons. It is the page message that should dictate the design.
+            For example, if the goal of a student organization page is to get more student
+            to join them, you can put a large photo of the members doing something fun
+            or interesting, together with quotes from them. Then you use style to make
+            them compelling.</li>
+            <li><strong>Mock up your design.</strong> Don't start your design with
+            code, start with a drawing. Using a drawing program (Paint, Photoshop,
+            Illustrator, etc.) gives you freedom to explore different colors, fonts,
+            images, and positioning, without having to write code. This way you
+            can experiment faster with many choices. If your page needs user interface
+            elements such as buttons, tabs, etc. you can use the free 
+              <a href="http://developer.yahoo.com/ypatterns/about/stencils/">stencil kit 
+                from Yahoo</a>, together with Photoshop.</li>
+            <li><strong>Identify the boxes.</strong> Once you are satisfied with your
+            mockup, you can start thinking about the HTML structure. Basically you
+            need to identify which elements look like individual boxes, because
+            they will have to be in container tags in your HTML.</li>
+            <li><strong>Remember background images.</strong> Very often, you can more easily place
+              an image with the <code>background-image</code> property than the 
+              <code>&lt;img&gt;</code> tag. This is because you can put other information
+              on top of this image, without needing floating. However, you should know that
+              background images are not printed, thus, don't put important information 
+              (such as maps) as background.</li>
+            <li><strong>Layering elements.</strong> Tools like Photoshop use the notion
+            of layers to float several things on top of each other. To do the same on
+            a web page, there are two options: use the <code>background-image</code>
+            property to put text on top of images, or use the <code>position</code>
+            property to lay images or icons on top of text.</li>
+            <li><strong>Don't forget margins and paddings.</strong> Often, you might not need
+            to use sophisticated CSS for layout. A good use of the margin and padding 
+            properties can take you really far (especially when combined with the 
+            background image property).</li>
+          </ol>
+          
+          
+          <h3 id="float">Float-based Layouts</h3>
+          <p>In this section, we will show with different examples how to build
+          float-based layouts. Such layouts make use of the <code>float</code>
+          property to position elements side by side and create columns. You can
+          also use float to create a wrapping effect. This is because the floated
+          element is removed from the flow of the document and what comes after it moves up and 
+          wraps around the float. [<strong>Note:</strong> Your book has a very
+          detailed description of what the flow of a document is.]</p>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>Floating an image</h4>            
+            As you know, an image is an <em>inline</em> element. To remind you 
+            of that, look at <a href="layout_examples/ex1.html">this example</a>
+            and resize the browser page to see what happens to the images. You
+            also can use Chrome's Inspect Element to notice that <code>&lt;img&gt;</code>
+            is nested within the <code>p</code>. Now, let us look at 
+            <a href="layout_examples/ex2.html">the same page</a> after applying a 
+            simple style with 
+            centered fixed-width layout (width and margin for <code>body</code>), 
+            and the rule <code>img {float: right;}</code>. Notice how now 
+            the image is strictly on the right side of the document, and the text
+            of the paragraph wrapping around it.
+            </div>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>Floating a div (or semantic container)</h4>
+            <p>Let us now see what happens when we float a container element,
+            such as a <code>div</code>, <code>figure</code>, <code>footer</code>, etc.
+            Here is <a href="layout_examples/ex3.html">the unstyled page</a>,
+            where we put the <code>img</code> inside the <code>figure</code> container.
+            Notice how this time the images are not inline anymore. 
+ 
+            <p>If we apply now the floating property to the <code>figure</code>,
+            element, we get the <a href="layout_examples/ex4.html">same effect</a> 
+            as before, with the distinction that
+            <code>figure</code> already has some default values for the margin assigned
+            by the browser.
+            </div>
+          
+          <p>
+          The <code>float</code> property takes only three values: <em>left</em>, 
+          <em>right</em>, and <em>none</em>. The last value is used when
+          you want to prevent an element from floating. 
+            </p>
+          
+          <p>Now that we learned about the property float, let's see how it can be
+          used to create a layout with columns.</p>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>Two-column layout</h4>
+            In order to have a two-column layout, we need to have two containers
+            which can meaningfully stand next to each other; for example, a <code>section</code>
+            and a <code>aside</code>. Let's add first a <code>aside</code> element to our 
+            <a href="layout_examples/ex5.html">Hunger Games example</a>. Then, we 
+            apply some minimal style to this element, in order to float on the left side, 
+            as shown below, getting now a <a href="layout_examples/ex6.html">new version</a>
+            of our page.
+            <pre>
+aside {
+    float: left;
+    border: 1px black solid;
+    padding: 5px;
+}
+</pre>
+            <strong>Important Note: </strong> The width and height of every container
+            element depends on the amount of content (text or images) inside the container.
+          </div>
+          
+          <p>As you see, the <code>aside</code> box size can be calculated based
+          on the values for margin, border, padding, and content size 
+            (e.g. the width: 185px = 0 + 1px + 5px + 173px + 5px + 1px + 0).</p>
+          
+          <figure class="text-center">
+            <img src="images/sidebar_box.png" alt="screenshot of sidebar box"
+                 class="img-thumbnail">
+           <img src="images/sidebar_calculations.png" alt="screenshot of sidebar box"
+                 class="img-thumbnail">
+            <figcaption>The size of a container box depends on its content and styling.</figcaption>
+          </figure>
+          
+         <p>If you want the size of the column to be something you desire (e.g., instead of
+          width of 185px, to be 200px), you can do the reverse calculation to find what 
+          the width of the content should be, using a simple equation.
+           For example, 200px = 0 + 2*1px + 2*5px + <strong>X</strong>px.
+          Solving this, we get <code>width=188px</code>. This means that 
+          in our rule we should set the <code>width: 188px;</code>, in order
+          to get the real size of the column to 200px on the browser page.
+          </p>
+          <p>One could do the same for the height, but this is not very useful, because
+          if the adjacent column gets more content, we'll need to recalculate. Thus, instead of setting
+          the height of the floating column, we set a margin for the column which is not
+          floating, in our example, <code>section</code>. Depending on whether the floating
+          column would be on the left or the right side, we need to set <code>margin-left</code>
+          or <code>margin-right</code> to a value slightly larger than the width of the 
+          floating column. This is how <a href="layout_examples/ex7.html">our example</a>
+            will look like with the new added rule: <code>section {margin-left: 210px;}</code>.
+          </p>
+          
+          <div class="alert alert-danger">
+            <h4>Summary: The two-column layout</h4>
+            <ol>
+              <li>Wrap each column in a container, for example, <code>aside</code> 
+              and <code>section</code> (or a <code>div</code> with an <code>id</code>attribute).</li>
+              <li>Float one container (in our case, <code>aside</code>) either left or right.</li>
+              <li>Set a desired width for the floated element.</li>
+              <li>Add a margin (left or right, matching the floating side) to the fixed element.</li>
+            </ol>
+          </div>
+          
+        <div class="bs-callout bs-callout-warning">
+            <h4>Three-column layout</h4>  
+            Going from a two-column layout to a three-column layout is easy. Can you think
+          of the changes you will need to make to your HTML and CSS code? To challenge
+          yourself, stop reading at this point and go and experiment with the code from
+          the two-column layout (get the files from the links above).
+          Then, check <a href="layout_examples/ex8.html">our solution</a>.
+          Here is a summary of the steps we performed:
+          <ul>
+            <li>Added a new <code>aside</code> element (before the <code>section</code>).</li>
+            <li>Added an id attribute to each <code>aside</code> element.</li>
+            <li>Used these two new id-s as selectors in the CSS code (the rules are
+            identical, with the exception of <code>float</code>.</li>
+            <li>Added <code>margin-right: 210px;</code> to the section rule, in order
+            to allow space for the new floating element.</li>
+          </ul>
+          <strong>Important Note:</strong> When using this technique (known as positive margins),
+          the floating elements need to be placed before the main content in the HTML file, 
+          otherwise, you will not get the desired effect.
+        </div>
+          
+        <h2 id="clear">Float Problems</h2>
+          <p>Working with floating elements can often cause unexpected problems. In the 
+          following, we will describe two of them together with the solutions.</p>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>Clearing Floats</h4>  
+            We saw that one of the things that happens with floats is that other content
+            wraps around them. Sometimes that might be good, but sometimes it isn't.
+            A problem that occurs often is with the <code>footer</code> element of a page,
+            when the main content is shorter than one of the floating columns.
+            To illustrate this problem, we modified the 
+            <a href="layout_examples/ex9.html">Hunger Games example</a>
+            to show what happens with the footer (see also image below). 
+            
+            <p>Fortunately, there is an easy fix for this problem. We add the property 
+            <code>clear</code> in the rule of the element we want to stay away from the floats,
+            in our case, <code>footer</code>.</p>
+            
+            <p>Afetr making this change, the footer stays at the 
+              <a href="layout_examples/ex10.html">bottom of the page</a>.</p>
+            </div>
+          
+            <figure class="text-center">
+            <img src="images/clear_footer.png" alt="screenshot of problem with floating"
+                 class="img-thumbnail">
+            <figcaption>The <code>footer</code> has moved up below the non-floating element.</figcaption>
+            </figure>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>Containing Floats</h4>  
+            Another problem occurs when a floating element contained within another element is larger
+            than the latter. This becomes obvious when the container has a background color or border.
+            In our ongoing <a href="layout_examples/ex11.html">Hunger Games example</a>, we changed
+            the background color of the <code>section</code> element to olive, and as you can see 
+            in the photo below, the float element pops out of the container.
+            There are several solutions to this problem, but we will show the two simplest.
+            <ol>
+              <li>Add an element at the bottom of the container, in order to use clear. In
+              our <a href="layout_examples/ex12.html">solution to this problem</a>, we added
+              a <code>&lt;br class="clear"&gt;</code> element before the end of the section
+              and a CSS rule for it <code>br.clear {clear: both;}</code>.</li>
+              <li>Use a dedicated CSS property for the container element, <code>overflow: hidden;</code>.
+                Here is again <a href="layout_examples/ex13.html">the example with the solution</a>.
+              </li>
+            </ol>
+            </div>
+          
+            <figure class="text-center">
+            <img src="images/containing-float.png" alt="screenshot of problem with floating"
+                 class="img-thumbnail">
+            <figcaption>The problem created by a floating element bigger than its container.</figcaption>
+            </figure>
+          
+          <h2 id="position">Positioning Elements on Page</h2>
+          <p>At the beginning of these notes we mentioned that floats are the most used technique
+          for designing layouts. However, there is another technique, <em>positioning</em>, which has its
+          good uses in particular situations.</p>
+          
+          <p>We achieve positioning of elements throught the property <code>position</code>, which
+          can take these values:</p>
+          
+          <ul>
+            <li>absolute</li>
+            <li>relative</li>
+            <li>fixed</li>
+            <li>static (this is the default state of every element)</li>
+          </ul>
+          
+          <p>The values <em>absolute</em> and <em>fixed</em> are very similar in their syntax (though
+          they create different effects) and more easy to understand. The value <em>relative</em> is 
+          a bit more tricky, because its meaning is not in par with how we use the word in everyday 
+          language. To explain these values, we will show in the following an example for each. You should
+          look at the HTML and CSS files of each example to better understand what is going on.</p>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>position: absolute</h4>  
+            We can use this style to set an element in a desired location in the
+            page, by additionally specifying the values for at least two other
+            properties from <code>left</code>, <code>right</code>, <code>top</code>,
+            and <code>bottom</code>. These properties specify the distance (in pixel
+            or some other <a href="../BoxModel/#units">units</a>) from the 
+            (0,0) coordinates of the viewport (top-left corner of the browser viewing area).
+            To see this in action
+            we have a <a href="layout_examples/ex14.html">modified version</a> of our 
+            Hunger Games example, and we will try to position the <code>figure</code>
+            to some other location, as shown in this <a href="layout_examples/ex15.html">
+            styled version of the example</a>.
+            
+            This effect was achieved with this CSS code:
+            <pre>
+figure {
+  position: absolute;
+  top: 350px;
+  left: 500px;
+  border: 1px black solid;
+  padding: 3px;
+}
+</pre>
+           Notice how the figure lays on top of the text. This is because by becoming
+            <em>absolute</em>, the other elements are not aware of it anymore, so they
+            cannot flow around it. Additionally, try to resize your browser window.
+            The placement of the figure doesn't change.
+          </div>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>position: relative</h4>  
+            Suppose we want to put a caption on the figure, sitting on top of it,
+            instead of below it. In this case, we will need to use the <em>relative</em>
+            position. However to achieve this, we need to do two things:
+            <ol>
+              <li>Declare which is the element relative to which this positioning is going
+              to happen.</li>
+              <li>Declare as <em>absolute</em> the element we want to position, and specify its
+              coordinates relative to its parent.</li>
+            </ol>
+            This <a href="layout_examples/ex16.html">new example</a>, creates a caption
+            over the figure with the following code:
+            
+            <div class="row">
+              <div class="col-md-6">
+                <pre>
+figure {
+  <strong>position: relative;</strong>
+  border: 1px black solid;
+  padding: 3px;
+  width: 400px;
+}
+</pre>
+              </div>
+               <div class="col-md-6">
+                <pre>
+figure span{
+  <strong>position: absolute;</strong>
+  bottom: 15px;
+  left: 4px;
+  right: 4px;
+  color: yellow;
+  background-color: black;
+  opacity: 0.5;
+  text-align: center;
+  font-weight: 200%;
+  padding: 5px;
+}
+</pre>
+              </div>             
+            </div> <!-- end of row-->          
+          </div> <!-- end of bs-callout-->
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>position: fixed</h4>  
+            This positioning is very similar to the <em>absolute</em> one, with the 
+            difference that the element remains in its position all the time, while
+            the rest of the page scrolls up and down. It is useful for fixing navbars
+            or sidebars in one position. See how the <code>aside</code> element remains
+            fixed in <a href="layout_examples/ex17.html">our example</a>, with the code
+            below:
+            <pre>
+aside {
+  position: fixed;
+  top: 80px;
+  border: 1px black solid;
+  padding: 5px;
+  width: 188px; /* this value will make sure the sidebar box will occupy 200px */
+}
+</pre>
+          
+          </div>
+        </div><!--end of "col-md-8"-->
+            
+      </div><!--end of "row"-->
+
+    <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+
+</html>

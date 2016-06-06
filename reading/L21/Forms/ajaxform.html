@@ -1,0 +1,79 @@
+<!doctype html>
+<!--
+Author: Eni Mustafaraj
+Date: April 22, 2014
+Purpose: Show an example of using the AJAX method $.post() to send form data to the server
+-->
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Ajax Email Form</title>
+   <style>
+      h1 {text-align: center;}
+   </style>
+</head>
+
+<body>
+  <h1>Using AJAX to send form</h1>
+  
+  <h2>RSVP for our Wushu event</h2>
+  
+  <!-- Notice how the form doesn't have a value for the action attribute, because we 
+  will specify the action in our jQuery code. -->
+  <form id="emailForm" method="post" action="">
+      <p>Your Name:  <input type="text" name="yourName">
+      <p>Your Email: <input type="text" name="yourEmail">   
+      <p><input id="submit" type="submit" value="Submit form">   
+   </form>
+  
+  <!-- empty div to display the message from the sever -->
+  
+  <div id="message"></div>
+  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> 
+
+<script>
+  $(document).ready(function(){
+    
+    // Notice that our form as an input field type="submit". This shows up as a button
+    // on the page, but is not a normal button. Instead of the onclick event, it generates
+    // an onsubmit event for the whole form. This is why we can select the form 
+    // as the target in the following event binding code below.
+    
+    // When an event is triggered, the browser creates an object of type Event that is
+    // passed automatically to the event handler function. The parameter "e" below is
+    // such an event object.
+    $("#emailForm").submit(function(e){
+      
+        // Use the console to check that the event handler was invoked.
+        console.log("I'm inside the event handler for the form 'submit' event");
+      
+        // Print the event object "e" on the console, to see the information that the browser sends
+        console.log(e); 
+      
+        // tell the event object that we don't want it's default behavior of refreshing the page
+        // after the form is submitted. To convince yourself that this is necessary, try
+        // commeting this out.
+        e.preventDefault(); 
+      
+        // We want to send the form data to the server. For that, we use the jQuery method
+        // .serialize() that packages the data of the form together.
+        console.log("The data that will be sent to server: " + 
+                  $("#emailForm").serialize()); 
+      
+        // here we invoke the $.post() method with three arguments: 
+        // 1. the URL of the server script
+        // 2. the data of the form
+        // 3. the anonymous callback function that will be invoked when the server sends
+        // its response. 
+        $.post("emailscript.php", $("#emailForm").serialize(),
+            function(response){
+                console.log("Response from server is: " + response); 
+                $("#message").html(response);
+        });
+    });    
+  })
+</script>
+</body>
+</html>

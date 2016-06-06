@@ -1,0 +1,56 @@
+/* This is a CSS file, adapted from ~anderson/sda-style.css */
+
+body {
+   font-family: Verdana, Arial, sans-serif;
+   font-size:  medium;
+   width: auto;
+}
+
+/* For navigation bar */
+
+nav {
+  margin: 0px;
+  padding: 5px 0px;
+  width: 700px;
+  background-color: black; 
+} 
+
+nav ul {
+  margin: 0px;
+  padding: 0px 10px;
+  list-style-type: none;
+}
+
+nav li {
+  display: inline;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 20px;
+  padding: 0px 10px; 
+} 
+
+nav a {
+    color: yellow;
+    background-color: black;
+    border: thin solid black;
+    text-decoration:none;
+}
+
+nav a:hover {
+   border: thin solid yellow;
+   color: rgb(80%,82%,69%);
+}
+
+/* For the list of icons for copyright, standards compliance and so forth */
+
+#icons {
+   display:  block;
+   padding-top: 20px;
+   padding-left: 0px;
+   margin-left: 0px;
+   border-left: 0px;
+   border-top: 2px solid gray;
+   margin-top: 3ex;
+   width: 100%;
+}
+
+ 

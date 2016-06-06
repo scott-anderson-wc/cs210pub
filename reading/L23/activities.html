@@ -1,0 +1,394 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>Sound, Copyright</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<!--  <div class="alert alert-warning"> </div> -->
+
+<h2>Goal</h2>
+
+<p>By the end of today, you should:
+  <ol>
+    <li><p>understand differences between analog and digital signals
+    <li><p>understand sampling rate, bit resolution, bit rate and calculating file size
+    <li><p>understand the basics of Copyright law
+    <li><p>know how to apply rules of fair use
+  </ol>
+  
+ <h2>Recap of Analog and Digital</h2>  
+      
+<p>Our ears interact with an analog world of sound waves, but music and
+  other sounds are all being done digitally now.  Why?  How?
+  <ul>
+    <li>Analog signals alwasy <em>degrade</em> with time, distance and
+    other factors.
+      
+    <li>With an analog signal, you can't be entirely sure of what the
+    original sound was supposed to be out of the literally infinite number
+    of possibilities.
+      
+    <li>Digital signals are only tranmitting one of <em>two</em> possible
+    values (zero and one). Each is a <em>bit</em>.
+      
+    <li>Therefore, when the receiver gets a degraded signal, it can make
+    an informed guess about which of the two possibilities was actually
+    transmitted.  This allows the signal to be <em>cleaned-up</em>.
+
+    <li>Furthermore, by adding <em>redundant</em> information in the form
+    of <em>parity</em> bits, errors can be <em>detected</em>. 
+      
+    <li>By using additional parity bits, the receiver can figure
+    out <em>which</em> bit is erroneous and, since there are only two
+    possible values, errors can be <em>corrected</em>.
+      
+    <li>Thus, it is possible, using digital representations, to
+      have <em>perfect</em> transmission.
+  </ul>
+
+<p>Have I convinced you?  Good. So, how do we do it?  How do we represent
+  sound digitally?
+  <ul>
+    
+    <li>Imagine drawing the analog signal on graph paper.  Make two
+    crucial decisions:
+      <ul>
+        <li>The <em>resolution</em> on the vertical axis, and
+          
+        <li>the <em>resolution</em> on the horizonal axis.
+      </ul>
+
+    <li>The horizontal axis will be <em>time</em>.
+
+    <li><em>Sample</em> the analog signal at each vertical line (each
+      moment in time), rounding it off at the nearest horizontal line.
+      Write this down as a number.
+      
+    <li>The sequence of numbers is then the <em>digitized</em> signal.
+      
+    <li>The resolution of the vertical axis (how close together the
+        horizontal lines are) determines the <em>number of bits per
+        sample</em>.  Usually, this is some nice round number like 8, 16
+        or 32 bits per sample.
+      
+    <li>The resolution of the horizontal axis (how close together the
+      vertical lines are) determines the <em>sampling rate</em>.
+
+    <li>The product of these two gives the <em>bit-rate</em>.
+
+      
+    <li>The greater the bit rate, the better the receiver
+      can <em>reconstruct</em> the original signal.
+      
+    <li>The Nyquist theorem tells us how high the sampling rate has to be
+    in order to capture sounds up to a given maximum frequency (pitch).
+
+  </ul>
+
+
+  <h2>Quiz Question Nr. 1</h2>
+  <p>Sound travels faster in:
+  <ol type="A">
+    <li><p>vacuum
+    <li><p>water
+    <li><p>air
+    <li><p>speed doesn't depend on the medium
+  </ol> 
+          
+  <h2>Quiz Question Nr. 2</h2>
+  <p>A soprano's singing (with an orchestra) can be considered as sound with: 
+  <ol type="A">
+    <li><p>Low amplitude, low pitch
+    <li><p>Low amplitude, high pitch
+    <li><p>High amplitude, low pitch
+    <li><p>High amplitude, high pitch
+  </ol> 
+
+  <h2>Quiz Question Nr. 3</h2>
+
+  <p>Analog signals are superior to digital signals.
+  <ol type="A">
+    <li><p>True</p>
+    <li><p>False</p>
+    <li><p>There is no difference between the two.</p>
+  </ol> 
+
+  <h2>Quiz Question Nr. 3b</h2>
+
+  <p>Digital signals are superior to analog because
+  <ol type="A">
+    <li><p>Errors can be avoided
+    <li><p>Errors can be detected
+    <li><p>Errors can be corrected
+    <li><p>Signals can be compressed
+  </ol> 
+
+  <h2>Quiz Question Nr. 4</h2>
+
+  <p>When will the parity bit <strong>NOT</strong> be able to detect an error:
+  <ol type="A">
+    <li><p>When there is an odd number of bits in the transmission.</p>
+    <li><p>When there is an even number of bits in the transmission.</p>
+    <li><p>When the number of changed bits is even.</p>
+    <li><p>When the number of changed bits is odd.</p>
+  </ol> 
+
+ <h2>Quiz Question Nr. 5</h2>
+  <p>Assume that the even parity bit indicates that there has been an error in transmission, what is 
+our best option?
+  <ol type="A">
+    <li><p>There is nothing we can do about it, noise is part of every transmission.
+    <li><p>We can use the parity bit to identify the error and fix it.
+    <li><p>We can use error correction algorithms to reconstruct the original signal.
+    <li><p>We will have to request for the signal to be retransmitted.
+  </ol>
+      
+  <h2>Quiz Question Nr. 6</h2>
+  <p>The bit resolution is:
+  <ol type="A">
+    <li><p>The sampling rate. 
+    <li><p>A multiple of the fundamental frequency.
+    <li><p>The number of bits to represent frequency values.
+    <li><p>The number of bits to represent amplitude values.
+  </ol> 
+
+  <h2>Quiz Question Nr. 7</h2>
+  <p>If the whales can produce sound in the range 10 Hz - 30 KHz, at what frequency we would have 
+to sample to produce a digital recording?
+  <ol type="A">
+    <li><p>15 KHz <!-- (half of the high pitch) -->
+    <li><p>20 KHz <!-- (twice the low pitch) -->
+    <li><p>30 KHz <!-- (the high pitch) -->
+    <li><p>45 Khz <!-- (the sum of the low and high pitch) -->
+    <li><p>60 KHz <!--  (twice the high pitch) -->
+  </ol> 
+
+<h2>Task 1: File Size Calculations</h2>      
+ 
+  <p>Knowing that the <strong>bit rate</strong> is the number of bits to represent one second of digital sound,
+      write jQuery/Javascript code that will perform the calculations for the form shown below.</p>  
+  <p>The statements for reading the content from the fields is already given, you need to write two
+      functions that take paremeters and return values and invoke them. Read comments in the execution
+      box.</p>
+  
+   <div class="row">
+   <div class="col-md-8">
+   
+     <pre>&lt;form&gt;
+&lt;p&gt;Bit Resolution: &lt;input name="resolution"&gt;&lt;/p&gt;
+&lt;p&gt;Sampling Rate: &lt;input name="sampling"&gt;&lt;/p&gt;
+&lt;p&gt;Time (in seconds): &lt;input name="seconds"&gt;&lt;/p&gt;
+&lt;p&gt;The Bit Rate is: &lt;span id="bitrate"&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The File Size is: &lt;span id="filesize"&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;/form&gt;</pre>
+
+     </div>
+      <div class="col-md-4">
+        <form style="background-color:lavender">
+<p>Bit Resolution: <input name="resolution" size=5></p>
+<p>Sampling Rate: <input name="sampling" size=5></p>
+<p>Time (in seconds): <input name="seconds" size=5></p>
+<p>The Bit Rate is: <span id="bitrate"></span> bit/seconds.</p>
+<p>The File Size is: <span id="filesize"></span> KB.</p>
+</form>
+     </div>  
+  </div>
+<div id="exbox">
+<p> <textarea id="code" rows=20 cols=100>
+// Gather data from input fields
+var bitRes = parseInt($("[name='resolution']").val()); 
+var sampling = parseInt($("[name='sampling']").val());
+var seconds = parseInt($("[name='seconds']").val());
+  
+/* Define a function with two parameters and one return value
+   to calculate bit rate.*/
+  
+
+  
+$("#bitrate").text(); // invoke your function 
+  
+/* Define a function with three parameters and one return value
+   to calculate file size.*/
+  
+
+    
+$("#filesize").text() // invoke your function 
+  </textarea> 
+  </p>
+  <button id="exec" onclick="eval($('#code').val())">Execute Code</button> 
+</div>     
+     
+<h2>Copyright and Fair Use</h2>      
+      
+<p>Digital information has qualitatively changed the effect of copyright
+  protection.  Now that perfect copies are instantly available, the
+  incentive to make illegal copies is <em>enormous</em>.
+
+<p>Copyright 
+<ul>
+  <li>is for physical expression of a work (you can't copyright ideas).
+    
+  <li>is automatic
+    
+  <li>is for a <em>limited</em> duration, after which the work goes into
+  the <em>public domain</em>.
+    
+  <li>is different from intellectual credit.  That is, <em>plagiarism</em> is
+    different from <em>violating copyright</em>.
+
+</ul>
+
+<p>The courts also acknowledge the importance of <em>fair use</em> of
+  copyrighted works. It depends
+  <ul>
+    <li>on the purpose and character of the use.
+      
+    <li>on the nature of the copyrighted work
+      
+    <li>on the amount or substantiality of the use.
+      
+    <li>on how the use affects the <em>potential market</em> of the
+    copyrighted work.
+  </ul>
+
+<blockquote>
+  <p>Copyright law is for the benefit of society, not solely for the
+  benefit of the copyright holder.
+</blockquote>
+
+
+  <h2>Quiz Question Nr. 8</h2>
+  <p>When does a written work receive protection under U.S. copyright laws?
+  <ol type="A">
+    <li><p>when you write it down
+    <li><p>when you publish your work
+    <li><p>when you register your work with the U.S Copyright Office
+  </ol> 
+
+   <h2>Quiz Question Nr. 9</h2>     
+If your student-run theater group performs a play without the copyright
+   holder's permission, offers free admission (so the group makes no money
+   on the performance), is it violating copyright laws?
+   <ol type="A">
+    <li><p>Yes
+    <li><p>It depends
+    <li><p>No
+   </ol>
+      
+<h2>Quiz Question Nr. 10</h2>
+You did an amazing lip-syncing video of Taylor Swift's "Shake it Off" with your friends and
+      uploaded it to YouTube. Is that copyright infrigement? 
+   <ol type="A">
+    <li><p>Yes
+    <li><p>It depends
+    <li><p>No
+   </ol>
+      
+<h2>Activity</h2>
+
+<p>With those around you, skim over these
+ <a href="/~cs110/OLD_WEBSITE/lectures/M10-copyright/open-ended.html">open-ended
+ questions</a> and choose one to discuss.  We'll collect thoughts afterwards.
+
+<h2 id="sec_summary">Summary</h2>
+<p>We hope that after these activities you can:
+  <ul>
+    <li>understand digital signals and how they are transmitted
+    <li>sampling for conversion between analog and digital signals 
+    <li>copyright law and fair use
+  </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions" style="display: none">
+<pre class="prettyprint lang">
+function calculate_bitrate(bRes, sRate){
+  return bRes * sRate;
+}
+$("#bitrate").text(calculate_bitrate(bitRes, sampling));
+
+function calculate_filesize(bRes, sRate, seconds){
+  var bitrate = calculate_bitrate(bRes, sRate);
+  return bitrate * seconds / (8*1000); // convert in KB
+}
+$("#filesize").text(calculate_filesize(bitRes, sampling, seconds));
+
+</pre>
+ 
+
+</div>
+<script>
+var now = new Date();
+var later = new Date("04/27/2015 5:00 PM");
+document.querySelector("#later").innerHTML = later.toLocaleString();
+if( now > later ) {
+    document.querySelector("#solutions").style.display = "block"; // $("#solutions").show();
+    document.querySelector("#solutions_later").style.display = "hidden"; // $("#solutions").show();
+}
+</script>
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideItem() {
+          // hide a PRE or a P inside the LI (this). Don't hide the
+          // whole LI, or the numbering changes.
+          $(this)
+              .find("pre,p")
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideItem);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

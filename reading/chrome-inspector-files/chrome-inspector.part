@@ -1,0 +1,185 @@
+<!-- all new; written by Eni? -->
+
+          <h2 id="item1">Why Are We Choosing Chrome?</h2>
+          
+          <p>The default browser we will use in this course is Google Chrome. This means that all
+              your assignments should first work well on Chrome and only if you desire, you can
+              make changes to make things look the same on the other browsers. For your project,
+              once you have everything working on Chrome, you might consider adjusting the CSS
+              rules to fix problems on the other browsers such as Firefox,
+              Safari and Internet Explorer.
+
+          <p> The reason for choosing Chrome is that it runs on both
+          MacIntosh and Windows computers, so it is <q>neutral</q> between
+          those two operating systems. Furthermore, it is the most
+          popular browser on the web, according to W3School's
+              <a href="http://www.w3schools.com/browsers/browsers_stats.asp">browser use statistics</a>. Statistics from the 
+              <a href="http://en.wikipedia.org/wiki/Usage_share_of_web_browsers">Wikipedia article</a>
+              are a bit different from those of W3Schools, but both agree on the dominance of Chrome.
+          
+          <h2 id="tools">Developer Tools</h2>
+
+          <p>All browsers have tools to help developers understand how their HTML, CSS, and Javascript
+          code is being interpreted by the browser. In these notes you will become familiar with Chrome's 
+          developer tools, most importantly the Inspect Element window. In the future, we will also talk
+          about how to use the Console to debug Javascript applications.</p>
+          
+          <p>You can access the Elements window in several ways; choose one that you are comfortable with:
+            <ul>
+              <li>Using the mouse (or trackpad): right-click and choose Inspect Element on the drop-down menu.</li>
+              <li>Using the menu: View | Developer | Developer Tools</li>
+              <li>Using the keyboard:
+                <ul>
+                  <li>Mac: Cmd + Opt + I
+                  <li>Windows: Ctrl + Shift + I
+                </ul>
+                <p>Note that that's the letter <q>I,</q> as
+                in <q>Inspector</q>.</li>
+            </ul>
+
+            <p>A new window will open at the bottom of your current web page. This window is usually docked
+          in this position, but you can use the docking icon <img src="chrome-inspector-files/dock.png" alt="dock icon"> to
+          dock/undock it from the main window. Figure 1 shows the complete screenshot of a web page and
+          the developer tools at the bottom.
+          </p>
+          <figure class="text-center">
+            <img src="chrome-inspector-files/main_window.png" alt="screenshot of chrome inspect element"
+                 class="img-thumbnail">
+            <figcaption>Figure 1: Screenshot of a page and the Inspect Element window.</figcaption>
+          </figure>
+          
+          <h3>The Elements window and the Web page</h3>
+
+          <p>The first thing to notice in the Elements window is that it is divided in two
+            panes.  On the left side we see a tree representation of the nested structure of 
+            the HTML document (similar to that of folders and files in programs such as Finder (Mac)
+            or Windows Explorer). On the right side there is a series of tabs, opened on Styles,
+            showing what styles are applied to the selected element and how the browser
+            has calculated the box that contains the element.
+            
+          <p>By selecting an element in the tree representation and hovering the mouse over it,
+            one can see how the corresponding area in the Web page is highlighted in blue,
+            also showing a little yellow box with the width x height dimensions of the element's content box.
+            In Figure 1, we notice in the upper part that the whole document is highlighted, because
+            we have selected the <code>&lt;html&gt;</code> element (in the Elements window). 
+        </p>
+            
+        <p>Spend a few minutes navigating the document tree and highlighting different tags, to see
+        the corresponding box on the Web page.</p>
+          
+        <!--h3 id="item3">Calculating Styles</h3>
+          <p>An important feature of the Inspector is that it allows us to understand what styles
+            the browser is applying to an element. At the beginning are shown the styles that come
+            from the user provided stylesheet (with a reference to the file name and line number 
+            where the style appears), then, the user agent (browser) styleshet applied to the 
+            element is shown as well. 
+        </p-->
+           
+        
+          <h2>Your Exploration Task</h2>
+
+          <p>The Chrome Inspector is a very useful tool, but it takes a
+            little practice to be comfortable with it. Please spend a few minutes on the following exploration,
+            because it'll help get you started using it. We'll do more
+            practice in class and in lab.
+
+            <ol>
+              <li>Vist the HTML
+              file <a target="_blank" href="chrome-inspector-files/wellesley-no-css.html"><code>wellesley-no-css.html</code></a>.
+                
+                <li>Open the Inspect Element window and start exploring
+            the document tree. Notice how elements are nested in each other, e.g., <code>&lt;ul&gt;</code>
+            is nested in <code>&lt;nav&gt;</code>, <code>&lt;li&gt;</code>'s are nested
+            in <code>&lt;ul&gt;</code>, <code>&lt;a&gt;</code> is nested in 
+            <code>&lt;li&gt;</code>, etc. 
+            
+          <li>Click on one of the elements, for example the <code>&lt;a&gt;</code> tag
+          for Hillary Clinton and then inspect what you see in the Styles pane. Because
+            you haven't specified your own style for the page, the listed styles are the ones
+            provided by the browser (the user agent). Figure 2 shows the default style for 
+            <code>&lt;a&gt;</code>. For the moment, don't worry about the complicated name of the selector
+            (<code>a:-webkit-any-link</code>), simply think that it is the style for <code>a</code>. Also,
+            notice how below the rule for <code>a</code>, the rules inherited from its ancestors: <code>li</code> and
+            <code>ul</code> are shown.
+            </ol>
+          
+          <figure class="text-center">
+            <img src="chrome-inspector-files/style_a.png" alt="screenshot default styles for selector a"
+                 class="img-thumbnail">
+            <figcaption>Figure 2: Default styles provided by the browser for <code>a</code>.</figcaption>
+          </figure>
+          
+        <p>You might be confused by styles such as <code>color: -webkit-link</code>,
+          because the value is not a kind of color. The reason for this is that the browser
+          keeps a table where every value such as <code>-webkit-link</code> is mapped
+          to a real value. You can see the results of this mapping in the <q>Computed</q> tab, 
+          as shown in Figure 3.
+        </p>
+        
+          <figure class="text-center">
+            <img src="chrome-inspector-files/computed_a.png" alt="screenshot computed styles for selector a"
+                 class="img-thumbnail">
+            <figcaption>Figure 3: Computed styles for the selector <code>a</code>.</figcaption>
+          </figure>
+        
+        <p>
+          Notice how the <code>color</code> property has a real value now.
+          Don't worry if you don't understand
+          the <code>rgb(85,26,139)</code> value; it's a way to represent
+          colors using numbers, which we will discuss a bit later in the course).
+        </p>
+
+          <div class="bs-callout bs-callout-warning">
+              <h3>Things to try on your own</h3>
+
+            <p>For the <a  target="_blank" href="chrome-inspector-files/wellesley-no-css.html"><code>wellesley-no-css.html</code></a> document (without CSS styling), explore the
+            default styles for each element and look at what properties and values these styles have.        
+            </p>
+            <p>Here are some questions to ask yourself and figure out during the exploration:</p>
+            
+            <ul>
+              <li>Which elements have the property <code>display</code> and what kind of values does this
+              property take?</li>
+              <li>What can you say about the elements that don't have a <code>display</code> property?
+              (For such cases, look at the "Computed" tab as well.</li>
+              <li>Select the element <code>h1</code> in the document tree, then hover with the mouse
+              over the colored box (it has the words: margin, border, padding). What do you see in the 
+              web page as you perform this hovering? Repeat the same for the element <code>ul</code>.</li>
+              <li>Do you understand what the numbers in the box mean?</li>
+              <li>Resize your browser page, then click on the button reload 
+                <img src="chrome-inspector-files/reload.png" alt="browser button reload">. Which numbers in the box changed?
+              </li>
+              <li>Can you figure out the relation between the unit <code>em</code> and <code>px</code>,
+              both used in the styles? Refer to the "Computed" tab for some help.</li>
+              <li>Select the element <code>nav</code> and then the element <code>footer</code>.
+              What can you say about the selector or the rule?</li>
+            </ul>
+          </div>
+        
+          <p>Now that you have explored the default styles provided by the browser, you can explore
+          what happens when you add a stylesheet. You can try
+          <a target="_blank" href="chrome-inspector-files/wellesley-w-css.html">wellesley-w-css.html</a>
+        
+        <p>In a new browser window open this second HTML
+        file and open "Inspect Element". Try to compare how the "Styles" pane looks for elements you have styled.
+        For an example, see in Figure 4 the before-and-after comparison for the <code>h1</code> element.</p>
+        
+        <figure>
+          <img src="chrome-inspector-files/h1.png" alt="screenshot of defaults styles for h1"
+               class="img-thumbnail" style="width: 49%; vertical-align: top">
+            <img src="chrome-inspector-files/h1_style.png" alt="screenshot of user-defined styles for h1"
+                 class="img-thumbnail" style="width: 49%; vertical-align: top">
+            <figcaption>Figure 4: Default styling for <code>h1</code> (left) and user-defined styles (right).</figcaption>
+        </figure>
+        
+        
+        <div class="bs-callout bs-callout-warning">
+        <h4>More Questions</h4>
+        <p>To answer the following questions, you might need to compare several elements from the unstyled and
+          styled document.</p>
+        <ol>
+          <li>Has the box size for <code>h1</code> changed? Explain how this is possible.</li>
+          <li>Can you come up with the formula that calculates the entire box size that each element occupies in the page?</li>
+          <li>Which are all the different ways that you can influence this box size through the stylesheet?</li>
+        </ol>
+        </div> 

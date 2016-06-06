@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="Scott D. Anderson and the CS110 Staff">
+        
+    <title>CS110: HTML5 Tags</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>HTML5 &nbsp; <small>The new and powerful tags</small></h1>
+      <hr>
+      <div class="alert alert-info">
+        <strong>Reading:</strong> We strongly suggest you read chapter 12
+        of <em><a href="http://shop.oreilly.com/product/9780596159924.do">Head
+        First HTML and CSS</a></em> with these notes.
+      </div>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li><a href="#intro">Meaningful Tags</a></li>
+              <li><a href="#semantic">Semantic Tags</a></li>
+              <li><a href="#media">Media Tags</a></li>
+                <ul class="nav">
+                    <li><a href="figure">&lt;figure&gt; and &lt;figcaption&gt;</a></li>
+                    <li><a href="canvas">&lt;canvas&gt;</a></li>
+                    <li><a href="video">&lt;video&gt;</a></li>
+                    <li><a href="audio">&lt;audio&gt;</a></li>
+                </ul>
+              <li><a href="#testing">Live Testing</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+        
+        <div class="col-md-8">
+
+          <h2 id="intro">The need for meaningful tags</h2>
+          <p>HTML was designed to structure the content of a 
+            web page (hence the name, <em>markup language</em>). 
+            That explains the existence of tags like <code>&lt;p&gt;</code>, 
+            <code>&lt;h1&gt;</code>, <code>&lt;ol&gt;</code>, etc. However, when web developers
+          started creating pages with a lot of content, it became clear that to make better
+          use of the available screen space, a way to organize the page content in bigger chunks
+          was needed. Then, CSS could be used to arrange their position on the page. Therefore,
+          the tag <code>&lt;div&gt;</code> was born (short for <em>division</em>), which is currently the most used 
+          (and overused) tag in every webpage. While this seemed to have solved the page layout problem, 
+            HTML code became difficult to understand, other computer programs (e.g. search engines) 
+            couldn't make sense of all divs in a page, if they wanted to use the organization of the page 
+          for inferring the meaning of the content.</p> 
+          
+          <p>HTML5 introduced a series of new tags that have meaningful names and can
+          be used universally to express what the content is about, beyond the existing simple
+          tags. Additionally, to make the pages more alive with different kinds of content,
+          several new tags that allow content to be embedded in a page were also added. 
+          In the following, we will give a short summary of some of these tags. Try to
+          make use of them in your pages. They will make your code better and more readable
+          to the programs of the future.</p>
+            
+          <h2 id="semantic">Semantic Tags</h2>
+          <p> Here is a list of new HTML5 tags that are known as semantic tags, because 
+          their names have specific meaning:</p>
+          
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Tag Name</th>
+                <th>Short Description</th>
+            <th>
+              More Info
+            </th>
+          </tr>
+        </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;header&gt;</code></td>
+                <td>Specifies a header for a document or section.</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_header.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>
+              
+              <tr>
+                <td><code>&lt;footer&gt;</code></td>
+                <td>Specifies a footer for a document or section.</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_footer.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>
+              <tr>
+                <td><code>&lt;section&gt;</code></td>
+                <td>Defines sections in a document (e.g. chapters).</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_section.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr> 
+              <tr>
+                <td><code>&lt;nav&gt;</code></td>
+                <td>Defines a set of navigation links.</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_nav.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr> 
+              <tr>
+                <td><code>&lt;aside&gt;</code></td>
+                <td>Defines content which is relevant but not central (e.g. callouts, sidebars).</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_aside.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>  
+              <tr>
+                <td><code>&lt;article&gt;</code></td>
+                <td>Defines independent, self-contained content (e.g., blog post, news story).</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_article.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>   
+              
+              <tr>
+                <td><code>&lt;abbr&gt;</code></td>
+                <td>Indicates an abbreviation or acronym.
+                  <p><code>&lt;abbr title="United Nations">UN&lt;/abbr&gt;</code></p>
+                  <p>See an example in action in the paragraph below for the word W3C.</p>
+                </td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_abbr.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>               
+            </tbody>
+          </table>
+          
+          <div class="bs-callout bs-callout-warning">
+             <h4>Browser Support</h4>
+              <p>Changing the web language standards goes 
+                through a lengthy process spearheaded by the <a href="http://www.w3.org/">
+                <abbr title="World Wide Web Consortium">W3C</abbr></a> consortium. 
+                The vendors of the browsers need often many years to implement all the changes.
+                Therefore, not all new HTML5 are currently supported by all browsers. The info link 
+                <span class="glyphicon glyphicon-info-sign"></span> in the table gives information about which
+                browsers currently support the tag.</p>
+          </div>
+          
+          
+          <h2 id="media">Media Tags</h2>
+          <p>HTML5 also introduces more meaningful tags to support embedding media resources 
+          directly in the page, allowing for a more rich experience in the browser. Below we show
+          four such tags in action.</p>
+          
+          
+           <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Tag Name</th>
+                <th>Short Description</th>
+            <th>
+              More Info
+            </th>
+          </tr>
+        </thead>
+            <tbody>
+              <tr>
+                <td><code>&lt;figure&gt;</code><br>
+                    <code>&lt;figcaption&gt;</code>
+                </td>
+                <td>Specifies self-contained content (e.g. illustrations, diagrams, photos). It uses
+                &lt;figcaption&gt; to specify individual or group captions.</td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_figure.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>
+              
+              <tr>
+                <td><code>&lt;canvas&gt;</code></td>
+                <td>Specifies a space for drawing graphics through Javascript.<br>
+                  We will study this tag in Lecture 12, after we have learned some Javascript.
+                </td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_canvas.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>
+              <tr>
+                <td><code>&lt;video&gt;</code></td>
+                <td>Specifies video, such as a movie clip or other video streams.<br>
+                  Three supported formats for the moment are MP4, WebM, Ogg.
+                </td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_video.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr> 
+              <tr>
+                <td><code>&lt;audio&gt;</code></td>
+                <td>Specifies sound, such as music or other audio streams.<br>
+                    
+                </td>
+                <td class="text-center">
+                    <a href="http://www.w3schools.com/tags/tag_audio.asp" target="_blank">
+                      <span class="glyphicon glyphicon-info-sign"></a>
+                </td>
+              </tr>  
+    
+            </tbody>
+          </table>
+          
+          
+          
+          <h3 id="figure">The &lt;figure&gt; and &lt;figcaption&gt; tags</h3>
+          <p>The tags in action:</p>
+          <figure class="text-center">
+            <img src="http://static1.wikia.nocookie.net/__cb20120724095441/spiritedaway/images/a/a7/Chihiro.png"
+                 class="img-thumbnail">
+            <figcaption>Chihiro from the movie Spirited Away. 
+              <small><a href="http://spiritedaway.wikia.com/wiki/Chihiro_Ogino_(Sen)">Image Source.</a></small></figcaption>
+          </figure>
+          
+          <p>Here is how to use these two tags</p>
+          
+          <blockquote>
+            <pre>
+  &lt;figure&gt; 
+    &lt;img src="images/imageName.png" alt="image description" &gt;
+    &lt;figcaption&gt;A caption for the image&lt;/figcaption&gt;
+  &lt;/figure&gt;
+          </pre>
+          </blockquote>
+          
+          <p>For more examples and explanation for this pair of tags read this 
+            <a href="http://html5doctor.com/the-figure-figcaption-elements/" targer="_blank">
+              article by the HTML5Doctor website.</a></p>
+          
+          
+          
+          <h3 id="canvas">The &lt;canvas&gt; tag</h3>
+          <p>Here is an example of an animation written in Javascript that works together with
+          the <code>&lt;canvas&gt;</code> element.</p>
+          
+          <figure class="text-center">
+              <iframe frameborder="0" height="310" src="https://mdn.mozillademos.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Basic_animations$samples/An_animated_solar_system?revision=514583" width="310"></iframe>
+            <figcaption>The animated solar system. <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Basic_animations">Click here for source</a></figcaption>
+          </figure>
+          
+          
+          
+          <h3 id="video">The &lt;video&gt; tag</h3>
+          <p>Here is an example of embedding video directly on your page:</p>
+          
+          <div class="text-center">
+            <video controls
+                 autoplay
+                 src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+                 width="300"
+                 id="bunny_video"></video>
+          </div>
+          
+          <blockquote>
+            <pre>
+  &lt;video controls
+            autoplay
+            src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+            width="300"
+            id="bunny_video"
+  &gt;
+          </pre>
+          </blockquote>
+          
+         <p>The attributes <code>controls</code> and <code>autoplay</code> are called boolean attributes.
+           A tag either has or not has them.</p>
+          
+          <h3 id="audio">The &lt;audio&gt; tag</h3>
+          
+          <p>Here is an example of embedding audio directly on your page:</p>
+          
+          <div class="text-center">
+          <audio controls>
+                <source src="http://www.jingle.org/britsungmont.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+          </audio>
+          </div>
+          
+           <blockquote>
+  <pre>
+    &lt;audio controls&gt;
+      &lt;source src="http://www.jingle.org/britsungmont.mp3" type="audio/mpeg"&gt;
+      Your browser does not support the audio element.
+    &lt;/audio&gt;
+  </pre>
+          </blockquote>
+
+          <h2 id="testing">Live Testing</h2>
+          <p>Often you want simply to try out new elements or their combination, without having
+          to write a complete HTML document. We have already seen how the documentation for the 
+          HTML tags by the <a href="http://www.w3schools.com/">W3Schools website</a> provides 
+            an editing space where to experiment with tags. However, there are many more tools 
+          on the web that allow you to do the same, for all three languages at once: HTML, CSS,
+          and Javascript.</p>
+          
+          <p>One tool that we will be using during lecture time for experimentaion is 
+          <a href="http://jsfiddle.net">jsfiddle</a>. Here is a screenshot from trying out the <code>&lt;video&gt;</code>
+            tag directly in its workspace.
+          </p>
+          
+          <figure class="text-center">
+            <img src="images/jsfiddle.png" alt="a screenshot for jsfiddle" class="img-thumbnail">
+            <figcaption>A screenshot from jsfiddle use</figcaption>
+          </figure>
+                   
+ 
+        </div><!--end of "col-md-8"-->
+            
+      </div><!--end of "row"-->
+
+    <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+
+</html>

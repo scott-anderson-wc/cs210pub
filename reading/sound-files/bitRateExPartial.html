@@ -1,0 +1,27 @@
+<html>
+<head>
+<script type="text/JavaScript">
+   // your code here (or in an external file)
+</script>  
+</head>
+<body>
+<p>
+<form name = "the_form">
+   <p>Bit resolution: <input type = "text" name = "bit_res">
+   <p>Maximum frequency (Hz): <input type = "text" name = "max_freq">
+   <p>Recording time (seconds): <input type = "text" name = "rec_time">
+
+   <p><input type = "button"
+          value = "Compute file size"
+          onClick = "var sampRate=parseInt(document.the_form.max_freq.value)*2;
+                     var bitRt = computeBitRate(parseInt(document.the_form.bit_res.value),sampRate);
+                     var fileSize = computeFileSize(bitRt,parseInt(document.the_form.rec_time.value));
+                     var file_elt=document.getElementById('filesize');
+                     file_elt.innerHTML=fileSize;
+                     ">
+
+</form>
+<p>The file size is <span id="filesize">??</span> bits.
+
+</body>
+</html>

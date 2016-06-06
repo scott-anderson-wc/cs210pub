@@ -1,0 +1,495 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+    <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>The DOM, Objects, and <code>Date()</code></h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>understand and use vocabulary needed to talk about the DOM 
+      and objects
+      
+    <li>understand and use <code>Date</code> objects in different ways
+      
+    <li>write code that performs conditional execution based on dates
+      
+    <li>dynamically change the appearance of a page according to the four seasons
+  </ol>
+
+    
+<h2>Objects Summary</h2>
+
+<p>The readings covered a lot of ground; let's take a minute to step back
+  and see the big ideas:
+  <ul>
+    <li>Objects are an important way of organizing information in modern
+    programming languages.
+      
+    <li>An <em>object</em> is a collection of information about a single
+    thing, such as a date, a document, an element of a document, an image,
+    a Google map location, a Facebook post, ...
+      
+    <li>The data in the object are often <em>heterogeneous</em>:  some
+    parts might be strings, others numbers, others boolean, etc. (This is
+    to distinguish objects from lists, which we'll learn later.)
+      
+    <li>Objects sometimes have <em>methods</em>: special functions that
+    belong to the object to operate on its data and
+    provide <em>behavior</em> for the object.  For example, a date object
+    has methods to extract the day, date, and month, and also to set those
+    values.
+      
+    <li>You can create your own objects, for keeping track of your own
+    collections of information, like we did with the Harry Potter houses
+    in the reading.
+  </ul>
+
+<h2>Date Objects</h2>
+
+<p>As a concrete and useful example of objects, we'll start
+  with <em>date</em> objects.
+  <ul>
+    <li>You create them with <code>new Date()</code>
+      
+    <li>With no arguments, the new object represents the moment of its creation.
+      
+    <li>There are many ways to create date objects for different moments.
+
+    <li>They have methods like <code>getDay()</code>
+    and <code>getFullYear()</code> to retrieve the data.
+      
+    <li>They also have methods like <code>setDay()</code>
+    and <code>setFullYear()</code> to modify the data.
+
+  </ul>
+
+  <h2>Quiz Question Nr. 1</h2> 
+
+      <p>Which of the following expressions does not involve an object method?
+
+<ol type="A">
+  <li>
+    <pre class="prettyprint lang-js">var d = new Date(); d.getTime()</pre>
+
+<li>
+    <pre class="prettyprint lang-js">var d = new Date(); d.setMonth(3)</pre>
+
+<li>
+    <pre class="prettyprint lang-js">var d = new Date(); alert(d)</pre>
+
+<li>
+    <pre class="prettyprint lang-js">(new Date()).toLocaleString()</pre>
+</ol>
+   
+      
+      <h2>Quiz Question Nr. 2</h2> 
+<p>In which of the following code excerpts, is there no object method
+involved? There might be more than one correct answer.</p>
+
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+&lt;button type="button" onclick="setColor();"&gt;set color&lt;/button&gt;
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+var name = prompt("what is your name?"); alert("your name has "+name.length+" letters");
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+document.querySelector("#colorVal").innerHTML;
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+var e = 2.7182818; e.toFixed(2);
+</pre>  
+</ol>
+
+
+<h2>Quiz Question Nr. 3</h2>
+<p>You are given the following HTML snippet:</p>
+
+<pre class="prettyprint">
+&lt;div id="album"&gt;
+  &lt;h3&gt;Photo Album 2014&lt;/h3&gt;
+&lt;/div&gt;
+</pre>
+which we would like to dynamically update with Javascript to display like this, adding an image to the album.
+          <p>  <img class="img-thumbnail" src="imgsmall.png" alt="image small" width="150">  </p>
+<p> Which of the following statements will realize this?         
+
+<ol type="A">
+  <li>
+
+<pre class="prettyprint lang-js">
+var gallery = document.querySelector("#album");
+gallery.innerHTML = "&lt;img src='images/clownfish.jpg' alt='clownfish'&gt";
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+var imgEl = document.createElement("img");
+imgEl.setAttribute("src", "images/clownfish.jpg");
+imgEl.setAttribute("alt", "clownfish");
+document.querySelector("#album").appendChild(imgEl);
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+var imgEl = document.querySelector("img");
+imgEl.getAttribute("src") = "images/clownfish.jpg";
+imgEl.getAttribute("alt") = "clownfish";
+</pre> 
+
+  <li>
+<pre class="prettyprint lang-js">
+var imgEl = document.querySelector("#album");
+imgEl.setAttribute("src") = "images/clownfish.jpg";
+imgEl.setAttribute("alt") = "clownfish";
+</pre>
+
+</ol>
+
+<p>Note that the correct answer using jQuery is the following:
+<pre class="prettyprint lang-js">
+$("&lt;img src='images/clownfish.jpg' alt='Clownfish'&gt;").appendTo("#album");
+</pre> 
+
+
+<p>(The examples in the notes were originaly written by someone for whom
+  English is not their first language, so forgive the persistent
+  mispelling of <q>clownfish</q>; we'll root those all out eventually.)
+
+<h2>Quiz Question Nr. 4</h2>
+
+<p>Which of the following statements will <strong>not</strong> define a Date object?
+
+<ol type="A">
+  <li>
+
+<pre class="prettyprint lang-js">
+var now = new Date();
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+var today = new Date(1415697698563);
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+var date = new Date("10/20/2014 03:45");
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+var aprilFool = new Date(2014, 15, 1);
+</pre>
+
+  <li>
+    <pre class="prettyprint">All statements will define Date objects.</pre></li>
+
+</ol>
+
+
+<h2>Quiz Question Nr. 5</h2>
+<p>Choose the piece of code that will work correctly:</p>  
+          
+<ol type="A">
+  <li>
+
+<pre class="prettyprint lang-js">
+var now = new Date();
+if (now.toLocaleDateString() == "03/18/2015") {alert("Spring Break begins!");}
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+var now = new Date();
+if (now == "03/18/2015") {alert("Spring Break begins!");}
+</pre>
+
+<li>
+
+<pre class="prettyprint lang-js">
+var now = new Date();
+if (now.getDate() == 18 && now.getMonth() == 3) {alert("Spring break begins!");}
+</pre>
+    
+  </ol>
+          
+<h2>Quiz Question Nr. 6</h2>  
+ <p>You're given the following three dates:
+<pre class="">
+var start = "3/19/2015 00:00:01";
+var end   = "3/29/2015 23:59:59";
+var today = "3/24/2015 11:30:00";
+</pre>
+ <p>Which if the following statements correctly checks
+          that <code>today</code> during spring break?</p>
+          
+ <ol type="A">
+  <li>
+
+<pre class="prettyprint lang-js">
+if (start < today < end) {
+  alert("It's spring break.")
+}
+</pre>
+    
+    <li>
+
+<pre class="prettyprint lang-js">
+if (new Date(start) < new Date(today) < new Date(end)) {
+  alert("It's spring break.")
+}
+</pre>
+
+  <li>
+
+<pre class="prettyprint lang-js">
+if (start < today && today < end) {
+  alert("It's spring break.")
+}
+</pre>
+
+    <li>
+
+<pre class="prettyprint lang-js">
+if (new Date(start) < new Date(today) && new Date(today) < new Date(end)) {
+  alert("It's spring break.")
+}
+</pre>
+    
+  </ol>         
+          
+<h2>Exercise 1</h2>
+  <p>Write a simple program that prompts the user to enter a date, and then
+    displays a message if it is a Friday, the 13th. The Date object methods
+    <code>.getDay()</code> and <code>.getDate()</code> will be useful. Use
+    the execution box below to test it. Test dates: "2/13/2015",
+    "3/13/2015" and "4/13/2015".
+    
+<h2>Exercise 2</h2>
+ <p>Write a simple program that prompts the user to enter their birthday
+          and displays a message with the day of their birthdate. For example,
+          if someone was born on May 5th, 2005, they'll see the message 
+          "You were born on a Thursday."</p> 
+          
+<form action="">
+<div>
+<textarea rows=15 cols=80></textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+          
+<div class="bs-callout bs-callout-warning">
+    <h4>Challenge related to Exercise 2</h4> 
+  <p>Most likely, the code you wrote for Exercise 2 contained a long cascading of 
+    <em>if, else if</em>
+  statements, one for every day of the week. That is fine, but it's a lot of typing.
+  Often programmers have fun trying to find solutions that are short to write. Thus, 
+  here is a challenge for you. Assume you are given an object like this:</p> 
+  <pre class="prettyprint lang-js">
+  var dayNames = {Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", 
+                  Thu: "Thursday", Fri: "Friday", Sat: "Saturday"}
+  </pre>
+  <p>Using the <code>.toDateString()</code> method, the string method <code>.slice()</code>,
+  and the object <code>dayNames</code> find the day name with a single line of code.</p>
+  <p><a href="http://www.w3schools.com/jsref/jsref_todatestring.asp">Documentation for .toDateString()</a>.</p>
+  <p><a href="http://www.w3schools.com/jsref/jsref_slice_string.asp">Documentation for .slice().</a></p>
+  
+  <p>In the <a href="index.html">Arrays</a> lecture on Thursday, we'll see another
+      way of finding weekday names using array indexing.
+</div>
+    
+<h2>The Seasons Application</h2>
+<p>You're writing a website that will have a splash page that depends on the season.
+    If the current day falls in Autumn, the page has a Autumn theme, if it falls in
+    Spring a Spring theme, and so on. You can see our <a href="screencast.html#seasons">screencast</a>
+   to get an idea.</p>
+    
+<p>From the <code>cs110dl</code> account, download the <code>seasons</code> folder
+    and spend a few minutes looking at the HTML and CSS files.</p>
+
+  <div class="alert alert-danger">
+    <h4>Use our jsFiddle link</h4>   
+    <p>To save time in class, instead of downloading the folder we'll use jsFiddle.
+      <a href="http://jsfiddle.net/ub3mpd0q/1/" target="_blank">Here is the link</a>. We have already
+    added the HTML, CSS, and some Javascript.</p>
+  </div>
+
+<h2>Exercise 3a</h2> 
+<p>Given that we know the starting time for each season in 2015, write a
+    few lines of code (in the JavaScript section of the JSfiddle) that
+    checks if the current date is in the Winter and alerts "It's
+    Winter".</p>
+          <strong>In jsFiddle, add your code in the Javascript pane.</strong>
+    
+<pre class="prettyprint lang-js">
+var springStart = "2015/3/20 6:45 PM";
+var summerStart = "2015/06/21 12:38 PM";
+var autumnStart = "2015/09/23 04:21 AM";
+var winterStart = "2015/12/21 11:48 PM";
+</pre>
+    
+<h2>Exercise 3b</h2>
+
+<p>Use the constructor <code>new Date()</code> with a string value,
+    e.g. "5/5/2015", and extend your code to alert that it's spring.</p>
+    
+<h2>Exercise 3c</h2>
+
+<p>Now that the logic for decision making is working, extend your Javascript code to
+    do the following:
+  <ol><li>use a variable, <code>season</code> to store the name of the season within
+    each THEN branch.</li>
+
+    <li>At the end of the conditional statements, use the
+    method <code>document.querySelector()</code> with the appropriate
+    selector to write the season name within the H2 tag. Be careful!
+    You'll need a descendant selector.  Or you can add an ID to the H2
+    tag</li>
+
+    <li>Use one of the formatting methods of <code>Date</code> to write
+      the date as "Month/Day/Year" in the appropriate element of the
+      page. Again, use a descendant selector.</li>
+
+          </ol>
+
+<p>Once you completed this,
+    the results looks like this:</p> 
+    <img src="text.png" alt="page screenshot" width="200">
+    
+<h2>Exercise 3d</h2>
+
+    <p>In the CSS part of the JSfiddle complete the rule for the season
+    <code>DIV</code> elements, so that we don't see all text items at the
+    same time.</p>
+
+    <pre>
+#spring, #summer, #autumn, #winter {
+  /* add CSS here */
+}
+    </pre>
+    
+<h2>Exercise 3e</h2>
+
+  <p>Add some Javascript that will make only the season's poem of the day show on the page.
+    While we can add code in the conditional statements, a more modular way is to 
+    do this at the very end. Assuming that you have used a variable <code>season</code> 
+    to store strings like "Summer" or "Winter", we 
+    can use the string method <code>.toLowerCase()</code> like below:
+    <pre class="prettyprint lang-js">
+    var seasonID = "#" + season.toLowerCase();
+    </pre>
+    to create the corresponding ID values such as <code>#spring</code>.   
+</p>
+    
+<h2>Exercise 3f</h2>
+
+<p>Finally, to which element you'll need to add one of the classes <code>springStyle</code>,
+    <code>autumnStyle</code>, etc., in order to have the corresponding
+    season style show on the page. We have used the
+    method <code>.addClass()</code> in the past for this purpose. That
+    method allows you to add a class to the list of classes for an
+    element, so that an element can have several classes at a time. We
+    don't want this. Thus, instead of the <code>.addClass()</code> method,
+    we'll use the <code>className</code> property. Try it out</p>
+    
+<h2>Exercise 3g</h2>
+
+<p>To test that the page works well for all seasons, use four test dates
+  (one at a time), with the <code>new Date()</code> constructor, so that
+  you test all four seasons.</p>
+    
+<p>This is what we did in our <a href="screencast.html#seasons">seasons screencast</a>.</p>  
+  
+<h2>Summary</h2>
+
+<p>We hope you had fun with the object <code>Date</code>. As you can see from the today exercises 
+  and the Seasons app, this object and its methods allow us to write some 
+  pretty cool webpages, that can be used to personalize the user experience. You should
+  feel confident in these skills:
+  <ul>
+
+    <li>use the objects, methods, and properties of the DOM API.     
+    <li>create Date objects with different constructor arguments.    
+    <li>format Date objects in different ways
+    <li>use Date objects in boolean expressions</li>
+    <l>dynamically change the appearance of the page using conditional statements with
+    Date objects and the DOM operations.</l>  
+
+        </div><!-- end of row -->
+      </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideAnswer() {
+          $("pre",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+          $("p",this)
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("li").click(hideAnswer);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

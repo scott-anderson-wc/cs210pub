@@ -1,0 +1,410 @@
+    <style scoped>
+div#accessibilitybar {
+    border: thin solid #CCCCCC;
+    position: static;
+}
+
+div#accessibilitybar ul { list-style-type: none }
+
+div#accessibilitybar li {
+    display: inline-block;
+    width: 5em;
+    text-align: center;
+    color: blue;
+    background-color: white;
+}
+
+div#accessibilitybar li:hover { background-color: blue; color: white; }
+
+      #modularity_logo {
+          float: left;
+          margin-right: 1em;
+      }
+
+      form {
+          width:90%;
+          margin:1em 5%;
+          border:2px solid green;
+          background-color:silver;
+          padding: 1em;
+      }
+      
+      #tax_form input { width: 6em; }
+    </style>
+
+<div id="accessibilitybar"><ul id="accessibility-list"></ul></div>
+
+<script src="modularity-files/accessibility-bar-jq.js"></script>
+<script>
+  makeBigAccessibilityBar("#accessibility-list");
+</script>
+
+<h1>Modularity in Websites</h1>
+
+<p>Modularity is something that has come up several times in this course,
+    in different guises. We'll discuss this important principle both in
+    general and how it specifically might apply to the web sites we'll
+    build.
+
+<h2 id="big-picture">Modularity: The Big Picture</h2>
+
+<p>In this reading, we'll be looking at several ways to make your website
+more <em>modular</em> &mdash; i.e., created out of <em>reusable</em> parts
+that make the website easier to <em>maintain</em>.
+
+<h2>Reusability</h2>
+
+<img id="modularity_logo" src="modularity-files/modularity-logo.png" alt="modularity logo">
+
+<p><q>Reusability</q> has become one of the watchwords of the
+environmental movement, and for good reason. Reusing objects that have
+taken much time, energy, and other resources to create is eminently
+sensible.
+
+<p>Reusability makes a lot of sense in the programming world, too. 
+Suppose that a programmer has spent a lot of time developing code that 
+solves a problem. This code can often be reused by the same
+programmer in a different program, or by other programmers in their programs. 
+
+<p>In JavaScript, we've seen that functions are a good way to make code reusable.
+Once code is encapsulated in a function, that function can be invoked in many 
+different contexts. 
+
+<p>Groups of related functions and data structures are often collected
+together in reusable units called <em>modules</em> or <em>libraries</em>
+that are used by large communities of programmers.  These play an
+important role in the adoption of programming languages.  Languages like
+Java, C/C++, Fortran, and Python have become popular in large part because
+of the impressive modules/libraries that have been built for these
+languages.  jQuery is a library that makes JavaScript programming easier.
+
+<p>Modules are particularly reusable when they have been designed to be
+used in mix-and-match ways &mdash; think Legos, standard parts from a
+hardware store, USB peripherals, mix-and-match clothing, etc. That's the
+idea behind the logo at the top of this section.  Crafting a module that is
+easy and useful to reuse is more art than science, but it's a worthy goal.
+
+<p>As a concrete example with web pages, suppose that you've figured out how
+to make a beautiful navigation bar for one page in a website. You'd like a way to 
+package up your navbar code into some sort of module that you can reuse
+on other pages for the same site, and perhaps for pages in other sites. 
+What you <em>don't</em> want to do is simply copy &amp; paste your navbar
+code into other pages, because that's a nightmare to maintain. 
+Which brings us to the topic of ...
+
+<h2>Maintenance</h2>
+
+<p>What is maintenance and why is it important?  We all know what, say,
+car maintenance is:  changing the oil, keeping the tires inflated, fixing
+stuff that breaks.  It keeps your car running better and longer.  But that
+doesn't have anything to do with web sites, since they don't have physical
+parts that wear out.
+
+<p>But they do need to be changed and updated from time to time, which
+computer scientists have come to call <q>maintenance.</q>  Countless
+studies have shown that, over the lifetime of a software project, about
+two-thirds of the overall cost is in maintenance.  Surprising, but true.
+You may not be maintaining your cs110 project, but someone will, and we
+should make their job easier.
+
+<p>You're already doing some of the most important steps:
+<ul>
+<li>keeping the HTML simple, neat and clean, which makes it easier to add
+new content, and
+<li>keeping the style information in a external style sheet, so that
+stylistic changes to the site can be easily made in just one place.
+
+</ul>
+
+<p>The techniques we will see today are similar to the idea of an external
+style sheet, because they allow us to put shared code in a single file
+that is used by more than one page.  
+This general idea is known by computer scientists as <em>modularity</em>: 
+a <q>module</q> is any kind
+of distinct, separable thing that can be used more than once.  
+
+<h2 id="js">JavaScript Code Files</h2>
+
+<p>As we saw when we introduced JavaScript, very often you have some
+JavaScript code that you'd like to use on several web pages.  The best
+example would be a collection of useful functions, all stored in a single
+file.  You could have the browser load the file of functions, and then
+your web page could invoke the particular functions you want.  Let's look
+at some examples.
+
+<h2 id="accessibility-bar">Accessibility Bar</h3>
+
+<p>The top of this page features a set of font sizes formatted in various
+sizes, where clicking on them changes the font-size for this page to the
+selected size.  We're calling this the <q>accessibility bar</q> (like a
+navigation bar, but with accessibility controls).  All the code is in a
+separate file, so the only thing we had to do to put the accessibility bar
+on this page was the following:
+
+<pre class="prettyprint lang-html">
+&lt;script src="accessibility-bar-jq.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>Let's look at the contents of
+  the <a href="modularity-files/accessibility-bar-jq.js">accessibility-bar-jq.js</a>
+  file. You don't have to read every line, but the first three functions
+  are important (lines 20-45). The rest of the code defines function to
+  add clickable items to the page.
+
+<pre id="access-bar-pre" class="prettyprint lang-js linenums"></pre>    
+
+<script>
+$.get("modularity-files/accessibility-bar-jq.js",
+      function(code) {
+           $("#access-bar-pre").text(code).removeClass("prettyprinted");
+           if(typeof prettyPrint === 'function' ) prettyPrint(); // Google's pretty printer
+       },
+      "script");
+</script>
+
+<p>Some key things to look at and think about are:
+  <ul>
+
+    <li>How does JavaScript control and change style elements?  Could we
+    make a control that would change, say, the thickness of the bar in the
+    H2 elements?
+      
+    <li>Why didn't we supply a stylesheet along with the accessibility
+      bar?  Why did we specify the style rules separately?
+        
+    <li>What functions are parameterized and what aren't?  Can you think
+    of ways to make this accessibility bar more general and therefore more
+    useful? <!-- example: the symbols for bigger and smaller could be parameters,
+                 allowing + and - instead of A and a. -->
+
+  </ul>
+
+<h2 id="taxes">Tax Rate Functions</h3>
+
+<P>Another example is some JavaScript that processes a form. Here's an example:
+
+<div id="tax_form">
+  <form action="/cgi-bin/dump.cgi">
+    <p><label for="bill">What is the bill? <input type="text" id="bill" name="bill"></label>
+    <label for="tax_amount">tax: <input type="text" id="tax_amount" name="tax_amount"></label>
+    <label for="total_amount">total: <input type="text" id="total_amount" name="total_amount"></label>
+    <button type="submit">submit data</button>
+  </form>
+</div>
+
+<script src="modularity-files/tax-calculations.js"></script>
+<script id="tax-form-script">
+function newbill() {
+    var bill = parseFloat($("#bill").val());
+    var tax = calculateTax(bill);
+    var total = bill+tax;
+    // store into the form
+    $("#tax_amount").val(tax.toFixed(2));
+    $("#total_amount").val(total.toFixed(2));
+}
+
+$("#bill").change(newbill);
+</script>
+
+<p>The HTML for the form is straightforward. We'll learn about this a bit
+    later in the course, so don't worry about the details. The main point
+    is that we can get the amount of the bill from the user, rather than
+    using<code>prompt()</code>.
+
+<pre id="tax-form-pre" class="prettyprint lang-html"></pre>
+<script>
+document.getElementById('tax-form-pre').innerText =
+    document.getElementById('tax_form').innerHTML;
+</script>
+
+<p>The JavaScript code associated with this form is the following, which
+    uses the jQuery <code>.val()</code> method to get the value that the
+    user filled into the form. Again, we'll cover this a bit later, so
+    don't worry about the details.
+
+<pre id="tax-form-script-pre" class="prettyprint lang-js"></pre>    
+
+<script>
+document.getElementById('tax-form-script-pre').innerText =
+    document.getElementById('tax-form-script').innerText;
+</script>
+
+<p>(The <code>change()</code> method attaches a handler that is
+  invoked whenever the value in the form changes. We'll learn about event
+  handlers very soon.)
+
+<p>As you've probably guessed, the <code>taxRate</code> variable and the
+<code>calculateTax</code> function are defined in the external JavaScript
+file, <a href="modularity-files/tax-calculations.js">tax-calculations.js</a>:
+
+<pre id="tax-calc-pre" class="prettyprint lang-js linenums"></pre>
+
+<script>
+$.get("modularity-files/tax-calculations.js",
+      function(code) {
+           $("#tax-calc-pre").text(code).removeClass("prettyprinted");
+           if(typeof prettyPrint === 'function' ) prettyPrint(); // Google's pretty printer
+       },
+      "script");
+</script>
+
+<p>The latter part of this example assumes that the form, in addition to
+the <code>bill</code> input, also has outputs named
+<code>tax_amount</code> and <code>total_amount</code>.  When the user
+fills out the bill amount, the JavaScript code calculates the other two.
+It puts the values into form inputs so that they can be sent to the CGI script
+if desired.
+
+<p>The <code>calculateTax</code> function is defined in the
+<code>tax-calculations.js</code> file.  One nice effect of this technique
+is that if the tax rate changes (say, the state legislature declares a tax
+holiday), we can change the definition of the function in that file, and
+any web page that uses the file will immediately start using the new
+definition.
+
+<h2 id="improved_modularity">Improved Modularity</h2>
+
+<p>If we create a file of JavaScript code for reuse in other web pages, it
+could just be a collection of random, unrelated, and disorganized
+functions.  There's nothing in this mechanism to enforce any kind of
+conceptual organization to the JavaScript code.  You could simply have one
+file, say <code>mystuff.js</code>, and put anything you want in it.
+
+<p>That would work, but it has the disadvantage that you probably will
+end up loading code you don't need (a small drag on page loading
+time). More importantly, it's harder to find the code you want and to keep
+things organized.  Instead, you could divide your code into conceptually
+coherent groups. For example:
+
+<pre class="sh_html">
+&lt;script type="text/JavaScript" src="date-functions.js"&gt;&lt;/script&gt;
+&lt;script type="text/JavaScript" src="form-validation.js"&gt;&lt;/script&gt;
+&lt;script type="text/JavaScript" src="rollovers.js"&gt;&lt;/script&gt;
+&lt;script type="text/JavaScript" src="lightbox.js"&gt;&lt;/script&gt;
+</pre>
+
+<p>These files are more worthy of the term <em>module</em>.  If someone
+asks to use your <q>lightbox</q> code, you can point them to that file,
+and they won't have to wade through irrelevant stuff to use your code.
+
+<p>(Unfortunately, dividing your code into several small files increases
+  the loading time of your website, since the browser needs to make a
+  separate connection for each one.  Therefore, professional web designers
+  use tools to combine a bunch of modules into one file, thereby getting
+  the best of both worlds.)
+
+<h2 id="protection">Protecting Your Implementation</h2>
+
+<p>Suppose you're the one who implemented the
+<code>tax-calculations.js</code> module above, and other web designers
+are using your code on their websites.  You know that the variable
+<code>taxRate</code> is the rate that we pay, and so can anyone reading
+your code.  However, you worry that someone might mistakenly or
+maliciously set that variable to the wrong value.  If the true tax rate is
+5 percent, they could set the variable to 5 (which would be a 500 percent
+rate) or accidentally set it to 0.50 instead of 0.05 (just a typo), or
+even set it to a non-numerical value.
+
+<p>To avoid these mistakes, one thing you could do is provide a
+programmatic way to set the tax rate, rather than just assigning to the
+variable.  For example, something like this:
+
+<pre class="prettyprint lang-js">
+function setTaxRate (newRate) {
+    if( isNaN(newRate) ) {
+        alert("Error: the new value is not a number: "+newRate);
+    } else if( newRate < 0 ) {
+        alert("negative tax rates don't make sense");
+    } else if( newRate > 0.3 ) {
+        alert("This tax rate is higher than any legal rate "+newRate);
+    } else {
+        taxRate = newRate;  // finally, set the global variable.
+    }
+}
+</pre>
+
+<p>Then, people set the tax rate using this function, instead of just
+assigning to the variable <code>taxRate</code>.  Of course,
+our <code>setTaxRate</code> can't check for every possible error, but it
+could be a help.
+
+<p>But, you object, a malicious person could still set the
+<code>taxRate</code> variable directly, instead of using this function.
+That's true.  However, there are programming techniques (which we won't go
+into) that protect values absolutely, so that you <em>must</em> go through
+a <q>setter</q> function like this in order to set the value.  Thus, our
+module can build up walls around itself, controlling how it is used.
+
+<p>Computer scientists endeavor to create programming languages that are
+powerful, easy to use, and also encourage and enforce useful modularity.
+This makes programming better and more effective.
+
+<h2 id="headers-footers">Modularizing Headers and Footers</h2>
+
+<p>Suppose we have three pages, A, B, and C, all of which should share a
+  common header (with banner image and navbar) and common footer.
+
+<p>We've already studied one way that this common markup can be shared
+    among the pages, namely using the jQuery <code>.load()</code> function
+    to load the code from a master copy, probably on the main page. In the
+    following sections, we'll describe a second approach.
+
+<p>We would like to be able to describe these pages in such a way that we
+<em>generate</em> the shared parts so that they are easy to change.  For
+example, to add a new menu item or footer item, we should only have to
+change <em>one</em> piece of code, not code on <em>each</em> of the pages.
+
+<h2 id="modularity-js">Modularity via JavaScript Functions</h2>
+
+<p>Another way to achieve the modularity we desire in the A, B, C example
+is to use JavaScript functions to generate the shared HTML code in 
+each file. 
+
+<p>As shown below in the HTML source code for <code>A.html</code>, we can 
+accomplish this using the JavaScript functions <code>addHeader()</code>
+and <code>addFooter()</code>. (The code for <code>B.html</code>
+and <code>C.html</code> is exactly the same except for a different content
+paragraph.)
+
+<pre id="pageA" class="prettyprint lang-html"></pre>
+
+<script>
+$.get("modularity-files/A.html",
+      function(code) {
+           $("#pageA").text(code).removeClass("prettyprinted");
+           if(typeof prettyPrint === 'function' ) prettyPrint(); // Google's pretty printer
+       },
+      "html");
+</script>
+
+<p>The
+file <a href="modularity-files/header-footer-jq.js">header-footer-jq.js</a>
+contains definitions of
+<code>addHeader()</code> and 
+<code>addFooter()</code>, which are responsible for generating the HTML
+elements that are shared between all the pages. 
+
+<pre id="hf" class="prettyprint lang-js linenums">
+</pre>
+
+<script>
+$.get("modularity-files/header-footer-jq.js",
+      function(code) {
+           $("#hf").text(code).removeClass("prettyprinted");
+           if(typeof prettyPrint === 'function' ) prettyPrint(); // Google's pretty printer
+       },
+      "script");
+</script>
+
+<p>Any change to the functions <code>addHeader()</code>, 
+<code>addBannerPic()</code>, 
+<code>addNavbar()</code>, 
+<code>addMenuItem()</code>, 
+and <code>addFooter()</code> 
+will affect all of the web pages in the website. 
+For instance, it's easy to add a new menu item to the menu bar
+or a new icon to the footer list.
+
+<p>See the <a href="modularity-files/A.html">header-footer example in
+action</a>
+

@@ -1,0 +1,326 @@
+<!-- 
+    Fall 2007: Lightly edited by Mark.  Some text tightening, remove
+    unnecessary quotation marks from English text, insert appropriate
+    quotation marks in sample HTML code :-)
+
+January 2010, Scott: rewrote this to use .shtml and .part, and made it a
+separate page
+
+Minor changes by Ellen for Fall '10
+
+September 2011, Tyler created a link to the source code as it appears on the server
+
+Feb 2014, Eni moved the content to the new layout. She also replaced SHTML with HTML.
+
+Summer 2015, Scott added section on best practice advice and restored the section
+   on support.
+-->
+<h2 id="why">Why use Server-Side Includes?</h2>
+
+<p>Very often in a website, there is repeated material on each page.  For
+example, each of the lecture pages in this course has a <q>navbar</q> at the top
+that
+includes the links to the major components of the website.
+
+<p>You certainly could copy/paste the repeated items to each page, but that makes
+maintenance very difficult: if you decide to change the common content,
+you have to edit every page, and you have to make sure you don't miss any
+and that you edit them all in the same way.  For example, adding a new section
+to your website that is accessible from the navbar would require changing every
+single page!  For a small website, this is
+bad, but for a large website, it is completely unreasonable.
+
+<p>A solution is to break your page into pieces, each stored in a different
+file, and have the server cobble them together whenever it responds to a
+request for your web page.  This technology is called
+<a href="http://en.wikipedia.org/wiki/Server_Side_Includes">Server Side
+Includes</a> or SSI.  Exactly how to use it depends on the server
+software.  On the CS web server, we use Apache to serve web pages.  For more detail,
+you can read
+the <a href="http://httpd.apache.org/docs/2.2/howto/ssi.html">Apache
+tutorial on Server Side Includes</a>.
+
+<p>Suppose we have three pages, A, B, and C, all of which should share a
+  common header and footer, each of which is in a separate file.  These
+  shared pieces will be <em>included</em> into the main pages.  Thus, we
+  have five files, none of which is a complete page:
+  
+  <ul>
+    <li><a href="SSI-files/ssi/A.html">ssi/A.html</a>
+    <li><a href="SSI-files/ssi/B.html">ssi/B.html</a>
+    <li><a href="SSI-files/ssi/C.html">ssi/C.html</a>
+    <li><a href="SSI-files/ssi/header.part">ssi/header.part</a>
+    <li><a href="SSI-files/ssi/footer.part">ssi/footer.part</a>
+  </ul>
+
+<p>In the list above, there are two kinds of files:
+  <ul>
+
+    <li><q><code>.html</code></q> This kind of file <em>includes</em>
+    another file as part of itself. The <code>.html</code> files are the container
+    files, so they have all the usual infrastructure: They start with
+    a <code>doctype</code> element and have tags
+    like <code>html</code>, <code>head</code>, and so forth.
+
+    <li><q><code>.part</code></q> This kind of file is <em>included</em>
+    in another file.  It's just a fragment of a web page, such as just the
+    navbar or just the footer.  It <em>doesn't</em> have
+    a <code>doctype</code> element, thus, it is not a valid HTML document.
+
+  </ul>
+
+<p>In the source code of the HTML files A, B, and C, we put a special
+  marker, called a <em>directive</em>, that the server will look for and
+  replace with the contents of the included files.  The directive looks
+  like an HTML comment, so that if the SSI doesn't happen for some reason,
+  the directive won't otherwise mess up your code.  Let's look at what
+  page A's source code looks like:
+
+<pre>
+&lt;!--#include virtual="header.part" --&gt;
+
+&lt;p&gt;Here is some content that is unique to &lt;strong&gt;page A&lt;/strong&gt; of the website.
+
+&lt;!--#include virtual="footer.part" --&gt;
+</pre>
+
+<p>The text in quotes after the word <q>virtual</q> is a relative URL for the
+file to be included at that point in the main file.
+
+<p>Note that if you <q>View Source</q> on <code>ssi/A.html</code>, you
+won't see these directives.  Instead, you'll see the included content.
+The server obeys the directives and constructs the page from the parts and
+sends it out, and the browser has no way of knowing what the original file
+was, or even that SSI was involved at all.  SSI is completely invisible.
+
+<!--p>The server has to do additional work to scan for these SSI directives,
+  and so to avoid having the server scan files that don't need to be
+  scanned, the file has to be marked somehow.  On Puma, as on many web
+  servers, we do this by naming the file <em>.shtml</em>.  The server
+  automatically scans all <code>.shtml</code> files looking for SSI
+  directives.  (An alternative that is sometimes done is by making the
+  file <q>executable</q>, which is just a special bit associated with the
+  file.)</p-->
+  
+<div class="bs-callout bs-callout-warning">
+  <h4>Important Note</h4>
+
+  <p>In order for the server to know that it has to do some extra work in
+  cases when the files contain <em>directives</em>,
+  we <strong>must</strong> make the
+  file <strong>executable</strong>. Files on the server can be readable,
+  writable, executable, and any combination of these three operations.
+  These are known as <q>file permissions</q> and can be set through the
+  SFTP interface (CyberDuck, Fetch, WinSCP, FileZilla etc).
+  
+  <p>We will always have to set the execution bit on, in order for SSI
+  directives to work. Figure 1 shows how the folder for our example looks
+  like. All HTML files have an extra <strong>x</strong> value in their
+  list of permissions. We will show in lab how you can do that for your files.</p>
+
+<p>Note that it's the <em>web server</em> that does
+the work, so SSI will <strong>not</strong> work when viewing files on your
+local desktop.  </p>
+
+<p>Here is a <a href="SSI-files/ssi/A_onserver.html">copy of A.html</a> as it appears 
+  on the server.  If you view the source, you can see what the code looks 
+  like before the directives are included.</p>
+  
+  </div>
+          
+  <figure class="text-center">
+    <img src="SSI-files/filepermissions.png" alt="screenshot of how the file permissions look like"
+         class="img-thumbnail">
+    <figcaption>Figure 1: A screenshot of how the file permissions look like on the server.</figcaption>
+  </figure>
+
+<h2 id="bugs">Bugs</h2>
+
+<p>One common error is to put a space after the comment syntax:
+  
+<pre>
+  &lt;!-- #include ... --&gt;
+</pre>
+
+<p>Unfortunately, this is treated as an ordinary comment, not an SSI
+  directive, so be sure you do it exactly like this:
+
+<pre>
+  &lt;!--#include virtual="relative/path/to/file.part" --&gt;
+</pre>
+
+  
+<p>Second, if you make a mistake in your SSI syntax or in the relative
+  URL, you'll see something like the following in your main file, when you
+  view it on the web:
+
+<pre>
+  [an error occurred while processing this directive]
+</pre>
+
+<p>For an example of this, see the file 
+   <a href="SSI-files/ssi/C-broken.html">C-broken.html</a>, in which we
+   intentionally put in a typo, changing the line
+
+<pre>
+  &lt;!--#include virtual="header.part" --&gt;
+</pre>
+
+<p>to 
+
+<pre>
+  &lt;!--#include virtual="jeader.part" --&gt;
+</pre>
+
+so that you can see such an error in action.
+
+<p>Finally, if you make a change to your <code>.part</code> file, you may
+  not see any change when viewing the <code>.html</code> file in your
+  browser.  This is very confusing and frustrating: didn't you change that
+  web page?!
+
+  <p>This happens because the server told the browser that
+  the <code>.html</code> file hadn't changed (which is true), and so the
+  browser saved time by just showing you the copy in the cache, instead of
+  re-downloading the <code>.html</code> file.  On many browsers, 
+  you can tell the browser to ignore the cache and
+  really reload the file by holding down the <q>shift</q> key while
+  reloading the file (in a Mac: Shift + Command + R).
+
+<p>You also need to make sure that your <code>.part</code> file is 
+accessible (readable by all) from the web. 
+
+<div class="new">
+
+<h2 id="relative-paths">Relative Paths</h2>
+
+<p>Just as with URLs, you should use <em>relative</em> paths in
+  the <code>virtual="path"</code> part of the SSI directive, so that they
+  will still work when you move your website to another server. (The
+  server should be one that <a href="#ssi-support">supports SSI</a>.)
+
+<p>However, the issue of relative paths can be a little tricky.  Suppose
+  that the file <code>harry.html</code> uses SSI to include a
+  file <code>items/firebolt.part</code>.  Furthermore,
+  the <code>firebolt.part</code> file in the <code>items</code>
+  subdirectory has some code referring to Harry's
+  friend <code>ron.html</code>.  Is the URL for <code>ron.html</code>
+  relative to the HTML file or the PART file?
+
+<p>The answer is that it's relative to the HTML file. This is because the
+  relative linking is done by the browser, which is completely unaware of
+  the use of SSI, since all the SSI magic happens on the server, before
+  the browser even gets to see the page.  SSI is like dynamic copy/paste,
+  so the code in a part file is just the same as it would be in the HTML
+  file.
+
+<h2 id="SSI-best-practice-advice">Best Practice Advice</h2>
+
+<p>Overall, SSI is one of the right approaches to avoid redundancy in
+  websites (there are others we won't cover). Done correctly, a visitor to
+  your site will never know that you are using SSI; it's just the case
+  that content that should be consistent from page to page (banner, nav
+  bar, header, footer, and so forth) is indeed consistent.
+
+<p>However, SSI is often a pain for the people developing the website. The
+  reason is that <em>SSI is only done by the server</em>. That means that
+  if you have downloaded an HTML page from the server and are editing it
+  locally on your desktop, and you view the local copy in the browser, all
+  the SSI content will be <em>missing</em>. You won't see that banner, nav
+  bar, and all that.  If you view the source, you'll just see the
+  comment. The layout of your page may be messed up because that content
+  is missing.
+
+<p>So, what's the best thing to do? Our recommendation is the following.
+  (For concreteness, assume you are editing <code>fred.html</code> and
+  that page includes <code>nav.part</code>. )
+  <ul>
+    <li>When you edit <code>fred.html</code>, download
+    both <code>fred.html</code> and <code>nav.part</code>.
+      
+    <li>Copy/paste the content of <code>nav.part</code> into the correct
+    place in <code>fred.html</code>.
+
+    <li>Do <em>not</em> accidentally edit the code you copied
+      from <code>nav.part</code>. If you discover that that code needs
+      editing, you have to realize that you are essentially simultaneously
+      editing all the pages in your site.  So, do the following:
+      <ul>
+        <li>Edit the copy in <code>fred.html</code> and test that it
+        works. 
+
+        <li>When it does, copy the modified code to
+        the <code>nav.part</code> file.
+          
+        <li>Upload the modified <code>nav.part</code> file to the server,
+        and
+          
+        <li>Check that the modifications work in the other files
+        that include <code>nav.part</code>.
+          
+        <li>If you are working in a team, notify your teammates of the
+        change, since they will want to download the
+        modified <code>nav.part</code> file to their own working copy.
+      </ul>
+      
+    <li>When you're done with your modifications
+    of <code>fred.html</code>, delete the copy of <code>nav.part</code>
+    before uploading <code>fred.html</code> to the server. Otherwise,
+    you'll end up with two copies of the content on that page!  
+
+  </ul>
+
+<p>Yes, this is a bit tedious, but hopefully you will rarely discover that
+  the code from <code>nav.part</code> needs to be edited, so you'll only
+  have the extra steps of copy/pasting and subsequently deleting.
+
+<h2 id="alt-advice">Alternative Best Practice Advice</h2>
+
+<p>Once you've implemented SSI, an alternative to working on your files
+  locally is to edit your files directly on the server. This way, when
+  you're making edits, you can view your files live on the server, and the
+  SSI will work. No copy/pasting necessary.
+
+<p>To do this in CyberDuck, connect to the server and locate the file you
+  want to edit, right click it and choose "Edit With ... Atom."
+
+<p>The file will appear in Atom, but you'll be editing the version on the
+  server. (Well, actually a local copy, but CyberDuck ensures that anytime
+  you save the file, the local copy is immediately copied to the server.)
+  You'll view the changed file using the
+  usual <code>http://cs.wellesley.edu/~username/</code> URL, not
+  a <code>file:///</code> URL.
+
+<h2 id="ssi-support">Support</h2>
+
+  <p>Since SSI is done by the server, using it depends on the server
+  software.  SSI is supported by Apache and lighthttpd, but not by IIS,
+  which is Microsoft's web server software.  Apache is currently the most
+  widely used web server software, but your client's web hosting site may
+  not use it.
+
+  <p>Should this occur, you could try to replace the SSI code with
+  JavaScript, but that may not be accessible for all users (for example,
+  screen readers may disable JavaScript code).  An alternative is to
+  simply copy/paste the <code>.part</code> code in
+  the <code>.shtml</code>, but that loses all of the advantages of using
+  SSI.  A last alternative is to use a more powerful and portable
+  server-side scripting language, such as PHP, but that's outside the
+  scope of this course.
+</div>
+
+
+<h2 id="recap">SSI Recap</h2>
+
+<p>To do SSI, you must:
+<ul>
+  <li>Put the duplicate code in the <q>.part</q> file (the one
+  you'll be including in other files)
+  <li>Put the <em>directive</em> in the <q>.html</q> files
+  <li>Upload both files to the server
+  <li>Make your HTML files executable</li>
+  <li>View the <q>.html</q> file.  You may need to
+  use <q>shift+reload</q> in your browser to ignore the cache when
+  refreshing the page
+
+</ul>

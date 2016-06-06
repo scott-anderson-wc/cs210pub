@@ -1,0 +1,806 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Analog and Digital</title>
+    <meta name=author content="Scott D. Anderson and the CS110 Staff">
+    <meta name=description content="How sound is represented in analog and
+    digital signals, including error detection, error correction, sampling
+    error, and the Nyquist theorem">
+    <meta name=keywords content="sound representation, analog, digital,
+    error, detection, correction, sampling, Nyquist">
+    <link rel="stylesheet" type="text/css" href="../../cs110-main-style.css">
+    <script type="text/JavaScript" src="../../js/addOnLoad.js"></script>
+    <script type="text/JavaScript" src="../../js/TOC.js"></script>
+    <script type="text/JavaScript" src="../../js/verbatim.js"></script>
+    <style type="text/css">
+      input.data {  border: 1px solid black; }
+      input.parity { border: 1px solid red; }
+
+      span.solution { visibility: hidden; color: red; }
+
+    </style>
+
+</head>
+<body>
+
+<H1>Analog and Digital: Sound Representation</H1>
+         
+<div id="insert_TOC_here"></div>
+
+<H2>Signals</H2>
+         
+<P>When sound is <EM>transmitted</EM> or <EM>stored</EM> it may need to
+change <EM>form</EM>, hopefully without being <EM>destroyed</EM>.
+
+<p><IMG SRC="wavegraph3.gif" ALT="A signal is an undulating curve">
+
+<p>Sound moves fast: in air, at 340 m/sec = 750 miles per hour.  Its two
+important characteristics are <STRONG>Frequency (aka pitch)</STRONG> and
+<STRONG>Amplitude (aka loudness)</STRONG>. Frequency is measured in Hz or
+cycles per second.  Humans can hear frequencies between 20 Hz and 20,000
+Hz (20 KHz). Amplitude is measured in deciBels (we will see later that it
+is approximated with "bit-resolution").
+
+<P>Consider music:
+         
+         <OL>
+            <LI>Sound is simply pressure waves in air, caused by
+            drums, guitar strings or vocal cords</LI>
+            
+            <LI>Converted to electrical signals by a microphone</LI>
+            
+            <LI>Converted to magnetism when it's put on a master tape
+            and edited</LI>
+            
+            <LI>Converted to spots on a CD when the CD is
+            manufactured</LI>
+            
+            <LI>Converted to laser light, then electricity when
+            played by a CD player</LI>
+            
+            <LI>Converted back to sound by a speaker</LI>
+         </OL>
+         
+         <P>A similar kind of story can be told about visual images
+(sequences of static images)
+         stored on videotape or DVD and played on your home VCR or DVD player.
+         
+<H2>Degradation</H2>
+         
+         <P>Any time signals are transmitted, there will be some
+         degrading of quality:
+         
+         <OL>
+            <LI>signals may fade with time and distance</LI>
+            
+            <LI>signals may get combined with interference from other
+            sources (static)</LI>
+            
+            <LI>signals may be chopped up or lost</LI>
+         </OL>
+         
+         <P>When we continue to transmit and transform signals, the
+         effect is compounded. Think of the children's game of
+         "telephone." Or think about photocopies of photocopies of
+         photocopies...
+         
+<H3>Example</H3>
+         
+<P>This is the transmitted signal:
+         
+<blockquote><p><img SRC="analog-before.png"  ALT="the transmitted signal"></blockquote>
+
+<P>and this is the received signal (dashed) compared to the transmitted
+signal:
+         
+<blockquote><p><img SRC="analog-after.png" ALT="the received signal, somewhat altered"></blockquote>
+
+<P>The horizontal axis here is time. The vertical axis is some physical
+property of the signal, such as electrical voltage, pressure of a sound
+wave, or intensity of light.
+         
+<P>The degradation may not be immediately obvious, but there is a general
+lessening of strength and there is some noise added near the second
+peak.
+         
+<P>There doesn't have to be much degradation for it to have a noticeable
+and unpleasant cumulative effect!
+
+<H2>Analog Signals</H2>
+         
+<P>The pictures we saw above are examples of <EM>analog</EM> signals:
+         
+<blockquote>
+<p>An analog signal varies some physical property, such as
+voltage, in proportion to the information that we are trying to
+transmit.
+</blockquote>
+         
+<P>Examples of analog technology:
+
+         <OL>
+            <LI>photocopiers</LI>
+            
+            <LI>old land-line telephones</LI>
+            
+            <LI>audio tapes</LI>
+            
+            <LI>old televisions (intensity and color information per scan
+            line)</LI>
+            
+            <LI>VCRs (same as TV)</LI>
+         </OL>
+         
+         <P>Analog technology always suffers from degradation when copied.
+         
+<H2>Digital Signals</H2>
+         
+<P>With a digital signal, we are using an analog signal to transmit <EM>
+numbers</EM>, which we convert into <EM> bits </EM> and then transmit the
+bits.
+         
+<blockquote>
+<p>A digital signal uses some physical property, such as voltage,
+to transmit a single bit of information.
+</blockquote>
+         
+<P>Suppose we want to transmit the number 6. In binary, that number is
+110. We first decide that, say, "high" means a 1 and "low" means a
+0. Thus, 6 might look like:
+         
+<blockquote><p><img SRC="six.png"  ALT="a six is two high values and a low value"></blockquote>
+
+<P>The heavy black line is the signal, which rises to the maximum to
+indicate a 1 and falls to the minimum to indicate a 0.
+         
+<H2>Degradation and Restoration of Digital Signals</H2>
+         
+<P>The signals used to transmit bits degrade, too, because any physical
+process degrades.  <EM>However</EM>, and this is the really cool part, the
+degraded signal can be "cleaned up," because we know that each bit is
+either 0 or 1. Thus, the previous signal might be degraded to the
+following:
+         
+<blockquote><p>
+   <img SRC="six-degraded.png"
+        ALT="an altered six is still two high values and a low value"></blockquote>
+         
+<P>Despite the general erosion of the signal, we can still figure out
+which are the 0s and which are the 1s, and restore it to:
+         
+ <blockquote><p><img SRC="six.png"  ALT="the six, restored"></blockquote>
+         
+<P>This restoration isn't possible with analog signals, because with
+analog there aren't just two possibilities.  Compare a photocopy of a
+photocopy ... with a copy of a copy of a copy of a computer file. The
+computer files are (very probably) perfect copies of the original
+file.
+         
+<P>The actual implementation of digital transmission is somewhat more
+complex than this, but the general technique is the same: two signals that
+are easily distinguishable even when they are degraded.
+         
+<H2 id="parity">Error Detection</H2>
+         
+<P>Suppose we have a really bad bit of static, so a 1 turns into a 0 or
+vice versa. Then what? We can detect errors by transmitting some
+additional, redundant information.  Usually, we transmit a "parity" bit:
+this is an extra bit that is 1 if the original binary data has an odd
+number of 1s.  Therefore, the transmitted bytes always have an even number
+of 1s. This is called "even" parity. (There's also "odd" parity.)
+         
+<P>How does this help? If the receiver gets a byte with an odd number of
+1s, there must have been an error, so we ask for a re-transmission. Thus,
+we can <EM>detect</EM> errors in transmission.
+
+<SCRIPT type="text/JavaScript">
+function showParity() {
+   n = parseInt(document.parity.dec.value);
+   if(n<0) {
+       alert("This can't handle negative values");
+       return;
+   }
+   if(n>127) {
+       alert("This can't handle large values");
+       return;
+   }
+   p = 0;
+   for(i=0; i<7 ; i++) {
+      b = (n & (1<<i));
+      document.parity.bit[6-i].value = b ? 1 : 0;
+      p = b ? 1 - p : p ;
+   }
+   document.parity.bit[7].value = p;
+}
+</SCRIPT>
+         
+<P>You can see some examples of parity using the following form. The
+parity bit is the last (rightmost) one.
+         
+<blockquote><p><FORM ACTION="" METHOD=POST name=parity>
+               <P><TABLE>
+                  <TR>
+                     <TH>
+                        <P>Decimal
+                     </TH>
+                     <td>&nbsp;<!-- the column with the button --></td>
+                     <TH colspan="2">
+                        <P>Binary
+                     </TH>
+                  </TR>
+                  <tr><td colspan=2>&nbsp;</td><th>data</td><th>parity</th></tr>
+                  <TR>
+                     <TD>
+                        <P><INPUT TYPE=text NAME=dec VALUE="" SIZE=3>
+                     </TD>
+                     <TD>
+                        <P><INPUT TYPE=button NAME=Button VALUE="convert" onclick="showParity()">
+                     </TD>
+                     <TD>
+                        <P><INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        </td><td>
+                        <INPUT class="parity" TYPE=text NAME=bit VALUE="" SIZE=1>
+                     </TD>
+                  </TR>
+               </TABLE>
+            
+            </FORM></BLOCKQUOTE>
+         
+<div class="ex">
+  <h2 id="parity_exercise"
+      onclick="var elts=this.parentNode.getElementsByTagName('span');
+               for(var i=0; i<elts.length; i++) elts[i].style.visibility='visible';">
+      Exercise on Parity</h2>
+  <p>Assuming <em>even</em> parity, what is the parity bit for each of the
+  following:
+    <ol>
+      <li>00001011<sub>2</sub>  <span class="solution">1, because there are 3 ones in the number</span>
+      <li>01001011<sub>2</sub>  <span class="solution">0, because there are 4 ones in the number</span>
+      <li>23<sub>16</sub> <span class="solution">1, because there are 3 ones total in the number (convert it from hex to binary)</span>
+      <li>FF<sub>16</sub> <span class="solution">0, because there are 8 ones total in the number (convert it from hex to binary)</span>
+      <li>DEADBEEF<sub>16</sub> <span class="solution">0, because the ones 33233334, for a total of 24, which is even</span>
+    </ol>
+</div>
+
+
+<H2>Error Correction</H2>
+         
+<P>With some additional mathematical tricks, we can not only detect that a
+bit is wrong, but <EM>which</EM> bit is wrong, which means we can
+<EM>correct</EM> the value. Thus, we don't even have to ask for
+re-transmission, we can just fix the problem and go on.
+         
+<P>Try it with the following JavaScript form. Type in a number, and it will
+tell you the binary code to transmit. Then, take the bits and add any
+single-bit error you want. (In other words, change any 1 to 0 or any 0 to
+1.) If you click on "receive," it will tell you which bit is wrong and
+correct it. If you think I'm cheating, you can type the bits into another
+browser!
+
+<p>Note: for technical reasons, the parity bits are interspersed with the
+data bits.  In our example, the parity bits are bits 1, 2, 4 and 8,
+numbering from the left starting at 1. (Notice that those bit position
+numbers are all powers of two.)  So, that means the seven data bits are
+bits 3, 5, 6, 7, 9, 10, and 11.
+
+<SCRIPT type="text/JavaScript">
+/* Hamming code: bits are numbered starting at 1, with bit 1 the leftmost.
+ All bits whose bit number is a power of two are parity bits.  For 7-bit
+ ASCII, four parity bits are added: 1, 2, 4, 8.  Data bits are 3, 5-7,
+ 9-11.  In general, bit N is checked by bits b1, b2, ... bk such that
+ b1+b2+...bk = N.
+
+ To find the location of an error, add up all the parity bits.  The
+ resulting sum is the location of the error.
+
+*/
+
+function parity(obj,whichbits) {
+   var p = 0;  // This is the parity so far
+   var i;
+   for(i=0;i<whichbits.length;i++) {
+      // look up the bit that we want to check                             
+      b = obj[whichbits[i]-1].value;
+      // if that bit is a one, flip our "parity so far"
+       if( b == 1 ) {
+           p = 1 - p;
+       }
+   }
+   return p;
+}
+
+function transmitECC() {
+    n = parseInt(document.ecc.data_in.value, 10);
+    // alert("transmitting "+n);
+    if( isNaN(n) ) {
+        alert("This form only transmits numbers.");
+    }
+    if(n<0) {
+        alert("This form can't handle negative values");
+        return;
+    }
+   if(n>127) {
+       alert("This form can't handle large values");
+       return;
+   }
+   // load data bits
+   // Mark Sheldon changed this code to use hex constants.  It's more
+   // direct.  Also, 08, etc. are interpreted as octal constants (08 is 
+   // bad) before being coerced to a string for parseInt().
+   document.ecc.bit[3-1].value = (n & 0x40) ? 1 : 0 ;
+   document.ecc.bit[5-1].value = (n & 0x20) ? 1 : 0 ;
+   document.ecc.bit[6-1].value = (n & 0x10) ? 1 : 0 ;
+   document.ecc.bit[7-1].value = (n & 0x08) ? 1 : 0 ;
+   document.ecc.bit[9-1].value = (n & 0x04) ? 1 : 0 ;
+   document.ecc.bit[10-1].value= (n & 0x02) ? 1 : 0 ;
+   document.ecc.bit[11-1].value= (n & 0x01) ? 1 : 0 ;
+
+   document.ecc.bit[1-1].value= parity(document.ecc.bit,[3,5,7,9,11]);
+   document.ecc.bit[2-1].value= parity(document.ecc.bit,[3,6,7,10,11]);
+   document.ecc.bit[4-1].value= parity(document.ecc.bit,[5,6,7]);
+   document.ecc.bit[8-1].value= parity(document.ecc.bit,[9,10,11]);
+}
+
+function receiveECC() {
+    var p1=parity(document.ecc.bit,[1,3,5,7,9,11]);
+    var p2=parity(document.ecc.bit,[2,3,6,7,10,11]);
+    var p4=parity(document.ecc.bit,[4,5,6,7]);
+    var p8=parity(document.ecc.bit,[8,9,10,11]);
+    var err = p1*1+p2*2+p4*4+p8*8;
+    if(err==0) {
+        alert("received value is correct!");
+    } else {
+        var old = parseInt(document.ecc.bit[err-1].value);
+        alert("error in position "+err+" it is a "+old+" and should be "+(1-old));
+        document.ecc.bit[err-1].value = 1-old;
+    }
+    // The following code computes the value received.  
+    var val = 0;
+    // These are the indices of the data bits, in reverse order, because
+    // the least significant data bit is on the right (bit #11).
+    var inds = [11,10,9,7,6,5,3];
+    for(i=0; i<inds.length; i++ ) {
+        var bit = parseInt(document.ecc.bit[inds[i]-1].value,10);
+        var place_value = Math.pow(2,i);
+        val += bit * place_value;
+    }
+    document.ecc.data_out.value=val;
+}
+</SCRIPT>
+         
+         <blockquote><p><FORM ACTION="" METHOD=POST name=ecc>
+               <P><TABLE>
+                  <TR>
+                     <TH>
+                        <P>Transmit
+                     </TH>
+                     <TH>
+                     </TH>
+                     <TH>
+                        <P>Binary Code
+                     </TH>
+                     <TH>
+                     </TH>
+                     <TH>
+                        <P>Receive
+                     </TH>
+                     <TD>
+                        <P>
+                     </TD>
+                  </TR>
+                  <TR>
+                     <TD>
+                        <P><INPUT TYPE=text NAME="data_in" VALUE="" SIZE=3>
+                     </TD>
+                     <TD>
+                        <P><INPUT TYPE=button NAME=Button VALUE="transmit" onclick="transmitECC()">
+                     </TD>
+                     <TD>
+                        <P><INPUT class="parity" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="parity" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="parity" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="parity" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                        <INPUT class="data" type="text" NAME=bit VALUE="" SIZE=1>
+                     </TD>
+                     <TD>
+                        <P>
+                     </TD>
+                     <TD>
+                        <P><INPUT TYPE=button NAME=Button VALUE="receive" onclick="receiveECC()">
+                     </TD>
+                     <TD>
+                        <P><INPUT TYPE=text NAME="data_out" VALUE="" SIZE=3>
+                     </TD>
+                  </TR>
+               </TABLE>
+            
+            </FORM></blockquote>
+         
+<div class="ex">
+  <h2>Exercise on Error Correction</h2>
+  <ul>
+    <li>Type in a number and click on the <q>transmit</q> button
+      
+    <li>Change one of the bits (either a data bit or a parity bit).
+
+    <li>Click on the <q>receive</q> button.
+
+    <li>Gasp in amazement that it figures out what bit you modified
+
+    <li>Repeat
+  </ul>
+</div>
+
+
+
+<P>What if more than one bit is wrong? What if a whole burst of errors
+comes along? There are mathematical tricks involving larger chunks of bits
+to check whether the transmission was correct. If not, re-transmission is
+often possible.
+         
+
+
+
+
+
+<H2 id="summary">Summary of Digital Communication</H2>
+
+<P>The main point here is that digital transmission and storage of
+information offers the possibility of <EM>perfect</EM> (undegraded)
+copies, because we are only trying to distinguish 1s from 0s, and because
+of mathematical error checking and error correcting.
+
+<H2 id="a2d">Converting Analog to Digital</H2>
+
+<p><IMG SRC="compwaves5.gif" WIDTH=150 ALT="analog going in, digital
+coming out" style="float: left">
+
+If digital is so much better, can we use digital for music and pictures?
+Of course! To do that, we must convert analog to digital, which is done by
+<EM>sampling</EM>.
+         
+<P>Sampling measures the analog signal at different moments in time,
+recording the physical property of the signal (such as voltage) as a
+<EM>number</EM>. We then transmit the stream of numbers. Here's how we
+might sample the analog signal we saw earlier:
+
+<blockquote><p><img SRC="analog-sampling.png" ALT="dots drawn on the grid intersections nearest the curve"></blockquote>
+         
+<P>Reading off the vertical scale on the left, we would transmit the
+numbers 0, 5, 3, 3, -4, ... (The number of bits we need to represent these
+numbers is the so-called bit-resoluton. In some sense it is the sound
+equivalent to images' bit-depth.)
+         
+<H2>Converting Digital to Analog</H2>
+         
+<P>Of course, at the other end of the process, we have to convert back to
+analog, also called "reconstructing" the signal. This is essentially done
+by drawing a curve through the points. In the following picture, the
+reconstructed curve is dashed
+         
+<blockquote><p><img SRC="analog-reconstructed.png"  ALT="a reconstruction by drawing a curve through the dots"></blockquote>
+         
+<P>In the example, you can see that the first part of the curve is fine,
+but there are some mistakes in the later parts.
+         
+ <P>The solution to this has two parts:
+         
+         <OL>
+            <LI>the vertical axis must be fine enough resolution, so
+            that we don't have to round off by too much, and</LI>
+            
+            <LI>the horizontal axis must be fine enough, so that we
+            sample often enough.</LI>
+         </OL>
+         
+<P>In the example above, it's clear that we didn't sample often enough to
+get the detail in the intervals. If we double it, we get the following,
+which is much better.
+         
+<blockquote>
+<p><img src="analog-reconstructed-improved.png"
+ alt="a better reconstruction by drawing a curve through a dots on a finer grid">
+</blockquote>
+         
+<P>In general, finer resolution (bits on the vertical axis) and faster
+sampling, gets you better quality (reproduction of the original signal)
+but the size of the file increases accordingly.
+
+<H2 id="nyquist">The Nyquist Sampling Theorem</H2>
+         
+<P>How often must we sample? The answer is actually known, and it's called
+the Nyquist Sampling Theorem (first articulated by Nyquist and later
+proven by Shannon).  Roughly, the theorem says:
+         
+<blockquote>
+<p>Sample twice as often as the highest frequency you want to
+capture.
+</blockquote>
+         
+<P>For example, the highest sound frequency that most people can
+hear is about 20 KHz (20,000 cycles per second), with some sharp ears able
+to hear up to 22 KHz. (Test yourself with this <a href="hearing-test">hearing test</a>.)
+So we can capture music by sampling at 44 KHz (44,000 times per second). 
+That's how fast music is sampled for CD-quality music (actually, 44.1 KHz).
+
+<div class="ex">
+  <h2 id="nyquist_exercise"
+      onclick="var elts=this.parentNode.getElementsByTagName('span');
+               for(var i=0; i<elts.length; i++) elts[i].style.visibility='visible';">
+      Exercise on the Nyquist Theorem</h2>
+  <ol>
+    <li>If the highest frequency you want to capture
+    is <a href="http://en.wikipedia.org/wiki/C_%28musical_note%29#Designation_by_octave">middle
+    C</a> on the piano, at what frequency do you have to sample?  <span class="solution">2*261.626 Hz</span>
+    <li>If you want to record piano music (the highest key on a piano is <a href="http://en.wikipedia.org/wiki/C_%28musical_note%29#Designation_by_octave">C8</a>, at what frequency do you have to sample? <span class="solution">2*4186 Hz</span>
+    <li>If you want to
+    record <a href="http://en.wikipedia.org/wiki/Whale_sounds">Whale
+    sounds</a>, at what frequency do you have to sample? <span class="solution">2*10,000, or 20KHz</span>
+    <li>If you want to record sounds
+    that <a href="http://www.ratbehavior.org/rathearing.htm">bats can
+    hear</a>, at what frequency do you have to sample? <span class="solution">2*100,000 Hz, or 200 KHz</span>
+  </ol>
+</div>
+
+<h2 id="file_size">File Size</h2>
+
+<p>The size of an uncompressed audio file depends on the number of bits
+per second, called the <em>bit rate</em> and the length of the sound (in
+seconds).
+
+<p>We've seen that there are two important contributions to the bit rate, namely:
+<ul>
+<li>sampling rate (horizontal axis), and
+<li>bit resolution (vertical axis)
+</ul>
+
+<p>As the sampling rate is doubled, say from 11KHz to 22KHz to 44KHz, the
+file size doubles each time.  Similarly, doubling the bit resolution, say
+from 8 bits to 16 bits doubles the file size.
+
+<p>As we've seen, the sampling rate for CD-quality music is 44KHz.  The
+bit-resolution of CD-quality music is 16: that is, 16-bit numbers are used
+on the vertical axis, giving us 2<sup>16</sup>=65,536 distinct levels from
+lowest to highest. Using this, we can actually calculate the bit rate and
+the file size:
+
+<blockquote style="border: thin solid black; padding: 5px;">
+<p>bit rate (bits per second) = bit-resolution * sampling rate
+<p>file size (in bits) = bit rate * recording time
+</blockquote>
+
+<p>For example, how many bits is 1 second of monophonic CD music?
+         
+ <blockquote>
+ <p>16 bits per sample * 44000 samples per second * 1 second = 704,000<BR>
+ Therefore, 704,000 / 8 bits per byte = 88,000 bytes &asymp; 88 KB<BR>
+ </blockquote>
+         
+<P>That's 88 KB for one second of music! (Note that there are 1000 bytes
+in 1KB, so 88000/1000 is 88KB.)
+
+<h3>Channels</h3>
+
+<p>And that's not even stereo music!  To get stereo, you have to add
+another 88KB for the second channel for a total bit-rate of
+176KB/second.
+
+<p>An hour of CD-quality stereo music would be:
+
+<blockquote>
+<p>176 KB/sec * 3600 seconds/hour = 633,600 KB &asymp; 634 MB
+</blockquote>
+
+<p>634 MB is about the size of a CD.  In fact, it is not accidental that a
+CD can hold about 1 hour of music; it was designed that way.
+
+<div class="ex">
+  <h2 id="bitrate_exercise"
+      onclick="var elts=this.parentNode.getElementsByTagName('span');
+               for(var i=0; i<elts.length; i++) elts[i].style.visibility='visible';">
+    Exercise on Bit Rate and File Size</h2>
+  <ol>
+    <li>If you record an hour of piano music (the highest key on a piano is <a href="http://en.wikipedia.org/wiki/C_%28musical_note%29#Designation_by_octave">C8</a>) in mono at 16 bits, what is the bit rate and file size? <span class="solution">bit-rate is 16*2*4186, and file size is bit-rate*3600</span>
+    <li>If you record an hour of bat-audible sounds in stereo at 32 bits,
+    what is the bit-rate and file size? <span class="solution">bit-rate is 32*2*2*100,000, and file size is bit-rate*3600</span>
+  </ol>
+</div>
+
+<div class="ex">
+  <h2 id="bitrate_exercise2">Exercise with Form for Bit-Rate and File
+  Size</h2>
+  <p>Consider the following <a href="bitRateExPartial.html">form to compute
+  bit-rate and file size</a>.  Fill in the missing function definitions.
+</div>
+
+
+<h3 id="choices">Choices</h3>
+
+<p>What are the practical implications of various choices of sampling rate
+and bit-resolution?
+
+<ul>
+
+<li>If you're recording full-quality music, you'd want to use the 44 KHz
+and 16-bit choices that we've done some calculations with.
+Check out 
+<a href="gravity-clip/index.html">this comparison</a>
+of a sound clip at various resolutions and sampling rates. 
+
+<li>If you're recording <em>speech</em> in your native tongue (when your
+brain can fill in lots of missing information), you can cut many corners.
+Even a high-pitched woman's voice will not have the high frequencies of a
+piccolo, so you can probably reduce the numbers to 11KHz and 8-bit.
+Furthermore, you will only need one channel (monophonic sound) not two
+channels (stereo).  Thus, you've already saved yourself a factor of 16 in
+bit-rate.
+
+<li>Speech in a <em>foreign language</em> is harder to understand, so it
+might make sense to use 22KHz and 16-bit resolution. Of course, you would
+still use one channel not two.  This is still a factor a 4 decrease in the
+bit-rate.
+
+<li>Music before about 1956 wasn't recorded in stereo, so you would only
+need one channel for that.
+
+</ul>
+         
+<H3 id="compression">Compression</H3>
+
+<p>Bandwidth over the internet cannot compete with the playback speed of a
+CD.  Think of how long it would take for that to be downloaded over a slow
+modem.  
+
+<p>So, is it impossible to have sound and movies on your web pages? No,
+thanks to sound compression techniques. We have seen how GIF and JPG
+manage to compress images to a fraction of what they would otherwise
+require. In the case of sound and video, we have some very powerful
+compression file formats such
+as <A HREF="http://www.apple.com/quicktime/whyqt/"> Quicktime</A>, AVI,
+RealAudio and MP3.  Read more about
+the <a href="http://www.npr.org/blogs/therecord/2011/03/23/134622940/the-mp3-a-history-of-innovation-and-betrayal">history
+of MP3</a> (or <a href="LocalOnly/mp3-history.pdf">history of MP3</a>).
+
+<p>The tradeoffs among different compression formats and different
+<em>bit rates</em> are explained well in this article on <a
+href="LocalOnly/31-mp3-basics3.html">audio formats</a> from the <a
+href="http://www.nytimes.com">New York Times</a>.  (This article is
+available only on-campus or with a password.)
+
+<p>A discussion of the technology behind these compression schemes is
+beyond the scope of this course. They are similar in spirit to the JPEG
+compression algorithm, in that they are <em>lossy</em> compression
+schemes.  That is, they discard bits, but hopefully the bits that least
+degrade the quality of the music?
+
+<p>Some compression algorithms take advantage of the similarity between
+two channels of stereo, so adding a second channel might only add 20-30%.
+
+<p>What do you think?  
+
+<H2>Discussion Topics</H2>
+         
+         <OL>
+            <LI>Modems</LI>
+            
+            <LI>Does vinyl sound better than CD?
+                (see <a href="http://answers.google.com/answers/threadview?id=375592">this</a> and 
+                   <a href="http://www.tomshardware.com/forum/49916-6-simple-newbie-vinyl-question">this</a>)</LI>
+
+            <LI>CD versus MP3</LI>
+
+            <LI>DVD audio representation that samples at 192 Khz with 24 bits per sample
+                (see <a href="http://en.wikipedia.org/wiki/DVD-Audio">this Wikipedia description</a>,
+                     <a href="http://www.ilovedvd.co.nz/dvdaudio.asp">this page</a>,
+                     and <a href="http://www.lavryengineering.com/documents/Sampling_Theory.pdf">this debunking</a>)</LI>
+
+            <LI>Digital TV</LI>
+            
+            <LI>Digital cell phones</LI>
+            
+         </OL>
+         
+<H2>Summary</H2>
+         
+<UL>
+
+            <LI>Music, video, voice, pictures, data and so forth are
+            all examples of <EM>signals</EM> to be transmitted and
+            stored.</LI>
+            
+            <LI>Signals inevitably degrade when transmitted or
+            stored.</LI>
+            
+            <LI>With analog signals, there's no way to tell whether
+            the received signal is accurate or not, or how it has
+            been degraded.</LI>
+            
+            <LI>With digital signals, we can, at least in principle,
+            restore the original signal and thereby attain perfect
+            transmission and storage of information.</LI>
+            
+            <LI>We can convert analog signals to digital signals by
+            <EM>sampling</EM>.</LI>
+            
+            <LI>We can convert digital signals back to analog signals by
+            <EM>reconstructing</EM> the original signal. If the original
+            sampling was good enough, the reconstruction can be
+            essentially perfect.</LI>
+
+        <!-- link isn't working -->
+        <!--
+            <li>You can learn more at this <a
+         href="http://www.teamcombooks.com/mp3handbook/11.htm">Digital
+         Audio Primer</a>
+        -->
+
+            <li>Wellesley's LTS has a nice page on <a
+         href="http://www.wellesley.edu/lts/techsupport/projects/audio">digital audio</a>
+         </UL>
+<p>A <a href="handout.html">condensed version of these notes</a> can be found here.
+
+<h2 id="further" class="stop_here">Further Information and Examples</h2>
+
+<p>Note that beyond here is information that we think you might find
+interesting and useful, but which you will not be responsible for.  It's
+for the intellectually curious student.
+
+<h2 id="hamming">How Hamming Codes work</h2>
+
+<p>The error correcting code we saw above may seem a bit magical. And,
+  indeed, the algorithm is pretty clever. But once you see it work, it
+  becomes somewhat mechanical.
+
+<p>Here's the basic idea of
+  this <a href="http://en.wikipedia.org/wiki/Error_correcting_code">error-correcting
+  code</a>.  (This particular code is
+  a <a href="http://en.wikipedia.org/wiki/Richard_Hamming">Hamming</a>
+  code.
+  The <a href="http://en.wikipedia.org/wiki/Hamming_%287,4%29_code">Hamming
+  (7,4)</a> code sends 7 bits, 4 of which are data.  The (7,4) code is
+  easy to visualize using Venn diagrams.  The general idea is this:
+
+  <ul>
+    <li>If we have 11 bit positions total, number them from left to right
+    as 1-11.
+      
+    <li>Write down the 11 numbers for the bit positions in binary.  For
+    example, position 5 (which is a data bit, since 5 is not a power of 2)
+    is expressed as 0101.
+
+    <li>The bits that are "true" in the binary number expressing the
+    position define which parity bits check that position.  For example,
+    position 5 (0101) is checked by the parity bit at position 1 and
+    the one at position 4.
+
+    <li>The positions of the parity bits that are "wrong" add up to the
+    position of the wrong bit.  So if the parity bits at positions 1 and 4
+    are wrong, that means bit 5 is the one that is wrong.
+  </ul>
+
+<p>For more detail, see
+  this <a href="http://en.wikipedia.org/wiki/Hamming_code#General_algorithm">general
+  algorithm</a>
+
+<div class="ex">
+  <h2 id="bitrate_exercise2_solved">Solution to Exercise with Form for Bit-Rate and File Size</h2>
+  <p>Solution to the Exercise with Form for Bit-Rate and File Size <a href="bitRateExSolved.html">is here</a>.
+</div>
+
+<!--#set var="reltop" value="../.." -->         
+<!--#include virtual="../../navigation/footer.html" -->
+</body>
+</html>

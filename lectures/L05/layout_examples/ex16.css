@@ -1,0 +1,46 @@
+/* ex16.css
+  Purpose: Stylesheet for HungerGames examples.
+  Written by Eni Mustafaraj
+  Feb, 2014
+*/
+
+
+body {
+  width: 960px; /* fixed-width layout */
+  margin: 0 auto; /* centers the content in the middle */
+  background-color: lightgray;
+}
+
+figure {
+  position: relative;
+  border: 1px black solid;
+  padding: 3px;
+  width: 400px;
+}
+
+figure span{
+  position: absolute;
+  bottom: 15px;
+  left: 4px;
+  right: 4px;
+  color: yellow;
+  background-color: black;
+  opacity: 0.5;
+  text-align: center;
+  font-weight: 200%;
+  padding: 5px;
+}
+
+aside {
+  float: left;
+  border: 1px black solid;
+  padding: 5px;
+  width: 188px; /* this value will make sure the sidebar box will occupy 200px */
+}
+
+section {
+  margin-left: 210px; /* we add this to allow for the floating column on the left*/
+}
+
+
+

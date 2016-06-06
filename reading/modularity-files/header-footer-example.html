@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Example of JS-generated Header and Footer</title>
+    <meta name=author content="Scott D. Anderson and the CS110 Staff">
+</head>
+<body>
+
+<div id="header-here"></div>
+
+<p>Here's the main body of the page.
+  
+<p>
+Sed nunc enim, gravida id auctor sed, mattis non mi. Pellentesque habitant
+morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut
+enim elit, sodales in rhoncus eget, ullamcorper non mauris. Morbi non
+mauris orci. Integer eros turpis, viverra eu laoreet vitae, luctus at
+nisi. Nam nec velit nulla. Aenean nec augue sed purus tempus convallis at
+et metus. Nunc ultrices vulputate viverra.
+</p>
+
+
+<div id="footer-here"></div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="header-footer-jq.js"></script>
+<script>
+  addHeader("#header-here");
+  addFooter("#footer-here");
+</script>
+</body>
+</html>

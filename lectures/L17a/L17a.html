@@ -1,0 +1,433 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+
+    <div class="container">
+      <h1>Galleries and Drop-Downs</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>Create a gallery of images
+      
+    <li>Create a generic event handler for clicking on the gallery items
+            
+    <li>attach it to images in the gallery
+      
+    <li>Start the implementation of a drop-down menu
+      
+  </ol>
+
+<h2 id="recap">Recap</h2>
+
+<p>We learned about <em>galleries</em> and <em>drop-downs</em>.
+
+<h2>Galleries</h2>
+
+<ul>
+  <li>The gallery consists of a set of small versions (thumbnails) of the
+    images we want the user to choose from.
+    
+  <li>We also have a place for the large version to be.  Its initial value
+    is unimportant, though you should still make it look nice.
+    
+  <li>The basic mechanism of the gallery behavior is:
+    <ol>
+      <li>The user clicks on the gallery image
+        
+      <li>An event handler runs
+        
+      <li>The event handler figures out the URL for the large version of
+        the image that was clicked on.
+        
+      <li>The event handler sets the <code>src</code> attribute of the
+        large <code>img</code>.  That causes the large image to be
+        displayed there.
+    </ol>
+
+  <li>One good way to determine the URL for the large version is to store
+    it on the thing that was clicked on, which will then be bound
+    to <code>this</code>.
+
+</ul>
+
+<h2>Our Destination</h2>
+
+<p>We're going to build an image gallery using jsfiddle. (I'll demo what
+  we will build.)
+
+<div class="hidden_from_student">
+  <p>  <a target="_blank"  href="http://jsfiddle.net/1wqypov3/">image gallery final</a>.
+</div>
+
+<h2>Quiz Question Nr. 1</h2> 
+
+<p>In the reading, we used an attribute
+  named <code>data-bigsrc</code>. That attribute is defined by:
+  
+<ol type="A">
+  <li><p>The HTML5 standard</p></li>
+  <li><p>The DOM</p></li>
+  <li><p>The programmer</p></li>
+  <li><p>All of the above</p></li>
+</ol>
+
+<h2>Quiz Question Nr. 2</h2>
+
+<p>If you make the thumbnails like this:
+<pre class="prettyprint lang-html">
+  &lt;img src="big-version.jpg" alt="caption"&gt;
+</pre>
+<p>With CSS like this:
+<pre class="prettyprint lang-css">
+  #gallery img { width: 25% }
+</pre>
+
+<p>Wouldn't that avoid all the hassle with the <code>data-bigsrc</code> attribute?
+
+<ol type="A">
+  <li><p>Yes, but the gallery images would be the wrong size</p></li>
+  <li><p>Yes, but the gallery images would be slow to load</p></li>
+  <li><p>Yes, but the gallery images would have the wrong ALT</p></li>
+  <li><p>Yes, this is a perfectly good solution</p></li>
+</ol>
+
+<h2>Why Thumbnails?</h2>
+
+<p>A big picture, say from a digital camera, might be bigger than your
+  screen. Let's suppose it's at least 1000px by 1000px and 250 KB in
+  size. A thumbnail that is 200px by 200px is 1/25th the screen size and
+  probably 1/25th the file size, too, so under 10KB in file size. It will
+  therefore load from the server 25 times faster than the big version. So,
+  thumbnails are worth the effort of creating them.
+
+<h2>Quiz Question Nr. 3</h2>
+
+<p>In the code in the reading, we used the special
+  variable <code>this</code>. It means:
+
+<ol type="A">
+  <li><p>The element we modify</p></li>
+  <li><p>The element we get the data from</p></li>
+  <li><p>The element in the DOM that the event happened to</p></li>
+  <li><p>None of the above</p></li>
+</ol>
+
+<h2>Exercise 1: Build a Gallery of Images</h2>
+
+<p>The first step is building our image gallery. We'll use images from
+  this <a href="../../reading/potterpics/">directory</a>.  Take a look at
+  the filenames there and view some of the pictures. Note that the URLs
+  will all start with <code>http://cs.wellesley.edu/~cs110/reading/potterpics/</code>
+
+<p>Let's start by creating all the HTML we will need.  Starting with this
+<a target="_blank" href="http://jsfiddle.net/1wqypov3/5/">image gallery v1</a>
+  using jsfiddle.
+
+  <ul>
+        
+        <li>Add several additional thumbnails.
+          
+        <li>Add the HTML for our enlargement image.
+
+        <li>The thumbnails are still a little big; use CSS to reduce them
+          so that they'll all fit in the rendered area.  
+          
+        <li>Give an ID to whatever elements need it. Which ones do?
+          
+        <li>No JavaScript (yet)!
+      </ul>
+
+<p>Your solution might look like this:
+<div class="hidden_from_student">
+<p>
+    <a target="_blank" href="http://jsfiddle.net/1wqypov3/4/">image gallery v2</a>.
+
+<p>Some notes on the solution:</p>
+
+<ul>
+  <li>Did you put in the <code>data-bigsrc</code> attribute that you will
+  need?
+
+  <li>Did you make a <code>figure</code> with a <code>figcaption</code>
+    for the big version?
+    
+  <li>How did you re-size the thumbnails? I made them 20% of the width.
+
+</ul>
+</div>
+
+
+<h2>Exercise 2: Write the event handler</h2>
+
+<p><em>With a partner,</em> draft some code for the event handler
+function. You can go back to your <a target="_blank"
+href="http://jsfiddle.net/1wqypov3/4/">image gallery v2</a>.
+
+<p>Here are the conceptual steps:
+    <ul>
+        <li>Write a function to do the work:
+            <ul>
+                <li>It grabs the <code>bigsrc</code> attribute
+                off <code>this</code>. Hint: use the
+                jQuery <code>.attr()</code> method.
+                    
+                <li>Set the <code>src</code> attribute for the enlargement
+                image. Use the <code>.attr()</code> method again.
+            </ul>
+            
+        <li>Attach that function to all four thumbnail images.
+    </ul>
+
+
+<p>When you're ready to test, do this:
+
+<ul>
+  <li>Go to the gear icon at the upper right of the JavaScript box and
+      open the settings. Where it says <strong>Frameworks &amp;
+      Extensions</strong>, choose <code>jQuery 1.11.0</code>.
+    
+  <li>Add your code to the JS box
+    
+  <li>Run the code and test the behavior of the gallery.
+    
+  <li>Did it work?
+</ul>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js">
+function galleryClick() {
+    var bigsrc = $(this).attr("data-bigsrc");
+    $("#big img").attr("src", bigsrc);
+}   
+
+// Attach to every gallery image
+$("#gallery img").click(galleryClick);
+  </pre>
+
+<p>  <a target="_blank"  href="http://jsfiddle.net/1wqypov3/1/">image gallery v3</a>.
+</div>
+
+<h2>Exercise 3: Captions</h2>
+
+<p>This is a good start, but it lacks captions. Add that behavior. Here's
+    a starting point: <a target="_blank"  href="http://jsfiddle.net/1wqypov3/1/">image gallery v3</a>.
+
+<p>Your solution might look like this:
+<div class="hidden_from_student">
+  <p>  <a target="_blank"  href="http://jsfiddle.net/1wqypov3/">image gallery final</a>.
+</div>
+
+<h2>Drop-Downs Recap</h2>
+
+<ul>
+  <li>Drop-down menus have a click behavior that is a <em>toggle</em>:
+  click once on the header, and the menu appears. Click again, and it
+  disappears.
+    
+  <li>The event handler function doesn't have any memory; it doesn't know
+  whether it's a <q>first</q> click or a <q>second</q> click.
+    
+  <li>It can, however, figure out whether the menu is showing. If it's
+  showing, hide it. If it's hidden, show it.
+    
+  <li>It can figure out whether the menu is showing by looking at the
+    value of the <code>display</code> property. If
+    it's <code>display:none</code>, the menu is hidden.
+</ul>
+
+
+<h2>Drop-Downs</h2>
+
+<p>Our drop-downs will use a click to open/close the menu, unlike
+  the <q>rollover</q> menus that have been common for many years. Our
+  reasoning is that menus that use clicking will be more mobile-friendly.
+
+<p>Today, we'll keep things very specific.  You'll get to more general
+  approaches in lab.
+
+<h2>Quiz Question Nr. 4</h2>
+
+<p>In the drop-down menu below, how did we get the page to not jump around
+when we show/hide the menu?
+  
+<ol type="A">
+  <li><p>The menu is <code>display:relative</code> and its parent is <code>display:absolute</code></p></li>
+  <li><p>The menu is <code>display:absolute</code> and its parent is <code>display:relative</code></p></li>
+  <li><p>The menu is <code>display:fixed</code></p></li>
+  <li><p>The menu is <code>display:static</code></p></li>
+</ol>
+
+
+<h2>Example Drop-Down Menu</h2>
+
+<p>Click on the "Favorite Things" text
+
+<ul id="header">
+  <li>Favorite Things:
+    <ul id="menu1">
+      <li>raindrops on roses</li>
+      <li>whiskers on kittens</li>
+      <li>bright copper kettles</li>
+      <li>warm woolen mittens</li>
+    </ul>
+  </li>
+</ul>
+
+<style scoped>
+  #header > li {
+     font-weight: bold;
+     font-size: larger;
+     color: green;
+     position: relative;
+     height: 8em;
+  }
+  #menu1 {
+     list-style-type: none;
+     background-color: #ccffcc;
+     position: absolute;
+     left: auto;
+     top: auto;
+  }
+
+  #menu1 li {
+     border: 1px solid green;
+  }
+</style>
+
+<script id="ex5-script">
+function toggleMenu1() {
+    var menu1 = $("#menu1");
+    var display = menu1.css("display");
+    console.log("#menu1 display property is "+display);
+    if( display == "none" ) {
+        menu1.show();
+    } else {
+        menu1.hide();
+    }
+}
+
+$("#header").click(toggleMenu1);
+</script>
+
+<h2>Exercise 5: A Simple Drop-Down</h2>  
+
+<p>Try the following using the menu above.
+  <ol>
+    <li>Open the Chrome Inspector and inspect the menu.  What is its ID?
+      
+    <li>Toggle it by clicking on the header. How does the menu element
+      change? 
+      
+    <li>Toggle it again. How does it change this time?
+      
+    <li>Try typing the following code into the Chrome Inspector:
+      <pre class="prettyprint lang-js">$("#menu1").css("display");</pre>
+      
+    <li>Toggle the header and try that code again. Do this several times.
+  </ol>
+
+<p>Draft some code for this drop-down. You'll need
+  <ul>
+    <li>A function that does all the work
+      
+    <li>The function should read the value of the <code>display</code>
+      property and act accordingly, namely:
+        <ul>
+            <li>if it's closed, open it using <code>.show()</code>, and
+            <li>if it's open, close it using <code>.hide()</code>.
+        </ul>
+      
+    <li>Remember to attach the function to the header.
+  </ul>
+
+<p>Your code might look like this:
+
+<div class="hidden_from_student">
+<pre id="ex5-code" class="prettyprint lang-js"></pre>
+</div>
+
+<script>
+document.getElementById("ex5-code").innerText = document.getElementById("ex5-script").innerText;
+</script>
+
+<p>Copy it to this <a target="_blank" href="http://jsfiddle.net/uc2zkkL2/1/">jsfiddle</a> and get the code to work.
+
+<p>Your result might look like this:
+
+<div class="hidden_from_student">
+    <p><a target="_blank" href="http://jsfiddle.net/uc2zkkL2/">jsfiddle drop-down</a>
+</div>
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>Galleries and how to create them.
+    <li>Drop-downs and how to set them up.
+    </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+  
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions">
+
+<p>Quiz answers:
+<pre>
+1. C
+2. B
+3. C
+4. B
+</pre>
+
+                </div>
+
+    <!--#include virtual="/~cs110/modularity/footer-rel.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer-rel.part" -->
+    <script src="../../js/date-functions.js"></script>
+    <script>
+      revealLater("4/1/2016 1:00 PM"); 
+   </script>
+
+  </body>
+</html>

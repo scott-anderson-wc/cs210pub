@@ -1,0 +1,395 @@
+<!-- 
+    Fall 2007: Lightly edited by Mark.  Some text tightening, remove
+    unnecessary quotation marks from English text, insert appropriate
+    quotation marks in sample HTML code :-)
+
+   January 2009, Scott:  Major revision to talk about the box model and such. 
+
+   Minor changes by Ellen for Fall '10
+
+   Sept 2011, Scott:  Added a lot more information about centering.
+  
+   Sep 2014, Eni: Moved content into new format.
+-->
+
+         <p>Page layout involves placing page elements (such as text and graphics)
+where you choose on a page.  In the past, page layout was done with
+special HTML tags, including tables. The modern approach is to separate
+the page layout from the page contents by using CSS.  This has the
+advantage that you can have different layouts for different media
+(screens, printouts, cellphones) as well as keeping the HTML clean and
+uncluttered for those users who don't use the CSS, such as a blind person
+who uses screen reading software.</p>
+  
+          <h2 id="boxes">Boxes</h2>
+          
+          <p>To understand page layout, you first have to understand that, to a web
+  browser, a web page is a series
+  of <a href="http://www.w3.org/TR/CSS2/box.html" title="the box
+  model">boxes</a>.  The boxes have a width and height, and they get
+  assembled (laid out) on the page, much the way Ben Franklin might have
+  laid out the text and pictures in his newpaper.
+
+</p><p>Boxes come in two kinds: <em>blocks</em> and <em>inline</em>.
+
+</p><p>A <em>block</em> is something big like a paragraph or
+a <code>&lt;div&gt;</code>.  Blocks are preceded and followed by line
+breaks, so Ben Franklin or the layout engine stacks them vertically on the
+page.  (Normally, a block doesn't have anything to the left or right,
+though we will see some exceptions later.)</p>
+
+<p>An <em>inline</em> element (box) is something like a word, where Ben
+Franklin or the layout engine fills up a line with as many as it can, then
+goes on to the next line, and so forth.  You may be surprised to learn
+that <code>&lt;img&gt;</code> elements are inline, so that a line is
+filled with as many images as will fit before starting the next line.
+(That's why centering an image is tricky; we'll look at that a bit later.)
+</p>
+
+<h2 id="mbp">Margins, Borders and Padding</h2>
+
+<p>The contents of a box can optionally be surrounded by a
+  border.  For example, the following CSS
+
+</p><pre>p {
+    border: 2px dashed red;
+}
+</pre>
+
+<p>will put a 2 pixel dashed red line around the contents of each
+paragraph.
+
+</p><p><em>Padding</em> is the distance between the contents of the box and
+  the border.  By default, it's zero, but if you'd like a little more room
+  between your text and the border, you can increase it.  Even if you
+  don't have a border, padding can be used to increase the distance
+  between the contents of your box and the contents of any neighboring
+  boxes.
+
+  </p><p><em>Margins</em> are the distance between the borders and the
+  next element.  However, it's not quite as simple as that, because 
+  the margins for vertical elements
+  sometimes <a href="http://www.w3.org/TR/CSS2/box.html#collapsing-margins">collapse</a>.
+
+<!--h2 id="ex1">Exercise 1 Using Firebug</h2>
+
+<p>If you haven't learned about Firebug, now's the
+time: <a href="../../documentation/firebug/firebug.html">Firebug</a>.
+Firebug is is a plugin for Firefox.  Get it, use it, enjoy it.  It's
+awesome.-->
+
+<div class="bs-callout bs-callout-danger">
+      <h4>Exercise 1</h4>    
+
+
+<p>Look at this <a href="box-ex1.html">modifying boxes using Inspect Element</a>.
+    (Dummy text courtesy of <a href="http://lipsum.com/">lipsum.com</a>.)
+
+
+<p>In the exercise, you'll notice that contents of the box, including the
+padding, acquire the background color, but the margins are always
+transparent.  Thus, padding and margins, which seem to be interchangeable
+when there isn't a border, aren't the same if you have a background color.
+
+<p>You'll also notice some big differences between blocks and inline
+  elements.  Not only are the inline elements put together on a line,
+  but a <code>&lt;span&gt;</code> can be broken up if it's too wide
+  (certain inline elements, such as images, can't be broken up).
+  Also, the width and height, and top and bottom margins of inline
+  elements are completely ignored.</p>
+  
+  </div>
+
+<!--p>You are probably wondering how to set all these distances.  There
+are CSS properties to control the thickness of each side of the box
+(margin, border, and padding) as well as the style of the border if
+there is a border.  There are also shorthand forms that let you define
+things more compactly.  Consult a
+good <a href="http://www.w3schools.com/css/css_reference.asp"
+title="CSS properties">reference on CSS properties</a-->.
+
+<h2 id="units">Lengths and Units</h2>
+
+<p style="text-indent: 0.5in;">Now that you've seen some CSS properties
+whose values are <em>lengths</em>, you'll want to know what values they
+can have.  For example, we indented this paragraph by half an inch.  It's
+the only indented paragraph in the site.  We did it using the following
+code:
+</p>
+          
+<pre>&lt;p style="text-indent: 0.5in"&gt;Now that you've seen some CSS properties ...
+</pre>
+
+<p>You might guess that <code>in</code> means <q>inches.</q> To
+specify lengths effectively, you need to know the <em>units</em> that
+CSS uses.  They come in several categories:
+
+</p><ul>
+
+<li><em>Ruler measures.</em> Inches (<code>in</code>), centimeters
+(<code>cm</code>), and millimeters (<code>mm</code>).
+
+</li><li><em>Pixels.</em> These measures are in pixels, so they're less
+flexible if the web page will be printed out onto paper, but they're
+useful on the web.  This unit is specified using <code>px</code>.
+
+</li><li><em>Printer units.</em> You probably know that font sizes are
+measured in <em>points,</em> as in a <q>12 point font.</q>
+One <em>point</em> is equal to 1/72 of an inch, and is specified by using
+<code>pt</code>.  A <em>pica</em> is 12 points (<q>a pica
+font</q>) and is specified by using <code>pc</code>.
+
+</li><li><em>Font-relative units.</em> These measures are proportional to
+the size of the font, so they are bigger if the font is bigger, 
+and smaller if it's smaller.  This is great because visually impaired people
+may increase the font size to much greater than you'd ever expect, and
+you'd like the web page lengths to scale appropriately.  These are
+appropriate measures for, say, the distance between lines (called the
+<em>leading,</em> from strips of lead that were put between the rows of
+type back in the olden days of actual lead type).  The two font-relative
+sizes are <code>em</code> and <code>ex</code>.  The <code>em</code>
+measure is named for the width of the letter <q>M</q> in the current font,
+and in CSS is defined to be equal to the size of the font.  The
+<code>ex</code> measure is named for the height of the letter <q>x</q> in
+the current font, and in CSS is usually about half the size of the font.
+
+</li><li><em>Percentages.</em> These are best for elements whose size you 
+want to specify relative to the size of the enclosing element or the window.  
+  <!--For
+example, to make the body of the page be half the width of the window,
+you can write:
+
+<pre>&lt;body style="width: 50%"&gt; </pre-->
+
+<p>If you want a paragraph to be three-fourths the width of
+the enclosing <code>&lt;div&gt;</code>, you can use code like the
+following:
+
+<pre>
+div#content {
+   width: 800px;
+   margin-left: 100px;
+}
+
+p#note {
+   width: 75%;
+   margin-left: 25%;
+}
+
+&lt;div id="content"&gt;
+   &lt;p&gt;Here's the usual contents of the page ...&lt;/p&gt;
+   ...
+   &lt;p id="note"&gt;And here is a narrow note on the right side.&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Look at the <a href="percentage.html" title="an example of setting paragraph widths using percentages">percentage example in action</a>.
+
+</ul>
+
+<!--h2>Unique Element Selectors</h2>
+
+<p>You certainly noticed something else in the last few examples, namely
+the use of an <code>id</code> attribute in the tag and the same id in the
+selector for the style sheet.  For example, see the <code>content</code> and
+<code>note</code> terms in the percentage example.  If you have one
+particular element of your page that you want to specify the style of, you
+can give it a unique identifier (id), and then specify the properties of
+that element in your document-level or external style sheet.  For example,
+your page might include the following:
+
+<pre>
+&lt;body&gt;
+&lt;div id="navbar"&gt;
+&lt;!-- markup for the navigation bar goes here --&gt;
+&lt;/div&gt;
+</pre>
+
+<p>Then, in your style sheet, you specify this particular
+<code>&lt;div&gt;</code> with the pound sign and its id:
+
+<pre>
+div#navbar {
+   background-color: olive;
+   ...
+}   
+</pre>
+
+<p>There must be only one <code>&lt;div&gt;</code> with that id.  For
+brevity, if there is only one element with that id, you can omit the
+element type, reducing the selector to just <code>#navbar</code>.
+
+<p>Why not just use an inline style sheet?  There are several reasons,
+all based on the idea of abstraction and separating structure from
+presentation.  First, the element might be unique on a single web
+page, but might occur on every page in your site.  For example, a
+"maincontent" <code>&lt;div&gt;</code> might appear on every page, and
+you can specify its style once in an external style sheet.  Second,
+this separation can allow you to substitute a different style sheet,
+perhaps for a different medium (such as a cell phone).  Third, it keeps
+your HTML clean and uncluttered.
+
+<p>You can name the element pretty much anything, but stick to
+sequences of letters and numbers, rather than using more exotic
+characters.-->
+
+<!--div class="ex"><span class="ex">Exercise 2</span>
+
+<p>Using your <a href="../L03-html/little.html">little.html</a> from
+earlier exercises, modify the <code>&lt;body&gt;</code> tag so that it is
+80 percent of the page, and modify all the <code>&lt;p&gt;</code> tags to
+have a 5em indentation.  Make the <code>&lt;body&gt;</code> tag have a
+left margin of 10 percent, thereby centering the content on the page.
+
+</p></div-->
+
+<h2 id="inline_images">Images are Inline Elements</h2>
+
+<p>Pictures (image elements, produced by the <code>&lt;img&gt;</code> tag)
+  are <em>inline</em> elements.  This may seem odd, since images look so
+  much like big box-like things, and therefore ought to be <em>block</em>
+  elements, but they are (by default), inline elements.  So, the browser
+  treats them like big words.  Here's an example:
+
+<div class="eg_box">
+  <p>Bonnie and Chester were enjoying a picnic on the
+  <img src="box-model-files/icons/grass.png" alt="grass">.  Suddenly the sky filled with dark
+  <img src="box-model-files/icons/ic_menu_cloud.png" alt="clouds">.  Soon, it began to
+  <img src="box-model-files/icons/weather-rain.png" alt="rain">.  When the
+  <img src="box-model-files/icons/Lightning.png" alt="lightning"> began, they decided to
+  head for
+  <img src="box-model-files/icons/home.png" alt="home">.
+</div>
+
+
+<h2 id="centering">Centering Content</h2>
+
+<p>Before we get to more complex stuff, let's look at centering content,
+particularly images, since that's a common desire among CS110 students.
+  Let's start, though, with centering lines of text within a block.
+  Here's an eye chart:
+
+<div class="verbatim example">
+<div class="eg_box" style="text-align: center">
+  <span style="font-size: 60px">E</span><br>
+  <span style="font-size: 40px">F P</span><br>
+  <span style="font-size: 30px">T O Z</span><br>
+  <span style="font-size: 20px">L P E D</span><br>
+  <span style="font-size: 15px">P E C F D</span><br>
+  <span style="font-size: 12px">E F D C Z P</span><br>
+  <span style="font-size: 10px">F E L O P Z D</span><br>
+</div>
+</div>
+
+<p>All we had to do was to use the CSS property <code>text-align:
+    center</code>.  (Note that we used an inline style sheet in the
+    example code, just for brevity.  In practice, we would probably add a
+    class to this div and define it in an external style sheet).
+
+<p>Since images are just like big letters, the same trick will work with
+  images:
+  
+<div class="verbatim example">
+<div class="eg_box" style="text-align: center">
+  <img src="box-model-files/icons/grass.png" alt="grass"><br>
+  <img src="box-model-files/icons/ic_menu_cloud.png" alt="clouds">
+  <img src="box-model-files/icons/weather-rain.png" alt="rain">
+  <img src="box-model-files/icons/Lightning.png" alt="lightning"><br>
+  <img src="box-model-files/icons/home.png" alt="home">
+</div>
+</div>
+
+<h2 id="center_text">Centering Text</h2>
+
+<p>You should almost never center lines of text in a paragraph.  You get ragged
+edges left and right, which looks ugly.  Also, depending on the font,
+amount of text and the width of the region, the last line may be
+weirdly short (and centered).  Here's
+  a <a href="http://www.quotationspage.com/quote/27745.html">Tolkien quote</a>:
+
+<div class="verbatim example">
+<div class="eg_box tolkien_quote" style="text-align: center;">
+  Do not meddle in the affairs of wizards, for they are subtle and quick
+  to anger.
+</div>
+</div>
+
+<p>You probably don't want that single word centered on the second
+  line.  But that can happen (and all-too-often does) when you center text
+  and don't have complete control over browser-width, font-size, and the
+  like.
+
+<p>Instead, what you probably want is to have normal, left-aligned text in
+  a box that is itself centered.  Let's see how to center boxes.
+
+<h2 id="center_block">Centering a Block</h2>
+
+<p>To center a block, you have to give it a width that is smaller than
+  its parent (which might be the <code>&lt;body&gt;</code>), and setting its
+left and right margins to be <code>auto</code>.  <q>Auto</q> means to take
+the leftover space on the line and distribute it equally among the
+<q>auto</q> elements.  If both margins are <code>auto</code>, the element
+is centered.  Thus:
+
+<div class="verbatim example">
+<div style="width: 400px; border: 3px solid blue;">
+<p style="border: 2px solid red; width: 250px; margin: 0 auto;">
+  Do not meddle in the affairs of wizards, for they are subtle and quick
+  to anger.
+</p>
+</div>
+</div>
+
+<h2 id="center_image">Centering Images</h2>
+
+<p>An alternative technique for centering images is to use the same margin
+  trick that works for centering other block elements, such as the
+  paragraph above.  The difference is that <code>&lt;p&gt;</code> is
+  already a block element, while
+<code>&lt;img&gt;</code> is inline.  However, we can change an
+<code>&lt;img&gt;</code> element to be a block by using the
+<code>display: block</code> style.  That is, to make an image that
+is centered, use a style sheet that makes the image <a
+href="http://www.htmlhelp.com/reference/css/classification/display.html"><code>display</code></a>
+as a <code>block</code>, and sets the <a
+href="http://www.htmlhelp.com/reference/css/box/margin-left.html"><code>margin-left</code></a>
+and <a
+href="http://www.htmlhelp.com/reference/css/box/margin-right.html"><code>margin-right</code></a>
+to <code>auto</code>.
+
+<div class="verbatim example">
+<p>
+  <img src="box-model-files/buffypics/buffy.gif" style="display: block; margin-left: auto; margin-right: auto;" alt="Buffy Summers">
+  <img src="box-model-files/buffypics/angel.gif" style="display: block; margin-left: auto; margin-right: auto;" alt="Angel">
+</div>
+
+<p>Note that by making the <code>&lt;img&gt;</code> be <code>block</code>,
+they stack vertically, even without the <code>&lt;br&gt;</code> tags.  If
+we had tried to use the <code>text-align: center</code> technique, the two
+pictures would have appeared next to each other on the line. (Of course,
+that may be what you <em>want</em>, in certain circumstances.)
+
+<p>You should consult this web reference on <a
+href="http://www.w3.org/Style/Examples/007/center.html">Centering
+Things in CSS</a>.</p>
+
+<h2 id="width">Box Widths</h2>
+
+<p>Consider the following example of <a href="overfull-box.html">an
+overfull box</a>.  Look at the CSS for it.  Why does the browser have a
+horizontal scroll bar?  The box is 100% of the container, not 110%.</p>
+
+<p>The solution to this mystery is that the width of a box is defined to
+be the width of its <em>contents</em>, not the width of the box.  (If you
+think this is a stupid definition, you would find many who agree with you,
+but we're stuck with this definition.)  Thus, if you define a box to be
+100%, it had better not have any margin, border, or padding, or it will
+be <q>overfull</q>.</p>
+
+<p>One way to avoid the creation of overfull boxes is to nest two boxes, 
+set the width of the outer one, and
+then use the inner one to set the margins, border and padding.  By
+default, the dimensions of the inner box will be determined by the outer
+one, which is just what you want.  Here is an example of
+a <a href="full-box.html">full, not overfull box</a> created with this idea.
+          

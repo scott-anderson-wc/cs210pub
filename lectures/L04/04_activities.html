@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 4:  Class Activities</title>
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+  </head>
+    
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+    
+    <div class="container">
+      <h1>Lecture 4 &nbsp; <small>Class Activities</small></h1>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">         
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul id="insert_TOC_here" class="nav bs-sidenav">  
+            </ul>
+          </div>
+        </div><!--end of "col-md-3" div-->
+        
+        <!-- Nine columns of the grid are reserved for the main content-->
+        <div class="col-md-8">
+
+          <h2>Goals</h2>
+
+          <p>By the end of today, you will be able to:
+            <ol>
+              <li>Use the Chrome Inspector to play with a document.
+      
+              <li>Understand CSS selectors like ID and class, and also
+              nested selectors.
+                
+              <li>Use the Box Model to give elements margins, borders and
+              padding.
+      
+              <li>Use pseudo-selectors to modify how links look
+                
+            </ol>
+
+            <h2>Recap</h2>
+
+            <p>Last time, we learned:
+              <ul>
+                <li>CSS as the style language for web pages
+                  
+                <li>About <a href="http://csszengarden.com/">CSS Zen
+                Garden</a> and separating style from content
+                  
+                <li>The three places you can put CSS rules:
+                  <ul>
+                    <li>external style files
+                      
+                    <li>document level style tags
+                      
+                    <li>inline style attributes
+                  </ul>
+                  
+                <li>We learned the basic syntax of a CSS rule (external and document level):
+<pre class="prettyprint lang-css">
+selector {
+    property: value;
+    property: value;
+}   
+</pre>
+ 
+               <li>In the reading for today, we learning that the
+               selectors include
+                 <ul>
+                   <li>tags, which match <em>every</em> such element in
+                   the page
+                     
+                   <li>IDs, which match the element with that ID. (There
+                   should be only one.) These use a <code>#</code>
+                   character in the selector.
+                     
+                   <li>CLASS names, which match every element with that
+                   class. These use a <code>.</code> (dot) character in
+                   the selector.
+
+                   <li>descendant selectors, which match <q>one of these
+                   inside one of those.</q>
+
+                   <li>pseudo-selectors, for styling hyperlinks in
+                   different states (visited, unvisited)
+                     
+                 </ul>
+                 
+               <li>You should make up names for IDs and CLASSes based on
+               what they <em>mean</em> (semantics) rather than what they
+               do or look like.
+
+               <li>You also read about the <em>box</em> model:
+                 <ul>
+                   <li>boxes have (from outside to inside): margins,
+                   borders, padding and width.
+                     
+                   <li>background colors apply up to content and padding
+                   but not margin
+                     
+                   <li>borders have width, style and color.
+                     
+                 </ul>
+
+               <li><code>DIV</code> and <code>SPAN</code> are generic
+                 elements, just to carry CSS.  DIV is a <em>block</em>
+                 element, and SPAN is a <code>inline</code> element
+                 
+               <li>Images are <em>inline</em> elements
+                 
+               <li>Center block elements by
+               using <code>margin:auto</code>.
+
+               <li>Don't center text
+                 
+               <li>Elements can have <em>background</em> images. CSS Zen
+               Garden uses those a lot.
+                 
+               <li>Border can have <em>rounded</em> corners, which is cool.
+
+               <li>We learned about the <em>Chrome Inspector.</em>
+              </ul>
+
+
+            <h2>Quiz Question Nr. 1</h2> 
+
+          <p>How can you open the Chrome Inspector?
+            <ol type="A">
+              <li><p>View / Developer / Developer Tools</p></li>
+              <li><p>Option-Command I (on a Mac)</p></li>
+              <li><p>Right-click (control-click) and choose "inspect element"</p></li>
+              <li><p>menu icon / More tools / Developer Tools</p></li>
+              
+            </ol>
+
+          <h2>Working with Inspector</h2> 
+
+          <p>If you have already read the notes about 
+            <a href="../../reading/chrome-inspector.html">Chrome's Inspector</a>, 
+          practice your skills by following the instructions in 
+            <a href="../BoxModel/box-ex1.html">this new example.</a></p>
+          
+          <h2>Other selectors</h2>
+
+<p>As we learned in the last exercise, sometimes we need to be a bit more
+  focussed with our CSS <em>selectors</em> than just saying every
+  occurrence of some tag will appear the same way. For example, it's
+  common for hyperlinks in the nav bar to look different from ordinary
+  hyperlinks.
+
+<h2>Quiz Question Nr. 2</h2> 
+
+ <p>How do we specify that hyperlinks inside the nav bar are to be teal and 30px
+ bold Verdana?
+
+ <ol type="A">
+  <li>
+<pre class="prettyprint lang-css">
+   navbar a { color: teal; font: 30px bold Verdana; }
+</pre>
+
+  <li>
+<pre class="prettyprint lang-css">
+   nav a { color: teal; font: 30px bold Verdana; }
+</pre>
+
+<li>
+<pre class="prettyprint lang-css">
+   navbar .a { color: teal; font: 30px bold Verdana; }
+</pre>
+
+  <li>
+<pre class="prettyprint lang-css">
+   #nav a { color: teal; font: 30px bold Verdana; }
+</pre>
+
+</ol>                
+
+ <p>Here's an example in action:
+   <!-- the "scoped" attribute allows this to be here instead of in the  head -->
+   <nav style="background-color: #eeeeee">
+       <style scoped>
+           nav a { color: teal; font: 30px bold Verdana; }
+       </style>
+     <ul>
+       <li><a href="http://www.google.com">Google</a>
+       <li><a href="http://www.bing.com">Bing</a>
+       <li><a href="http://www.yahoo.com">Yahoo!</a>
+     </ul>
+   </nav>
+
+<h2>Quiz Question Nr. 3</h2> 
+
+ <p>In the jsfiddle exercise last time, we used an inline style attribute
+ to style a particular element. But you know that inline styles are
+ frowned upon (deprecated).  Instead, we should use a ...
+
+ <ol type="A">
+  <li><p>class</p></li>
+  <li><p>id</p></li>
+  <li><p>div</p></li>
+  <li><p>span</p></li>
+ </ol>
+
+<h2>More on CSS Selectors</h2>
+
+<p>The <code>&lt;DIV&gt;</code> tag is used to create a generic <q>box</q>
+(technically, a <em>block element</em>) that you can put other elements
+into, including other DIVs! Then, you can use CSS to <em>style</em> the
+elements.  Similarly, a <code>&lt;SPAN&gt;</code> is a generic inline
+container.
+
+<p>By putting an <em>ID</em> or a <em>CLASS</em> onto an
+element, <em>any</em> element (not just DIV and SPAN), you can style it
+specially.
+
+<h2>Quiz Question Nr. 4</h2> 
+
+ <p>The difference between ID and CLASS is:
+
+ <ol type="A">
+  <li><p>only one thing can have a particular ID</p></li>
+  <li><p>only one thing can have a particular CLASS</p></li>
+  <li><p>they are interchangeable</p></li>
+  <li><p>IDs avoid class discrimination</p></li>
+ </ol>
+  
+<h2>Quiz Question Nr. 5</h2>
+
+ <p>Which is most likely to use ID rather than CLASS:
+
+ <ol type="A">
+  <li><p>important</p></li>
+  <li><p>best</p></li>
+  <li><p>optional</p></li>
+  <li><p>highlight</p></li>
+ </ol>
+
+<h2>Quiz Question Nr. 6</h2>
+
+ <p>How would you create a CSS rule such that elements with the class
+ "optional" are in a smaller, gray font?
+
+ <ol type="A">
+  <li><pre class="prettyprint lang-css">optional { font-size: smaller; color: gray}</pre></li>
+  <li><pre class="prettyprint lang-css">#optional { font-size: smaller; color: gray}</pre></li>
+  <li><pre class="prettyprint lang-css">.optional { font-size: smaller; color: gray}</pre></li>
+  <li><pre class="prettyprint lang-css">class=optional { font-size: smaller; color: gray}</pre></li>
+ </ol>
+
+<h2>Quiz Question Nr. 7</h2>
+
+ <p>How would you apply that CSS rule to a paragraph?
+
+ <ol type="A">
+  <li><pre class="prettyprint lang-html">&lt;p id="optional"&gt;lorem ipsum&lt;/p&gt;</pre></li>
+  <li><pre class="prettyprint lang-html">&lt;p style="optional"&gt;lorem ipsum&lt;/p&gt;</pre></li>
+  <li><pre class="prettyprint lang-html">&lt;p class="optional"&gt;lorem ipsum&lt;/p&gt;</pre></li>
+  <li><p>none of above</p></li>
+ </ol>
+
+<h2>Discussion Question</h2>
+
+<p>Why not name the class <q>gray</q> rather than <q>optional</q>?
+
+<h2>Descendant Selectors</h2>
+
+<p>One of the many powerful ways to use CSS selectors is to use more than
+one, namely <em>descendant selectors</em>.  For example, as we saw before, to
+style hyperlinks with the nav, we can do:
+  
+<pre class="prettyprint lang-css">
+   nav a { color: teal; font: 30px bold Verdana; }
+</pre>
+
+<p>This idea can be combined with classes and ids in lots of powerful
+ways. 
+
+<h2>Quiz Question Nr. 8</h2>
+
+ <p>Suppose you want the font of paragraphs inside the legal disclaimer to
+ be 5px silver. How would you do that?
+
+ <ol type="A">
+  <li><pre class="prettyprint lang-css">#disclaimer p { font-size: 5px; color: silver}</pre></li>
+  <li><pre class="prettyprint lang-css">p .disclaimer { font-size: 5px; color: silver}</pre></li>
+  <li><pre class="prettyprint lang-css">.disclaimer p { font-size: 5px; color: silver}</pre></li>
+  <li><pre class="prettyprint lang-css">p #disclaimer { font-size: 5px; color: silver}</pre></li>
+ </ol>
+
+
+<h2>Quiz Question Nr. 9</h2>
+
+ <p>Suppose you want hyperlinks that are inside something that is optional
+ to lack the usual underlining. How would you do that?
+
+ <ol type="A">
+  <li><pre class="prettyprint lang-css">a optional { text-decoration: none}</pre></li>
+  <li><pre class="prettyprint lang-css">a .optional { text-decoration: none}</pre></li>
+  <li><pre class="prettyprint lang-css">.optional a { text-decoration: none}</pre></li>
+  <li><pre class="prettyprint lang-css">optional a { text-decoration: none}</pre></li>
+ </ol>
+
+
+            <h2>Quiz Question Nr. 10</h2> 
+
+          <p>From outside to inside, a box (block) has
+            <ol type="A">
+              <li><p>border, margins, padding</p></li>
+              <li><p>margins, padding, border</p></li>
+              <li><p>padding, margins, border</p></li>
+              <li><p>margins, border, padding</p></li>
+            </ol>
+
+            <h2>Quiz Question Nr. 11</h2> 
+
+          <p>The difference between margins and padding is...
+            <ol type="A">
+              <li><p>indistinguishable if there's no border</p></li>
+              <li><p>padding has background color, margins don't</p></li>
+              <li><p>padding is measured in EM; margins in PX</p></li>
+              <li><p>none; there is no difference</p></li>
+            </ol>
+
+
+          <h2>Blocks vs. inline</h2>
+          
+          <p>
+            <a href="../BoxModel/boxes.html">This example</a> shows how div-s are 
+            block elements and spans are inline elements.
+            Applying certain properties to divs and spans doesn't produce the same results.
+            Check which of the <code>span</code> CSS styles have been applied to the style
+            elements. Play with setting styles for margin and padding to the different spans.
+          </p>
+          
+          <h2>Understanding width</h2>
+
+          <p>The property <code>width</code> of an element refers to the width occupied by
+          its content. By adding margin, padding, and borders, the width the element occupies
+          in the page increases. The following examples show different ways to specify
+          values for <code>width</code> and its effect on the page:</p>
+          <ol>
+            <li><a href="../BoxModel/overfull-box.html">An overfull box</a></li>
+            <li><a href="../BoxModel/full-box.html">A full box</a></li>
+            <li><a href="../BoxModel/percentage.html">Speciyfing width as a percentage</a></li>
+          </ol>
+          
+          <h2>Aligning Text</h2>
+
+          <p>
+            This short example shows <a href="../BoxModel/centered-text.html">text 
+            aligned center and right</a>. Resize the browser window
+            to notice how the text flows to always fill the space. Use Inspector 
+            to set the body
+            width to 600px and give it a border (enter the styles in the rule for 
+            <code>element.style</code>). 
+            Now try to resize the browser window again. What has changed?
+          </p>
+          
+          <h2>Centering a list</h2>
+
+          <p>Given <a href="../BoxModel/center-list.html">this example</a> where the <code>body</code> 
+            is centered with text-align, try to enter the needed CSS rules for <code>ol</code>, so
+          that the list is centered and the numbers are close to the list
+            items. It should look like this:</p>
+
+          <p><img src="capital-cities.png" alt="capital cities screenshot"></p>
+          
+          <h2>Quiz Question Nr. 12</h2>
+
+          <p>If you'd like visited links to be green, unvisited links to
+          be blue, and links that the mouse is over to be red, you would
+          do ...
+            <ol type="A">
+              <li><pre class="prettyprint lang-css">
+                  a:visited { color: green }
+                  a:unvisited { color: blue }
+                  a:mouseover { color: red }
+                  </pre>
+              <li><pre class="prettyprint lang-css">
+                  a:link { color: blue }
+                  a:visited { color: green }
+                  a:hover { color: red }
+                  </pre>
+              <li><pre class="prettyprint lang-css">
+                  a:hover { color: red }
+                  a:visited { color: green }
+                  a:link { color: blue }
+                  </pre>
+              <li><pre class="prettyprint lang-css">
+                  a:active { color: green }
+                  a:link { color: blue }
+                  a:hover { color: red }
+                  </pre>
+            </ol>
+
+            <p>Note that it matters what <em>order</em> you do these
+            in. See <a href="http://www.w3schools.com/css/css_link.asp">CSS
+            Links</a>
+
+          <!--h2>CSS Selector Quiz</h2>
+          <p>The <a href="cssquiz/">CSS selector quiz</a> asks you to click on the HTML elements
+          that a CSS rule with the given selector name would apply a styling. In many cases,
+          the selector applies to multiple HTML elements in the code.</p-->
+          
+<h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions" style="display: none">
+
+<p>Answers to quiz questions:
+  <pre>
+1. All of the above. Use whichever one you like best. I like "inspect element" best
+2. B
+3. B is best (unique), but A is possible (allows multiples)
+4. A
+5. B
+6. C
+7. C
+8. A
+9. C
+10. D
+11. B
+12. B (:active has to be last, :hover after :link and :visited)
+13. 
+  </pre>
+
+<p>Here's a <a href="http://jsfiddle.net/2j2reowd/">solution to the
+    American Literature exercise</a>
+
+
+</div><!-- end of solutions -->
+
+<script>
+var now = new Date();
+var later = new Date("9/14/2015 5:00 PM"); // date and time for solution to be released
+document.querySelector("#later").innerHTML = later.toLocaleString();
+if( now > later ) {
+    document.querySelector("#solutions").style.display = "block"; // $("#solutions").show();
+    document.querySelector("#solutions_later").style.display = "hidden"; // $("#solutions").show();
+} else {
+    document.querySelector("#solutions").style.display = "none"; // $("#solutions").hide();
+}    
+</script>
+
+    <!--#include virtual="../../modularity/footer-rel.part" -->
+
+        </div><!-- end of column -->
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+    <!--#include virtual="../../modularity/bs-footer-rel.part" -->
+
+    <script>
+        revealLater("2/5/2016 1:00 pm");
+    </script>
+  </body>
+
+</html>

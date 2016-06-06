@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- 
+File: bookEx.html
+Author: Eni Mustafaraj
+Date: 04/05/14
+Purpose: Explain the implicit bookmarking example that uses localStorage
+and Javascript events to keep track of the last location on a page and return
+the user to that position next time it opens the page. 
+It is useful for long HTML files (such as Project Gutenberg books).
+-->
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>CS110: Implicit Bookmarking Example</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  <style>
+    span{
+      font-weight: bold;
+      color: #4444ff;
+    }
+  </style>  
+ </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>Implicit Bookmarking Example<small> Use Javascript to personalize experience</small></h1>
+                        <hr>                    
+    </div>
+    
+    <div class="container">
+      <div class="row">
+            
+         <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+             <li><a href="#book">Bookmarking in Action</a></li>
+             <li><a href="#html">Writing the HTML and CSS</a></li>
+             <li><a href="#breakdown">Breaking down the code</a></li>
+            <li><a href="#binding">Event Binding</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+                                        
+                                        
+            <div class="col-md-8">      
+        <h2 id="book">Bookmarking in Action</h2>
+        <p>Imagine you are reading a book online using the website 
+        <a href="http://www.gutenberg.org/files/42671/42671-h/42671-h.htm">Project Gutenberg</a>. 
+        After a while you stop reading and
+        maybe close the browser tab. When you'll come back to 
+        reading (after a few hours or few days), you'll have to reenter the URL 
+        for your book and the HTML page will load at the 
+        beginning. It is up to you to remember where you left reading last time
+        and scroll to that position.
+        But, wouldn't it be nice if your browser would remember this for you and 
+        actually open the page directly at the desired position. This would be 
+        similar to what you do with a physical book, when you insert a bookmark 
+        on the page you stopped reading. </p>
+        
+        <p>The example explained in these notes does exactly that: it remembers
+        for you the last position on the page that you were reading and the next
+        time you open the page, it goes directly to that position, without you 
+        having to take any action.</p>
+        
+        <p>We will first show how to test this feature and then will explain
+        how this Javascript application was built.
+        
+        <ol>
+          <li>Visit the <a href="bookmark/storageEx.html" target="_blank">implicit bookmarking</a> 
+          example page (it will open a new tab). Because this is the first time you visit the page, on
+          the right corner you should see the following message:</li>
+          <figure>
+            <span>1)&nbsp;</span><img src="images/img1.png" alt="initial page message" class="img-thumbnail">
+          </figure>
+          <li>Click on the yellow box and see how it expands to show the following:          
+          </li>
+           <figure>
+            <span>1.a)&nbsp;</span><img src="images/img2.png" alt="dialog message" class="img-thumbnail">
+          </figure>
+          <li>Type your name in the input box and click on the button "Save". 
+          After clicking the button you should see the following message, but with
+          your name:</li>
+          <figure>
+            <span>1.b)&nbsp;</span><img src="images/img3.png" alt="personalized message" class="img-thumbnail">
+          </figure>
+          <li>Start scrolling on the page and find a location further down that you 
+          can remember easily (such as a chapter number). At this point close the browser
+          tab and do something else. Write down the time you're closing the tab. </li>
+          <li>After a few minutes, go back to the <a href="bookmark/storageEx.html" target="_blank">page</a>.
+          You should be able to see a message similar to the one below, but with
+          your name, the timestamp of your last visit, as well as the page position
+          where you stopped reading.</li>
+          <figure>
+            <span>2)&nbsp;</span><img src="images/img4.png" alt="bookmarked position" class="img-thumbnail">
+          </figure>
+          
+          <div class="bs-callout bs-callout-warning"> 
+          <h4>What is different?</h4>
+          <p>We are used to personalized experiences on the Web, mostly related to websites
+          such as Facebook, Google, Amazon, etc. However, in all these cases we need to
+          create an account with the service and login every now and then. The solution that
+          we showed is different from a server-based approach in that it doesn't require 
+          us to create an account, and no login is necessary. No data is stored on the server.
+          This is because the example uses the 
+          <a href="storage.html">local storage</a> of your browser to store and
+          retrieve the information. </p>
+          <strong>Advantage</strong><br>
+          <p>This approach is faster and preserves your privacy.</p>
+          <strong>Disadvantage</strong><br>
+          <p>This approach is device-bound. If you open the book page on another device
+            (phone, tablet, other computer, etc.) you don't have access to your history.
+          Only a server-based solution can maintain cross-device states.</p>
+          </div>
+          
+        <h2 id="html">Writing the HTML and CSS</h2>
+        <p>Let us start explaining this example by quickly showing the HTML and CSS
+          that is relevant to us. You can follow along to try to replicate
+          this example.</p>
+        <p>In the HTML page, there will be two containers <code>aside</code> and
+          <code>main</code>. In the latter container will be the long text of the 
+          book, we are not interested in it (in fact we copied that from the Guttenberg
+          page). The <code>aside</code> block contains everything we need for our example.
+          Below, we show the HTML and CSS for the element <code>aside</code>. </p>
+          
+        <div class="row">
+          <div class="col-md-7">
+            <pre>
+&lt;aside&gt;
+  &lt;span&gt;Personalize Page&lt;/span&gt;
+  &lt;div id="getInfo"&gt;
+    &lt;input placeholder="your name" size=20&gt; 
+    &lt;button&gt;Save&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div id="lastVisit"&gt;
+  &lt;/div&gt;
+&lt;/aside&gt;
+</pre>
+          </div>
+          <div class="col-md-5">
+      <pre>
+aside {
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  width: 200px;
+  cursor: pointer;
+  /* more styling follows */
+}
+
+#getInfo{
+  display: none;
+}
+</pre>    
+          </div>
+        </div>
+          
+    <p>The span element has the text "Personalize Page", which we will see as long as
+    we haven't undertaken steps to do the personalization. The element 
+    <code>&lt;div id="getInfo"&gt;</code> that contains the input text field
+    and the button is made invisible by setting in the CSS file the property
+    <code>display: none;</code>. Notice also that the <code>aside</code> element
+    has a fixed position on the top right corner of the page and we are changing the
+    appearance of the cursor to pointer to give feedback that the box can
+    be clicked.</p>
+          
+    <p>There is a second div element, <code>&lt;div id="lastVisit"&gt;</code>, 
+    which doesn't have any content for the moment and will be dynamically updated
+    with Javascript.</p>
+          
+          
+    <h2 id="breakdown">Breaking Down the Problem</h2>
+          <p>If you review the screenshots shown at the top, you will notice that 
+          when we visit the page, there are two states in which the <code>aside</code>
+            element can be:
+          </p>
+          <ol>
+            <li>The user has not personalized the page, so it will see the message
+            about personalization (Figure <span>1.</span>)</li>
+            <li>The user has already entered her name, so the <code>aside</code> box
+            displays it together with the datetime of last visit (Figure <span>2.</span>). 
+            Additionally, the page
+            is scrolled down to the last remembered position.</li>
+          </ol>
+          <br>
+          <p>This suggests that by storing the name of the user in the local storage
+          and checking when the page is loaded whether
+          the key <code>username</code> has a value or not, we can decide in which of the 
+          two states the element should be.</p>
+          
+          <p>In fact, if you look at the Javascript code, the event handler for the 
+            <code>onload</code> event has exactly an if-else block to achieve this,
+          as shown below:</p>
+          
+          <pre>
+function onDocumentReady() {
+  
+  if (localStorage.getItem("username") != null){
+    // some code here to show the welcome user message and scroll to last position
+  }
+
+  else {
+    // some code here that binds the two clicking events (for box and button) to
+    // their event handler functions.
+  }
+</pre>
+          
+          <div class="bs-callout bs-callout-warning">
+            <h4>null versus undefined</h4>
+            <p>If you declare a variable, but never assign it a value, trying to access
+            such value will give you back <code>undefined</code>, which is a special Javascript
+            datatype (similar to booleans or numbers). </p>
+            <p>If you have never stored a pair of key/values in the <code>localStorage</code>,
+            this means that neither the key nor the value exist, and in this case, trying to
+            access such a key will return the value <code>null</code>. This is why we are 
+            checking that <code>(localStorage.getItem("username") != null)</code> 
+            in the code snippet above.</p>
+          </div>
+ 
+    <p><strong>Scenario 1:</strong>Suppose we are in the situation of 
+      Figure <span>1.</span> (the user has not yet
+      personalized the page). What we want to happen here is: 
+          <ul>
+            <li>When the user clicks on the message, the box expands to reveal the hidden
+            text field and button (Figure <span>1.a</span>). Thus, we need to have a function 
+              that deals with the 
+            <code>onclick</code> event on the box.</li>
+            <li>If the user enters a name and clicks on the "Save" button, we want to
+            have an event handler function that reads the input and stores it in the 
+            <code>localStorage</code>, but that also updates the box to show 
+            the welcome message (Figure <span>1.b</span>) and make the button disappear.</li>
+          </ul></p>      
+  
+        <p><strong>Scenario 2:</strong>Suppose we are in the situation of Figure 
+        <span>2.</span> (the user has personalized the page). In this case, we don't
+        want the user to be performing any action, everything should happen automatically
+        when the HTML page is loaded (the <code>window.onload</code> event):
+        <ul>
+            <li>The welcome message shows the stored username.</li>
+          <li>The last visited date is shown.</li>
+          <li>The page is scrolled down to the last known location.</li>
+        </ul>
+        </p>
+        <p>The information for these three steps was stored previously in the 
+        <code>localStorage</code>. Here is a screenshot that shows the key/pair
+        values:</p>
+        
+        <figure>
+          <img src="images/fullStorage.png" class="img-thumbnail" alt="local storage">
+          <figcaption>Screenshot from the local storage content for Scenario 2.</figcaption>
+        </figure>
+      
+        <p>We explained what will happen in the different scenarios, and the only thing
+        we didn't mention is in which moment the key/value pairs for last visit and last scroll
+        position are stored in the storage. We will discuss that in the next section.</p>
+        
+        <h2 id="binding">Event Binding</h2>
+        <p>If you look at the HTML page for our example, you will not find there any
+        references to Javascript functions. The only thing you'll see is the tag:
+        <code>&lt;script src="storageEx.js"&gt; &lt;/script&gt;</code> that indicates
+        where our Javascript code is stored. As we'll discuss this again this semester,
+        we are using one of the cornerstone of modularity, <strong>separation of concerns</strong>
+        to keep HTML and Javascript separate, so that different developers can work on
+          different parts of a website.</p>
+        
+        <p>There are two kinds of events that happen in this example:
+          <ol>
+            <li>User-generated events:
+              <ol>
+                <li>User clicks on the yellow box to expand it.</li>
+                <li>User clicks on the "Save" button.</li>
+              </ol>
+            </li>
+            <li>Browser-generated events:
+              <ol>
+                <li>The page is loaded.</li>
+                <li>The page is about to be unloaded (e.g. the browser tab will be closed).</li>
+              </ol>
+            </li>
+        </ol>
+        </p>
+      
+      <p>Below we show the Javascript statements that will bind to every of these four events
+      the event handler function that will deal with it.</p>
+      
+      <pre>
+// 1.1 User clicks on the yellow box (aside element)
+var aside = document.querySelector("aside");
+aside.onclick = processAsideClick;
+
+// 1.2 User clicks on the "Save" button
+var button = document.querySelector("aside button");
+button.onclick = processButtonClick;
+
+// 2.1 The page is loaded
+window.onload = onDocumentReady;
+
+// 2.2 The page is about to be unloaded
+window.onunload = onLeavingPage;
+</pre>
+      
+<p>As always, remember that when we bind an event to the event handler, we don't
+      use the <code>( )</code> because that would mean invoking the function, 
+      but that is not what we want to do at this moment. We are only saying that
+      once such an event is triggered (fired), we want the broswer to go and
+      execute the function with this name.</p>
+        
+        <div class="bs-callout bs-callout-warning">
+          <h4>Inspect the Code</h4>
+          The complete Javascript code for this application can be found in 
+          <a href="bookmark/storageEx.js">this file</a>. We strongly recommend that
+          you inspect the code to undersand the different component such as event binding,
+          function the perform event handling, storing and retrieving values from the 
+          <code>localStorage</code> as well as using helper functions. The code is
+          heavily commented to make it easy for you to understand it.
+          </div>
+</div><!--end of "col-md-8"-->
+            
+</div><!--end of "row"-->
+
+<!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+</div> <!--end of container>
+        
+        
+<!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+</body>
+
+</html>

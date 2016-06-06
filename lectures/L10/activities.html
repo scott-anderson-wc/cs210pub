@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>Lecture 10:  Class Activities</title>
+        
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+      td { width: 3em; }
+
+      form {
+         border: 2px solid #2e9ad3;
+         padding: 10px 2em;
+      }
+
+      .hidden_from_student {
+          padding: 1ex 1em;
+          width: 100%;
+          border: 2px solid orange;
+      }
+    </style>
+  </head>
+    
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+    
+    <div class="container">
+      <h1>Lecture 10 &nbsp; <small>Class Activities Conditionals</small></h1>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">         
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul id="insert_TOC_here" class="nav bs-sidenav">  
+            </ul>
+          </div>
+
+        </div><!--end of "col-md-3" div-->
+        
+        <!-- Nine columns of the grid are reserved for the main content-->
+        <div class="col-md-9">
+          
+         <h2>Today</h2>
+
+         <ul>
+           <li>The activities from last time.</li>
+           <li>Boolean Operators</li>
+           <li>More activities</li>
+         </ul>
+
+<h2>Recap Exercise</h2>
+
+<p>Write some code to prompt the user for the amount of a restaurant
+    check, compute the tip (20%), and the sum, and alert the resulting two
+    numbers. You can put them on two lines using "\n" in the alert. (The
+    \n is replaced by the ASCII newline character.)
+
+<p>Your solution might look like:
+<div class="hidden_from_student">
+<pre class="prettyprint lang-js linenums executable">
+var bill = parseFloat(prompt("what's the bill?"));
+var tip = bill * 0.2;
+var total = bill + tip;
+alert("tip is "+tip+" and \ntotal is "+total);
+</pre>
+</div>
+
+<p>For extra credit, check that the total is less than $20, because that's
+    all you have in your wallet.
+
+<p>Your solution might look like:
+<div class="hidden_from_student">
+<pre class="prettyprint lang-js linenums executable">
+var bill = parseFloat(prompt("what's the bill?"));
+var tip = bill * 0.2;
+var total = bill + tip;
+alert("tip is "+tip+" and \ntotal is "+total);
+if( total > 20 ) {
+      alert("Oops! that's too much! Have to wash dishes.");
+}
+</pre>
+</div>
+
+
+<h2>Boolean Operators</h2>
+
+<ul>
+  
+  <li>If you need the opposite of a boolean, you can use the <strong>not</strong>
+    operator: <code>!</code>
+    <pre>if( ! sunny ) { alert("bring an umbrella"); }</pre>
+
+  <li>If you need to test that both boolean expressions are <em>true</em>,
+  you can use the <strong>and</strong> operator: <code>&amp;&amp;</code>
+    <pre>if( sunny && hot ) { alert("wear a hat"); }</pre>
+    
+    <li>If you need to test that either (or both) of two boolean expressions is <em>true</em>,
+     you can use the <strong>or</strong> operator: <code>||</code>
+
+      <pre>if( rainy || snowy ) { alert("wear boots"); }</pre>
+    
+    <li>The examples above imagined that there were variables that
+    contained boolean values. You can store a boolean in a variable by
+    making a comparison and storing the value;
+      <pre>var taller = alice_height > bob_height;
+if(taller) { ... }</pre>
+
+    <li>Of course, you can also just use the expression directly in
+    the <code>if</code> statement:
+      <pre>if(alice_height > bob_height) { ... }</pre>
+
+</ul>
+
+<h2>Getting Colors</h2>
+
+<div style="border: 2px solid black; margin: 0px 0px 10px 3px; position: fixed; bottom: 0px; left: 0px">
+  <form><input type="color" name="myColor" value="#FFFF80"></form>
+</div>
+  
+<p>Write some code that we'll use for the rest of this class. There's a connection
+  between this code and the color picker you see at the lower left, except
+  the color picker uses sliders instead of prompt. We'll learn how to do
+  that later in the course.
+  <ul>
+    <li>The code will prompt for three numbers, which will be the amount
+    of each of the three primary colors: red, green and blue. 
+      
+    <li>Convert the input to numbers using <code>parseInt</code>.
+      
+    <li>Store the values in three variables
+    called <code>red</code>, <code>green</code> and <code>blue</code>
+      
+    <li>If that's too easy, use the following code to see what it does:
+      <pre class="prettyprint lang-js">
+var hexstring = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+document.body.style.backgroundColor = hexstring;
+      </pre>
+
+    <li>Test this using the JavaScript console. Once it's working, you can
+    copy it to a <a target="_blank"
+    href="http://jsfiddle.net">jsfiddle</a>, if you like.
+
+      <li>If you set the background color, make sure each primary is at
+      least 16 units (otherwise, we get a single-digit hex number).
+  </ul>
+
+<p>You should put the code in the body of a function, so that it'll be
+  easy to test. Note that we'll learn about functions a bit later in the
+  course, but for now, just think of it as a <q>wrapper</q>.
+<pre class="prettyprint lang-js">function colorChecker() {
+// your code here
+
+}
+</pre>  
+
+<p>You can test it in the JS console like this:
+  <pre class="prettyprint lang-js">colorChecker();</pre>
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js executable">
+function colorChecker() {
+    var red = parseInt(prompt("Enter amount of red"));
+    var green = parseInt(prompt("Enter amount of green"));
+    var blue = parseInt(prompt("Enter amount of blue"));
+    var hexstring = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+    document.body.style.backgroundColor = hexstring;
+}
+
+colorChecker();
+  </pre>
+</div>
+
+
+
+<h2>Quiz Question Nr. 1</h2>
+
+<p>How could we test that this color is <em>white</em>?
+
+<p>
+ 
+<ol type="A">
+<li><pre class="prettyprint lang-js">
+if( red = 128 && green = 128 && blue = 128 )
+</pre>
+
+<li><pre class="prettyprint lang-js">
+if( red = 255 && green = 255 && blue = 255 )
+</pre>
+
+<li><pre class="prettyprint lang-js">
+if( red == 128 && green == 128 && blue == 128 )
+</pre>
+
+<li><pre class="prettyprint lang-js">
+if( red == 255 && green == 255 && blue == 255 )
+</pre>
+
+</ol>
+
+<p>Modify your code above to add an alert if the color is white, like:
+  <pre class="prettyprint lang-js">if( ... ) { alert("color is white."); }</pre>
+
+<p>Your code might look like this:
+<div class="hidden_from_student">
+  <pre class="prettyprint lang-js executable">
+function colorChecker() {
+    var red = parseInt(prompt("Enter amount of red"));
+    var green = parseInt(prompt("Enter amount of green"));
+    var blue = parseInt(prompt("Enter amount of blue"));
+    if( red == 255 && green == 255 && blue == 255 ) {
+        alert("white");
+    }
+    var hexstring = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+    document.body.style.backgroundColor = hexstring;
+}
+
+colorChecker();
+  </pre>
+</div>
+
+<h2>256 Shades of Gray</h2>
+
+    <p>From white, (<code>#FFFFFF</code>) to black
+      (<code>#000000</code>) there are 256 shades of gray in the RGB
+      system, including gray itself (<code>#808080</code>) and silver
+      (<code>#C0C0C0</code>).
+
+    <p>What characterizes these is that no color primary is more dominant
+    than the others: they are all equal.
+
+<h2>Quiz Question Nr. 2</h2> 
+
+      <p>Assuming we have the color primaries stored in three
+      variables, <code>red</code>, <code>green</code>
+      and <code>blue</code>, how could you test for gray?
+
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">if( red == green == blue ) ...</pre>
+
+  <li>
+<pre class="prettyprint lang-js">if( red = green && green = blue ) ...</pre>
+
+  <li>
+<pre class="prettyprint lang-js">if( red == green || green == blue ) ...</pre>
+
+  <li>
+<pre class="prettyprint lang-js">if( red == green && green == blue ) ...</pre>
+
+</ol>
+
+<p>Modify your code above to add an alert if the color is gray, like:
+  <pre class="prettyprint lang-js">if( ... ) { alert("color is gray."); }</pre>
+
+<p>Your code might look like this:
+<div class="hidden_from_student">
+  <pre class="prettyprint lang-js executable">
+function colorChecker() {
+    var red = parseInt(prompt("Enter amount of red"));
+    var green = parseInt(prompt("Enter amount of green"));
+    var blue = parseInt(prompt("Enter amount of blue"));
+    if( red == 255 && green == 255 && blue == 255 ) {
+        alert("white");
+    }
+    if( red == green && green == blue ) {
+        alert("shade of gray");
+    }
+    var hexstring = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+    document.body.style.backgroundColor = hexstring;
+}
+
+colorChecker();
+  </pre>
+</div>
+
+<h2>Color Categories</h2>
+
+<p>You might think that a color will be, for example, reddish if the red
+  primary is bigger than all the others. In fact, the eye can't really
+  pick up subtle differences, so #FFFEFE will look a lot like white.
+
+<p>But, for the sake of argument, let's suppose that a color
+  is <q>reddish</q> if the red primary is high (greater than 128) and the
+  others are low (less than 128).
+
+  <ul>
+    <li>What are some colors for which this is a poor definition?
+      
+    <li>What is a better definition?
+  </ul>
+
+
+  <h2>Quiz Question Nr. 3</h2> 
+
+<p>Which of the following determines a reddish color, given our definition
+above?
+
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+if( red > 128 && green < 128 && blue < 128 ) ...
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+if( red < 128 && green > 128 && blue > 128 ) ...
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+if( red > 128 || green < 128 || blue < 128 ) ...
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+if( red < 128 || green > 128 || blue > 128 ) ...
+</pre>
+
+</ol>
+
+<p>Modify your code above to add an alert if the color is white, like:
+  <pre class="prettyprint lang-js">if( ... ) { alert("color is reddish."); }</pre>
+
+<p>Your code might look like this:
+<div class="hidden_from_student">
+  <pre class="prettyprint lang-js executable">
+function colorChecker() {
+    var red = parseInt(prompt("Enter amount of red"));
+    var green = parseInt(prompt("Enter amount of green"));
+    var blue = parseInt(prompt("Enter amount of blue"));
+    if( red == 255 && green == 255 && blue == 255 ) {
+        alert("white");
+    }
+    if( red == green && green == blue ) {
+        alert("shade of gray");
+    }
+    if( red > 128 && green < 128 && blue < 128 ) {
+        alert("reddish");                                             
+    }
+    var hexstring = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+    document.body.style.backgroundColor = hexstring;
+}
+
+colorChecker();
+  </pre>
+</div>
+
+
+<h2>Primaries</h2>
+
+<p>We all know that the primaries are red, green and blue, but now we have
+  reddish, greenish, and bluish. We could define <q>primaryish</q> as one
+  of those.
+
+<p>Write some code to test for <q>primaryish</q>
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act2_src" class="prettyprint lang-js executable">
+function colorChecker() {
+    var red = parseInt(prompt("Enter amount of red"));
+    var green = parseInt(prompt("Enter amount of green"));
+    var blue = parseInt(prompt("Enter amount of blue"));
+    if( red == 255 && green == 255 && blue == 255 ) { alert("white"); }
+    if( red == green && green == blue ) { alert("gray"); }
+    var isReddish  = (red > 128 && green < 128 && blue < 128 );
+    var isGreenish = (red < 128 && green > 128 && blue < 128 );
+    var isBluish   = (red < 128 && green < 128 && blue > 128 );
+    if( isReddish ) { alert("reddish"); }
+    if( isReddish || isGreenish || isBluish ) { alert("primaryish"); }
+    var hexstring = "#" + red.toString(16) + green.toString(16) + blue.toString(16);
+    document.body.style.backgroundColor = hexstring;
+}
+
+colorChecker();
+  </pre>
+</div>
+
+<h2>Time Checking</h2>
+
+<p>We all know that "noon" means "12:00," but what does <q>midday</q>
+mean? Let's suppose that it means between 11am and 2pm (or, better,
+between 11 and 14).  Let's say that's precisely from 11:00 - 13:59.
+
+<p>Let's write some code to ask the user for two numbers, the hour (0-23)
+and the minute (0-59). You can assume they enter the proper kinds of
+values.
+
+<p>Then, check whether the time is <q>midday</q>, giving an alert if it is.
+
+<p>You can make a function to test your code:
+  <pre class="prettyprint lang-js">
+function timeCheck() {
+    // your code here
+}
+</pre>
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act3_src" class="prettyprint lang-js executable">
+function timeCheck() {
+    var hour = parseInt(prompt("Enter hour (0-23)"));
+    var min  = parseInt(prompt("Enter minute (0-59)"));
+    if( hour == 11 || hour == 12 || hour == 13 ) { alert("midday!"); }
+}
+
+timeCheck();
+  </pre>
+</div>
+
+<h2>Quiz Question Nr. 4</h2>
+
+<p>Which of the following is equivalent to the conditional above?
+
+<ol type="A">
+  <li><pre>hour > 11 && hour < 13</pre></li>
+  <li><pre>hour >= 11 && hour <= 13</pre></li>
+  <li><pre>hour > 11 && hour <= 13</pre></li>
+  <li><pre>hour >= 11 && hour < 13</pre></li>
+</ol>
+
+<h2>Different Midday</h2>
+
+<p>Suppose we decide that midday is actually from 11:45 to 13:15. How
+would you implement <em>that</em>? Careful, this is tricky!
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act4_src" class="prettyprint lang-js executable">
+function timeCheck() {
+    var hour = parseInt(prompt("Enter hour (0-23)"));
+    var min  = parseInt(prompt("Enter minute (0-59)"));
+    var timeA = (hour == 11 && min >= 45);
+    var timeB = (hour == 12);
+    var timeC = (hour == 13 && min <= 15);
+    if( timeA || timeB || timeC ) { alert("midday!"); }
+}
+
+timeCheck();
+  </pre>
+</div>
+
+    <h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+    <div id="solutions">
+      <p>Quiz answers:
+      <pre>
+        1. D  all primaries equal 255
+        2. D  red equals green and green equals blue (or other pairs)
+        3. A  red big and others small
+        4. B  or hour > 10 &amp;&amp; hour < 14, etc.
+      </pre>
+
+      <p>Activity solutions.
+
+        <p>Prompting for colors:
+
+        <pre id="act1_dst" class="prettyprint lang-js"></pre>
+
+        <p>Determining primaryish:
+
+        <pre id="act2_dst" class="prettyprint lang-js"></pre>
+
+        <p>Midday
+
+        <pre id="act3_dst" class="prettyprint lang-js"></pre>
+
+        <p>Midday more complex
+
+        <pre id="act4_dst" class="prettyprint lang-js"></pre>
+
+    </div>
+
+    <!--#include virtual="../../modularity/footer-rel.part" -->
+    
+    </div> <!--end of container -->
+        
+    <!--#include virtual="../../modularity/bs-footer-rel.part" -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>prettyPrint();</script>
+    <script>
+      copyCode(1);
+      copyCode(2);
+      copyCode(3);
+      copyCode(4);
+
+      revealLater("3/1/2016 1:00 PM"); 
+
+      function fallColors() {
+          $("h2").css("color","red");
+          $("body").css({"background-color":"#FFCC00","color":"brown"});
+      }
+
+   </script>
+
+  </body>
+</html>

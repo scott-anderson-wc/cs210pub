@@ -1,0 +1,452 @@
+<!-- 
+Author: Eni Mustafaraj
+When: February 2014
+Purpose: Handle form events with pure Javascript
+
+Spring 2015, Scott added optional info on jQuery
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+        
+    <title>CS110: Javascript and Forms</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>Handling Forms Fields with Javascript<small></small></h1>
+      <hr>
+      <!--div class="alert alert-info">
+        
+      </div-->
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">
+              <li><a href="#js">How Javascript works</a></li>
+              <li><a href="#dom">Accessing the DOM</a></li>
+              <li><a href="#handlers">Event Handlers</a></li>
+              <li><a href="#functions">Functions</a></li>
+              <li><a href="#jquery">jQuery</a></li>
+            </ul>  
+          </div><!-- end of "bs-sidebar"-->
+        </div><!--end of "col-md-3" div-->
+        
+        <div class="col-md-8">
+
+          <h2 id="js">How Javascript works</h2>
+          <p>Whenever the browser fetches an HTML page from a web server, it will
+          parse its content starting from the beginning to the bottom. When it completes
+          this process, it creates an internal model of the HTML page, called the DOM. </p>
+          <p>The DOM is a tree representation of the HTML page, as we have discussed before.
+          Then, during the interaction with the page, Javascript uses the DOM to perform
+          actions upon the document (e.g. change its appearance) or handle user events.</p>
+          
+          <figure>
+            <img src="images/js_model.png" alt="how javascript works">
+            <figcaption>The model of how Javascript works on the browser. Graphics appears
+            on page 36 of the book <a href="">Head First HTML5 Programming</a>.</figcaption>
+          </figure>
+          
+          <h2 id="dom">Accessing the DOM</h2>
+          <p>To access the DOM, we use the variable name <code>document</code>. Because the variable
+          is already created when the page is loaded, there is no need for us to define it, we 
+          will simply use it. You can try this out on the Console, by typing <code>document</code>
+          and seeing that you get as a result the whole HTML document tree.</p>
+          
+          <p>Most of the time, we are interested not in the whole document, but only in one of
+          its elements. Therefore, we need a way to access such elements. This is very similar
+          to what we needed to do when applying CSS to our page. In that occasion, we used the 
+          tag names and the id and class attributes. The <code>document</code> object (we will discuss
+          soon what an object is), has several built-in methods that allow us to do the same in Javascript.</p>
+          
+          <p>Here is a list of some of such methods:</p>
+          <ul>
+            <li>document.getElementById</li>
+            <li>document.getElementsByClassName</li>
+            <li>document.getElementsByTagName</li>
+            <li>document.getElementsByName</li>
+          </ul>
+          
+          <p>However, these methods restrict us on working only with elements that have an
+          id, class, or name attribute. As we discussed in CSS, sometimes we need to use
+          more complex selectors in order to access either nested elements or pseudo-classes.
+          Since CSS3, we can use two new Javascript methods <code>document.querySelector</code>
+          and <code>document.querySelectorAll</code>, that allow us to use the same selector
+          names used in CSS. Let's see some examples:</p>
+          
+          <ul>
+
+            <li><code>document.querySelector("#main")</code>: the element
+            whose ID is "main".  This usage is probably the most
+            common.</li>
+
+            <li><code>document.querySelector("#zipcode")</code>: the
+            element whose ID is "zipcode".  This might be used in a form
+            that is asking for someone's snail mail address, but we need
+            to remember to put an ID attribute in the input element. </li>
+
+            <li><code>document.querySelector("[name='zipcode']")</code>: the
+            element whose <code>name</code> attribute has the value
+            "zipcode".  This might be used in a form where we gave the
+            input a name but not an ID.</li>
+
+            <li><code>document.querySelector("p.authorName")</code>: the
+            paragraph of class <code>authorName</code>. There had better
+            be only one, because <code>document.querySelector</code> only
+            wants to return one element.  Later in the course, we'll
+            learn about returning more than one element.</li>
+          </ul>
+          
+          <p>There are also more complex forms that can be useful in
+          certain circumstances
+            <ul>
+
+            <li><code>document.querySelector('#myform
+            input[type="radio"]:checked')</code>: this finds the checked
+            radio button that is a descendant of the element whose ID
+            is <code>myform</code> (probably a form). </li>
+
+            <li><code>document.querySelector("#content
+            img:nth-of-type(1)")</code>: this finds the first image that
+            is a descendant of the element whose ID
+            is <code>content</code>. </li>
+
+            </ul>
+
+
+          <p>Because this method is much faster than the other methods and allows us to keep
+          our HTML clean of id and class attributes on every element, we will make very frequent
+          use of it in our examples.</p>
+          
+          <p>In fact, you might remember that we used this method in a few examples in the Javascript 
+          lecture, such as the <a href="http://cs.wellesley.edu/~cs110/lectures/JSProgramming/#quest">
+            grail quest</a>.</p>
+          
+          <h2 id="handlers">Event Handlers</h2>
+          <p>As we discussed in the section of <a href="forms1.html#events">Event Attributes</a>, 
+            in order to interact with a page,
+          we need to write so-called <em>event handlers</em>, which are Javascript code that is 
+          executed when an event is triggered. When the event handling code is short, it can 
+          be written as an inline attribute value for the event attribute. Otherwise, it needs
+          to be wrapped inside the body of a <em>function</em> which either will need to be 
+          associated with the event attribute inline or through some more complex code. We will
+          see all these scenarios in the following.</p>
+          
+          <h3>Inline Event Handlers</h3>
+          <p>An inline event handler looks like the example below:</p>
+          <div class="row">
+            <div class="col-md-9">
+              <pre>
+&lt;button <strong>onclick</strong>="alert('I was clicked!');"&gt;Click me&lt;/button&gt;
+</pre>
+              </div>
+            
+          <div class="col-md-3">
+              <br>
+              <p><button onclick="alert('I was clicked!');">Click me</button></p>
+            </div>
+          </div>
+         <p>Notice the <em>event attribute</em> <code>onclick</code>, to which we attached the
+            <em>event handler</em> code that will display an alert pop-up dialog.</p> 
+            
+<div class="bs-callout bs-callout-warning">
+  <h4>The special variable <code>this</code></h4>
+  <p>Whenever an event occurs, the browser knows not only what kind of event happened (a click, a key press, etc.)
+    but also the element that the event happened to. Such an element is called the <em>target</em> of the
+    event. In such cases, through some Javascript magic, the target element can be referred within the event
+    handler with the special variable name <code>this</code>.
+    
+    <p>Some examples are shown in the following.</p>
+</div>
+          
+                    <div class="row">
+            <div class="col-md-10">
+              <pre>
+&lt;button <strong>onclick</strong>="alert(<strong>this.innerHTML</strong> + ' was clicked.');"&gt;Winter&lt;/button&gt;
+</pre>
+              </div>
+            
+          <div class="col-md-1">
+              <br>
+              <p><button onclick="alert(this.innerHTML + ' was clicked.');">Winter</button></p>
+            </div>
+          </div>
+         <p>Notice how clicking on the button, displays the text that is enclosed within 
+           the <code>&lt;button&gt;</code> element. By making use of the special variable
+          <code>this</code>, we can create very interesting effects, such as making things appear and
+          disappear, changing images, creating drop-down menus, etc. We will study this examples later
+          this semester. Here is a very simple one that changes the color of text.</p> 
+          
+                              <div class="row">
+            <div class="col-md-10">
+              <pre>
+&lt;span <strong>onmouseover</strong>="<strong>this.style.color='blue'</strong>;"&gt;Wellesley College&lt;/span&gt;
+</pre>
+              </div>
+            
+          <div class="col-md-2">
+              <p><span onmouseover="this.style.color='blue';">Wellesley College</span></p>
+            </div>
+          </div>
+          
+         <p>Writing inline event handlers makes sense only if we are doing something very simple, small,
+          and that applies to a single element. Very often though, we want to perform more complex
+          operations within the Javascript event handler, which might not need user interaction (for example, 
+           the code executes when the pages loads) or that it applies to many HTML elements (for example
+           to all images in a gallery). 
+          
+        <p>You might say that we can solve this problem by entering our code within the <code>&lt;script&gt;</code>
+          tag. However, that will not be enough. This is because everything inside that tag will be executed
+          in the moment the HTML document is loaded by the browser (remember, the code is parsed from the beginning
+          to end and all Javascript portions are executed). In such cases, we need to have a special way
+          of defining our code so that it cannot be executed immediately, but only when an event is triggered. 
+          This special way of organizing code is know as a <em>function</em>.</p>
+          
+        <h2 id="functions">Functions</h2>
+
+         <p>A function allows us to package up many lines of code in one chunk, give it a name, and invoke it 
+           whenever we want. Invoking a function means to run it (execute the code). You have seen
+          several examples of Javascript built-in functions so far, <code>alert()</code>, <code>prompt()</code>,
+          <code>parsetInt()</code>, etc. The difference is going to be that we will have to define our own
+          functions and then invoke them.</p> 
+       
+          
+      <div class="row">
+            <div class="col-md-9">
+
+              <pre>
+&lt;script&gt;
+<strong>function</strong> greetings(){
+    var inputField = document.querySelector("[name='firstName']");
+    var name = inputField.value // read value from input 
+    alert("Nice to meet you, " + name);
+}
+&lt;/script&gt;
+&lt;p&gt;&lt;input name="firstName"&gt;&lt;/p&gt;
+&lt;button <strong>onclick</strong>="greetings();"&gt;Greet me!&lt;/button&gt;
+</pre>
+              </div>
+        <script>
+        function greetings(){
+    var inputField = document.querySelector("[name='firstName']");
+    var name = inputField.value // read value from input 
+    alert("Nice to meet you, " + name);
+}
+        </script>
+          <div class="col-md-3">
+              <br>
+              <p><input id="first_name" name="firstName"></p>
+              <button onclick="greetings();">Greet me!</button></p>
+            </div>
+      </div>
+   
+        <div class="bs-callout bs-callout-warning">
+          <h4>Understanding functions</h4>
+          Functions are one of the most important building blocks of a program, but they are
+          a bit hard to understand for novices. This is because using them involves two steps:
+          <ol>
+            <li><strong>Declaring the function</strong> - this means specifying a blocks of code
+            that has a name and a body of many lines.</li>
+            <li><strong>Invoking the function</strong> - this means simply using the name of the function
+            with the pair of parentheses.</li>
+          </ol>
+        </div>
+        
+        <h4>Explore on your own</h4>
+
+        <p>Open the Console and copy one line at a time the code within
+        the body of <code>greetings()</code>.  Whenever you declare a
+        variable, type then its name to see its value in the Console.  Do
+        you see what the program does? Do you see the
+        method <code>document.querySelector</code> in action? Do you see
+        the attribute <code>value</code>?
+        
+        <h2 id="jQuery">jQuery</h2>
+
+        <p>We will learn jQuery in more detail later in the course, but it
+        simplifies many things that we use JavaScript for, so we'd like to
+        start using it in a few simple ways now.
+
+        <p>There's only one catch to using jQuery (we'll often abbreviate
+        it JQ, and JavaScript as JS), and that is that it's
+        an <q>add-on</q> to the JS language, so we have to load it from a
+        file using the <code>&lt;script&gt;</code> tag:
+
+          <pre>&lt;script src="https://code.jquery.com/jquery-1.10.2.min.js"&gt;&lt;/script&gt;</pre>
+
+          <p>This tag loads JQ from the cloud. Put that code at the end of
+          your HTML files, before any <code>script</code> elements that
+          use JQ, and you'll be fine.
+
+          <p>The jQuery library is immensely popular and is used by
+          Google, Facebook, and many other websites.
+
+            <h3>Accessing the DOM using JQ</h3>
+
+            <p>So far in this course, we would access a part of the
+            document using the method <code>document.querySelector</code>
+            and a CSS-style selector string. With JQ, we use the function
+            named <code>$</code> (yes, just a dollar sign &mdash; very
+            terse) and the same CSS-style selector string. Here's a
+            side-by-side comparison:
+
+              <p><table>
+                  <tr><th>JavaScript</th><th>jQuery</th></tr>
+                  <tr>
+                    <td>
+                      <pre>var box = document.querySelector("#grail");</pre>
+                      </td>
+                    <td>
+                      <pre>var box = $("#grail");</pre>
+                      </td>
+                    </tr>
+                  </table>
+                
+                <h3>Modifying the DOM using JQ</h3>
+
+                <p>Once you have a set of elements using JQ, you can
+                modify their contents using <code>.html()</code>
+                or <code>.text()</code>, and you can modify their CSS
+                using <code>.css()</code>.
+
+                <p>One advantage of JQ is that there's a greater
+                consistency in how you can operate on things.
+
+                  <h3>Homage to Monty Python Example</h3>
+
+                <p>Here's the complete example. The setup is exactly the same:
+
+                <style>
+                  #grail {  
+                  border: 5px solid gray;
+                  color: gray;
+                  width: 50%;
+                  margin-bottom: 15px;
+                  }
+                </style>
+
+
+  <div class="row">
+    <div class="col-md-5">
+      <pre>
+&lt;div id="grail"&gt;
+  Your name here
+&lt;/div&gt;
+</pre>
+    </div>
+    <div class="col-md-5">
+      <pre>
+#grail {  
+  border: 5px solid gray;
+  color: gray;
+  width: 50%;
+}
+</pre>
+    </div>
+</div>
+
+  <div id="grail">Your name here</div>
+
+  <p>Here's the code using JQ:
+
+<div>
+<textarea rows=9 cols=80>
+var name = prompt("What is your name?", "Arthur, King of the Britons");
+var quest = prompt("What is your quest?", "To seek the grail");
+var color = prompt("What is your favorite color?", "blue");
+var text = name + ": " + quest;
+var box = $("#grail");
+box.html(text);
+box.css("border-color", color);
+box.css("color", color);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button>       
+</div>
+
+<h3>Accessing Form Values with JQ</h3>
+
+<p>As you might guess there's a <code>.val()</code> method in JQ to access
+  a form element:
+
+<pre>
+&lt;input id=age name="age"&gt;
+&lt;script&gt;
+  var userage = $("#age").val();
+&lt;/script&gt;
+</pre>
+
+<h3>Adding a Click Handler with JQ</h3>
+
+<p>We can also add functions as event handlers using
+  JQ's <code>.click()</code> method.  Here's a re-working of the earlier
+  example, using the <code>.val()</code> method and
+  the <code>.click()</code> method. You'll also notice that we used a lot
+  of IDs instead of the <code>[name='firstName']</code> CSS selector. Why
+  do you suppose we did that?
+
+      <div class="row">
+            <div class="col-md-9">
+
+              <pre>
+&lt;p&gt;&lt;input id="firstName2" name="firstName"&gt;&lt;/p&gt;
+&lt;button <strong>id="greet_button"</strong>&gt;Greet me!&lt;/button&gt;
+&lt;script&gt;
+<strong>function</strong> greetings2(){
+    var inputField = $("#firstName2");
+    var name = inputField.val() // read value from input 
+    alert("Nice to meet you, " + name);
+}
+
+$("#greet_button").click(greetings2);
+&lt;/script&gt;
+</pre>
+              </div>
+          <div class="col-md-3">
+              <br>
+              <p><input id="firstName2" name="firstName"></p>
+              <button id="greet_button">Greet me!</button></p>
+            </div>
+      </div>
+   
+<p>You'll also see that we organized the JS/JQ code <em>after</em> the
+  HTML code. That's necessary because the event handler has to be added to
+  a button that already exists.  We didn't have to do this earlier because
+  we used an <em>inline</em> event handler, but the JQ way is better
+  because then the JS/JQ code is completely separate from the HTML code.
+  This is analogous to separating the HTML and the CSS, and for the same
+  reason.
+
+        </div><!--end of "col-md-8"-->
+          
+      </div><!--end of "row"-->
+
+    <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+
+        <script>
+        function greetings2() {
+    var name = $("#firstName2").val() // read value from input 
+    alert("Nice to meet you, " + name);
+}
+$("#greet_button").click(greetings2);
+        </script>
+  </body>
+
+</html>

@@ -1,0 +1,17 @@
+/* ex3.css
+  Purpose: Stylesheet for HungerGames examples.
+  Written by Eni Mustafaraj
+  Feb, 2014
+*/
+
+
+body {
+  width: 960px;   /* fixed-width layout */
+  margin: 0 auto; /* centers the content in the middle */
+  background-color: lightgray;
+}
+
+
+figure {
+
+}

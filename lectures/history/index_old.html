@@ -1,0 +1,412 @@
+<!-- Fall 2007, Mark, Commented out all references to IEEE stuff
+     (www.computer.org), because they seem to have moved this material, 
+     and I can't find it.  I inserted references to Wikipedia and to an 
+     IEEE PDF timeline.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name=author content="Takis Metaxas and the CS110 Staff">
+    <meta name=description content="history of computing looking at
+    representations in each machine.  Also discusses generations of
+    computer hardware">
+    <meta name=keywords content="history computing computer machine
+    generations hardware quantum parallel">
+    <link rel="stylesheet" type="text/css" href="../../cs110-main-style.css">
+   <TITLE>History of Computing Through Representation</TITLE>
+</head>
+<body>
+
+<H1>A History of Computing through Representation</H1>
+
+<P>In this lecture we will discuss the history of computing and explain
+why it is really a sequence of ideas in representing data, operations, and
+instructions. <!--In addition we will discuss the development of hypertext
+from an abstract (and rather crazy) idea in the 1940's to the world wide
+web we are using every day.--></P>
+
+
+<H2>What is a computer?</H2>
+
+<P>A calculating device that can follow detailed instructions.</P>
+
+<P>Note that this definition does not restrict computers to the
+digital devices we use these days.  Computers weren't
+always digital, and they may not be digital in the future. </p>
+
+<P>To create a computer one needs a way to represent 
+<UL>
+	<LI><STRONG>data</STRONG> (such as numbers, letters, and/or other symbols), 	
+	<LI><STRONG>instructions</STRONG> that tell the computer what to do.  There are two kinds of instructions:
+            <UL>
+         	<LI><STRONG>data manipulation instructions</STRONG>
+  		(such as addition and multiplication, to manipulate
+		data), and 
+		<LI><STRONG>control instructions</STRONG> (to describe
+		how to sequence operations, such as with
+		<code>if</code>-<code>then</code>, as we'll see 
+		below). 
+            </UL>
+
+
+</UL>
+
+<P>Of course, modern computers manipulate much more than numbers and
+symbols: They can deal with objects such as images, movies, animations,
+sound, etc.  
+<!-- [10/19/08] MAS commented this out.  We've already seen images.  And why 
+     constrain where this is in the syllabus.
+
+   We'll be examining them later in the course.</P>
+-->
+
+<H2>Some of the Representations so far...</H2>
+
+<P>People have used a variety of materials over the years for these
+representations. In a sense, the history of computing is a history of
+representations. The table below shows just a few of the devices people
+have used over the centuries to compute. As you can see, they have used a
+variety of objects to represent numbers, operations and instructions. </P>
+
+For another version of this history, see the 
+Wikipedia entry on <a
+href="http://en.wikipedia.org/wiki/History_of_computing_hardware">the
+history of computing hardware</a>.  You can also look up the various
+devices on the web.
+
+<P><TABLE BORDER = "1" CELLPADDING = "5" STYLE = "border-collapse: collapse;">
+<COLGROUP>
+<COL width="10%" align="center" valign="top">
+<COL width="15%" align="center" valign="top">
+<COL width="10%" align="center" valign="top">
+<COL width="25%" align="center" valign="top">
+<COL width="15%" align="center" valign="top">
+<COL width="25%" align="center" valign="top">
+</COLGROUP>
+   <TR>
+      <TH>
+         Numbers
+      </TH>
+      <TH>
+         Operations
+      </TH>
+      <TH>
+         Instructions
+      </TH>
+      <TH>
+         Computer
+      </TH>
+      <TH>
+         Inventor <BR> (Year)
+      </TH>
+      <TH>
+         Comments
+      </TH>
+   </TR>
+   <TR>
+      <TD>
+         beads
+      </TD>
+      <TD>
+         addition: moving beads
+      </TD>
+      <TD>
+         N/A
+      </TD>
+      <TD>
+         <A HREF="http://en.wikipedia.org/wiki/Abacus">abacus</A><br>
+         <IMG SRC="abacus.JPG" WIDTH=155 HEIGHT=95 ALT="abacus">
+      </TD>
+      <TD>
+         Chinese, Sumerians <BR> (5000 BCE)
+      </TD>
+      <TD>
+         Position of the beads correspond to numbers. Used even today! 
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         dials
+      </TD>
+      <TD>
+         addition: rotating dials
+      </TD>
+      <TD>
+         N/A
+      </TD>
+      <TD>
+<a href="http://en.wikipedia.org/wiki/Pascal%27s_calculator">Pascaline</a><br>
+         <IMG SRC="Pascaline.GIF" WIDTH=211 HEIGHT=110 ALT="pascaline">
+      </TD>
+      <TD>
+         Blaise Pascal <BR> (1642)
+      </TD>
+      <TD>
+
+         Hoping to help his tax-commissioner father, young Pascal developed
+         this little device that could add reliably.
+
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         gears
+      </TD>
+      <TD>
+         addition, multiplication: stepped drum
+      </TD>
+      <TD>
+         N/A
+      </TD>
+      <TD>
+	<a href="http://en.wikipedia.org/wiki/Stepped_Reckoner">Leibniz's Stepped Reckoner</a><br>
+         <IMG SRC="Leibnizmaschine.GIF" WIDTH=211 HEIGHT=82 ALT="Leibniz's machine">
+      </TD>
+      <TD>
+         G.W. von Leibniz <BR> (1694)
+      </TD>
+      <TD>
+         The stepped drum could accommodate repeated additions and subtractions, effectively enabling multiplication and division.
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         gears, punched cards
+      </TD>
+      <TD>
+         all arithmetic operations: gears on cylinder
+      </TD>
+      <TD>
+         decision making ("if-then"): mill
+      </TD>
+      <TD>
+
+<a href="http://en.wikipedia.org/wiki/Analytical_engine">Analytical Engine</a><br>
+         <IMG SRC="AnalyticalE.GIF" WIDTH=155 HEIGHT=183 ALT="Analytical Engine">
+      </TD>
+      <TD>
+         <a href="http://en.wikipedia.org/wiki/Charles_Babbage">Charles Babbage</a>, inventor; <BR> <a href="http://en.wikipedia.org/wiki/Ada_Lovelace">Lady Ada Lovelace</a>, programmer; <BR> (1833-1843 abandoned)
+      </TD>
+      <TD>
+
+         Arguably the first <em>design</em> of a modern computer. We
+         know a lot about it due to Lady Ada's detailed writings and
+         her programs. Steam power enabled it to perform sequences of
+         operations and even choose among multiple paths of execution.
+         Unfortunately, never built, due to the complexity of the
+         design and a cessation of funding.
+
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         metal bars in glass, punched film
+      </TD>
+      <TD>
+         
+         all arithmetic operations: electricity
+         
+      </TD>
+      <TD>
+         electro-mechanical
+      </TD>
+      <TD>
+	<a href="http://en.wikipedia.org/wiki/Z3_%28computer%29">Z3</a><br>
+	<img src="800px-Z3_Deutsches_Museum.JPG" width="200" alt="Zuse's Z3 machine">
+      </TD>
+      <TD>
+         Conrad Zuse <BR> (1938)
+      </TD>
+      <TD>
+
+         Built in his livingroom, was offered to the German Army but it
+         was not accepted. During WWII it was bombed and rebuilt better
+         every time
+
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         vacuum tubes
+      </TD>
+      <TD>
+         all arithmetic operations: switches
+      </TD>
+      <TD>
+         complete set of control instructions: magnetic drums
+      </TD>
+      <TD>
+	<a href="http://en.wikipedia.org/wiki/EDVAC">EDVAC</a><br>
+         <IMG SRC="edvac.JPG" WIDTH="155" HEIGHT="188" ALT="EDVAC">
+      </TD>
+      <TD>
+         John von Neumann <BR> (1945)
+      </TD>
+      <TD>
+
+         A fully electronic (no mechanical parts) computer with
+         programs stored in the same memory as data (the <q>von
+         Neumann architecture</q>).  (Possibly the first case of
+         plagiarism in the computing industry)
+
+      </TD>
+   </TR>
+</TABLE>
+
+<P>This is only a partial history of computing devices. The emphasis here
+is on innovative representations, not in a complete set of computing
+devices developed over the years. 
+<!--For a more complete history of computing
+devices, you should check the <A
+HREF="http://www.computer.org/history/development/">slides on history of
+computing devices</A> from the IEEE Computer Society.--></P>
+
+
+
+<H2>Small is Fast</H2>
+
+<p>In recent years, the emphasis has been on concise packaging, not much
+innovation on representation. <STRONG><A
+HREF="http://www.pbs.org/nerds/timeline/mini.html">Small is fast,</A> but
+<A HREF="http://www.pbs.org/nerds/timeline/micro.html"> smaller is
+faster.</A></STRONG> The size of the computer was directly related to the
+size of its smallest component and can be described in four computer
+generations:</P>
+
+<P><TABLE BORDER=1>
+   <TR>
+      <TD>
+         1st Generation:
+	<a href="http://en.wikipedia.org/wiki/Vacuum_tube">vacuum tube</a>
+      </TD>
+      <TD>
+         1945-1956
+      </TD>
+      <TD>
+         <IMG SRC="vacuum_tubes.jpg" HEIGHT="100" ALT="vacuum tubes">
+      </TD>
+
+      <TD>
+         A vacuum tube allows electricity to move only in one
+      direction. It turns out that this is an essential characteristic for
+      electronic computers. But a vacuum tube is relatively
+      large. Machines with hundreds of thousands of vacuum tubes were
+      built, taking up space of several floors in big buildings, and
+      consuming huge amounts of energy.  </TD>
+
+   </TR>
+   <TR>
+      <TD>
+         2nd Generation: <BR>
+	<a href="http://en.wikipedia.org/wiki/Transistor">transistor</a>
+      </TD>
+      <TD>
+         1956-1963
+      </TD>
+      <TD>
+         <IMG SRC="Transistor.JPG" HEIGHT=100 ALT="transistor">
+      </TD>
+      <TD>
+
+         The invention of the transistor in the mid-50's replaced the
+         vacuum tube in computers (but also in televisions and
+         radios). Computers could now fit in only one room.
+
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+
+         3rd Generation: <BR> <a href="http://en.wikipedia.org/wiki/Integrated_circuit">integrated circuits</a>
+      </TD>
+      <TD>
+         1964-1971
+      </TD>
+      <TD>
+         <IMG SRC="IntegratedCircuit.JPG" HEIGHT=100 ALT="integrated circuit">
+      </TD>
+
+      <TD>The integrated circuit was just a combination of thousands of
+      transistors and tiny wires onto a small "chip" made of silicon. As a
+      result, the computer could now fit onto a desk and the monitor
+      became the largest visible part of the computer.  </TD>
+
+   </TR>
+   <TR>
+      <TD>
+         4th Generation: <BR>
+         Very Large Scale Integrated <BR>(<a href="http://en.wikipedia.org/wiki/VLSI">VLSI</a>) circuits
+      </TD>
+      <TD>
+         1972-today
+      </TD>
+      <TD>
+         <IMG SRC="vlsi.JPG" HEIGHT=100 ALT="VLSI chip">
+      </TD>
+      <TD>
+
+         Gazillions of transistors and wires fit onto a small chip, making
+      it possible to have all the major components of a computer and its
+      memory onto the same chip. The computer can now fit in your palm and
+      pocket.
+
+      </TD>
+</TR>
+</TABLE>
+
+<H2>The Future</H2>
+
+<P>What will the Future 5th Generation look like?
+
+<p>One thing is certain, that there is a human desire for the highest
+computational power possible. But it is not clear today how faster
+machines will be developed. We understand that we cannot keep on creating
+faster <STRONG>uni-processor</STRONG> computers. We need some kind of
+<STRONG>multi-processor</STRONG> computers. Today, you can buy a computer
+with two or four processors that work independently.
+
+<p>What will the future's <STRONG>massively parallel computers</STRONG> be
+like? They could be...
+
+<P><TABLE BORDER=1>
+   <TR>
+      <TD>
+         <P><STRONG>Electrical</STRONG> <br>
+         Containing <a href="http://en.wikipedia.org/wiki/Parallel_computing">millions of
+         interconnected 4th Generation computers</a></P>
+      </TD>
+      <TD>
+         <P><IMG SRC="cm2-hds.gif" HEIGHT=120 ALT="connection machine"></P>
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         <P><STRONG>Molecular</STRONG><br>
+         Composed of millions of <a href="http://en.wikipedia.org/wiki/Dna_computing">DNA strands</a> in
+         plastic tubes</P>
+      </TD>
+      <TD>
+         <P><IMG SRC="DNA_Computer.GIF" HEIGHT=120 ALT="complementary DNA strands"></P>
+      </TD>
+   </TR>
+   <TR>
+      <TD>
+         <P><STRONG>Quantum</STRONG><br>
+          <a href="http://en.wikipedia.org/wiki/Quantum_computing">Quantum Computing</a> relies on <q>qubits</q> (quantum bits) that represent the superposition of data</a>
+         nanotubes</P>
+      </TD>
+      <TD>
+         <P><IMG SRC="qubit_molecule.GIF" HEIGHT=120 ALT="a molecule
+      representing a quantum bit (a qubit)"></P>
+      </TD>
+   </TR>
+</TABLE>
+
+<P>We do not know yet. Maybe all of the above. Maybe something more
+exotic. In any case we expect it to be at least as surprising and exciting
+as it has been so far.</P>
+
+<!--#include virtual="../../navigation/footer.html" -->
+</body>
+</html>

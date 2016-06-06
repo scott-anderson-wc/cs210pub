@@ -1,0 +1,402 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>Cryptography</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+
+<h2>Goal</h2>
+
+<p>By the end of today, you should:
+  <ol>
+    <li>understand the terminology used when talking about encryption, decryption, and cryptography<p>
+    <li>understand encryption systems that use private keys and public keys<p>
+    <li>use public key encryption for your own communication<p>
+    <li>be informed of the different uses of private and public key cryptography
+  </ol>
+
+<h2>Encryption Recap</h2>
+
+<p>Foundation
+  <ul>
+    <li>What makes general-purpose encryption <em>possible</em> is
+      that <em>everything</em> can be represented using <em>bits</em>. This
+      is crucially important. 
+    <li>Encryption just works on the bits; it doesn't care whether the
+      bits are text, images, sound, movies, or anything else
+  </ul>
+
+<p>Kinds of Encryption:
+  <ul>
+    <li><strong>Symmetric</strong> or <strong>private key</strong> encryption.  The idea is relatively
+    intuitive, even if the implementations are complex. Examples:
+      <ul>
+        <li>Caesar,
+          
+        <li>Vigenere,
+          
+        <li>Enigma
+          
+      </ul>
+
+      <p>The weakness of private key encryption is <em>the key
+      distribution</em> problem:
+        <blockquote><p>How do you securely transmit the <em>secret
+        key</em> to your interlocutor so that you can securely communicate
+        with them?
+        </blockquote>
+      
+    <li><strong>Public key</strong> or <strong>asymmetric</strong>
+    encryption. The idea is revolutionary.
+      <ul>
+        <li>Solves the <em>key distribution problem</em>
+          
+        <li>How do you prove who you are without giving away your
+          identity?  Solved!
+
+        <li>Allows for <em>digital signatures</em>, which
+          an <em>amazing</em> technology. 
+          <blockquote>
+            <p>How can you <q>sign</q> a document without allowing others
+              to forge your signature or to copy/paste your signature onto
+              another document?  Solved!
+          </blockquote>
+          <p>We'll cover digital signatures next time.</p>
+        </li>
+      </ul>
+  </ul>
+
+  <h2>Communication using Symmetric Encryption</h2>
+
+  <ul>
+    <li>Alice and Bob somehow share a secret key, K, that Eve does not
+      
+    <li>Alice composes a message, M, to Bob. She encrypts it with the
+    key.  She sends E<sub>K</sub>(M) to Bob.
+        
+    <li>The function E is a mathematical function that maps plaintext
+        bitstrings to ciphertext bitstrings. It doesn't matter whether the
+        bitstring is text, images, sounds, movies, or anything else.
+      
+    <li>Bob decrypts it with K by computing
+      D<sub>K</sub>(E<sub>K</sub>(M)) = M and reads the message.
+      
+    <li>He can reply the same way.
+  </ul>
+  
+  <h2>Communication using Public Key Encryption</h2>
+
+  <ul>
+    <li>Alice creates a key <em>pair</em> (P,S).  They
+    are <em>inverses</em>:  S can decrypt what P encrypts (and vice
+    versa).
+      
+    <li>Alice sends Bob her public key, P. She can send a copy to Eve,
+      too.
+      
+    <li>Bob composes a message, M to Alice.  He encrypts it with P.  He
+    sends E<sub>P</sub>(M) to Alice.
+
+    <li>Alice decrypts it with the secret key, computing
+      D<sub>S</sub>(E<sub>P</sub>(M)) = M and reads the message.
+  </ul>
+
+<p>The trick is to come up with algorithms and key pairs where knowing P
+  doesn't help Eve find S.
+
+<p>One such trick is factoring, which is the basis of the RSA
+  (Rivest-Shamir-Adelman method).  If P is the product of
+  two <em>very</em> large prime numbers, and S is related to those prime
+  factors, Eve can only find S by factoring P.
+
+<h2>Quiz Question Nr. 1</h2>
+  <p>Encryption is:
+  <ol type="A">
+    <li><p>information that cannot be read without special information
+    <li><p>the process of converting plaintext into ciphertext 
+    <li><p>the process of converting ciphertext into plaintext
+    <li><p>the process of cracking the code with the use of a computer program
+  </ol> 
+          
+  <h2>Quiz Question Nr. 2</h2>
+  <p>Which of the following codes is not a kind of cryptographic code?
+  <ol type="A">
+    <li><p>The Caesar Code
+    <li><p>The Vigenere Code
+    <li><p>The ASCII Code
+    <li><p>The Enigma Code
+  </ol> 
+
+  <h2>Quiz Question Nr. 3</h2>
+
+  <p>Assuming a Caesar code with rotation 10 and the use of the
+    whole <a href="../../reading/information-representation.html#text_rep">ASCII
+    character set</a> of 128 characters for typing a message, which of the
+    following numbers will represent the letter
+    lowercase <strong>z</strong> (its ASCII code is 122) in the
+    ciphertext?
+  <ol type="A">
+    <li><p>2
+    <li><p>4
+    <li><p>16
+    <li><p>132</p></li>
+  </ol>
+      
+  <p>Do you see any problem with the setup described in Quiz Question Nr. 3?</p>
+
+  <h2>Quiz Question Nr. 4</h2>
+
+  <p>Which of the following statements about breaking the Caesar Code is TRUE?
+  <ol type="A">
+    <li><p>It is secure against all but brute-force attacks.
+    <li><p>It can be broken <strong>only</strong> with the help of a computer to execute many trial-and-error runs.
+    <li><p>It can be broken with the help of ASCII encoding and the modulo operator.
+    <li><p>It can be broken with the help of statistical analysis.
+  </ol> 
+      
+<h2>Quiz Question Nr. 5</h2>
+  <p>The Vigenere Cipher is more secure if:
+  <ol type="A">
+    <li><p>the codeword is short
+    <li><p>the codeword is long
+    <li><p>a different codeword is used for every message
+    <li><p>the codeword has a known length
+  </ol>      
+
+ <h2>Quiz Question Nr. 6</h2>
+  <p>Systems that use private keys are
+  <ol type="A">
+    <li><p>unbreakable.
+    <li><p>difficult to break, depending on the algorithm
+    <li><p>difficult to break, depending on the private key
+    <li><p>difficult to break, depending on the algorithm and private key
+  </ol>
+      
+  <h2>Quiz Question Nr. 7</h2>
+  <p>Which of the following statements is TRUE?
+  <ol type="A">
+    <li><p>Public key encryption is <strong>insecure</strong> because it needs two keys.
+    <li><p>Public key encryption is <strong>secure</strong> because it needs two keys.
+    <li><p>Public key encryption is <strong>insecure</strong> because everyone knows your public key.
+    <li><p>Public key encryption is <strong>secure</strong> because no one else knows your private key.
+  </ol> 
+     
+
+<h2>Task 1: Play the RSA game with a friend</h2>      
+ 
+<p>For simplicity, I may just demo this on a single machine, but you can
+    test that I'm not cheating by doing the exercise.
+
+<div class="ex">
+  <h2 id="rsa_exercise1">Exercise Exploring RSA</h2>
+  <ol>
+    <li>Go
+    to <a href="http://www.hanewin.net/encrypt/rsa/rsa-test.htm">Herbert
+    Hanewinkel's RSA page</a>. (If that's down or missing, you can use
+    this <a href="RSA-Public-Key-Encryption-Demo.html">local copy</a>.
+      
+    <li>From the pulldown menu, choose a number of bits. This is the
+    number of bits that n will be (approximately), and, because factoring
+    n is the hard part, the bigger n, the stronger the encryption scheme.
+
+    <p>(FYI, 2048 bits is considered barely acceptable for commercial
+    websites, but takes 90+ seconds to compute on my office desktop
+    computer, whereas 1024 bits takes just 5 seconds.)
+      
+    <li>click on <q>generate key</q>
+
+    <li>Notice how big the <q>Public Modulo (p*q)</q> is.  This is the
+    value of n. Imagine trying to factor that to get p and q!
+
+    <li>Skip down to below the solid line to the pair of boxes labeled
+    <q>plaintext</q> and <q>ciphertext in hex</q>.  (Notice how you now
+    understand what <q>hex</q> means: since the encryption is going to be
+    a long string of bits, hex is incredibly useful here..)
+
+    <li>Type in a message (plaintext) and encrypt it.  Erase the plaintext
+    and decrypt it.
+  </ol>
+</div>
+
+<div class="ex">
+  <h2 id="rsa_exercise">Exercise Using the RSA Cipher</h2>
+
+  <p>Let's make this a bit more realistic.  Choose a partner (say from the
+  row in front of or behind you, so you can't easily look onto her
+  monitor, though it doesn't really matter).  One of you will be
+  the <em>sender</em> and the other the <em>receiver</em>.
+    <ol>
+      <li>The <em>receiver</em> uses this
+        customized <a target="_blank" href="rsa-secret.html">receiver</a> version of Herbert
+      Hanewinkel's form to create a key pair.q
+
+      <li>She transmits the public key to the sender.  Specifically, she
+      sends the last field of the form above the horizontal line, the
+      input labeled <q>OpenPGP Multi Precision Integer (MPI) of Public Key
+      (base64)</q>.  (This is an encoding of both e and n, in one
+      relatively compact representation.)
+
+          <li>(For a less-realistic but faster short-cut, just use two
+          different browsers on the same machine, say Chrome and
+          Firefox. One is the sender and one is the receiver. You can then
+          just copy/paste between browsers instead of using email.)
+        
+      <li>The sender copies the packed public key into this
+      customized <a target="_blank" href="rsa-public.html">public</a>
+      version of the RSA encryption form.  She clicks on the button to
+      unpack e and n from the public key.
+        
+      <li>The sender encrypts her message. The message can be anything.
+          It doesn't even have to be private.  If you're feeling stumped,
+          send the identity of the important character who dies
+          in <i>Harry Potter and the Half-Blood Prince</i> and who kills
+          him.  This is an important secret; don't assume everyone has
+          read the book.
+
+      <li>The sender then copy/pastes the ciphertext into an email message
+        and emails it to the receiver.
+
+      <li>The receiver copy/pastes the ciphertext into the same RSA form,
+      above (the one that knows the decryption key) and decrypts the
+      message.
+
+      <li>Verify that the message was transmitted correctly and secretly.
+    </ol>
+</div>
+
+<p>Notice the contrast between using public key and private key
+  encryption.  In private key encryption, as with Caesar and
+  Vigen&egrave;re, both the sender and receiver have the key and do pretty
+  much the same thing.  Thus, codes like that are
+  called <em>symmetric</em> cryptosystems.  In public key encryption, on
+  the other hand, the sender and receiver do very different things.  The
+  receiver has to generate the public key that allows her to receive
+  messages that only she can read; the sender doesn't know anything that
+  Eve doesn't know.  Thus, public key systems are also
+  called <em>asymmetric</em> cryptosystems.
+
+      
+  <h2>Quiz Question Nr. 8</h2>
+  <p>Public key encryption is useful because:
+  <ol type="A">
+    <li><p>it is used by people who want to keep their communication secret from the government
+    <li><p>it is used by websites such as Google, Facebook, Tumblr, etc.
+    <li><p>it is used for financial transactions on the web
+    <li><p>all of the above
+  </ol> 
+
+<p>But, of course, the most important thing it does is solve the <em>key
+    distribution problem</em>.
+
+  <h2>Quiz Question Nr. 9</h2>
+  <p>Which of the following is TRUE:
+  <ol type="A">
+    <li><p>the public key encrypts a message that is decrypted by the private key
+    <li><p>the private key encrypts a message that is decrypted by the public key
+    <li><p>both A and B
+    <li><p>neither A nor B
+  </ol> 
+      
+
+<h2 id="sec_summary">Summary</h2>
+<p>We hope that after these activities you can:
+  <ul>
+    <li>understand how encryption and decryption work
+    <li>understand the difference between private and publick key cryptography
+    <li>the uses of private and public key cryptography
+  </ul>
+
+
+<h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions" style="display: none">
+<p>Quiz questions:
+<pre>
+    1. B
+    2. C  ASCII just represents text using numbers
+    3. B  because 122+10 = 132, but 132-128 is 4. The problem is that 4 is
+    not a printable character, so we should boost them up to printable characters
+    4. D
+    5. B or C
+    6. D
+    7. D
+    8. D, of course
+    9. C
+</pre>
+
+</div>
+<script>
+var now = new Date();
+var later = new Date("4/26/2016 1:00 PM");
+document.querySelector("#later").innerHTML = later.toLocaleString();
+if( now > later ) {
+    document.querySelector("#solutions").style.display = "block"; // $("#solutions").show();
+    document.querySelector("#solutions_later").style.display = "hidden"; // $("#solutions").show();
+}
+</script>
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+      function hideItem() {
+          // hide a PRE or a P inside the LI (this). Don't hide the
+          // whole LI, or the numbering changes.
+          $(this)
+              .find("pre,p")
+              .css('border-color','red')
+              .css('background-color','#FF8080')
+              .fadeOut(1000);
+      }
+
+      $("ol[type=A] li").click(hideItem);
+    </script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+  </body>
+</html>

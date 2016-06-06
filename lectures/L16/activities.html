@@ -1,0 +1,676 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+
+    <div class="container">
+      <h1>User-defined Functions</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>use the appropriate vocabulary to talk about functions
+      
+    <li>define functions with parameters
+      
+    <li>define functions that return a value
+      
+    <li>understand the difference between local and global variables
+  </ol>
+
+  <h2 id="recap">Recap</h2>
+
+<p>Three metaphors:
+  <ul>
+    <li>Function as a recipe:  named textual procedure. Can be defined and
+    made later.
+      
+    <li>Function as a machine: can have inputs and outputs and
+    effects. Can be created and used later.
+      
+    <li>Function as a workspace: can have its own local storage, distinct
+      from other storage.
+  </ul>
+
+<p>A function allows us to package up a chunk of code and give it a name.
+  We can <em>run</em> that code <em>later</em> by <em>invoking</em>
+  (or <em>calling</em>) the function.
+
+<p>We define a function like this:
+
+  <pre class="prettyprint lang-js">
+    function name_of_function () {
+        // body of function
+    }
+
+    function yo () {
+        alert("Hey there!");
+    }
+  </pre>
+
+<script>
+    function yo () {
+        alert("Hey there!");
+    }
+</script>
+
+
+<p>We <em>invoke</em> a function using its name and parens:
+
+  <pre class="prettyprint lang-js executable"> yo(); </pre>
+
+<h2>Functions with Parameters and Arguments</h2>
+
+<p>Using parameters, we can make functions that are more powerful and general.
+
+    <ul>
+
+      <li>They can handle a  broader set of situations by
+      taking <em>arguments</em>.
+        
+      <li>Inside the function definition, the name given to an argument is
+        <em>parameter</em> (but we won't be pedantic about this).
+        
+      <li>Parameters only <em>exist</em> inside the function. They don't
+        exist outside it.  They live and die during one function
+        execution. This is a good thing.
+        
+      <li>Local variables of a function should be declared
+        with <code>var</code>. This makes them like parameters, in the
+        sense that they exist only inside the function and only when the
+        function is executing.
+        
+      <li>Functions can also return values to their caller. Think of this
+        as the answer to a question that the caller has asked.  This is a
+        good thing.
+
+      <li>A picture can help your understanding of this.
+
+      <li>Variables that are visible and usable in every function are
+      called <em>global</em>. Variables that are visible and usable only
+      in one function are called <em>local</em>. This is
+      their <em>scope</em>.
+
+      <li>Local variables are better because they minimize the chance that
+      one value will step on or overwrite another.  Imagine the following,
+      which actually happened in a computer graphics program I once wrote:
+
+<pre class="prettyprint lang-js">
+tan = Math.sin(angle)/Math.cos(angle);  // compute tangent of angle
+
+tan = "#FFCC99";     // store a shade of tan 
+</pre>
+
+      <li>We can describe functions in terms of:
+        <ul>
+          <li>return values:  some functions return values
+            
+          <li>side effects: something that the function <em>does</em>
+          rather than something it returns.  For example,
+          the <code>yo</code> function above does not return a value, but
+          it does cause an <code>alert</code> to happen. That's
+          its <em>side-effect</em>.
+        </ul>
+
+      <li>Functions can have return values or side-effects or both. A
+        function that does neither would be useless.
+
+      <li>Functions can be treated as <em>values</em>, such as being
+      stored in variable or passed as arguments to functions.
+
+    </ul>
+
+   <h2>The "Who am I?" game</h2> 
+          
+  <p>A bunch of JavaScript attendees, in full costume, are playing a party game, “Who am I?” 
+    They give you a clue, and you try to guess who they are, based on what they say. Assume they 
+    always tell the truth about themselves.</p>
+          
+    <h2>Quiz Question Nr. 1a</h2> 
+
+    <p><strong>CLUE:</strong> I get passed into a function.
+    <ol type="A">
+        <li><p>parameter</li>
+        <li><p>argument</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+          
+    <h2>Quiz Question Nr. 1b</h2> 
+
+    <p><strong>CLUE:</strong> I am everywhere
+    <ol type="A">
+        <li><p>parameter</li>
+        <li><p>argument</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+          
+  <h2>Quiz Question Nr. 1c</h2> 
+
+  <p><strong>CLUE:</strong> Where I can be seen
+    <ol type="A">
+        <li><p>return</li>
+        <li><p>scope</li>
+        <li><p>global variable</li>
+        <li><p>local variable</li>
+    </ol>
+
+<h2>Quiz Question Nr. 2</h2>  
+<p>You are given two alternative definitions of a function: </p> 
+ 
+<h4>Definition 1</h4>          
+<pre class="prettyprint lang-js">
+function displayDate() {               
+    var today = new Date();                     
+    document.querySelector("#date").innerHTML = today.toLocaleDateString();
+}
+</pre>
+<br>
+ <h4>Definition 2</h4>          
+<pre class="prettyprint lang-js">
+function displayDate(dateStr, elemID) {               
+    if(dateStr == "now") {
+        var date = new Date();
+    } else {
+        var date = new Date(dateStr);
+    }
+    document.querySelector(elemID).innerHTML = date.toLocaleDateString();
+}
+</pre>
+<br> 
+<p>Which of the following statements is true? Explain your answer.</p>
+          
+<ol type="A">
+<li><p> The two definitions are equivalent.
+<li><p> Definition 1 is better than Definition 2.
+<li><p> Definition 2 is better than Definition 1.
+<li><p> Definition 2 is longer than Definition 1.
+</ol>
+
+<p>Given definition 2, how can we display the current date?  The date for
+  Valentine's day?  How would we do those for definition 1?
+
+<h2>Quiz Question Nr. 3</h2> 
+<p>Which of the following function/method calls causes a <em>side
+  effect</em> instead of <em>returning a value</em>.
+
+ <ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+parseInt()
+</pre>
+
+<li>
+<pre class="prettyprint lang-js">
+prompt("Enter your name:")
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+document.querySelector("#fred")
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+alert("Hello")
+</pre>  
+</ol>                
+
+<h2>Quiz Question Nr. 4</h2> 
+
+<p>What is the effect of executing the following code:
+
+<pre class="prettyprint lang-js">
+
+/* a and b are the lengths of two adjacent sides of triangle, and
+angle is the number of degrees between them. */
+
+function isEquilateral(a, b, angle) { 
+    if (a == b && angle == 60) 
+        return true;
+}
+
+alert(isEquilateral(10,10,90));
+</pre>
+
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+true
+</pre>
+
+  <li>
+<pre class="prettyprint lang-js">
+false
+</pre>
+  <li>
+<pre class="prettyprint lang-js">
+NaN
+</pre>
+<li>
+<pre class="prettyprint lang-js">
+undefined
+</pre>  
+</ol>
+
+<p>The point is that if a function is supposed to return a value, it
+  should probably <em>always</em> return a value (unless some kind of
+  error has occurred or some unusual situation). Above,
+  the <code>isEquilateral</code> function should answer the question <q>is this
+  a square</q> and so it should always answer true or false and therefore
+  always return a boolean.
+
+<h2>Scope</h2>
+
+<p>Recall that <em>scope</em> tells us where a variable exists and can be
+ used. Variables that usable in every function are
+ called <em>global</em>. Variables that are usable only in one function
+ are called <em>local</em>. 
+
+
+<h2>Quiz Question Nr. 5</h2>
+<p>What is the result of the following statements?
+
+<pre class="prettyprint lang-js">
+var restaurantBill = 100;
+
+function amountToPay(amount){
+    amount = amount + 0.0625 * amount             // add state tax
+    return amount
+}
+
+amountToPay(restaurantBill);
+console.log(restaurantBill);
+</pre>
+
+<ol type="A">
+  <li>
+<pre class="prettyprint lang-js">
+100
+</pre>
+  <li>
+<pre class="prettyprint lang-js">
+106.25
+</pre> 
+</ol>
+
+<p>Note the difference between the global
+  variable <code>restaurantBill</code> and the
+  parameter <code>amount</code>. The parameter is generic, since the
+  function could be used in a wide variety of situations. The global is
+  particular to a situation. We might also have globals
+  like <code>gymCharge</code> and <code>barTab</code>, keeping track of
+  different parts of our spending.
+
+<p>Note also that the name for the global and the name for the local are
+  unrelated. It's a common misconception that they must be the same.
+
+<p>One important point about the code above is that if a function returns
+  a value, the caller should almost always receive and use that value. Of
+  course, the function might also have a <em>side-effect</em> which is the
+  reason it's being called.
+
+<p>If it doesn't have a side-effect, and the return value is being
+  ignored, the function invocation is <em>useless</em>.
+
+ <h2>Exercise 1: General Tax Rate</h2>
+
+<p>Define a function named <code>amountToPay2</code>, based on
+  the <code>amountToPay</code> function from the last quiz question to
+  include a second parameter that is the state tax rate, so that it can
+  calculate the amount to pay depending on a buyer's state. You can invoke
+  the function a few times to test it, like this:
+
+  <pre class="prettyprint lang-js">
+alert(amountToPay2(100, 4.0));   // NY tax
+alert(amountToPay2(100, 7.5));   // CA tax
+</pre>
+<div>
+<textarea rows=8 cols=100>
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js executable">
+function amountToPay2(amount, stateRate) {
+    amount = amount + (stateRate/100) * amount;             // add state tax
+    return amount;
+}
+
+alert(amountToPay2(100, 4.0));   // NY tax
+alert(amountToPay2(100, 7.5));   // CA tax
+  </pre>
+</div>
+  
+<h2>Making Functions More General</h2>
+
+<p>The trick we just saw makes the function more general by replacing a
+  constant in the code with a parameter, and then requiring the caller to
+  supply the value.  This then gives the caller the freedom to
+  provide <em>other</em> values.  The <code>amountToPay2</code> function
+  can do everything that the <code>amountToPay</code> function does, plus
+  a lot more.  After all, the original function only worked for
+  Massachusetts; the revision works for all 50 states, plus the District
+  of Columbia.
+
+<p>Replacing constants with parameters is a pretty common technique; keep
+  it in mind.
+
+<h2>Making Functions More Specific</h2>
+
+<p>Of course, the general function is a bit less convenient, because you
+  have to supply the tax rate (and maybe you don't even know it!).
+  Suppose we only had the general function and we wanted to define the
+  specific version for Massachusetts.
+
+ <h2>Exercise 2: Massachusetts Tax Rate</h2>
+
+<p>Define a function named <code>amountToPayMass</code>, using the
+  the <code>amountToPay2</code> function from the last exercise. It will
+  only take one argument, the pre-tax bill and it will return the amount
+  with Mass state tax added. You can invoke the function a few times to
+  test it, like this:
+
+  <pre class="prettyprint lang-js">
+alert(amountToPayMass(100));
+alert(amountToPayMass(200));
+</pre>
+<div>
+<textarea rows=8 cols=100>
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act2_src" class="prettyprint lang-js executable">
+function amountToPay2(amount, stateRate){
+    amount = amount + (stateRate/100) * amount;             // add state tax
+    return amount;
+}
+
+function amountToPayMass(amount){
+    return amountToPay2(amount,6.25);
+}
+
+alert(amountToPayMass(100));
+alert(amountToPayMass(200));
+  </pre>
+</div>
+  
+<p>That may seem surprising, but it's quite reasonable take a general
+  function and make a more specific version just for the use we want to
+  make of it.
+
+<p>More importantly, it's useful to think about the information flow here:
+  <ul>
+    <li>The argument, say 100, is given to <code>amountToPayMass</code>
+    <li>That function passes the 100 and the 6.25 down
+    to <code>amountToPay2</code>
+      
+    <li>That function computes the result and returns it to <code>amountToPayMass</code>, and
+      
+    <li><code>amountToPayMass</code> returns it to the original caller.
+  </ul>
+
+<p>It's almost like a bucket brigade.
+
+<h2>Hexadecimal</h2>
+
+<p>Let's do one last series of examples.  I have implemented on this page
+  a function named <code>hexDigit</code>. It takes a number from 0--15 and
+  returns the corresponding digit in hexadecimal, as a string.
+
+<h2>Exercise: hexByte</h2>
+
+<p>Define a function named <code>hexByte</code> that takes a number from
+  0--255 and returns the hexadecimal equivalent as a string.  Your
+  function should use the <code>hexDigit</code> function I defined.
+  Here's what the function will need to do:
+  <ol>
+    <li>Accept an input as a parameter. Make up an appropriate name.
+      
+    <li>Compute the value of the 16s place and the 1s place. One way is to
+    divide the number by 16, taking the Math.floor to get the
+    quotient. Then use the remainder operator to determine the 1s place,
+    or subtract the number of 16s from the input.
+      
+    <li>Invoke the <code>hexDigit</code> function on each of those values.
+      
+    <li>Concatenate the results, and
+      
+    <li>Return the final string.
+  </ol>
+
+<p>You can test it like this:
+
+  <pre class="prettyprint lang-js">
+alert(hexByte(15));  // "F"
+alert(hexByte(16));  // "10"
+alert(hexByte(160));  // "A0"
+alert(hexByte(255));  // "FF"
+</pre>
+<div>
+<textarea rows=8 cols=100>
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act3_src" class="prettyprint lang-js executable">
+function hexByte(byte){
+    var quo = Math.floor( byte/16 );
+    var rem = byte - 16*quo;          // or byte % 16
+    return hexDigit(quo)+hexDigit(rem);
+}
+
+alert(hexByte(15));  // "F"
+alert(hexByte(16));  // "10"
+alert(hexByte(160));  // "A0"
+alert(hexByte(255));  // "FF"
+  </pre>
+</div>
+  
+<h2>Exercise: hexColor</h2>
+
+<p>Now, let's build on that.
+
+<p>Define a function named <code>hexColor</code> that takes three inputs,
+  an amount of red, green and blue, and returns a hex color
+  specification. Your function should use the <code>hexByte</code>
+  function from the previous exercise.  Here's what the function will need
+  to do:
+  <ol>
+    <li>Accept three inputs as parameters. Make up appropriate names.
+      
+    <li>Invoke the <code>hexByte</code> function on each.
+      
+    <li>Concatenate the results, and concatenating a <code>#</code>
+     character on the front.
+      
+    <li>Return the final string.
+  </ol>
+
+<p>You can test it like this:
+
+  <pre class="prettyprint lang-js">
+alert(hexColor(0,0,255));     // "#0000FF"
+alert(hexColor(128,128,128));  // "#808080"
+alert(hexColor(64,128,192));  // "#4080C0"
+</pre>
+
+<div>
+<textarea rows=8 cols=100>
+
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act4_src" class="prettyprint lang-js executable">
+function hexByte(byte){
+    var quo = Math.floor( byte/16 );
+    var rem = byte - 16*quo;          // or byte % 16
+    return hexDigit(quo)+hexDigit(rem);
+}
+
+function hexColor(r,g,b) {
+    return "#"+hexByte(r)+hexByte(g)+hexByte(b);
+}
+
+alert(hexColor(0,0,255));     // "#0000FF"
+alert(hexColor(128,128,128));  // "#808080"
+alert(hexColor(64,128,192));  // "#4080C0"
+  </pre>
+</div>
+  
+<p>Thank goodness for functions! Think of what a mess that code would be
+  if we didn't have the <code>hexByte</code> function! That function makes
+  the code for <code>hexColor</code> clear, concise and correct.
+
+<h2>Exercise: setBackgroundColor</h2>
+
+<p>Now, let's put that to some use. Try the following function:
+
+<div>
+<textarea rows=8 cols=100>
+function setBackgroundColor(r,g,b) {
+    document.body.style.backgroundColor = hexColor(r,g,b);
+}
+
+setBackgroundColor(255,192,192);
+</textarea><br>
+<button onclick="eval(this.parentNode.firstElementChild.value);">Execute it</button> 
+</div>         
+  
+<p>Note that this last function does not return a value; instead, it has
+  a <em>side-effect</em> of changing the background color of the page.
+
+<p>In the next few lectures, we'll see how JavaScript can be used to
+  manipulate our web pages, as we saw there.  
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>how to talk about functions and know the meaning of parameter, argument, return, etc.
+    <li>scope, global variables, and local variables
+    <li>define simple functions with parameters
+    <li>define functions that return a value
+    <li>define functions that have a side-effect
+    </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+  
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions">
+
+<p>Quiz questions:
+<pre>
+1a. B  arguments are the values passed in
+1b. C  global variables are visible everywhere
+1c. B  "scope" is the term for where variables are visible
+2. C   The second function does everything the first does, and much more
+3. D   B has an effect as well as returning a value, so it does *both*
+4. D   undefined, since it doesn't return a value. It should return "false"
+5. A   the global variable is unaffected.
+</pre>
+
+<p>Exercise 1:
+  <pre id="act1_dst" class="prettyprint lang-js executable"></pre>
+
+<p>Exercise 2:
+  <pre id="act2_dst" class="prettyprint lang-js executable"></pre>
+
+<p>Exercise 3:
+  <pre id="act3_dst" class="prettyprint lang-js executable"></pre>
+
+<p>Exercise 4:
+  <pre id="act4_dst" class="prettyprint lang-js executable"></pre>
+
+                </div>
+
+    <!--#include virtual="/~cs110/modularity/footer-rel.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer-rel.part" -->
+    <script src="../../js/activities.js"></script>
+    <script src="../../js/date-functions.js"></script>
+    <script>
+      revealLater("10/22/2015 1:00 PM"); 
+      copyCode(1);
+      copyCode(2);
+      copyCode(3);
+      copyCode(4);
+
+      function hexDigit(value) {
+          if( 0 <= value <= 15 ) {
+              return value.toString(16);
+          } else {
+              throw "illegal digit value";
+          }
+      }
+
+function hexByte(byte){
+    var quo = Math.floor( byte/16 );
+    var rem = byte - 16*quo;          // or byte % 16
+    return hexDigit(quo)+hexDigit(rem);
+}
+
+function hexColor(r,g,b) {
+    return "#"+hexByte(r)+hexByte(g)+hexByte(b);
+}
+
+   </script>
+
+  </body>
+</html>

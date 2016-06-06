@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>Lecture 5:  Class Acitvities</title>
+        
+    <!--#include virtual="/~cs110/modularity/bs-head.part" -->
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+  </head>
+    
+  <body>
+    <!--#include virtual="/~cs110/modularity/navbar.part" -->
+    
+    <div class="container">
+      <h1>Lecture 5 &nbsp; <small>Class Activities for CSS</small></h1>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">         
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul id="insert_TOC_here" class="nav bs-sidenav">  
+            </ul>
+          </div>
+
+        </div><!--end of "col-md-3" div-->
+        
+        <!-- Nine columns of the grid are reserved for the main content-->
+        <div class="col-md-9">
+          
+<h2>CSS Exercise 1</h2>
+
+<p>In the following exercise, we are going to try to convert
+this <a href="amLit/initPage.html">initial page</a> into
+this <a href="amLit/almost-finalPage.html">final page</a>. Here are
+side-by-side screenshots:
+
+  <style scoped>
+    #amLit_compare { border-collapse: collapse; margin: 2em 0px; }
+    #amLit_compare th, #amLit_compare td { border: 1px solid black; }
+    #amLit_compare th { text-align: center; }
+    #amLit_compare img { width: 100%; }
+  </style>
+  <table id="amLit_compare">
+    <tr>
+      <th>Before, no CSS</th>
+      <th>After, lots of CSS</th>
+    </tr>
+    <tr>
+      <td><img src="amLit/initPage.png"></td>
+      <td><img src="amLit/almost-finalPage.png"></td>
+    </tr>
+  </table>
+
+<p>Using this <a target="_blank" href="http://jsfiddle.net/w5bgmgeg/">JSfiddle on CSS</a>, do the following:
+
+  <ol>
+    <li>make the h1, h2, and h3 elements maroon.
+
+    <li>Put a <code>maroon</code> box around the <code>nav</code> and make
+    the background color be <code>tan</code>.
+
+    <li>Make the background color for the body
+    be <code>maroon</code>. Make the background color for the inner part
+    be <code>wheat</code>. Make that inner part 600px wide and center it.
+
+    <li>Make the image in the introduction be 150px wide, with a 15px
+    right margin.
+
+    <li>The text is too close to the maroon background. Give it 10px of
+    padding.
+
+    <li>Style the weeks:
+      <ul>
+        <li>Make the background color of each be <code>tan</code>.
+          
+        <li>Give them a 2px solid maroon border.
+                    
+        <li>Give them some reasonable margin and padding.
+      </ul>
+
+    <li>Make optional stuff maroon.
+      
+    <li>Make the header have a 4px double maroon border, but only -top and
+    -bottom, not -left and -right. Make the background color be tan.
+
+    <li>Style the links in the nav: none should have underlines
+    (text-decoration). The unvisited links should be maroon, the visited
+    ones navy and hovering should make them white.
+
+    <li>What would be better markup for the <code>author</code> photos?
+
+    <li>Don't kill this jsfiddle when you're done. Later, we'll learn how
+      to do this <a href="amLit/finalPage.html">final page</a>
+
+  </ol>
+
+<h2>Page Layout Summary</h2>
+
+<p>Here are the main points from the reading:
+  <ul>
+    <li>layouts can be <em>fixed</em> or <em>liquid</em>. The former is
+    usually easier but not as nice on a wide variety of displays
+      
+    <li>Techniques include <em>floats</em> and <em>absolute
+    positioning</em>. Floats are usually easier.
+      
+    <li>Specifying that an element is <code>float: left</code> means that
+    text from below it can move up next to it (to its right, in this
+    example).
+      
+    <li>There is no <code>float: center</code>.
+      
+    <li>Two column layouts usually have one thing floating in
+    the <em>margin</em> of the other thing.
+      
+    <li>If you don't want an element coming up next to a float, you can
+    use <code>clear:left</code> on that element.
+      
+    <li>Floats can sometimes stick out of their containers. They <em>do
+    not</em> contribute to the height of their containers. Can be solved
+    by either:
+      <ul>
+        <li>Putting in a non-floated element and using <code>clear</code>,
+        or
+          
+        <li>using <code>overflow:hidden</code> on the container
+        (worst-named property ever)
+      </ul>
+
+    <li><code>position:absolute</code> sets up a 2D coordinate system
+    relative to some element -- the window if all else fails.
+      
+    <li>You can say <code>position:relative</code> to set the location of
+    the coordinate system.
+      
+    <li>You can use <code>left</code> and <code>top</code>
+    (or <code>right</code> and <code>bottom</code>) to position an element
+    in the 2D system.
+      
+    <li><code>position:fixed</code> can be nice sometimes.
+  </ul>
+
+            <h2>Quiz Question Nr. 1</h2> 
+
+          <p><code>Float</code> means
+            <ol type="A">
+              <li><p>Other block elements flow around me</p></li>
+              <li><p>Other inline elements flow around me</p></li>
+              <li><p>I flow around other block elements</p></li>
+              <li><p>I flow around other inline elements</p></li>
+              
+            </ol>
+
+            <h2>Quiz Question Nr. 2</h2> 
+
+          <p><code>Clear</code> means
+            <ol type="A">
+              <li><p>stop floating</p></li>
+              <li><p>Move other stuff below me</p></li>
+              <li><p>Move me below non-floating elements</p></li>
+              <li><p>Move me below floating elements</p></li>
+              
+            </ol>
+
+          <h2>Exercise 2: Fixed-width and floating images</h2>
+
+          <p>You are given this <a href="layout_examples/ex1.html" target="_blank">ex1</a>. Resize the 
+            browser window. <em>Notice what happens to the text and the images</em>.
+            
+           Then, using the Inspector window do the following:</p>
+          <ol>
+            <li>Apply styling to the <code>body</code> element to center the page, give it
+            a width of 960px and change the background to lightgray. Resize the window again. <em>What
+              happens to the text and the images.</em></li> 
+            <li>Apply styling to the <code>img</code> elements to float them on the right side. </li>
+            <li>Can you guess without looking at the source code why 
+              <a href="layout_examples/ex1.html" target="_blank">ex1</a> looks different from 
+              <a href="layout_examples/ex3.html" target="_blank">ex3</a>. 
+              Write your answer down, and then look at
+              the code of each page to check if you're correct.</li> 
+            <li>Apply styling to the <code>figure</code> element of 
+              <a href="layout_examples/ex3_1.html" target="_blank">ex3_1</a> to make it look like 
+            <a href="layout_examples/ex4.html" target="_blank">ex4</a>.</li>
+            <li>This file, <a href="layout_examples/ex2.html"
+            target="_blank">ex2</a> is the solution for items 1 and 2 of the list.
+              <em>Do you think that it looks different
+                  from  <a href="layout_examples/ex4_1.html"
+                           target="_blank">ex4_1</a>?
+                  If so, in what ways and why?</em></li>
+          </ol>
+          
+          <h2>Exercise 1 continued</h2>
+
+          <p>Go back to the jsfiddle from exercise 1 and do the final
+          touches:
+            <ul>
+              <li>float the NAV to the right
+                
+              <li>Have the intro text flow around the picture of the books
+                
+              <li>Put the week description text next to the author pictures.
+            </ul>
+
+          <h2>Exercise 3: Layout with columns</h2>
+
+          <ol>
+            <li>Starting with <a href="layout_examples/ex6_1.html" target="_blank">this page</a>, 
+              add styling to the appropriate elements 
+            in order to create the two-column layout shown in 
+              <a href="layout_examples/ex7.html" target="_blank">this page</a>.</li>
+            <li>Starting with <a href="layout_examples/ex8_1.html" target="_blank">this page</a>, 
+              add styling to the appropriate elements 
+            in order to create the three-column layout shown in 
+              <a href="layout_examples/ex8.html" target="_blank">this page</a>.</li>
+          </ol>
+          
+          <h2>Exercise 4: Float problems</h2>
+          <ol>
+            <li>Explain what is wrong with 
+              <a href="layout_examples/ex9.html" target="_blank">this page</a> and why? Hint: Use the 
+            Inspect Element window as an investigating tool (highlight the different elements to look
+            at their size).</li>
+            <li>What can you do to fix this problem, so that the page looks like 
+            <a href="layout_examples/ex10.html" target="_blank">this one.</a></li>
+            <li>Try to predict if setting the margin-top property for the footer element would
+            push that element down. Is your prediction correct?</li>
+            <li>Finally, what can you do so that you turn 
+              <a href="layout_examples/ex11.html" target="_blank">this page</a> into
+            <a href="layout_examples/ex12.html" target="_blank">this one</a>?</li>
+          </ol>
+          
+          <div class="alert alert-danger">
+            <h4>Advanced Challenge</h4>
+            <p>All previous activites were explained in the reading and the solutions are given.
+            If you completed them quickly, here is a challenge that you haven't encountered before.
+            By adding <strong>only one</strong> new container element to the 
+            <a href="layout_examples/ex12.html" target="_blank">last version of Hunger Games file</a>
+            and applying some styling to the different elements of the page, make it look like 
+            <a href="challenge.jpg" alt="screenshot of challenge">this image</a>. Don't worry about
+            matching the colors, go for the layout. We'll post the solution after class.</p>
+          </div>
+          
+          <h2>Exercise 5: Positioning</h2>
+          <ol>
+            <li>Can you explain what is the difference between the styles:
+            <code>position: absolute</code> and <code>position: fixed</code>?</li>
+            <li>Given <a href="layout_examples/ex14.html" target="_blank">this page version</a>, 
+            how can you change the CSS code to make it look like 
+              <a href="layout_examples/ex14_1.html" target="_blank">this page</a>? Scroll
+            the page to see what happens to the image.</li>
+            <li>By making one very small change in the CSS file, how can you turn
+              the <a href="layout_examples/ex14_1.html" target="_blank">last example</a> 
+              into looking like <a href="layout_examples/ex14_2.html" target="_blank">this example</a>.
+            Scroll the page down to see the difference.</li>
+          </ol>
+          
+<h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions" style="display: none">
+<p>Clicker questions:
+<pre>
+  1. B
+  2. D
+</pre>
+
+<p>Exercise 2:
+  <ol>
+    <li>The images and text continue to flow</li>
+    <li><code>img { float: right; }</code></li>
+    <li>the body has a fixed width, a background color, and is centered.</li>
+    <li><code> figure { float: right; border: 1px solid black; padding: 3px; }</code></li>
+    <li>There's not much difference. In ex4 the IMG is inside a FIGURE
+    that is floated to the right; the FIGURE gives a bit of padding. In
+    ex2, the image itself is floated to the right. In both cases,
+    something floats to the right.
+  </ol>
+
+<p>Exercise 3:  
+<ul>
+  <li>The aside floats to the left, and gets a border, padding and a
+  width. The section gets a 210px left margin.
+    
+  <li>We add a right margin and make the #rightAside float into it.
+</ul>
+
+<p>Exercise 4:
+  <ul>
+    <li>the footer has moved up too high.
+      
+    <li>Move the footer down using <code>clear:both</code>
+      
+      <li>Margin doesn't help a lot; it can overlap with floated elements,
+      so you have to adjust it a lot.
+        
+      <li>The image has floated outside its container. We can solve this
+      by inserting an element and using <code>clear</code> or by
+      using <code>overflow:hidden</code>
+        
+  </ul>
+
+<p>Exercise 5:
+<ol>
+  <li>Absolute is relative to the document, while fixed is relative to the
+  screen.</li>
+  <li>It uses position:absolute to place the picture. Notice how the
+  text overlaps; that's impossible with floats.</li>
+  <li>Switch to position:fixed</li>
+</ol>
+</div><!-- end of solutions -->
+
+
+        </div>
+            
+      </div>
+
+    <!--#include virtual="/~cs110/modularity/footer.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="../../js/activities.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script>
+        revealLater("2/9/2016 1:00 pm");
+    </script>
+
+  </body>
+</html>

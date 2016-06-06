@@ -1,0 +1,9 @@
+images_info.txt
+
+These images were downloaded from the following sources:
+
+<!-- Source for "district11", "kat_prim" and "snow": http://www.thehungergamesexplorer.com/-->
+<!-- Source for the "hungergames": http://kawmedia.files.wordpress.com/2011/10/hungergames_banner1.jpg -->
+<!-- Source of "mockingjay": http://cinemasalem.com/wordpress/wp-content/uploads/2013/09/mockingjay.jpg-->
+
+All images were resized so that the new file size is less than 100 KB.

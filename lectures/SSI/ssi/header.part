@@ -1,0 +1,15 @@
+<!-- ****************************** BEGIN HEADER ****************************** --> 
+<!-- the following is included from header.part -->
+<header>
+  <h1>The Order of Phoenix Website</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="A.html" title="Page for A">Page A</a></li>
+    <li><a href="B.html" title="Page for B">Page B</a></li>
+    <li><a href="C.html" title="Page for C">Page C</a></li>
+    <li><a href="http://cs.wellesley.edu" title="CS Dept Homepage">CS Dept</a></li>
+   </ul>
+ </nav>  
+<!-- ****************************** END HEADER ****************************** --> 

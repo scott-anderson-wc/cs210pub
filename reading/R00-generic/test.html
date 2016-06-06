@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS110: TITLE GOES HERE</title>
+ </head>
+  <body>
+    
+    <div class="container">
+      <h1>DOCUMENT TITLE <small>optional subtitle</small></h1>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+            
+         <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">
+          <nav id="insert_TOC_here" class="nav bs-sidenav affix hidden-print">
+          </nav>
+        </div><!--end of "col-md-3" div-->
+                                        
+        <div class="col-md-9">      
+
+          <p>At first, it's not set.
+
+          <!--#if expr='"${reltop}" = ""' -->
+          <p>GOOD. reltop is empty
+          <!--#else -->
+          <p>BAD. Not set, but messes up a string
+          <!--#endif -->
+          <p>After, reltop is:
+          <!--#echo var="reltop" -->
+
+          <!--#if expr='"${reltop}" = /xx/' -->
+          <p>BAD. Should not match
+          <!--#else -->
+          <p>GOOD. Didn't match. Defaulting to
+          <!--#endif -->
+          <p>After, reltop is:
+          <!--#echo var="reltop" -->
+
+          <p>Now we set it.
+
+          <!--#set var="reltop" value="../../" -->
+
+          <pre>
+          <!--#printenv -->
+          </pre>
+
+          <!--#if expr='"${reltop}" = /\.\./' -->
+          <p>GOOD. Is already set
+          <!--#else -->
+          <p>BAD. Didn't match. Defaulting to
+          <!--#set var="reltop" value="../../" -->
+          <!--#endif -->
+          <p>After if, set to:
+          <!--#echo var="reltop" -->
+
+          <!--#if expr='"${reltop}" = /xx/' -->
+          <p>BAD. Matched. 
+          <!--#else -->
+          <p>GOOD. Didn't match incorrect pattern
+          <!--#set var="reltop" value="../../" -->
+          <!--#endif -->
+          <p>Finally, it's set to: 
+          <!--#echo var="reltop" -->
+
+        </div><!--end of column -->
+            
+      </div><!--end of "row"-->
+ 
+    </div> <!--end of container -->
+      <!--#include virtual="../../modularity/footer-rel.part" -->
+        
+    <!--#include virtual="../../modularity/bs-footer-rel.part" -->
+  </body>
+
+</html>

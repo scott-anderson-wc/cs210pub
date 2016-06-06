@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<!-- Wendy Wellesley   CS110  10/12/10 -->
+<!-- Displays the current date and time on a web page -->
+
+<head>
+   <meta charset="utf-8">
+   <title>Current date and time</title>
+</head>
+
+<body>
+<div id="date_today2">
+  <p>Ha cargado esta página en <span id="date2"></span>
+    a las <span id="time2"></span></p>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+ <script>
+    var dateObj = new Date();
+
+    // format info about the day
+    var the_day = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_day + "/" + the_year;
+
+    // format info about the time
+    var the_hour = dateObj.getHours();
+    var the_minute = dateObj.getMinutes();
+    var the_second = dateObj.getSeconds();
+    var current_time = the_hour + ":" + the_minute + ":" + the_second;
+
+    $("#date1, #date2").text(current_date);
+    $("#time1, #time2").text(current_time);
+ </script>
+
+</body>
+</html>
+

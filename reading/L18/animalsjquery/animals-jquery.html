@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- Filename: animals.html
+Author: Eni Mustafaraj
+Purpose: Provide examples for DOM manipulation, object literal, for loops.
+Date: Oct 16, 2014
+Modification Date: Nov 9, 2014 - added jQuery library.
+-->
+<html lang="">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="animals.css">
+  
+</head>
+
+<body>
+  
+  <h1>Choose a Category </h1>
+  <p>Click on a thumbnail for big picture.</p>
+  <form>
+    <!-- the attribute "checked" ensures that this input is initially checked-->
+    <label><input type="radio" name="choice" value="all" checked> All</label>
+    <label><input type="radio" name="choice" value="bird"> Birds </label>
+    <label><input type="radio" name="choice" value="fish"> Fish </label>
+    <label><input type="radio" name="choice" value="mammal"> Mammals </label>
+  </form>
+  
+  <!--This is the div where all thumbnails will show up. -->
+  <div id="thumbnails">
+  </div>
+
+  <!-- In this figure the image and caption for the clicked thumbnail will appear.-->
+  <figure id="animal"> 
+    <img src="images/blank.png" alt="blank image">
+    <figcaption></figcaption>
+  </figure> 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="animals-jquery.js"></script>
+</body>
+</html>

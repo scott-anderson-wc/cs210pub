@@ -1,0 +1,13 @@
+div#accessibilitybar {
+    border: thin solid #CCCCCC;
+    position: static;
+}
+
+div#accessibilitybar ul { list-style-type: none }
+
+div#accessibilitybar li { display: inline; padding-left: 1em; color: blue; background-color: white; }
+
+div#accessibilitybar li:hover { background-color: blue; color: white; }
+
+
+

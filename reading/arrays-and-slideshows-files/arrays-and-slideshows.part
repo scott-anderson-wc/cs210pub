@@ -1,0 +1,615 @@
+<!-- All new, Fall 2015, by Scott D. Anderson -->
+
+<style scoped>
+  aside {
+      margin: 5px 5em;
+      font-size: smaller;
+      border: 1px solid silver;
+      padding: 3px 1em;
+  }
+
+  figcaption {
+      width: 90%
+      margin: 10px auto;
+      text-align: left;
+  }
+</style>
+
+<p>In this reading, we'll learn how to build slideshows, both manually
+  advanced and automatic (sometimes called a <em>carousel</em>).  We'll
+  also see how to put a random image on a page.
+
+<p>All of these cool JavaScript applications rely on several ideas:
+  <ul>
+    <li>We'll have a numbered list of images</li>
+      
+    <li>We need a way of getting one of the images using its <em>number</em>
+  </ul>
+
+<p>Both of these ideas are implemented in a fundamental data structure
+  called an <em>array</em>.
+
+<h2>Arrays</h2>
+
+<p>Arrays are found in <em>every</em> programming language; they're that
+  important. There are sometimes minor differences, but the basic idea is
+  the same:
+  <ul>
+    <li>A storage structure for <em>multiple</em> pieces of information
+    (data),
+      
+    <li>where each piece of information (datum) is in a <em>numbered
+    position</em>, and 
+      
+    <li>a particular piece of information can be retrieved by
+      its <em>number</em> (called its <em>index</em>).
+
+  </ul>
+
+<p>Imagine that we have a JavaScript program that needs to record some
+  information about Hermione, including her name, age and the courses she
+  is taking in her third year. (The list of courses is not complete.)
+  Here's how we might picture it:
+
+<figure>
+  <img src="arrays-and-slideshows-files/arrays-hermione-courses.png"
+       alt="visualization of hermione's array of courses">
+  <figcaption>Visualization of hermione's array of courses</figcaption>
+</figure>
+
+<p>Here's the JS code that would produce that arrangement of data:
+  <pre class="prettyprint lang-js linenums">
+var name = "Hermione Granger";
+var age = 13;
+var courses = [ "Astronomy",
+                "Arithmancy",
+                "Ancient Runes",
+                "Care of Magical Creatures",
+                "Muggle Studies",
+                "Potions",
+                "Divination" ];
+  </pre>
+
+<p>Try copy/pasting that code into the JS console and then looking at the
+  contents of each variable.
+
+<h2>Syntax</h2>
+
+<p>In the previous example, we used the syntax for an <em>array
+    literal</em>, where all the values are known in advance. That's what
+    we'll do most of the time in this course.  A few things to note about
+    the syntax:
+  <ul>
+    <li>The array is enclosed by square brackets:  <code>[]</code>.
+      
+    <li>Each item is separated from the others by commas.  An array of three
+    elements looks like this: <code>[ "Harry", "Ron", "Hermione" ] </code>
+      
+    <li>There's no comma after the last item. An array of one element
+    looks like this: <code>[ "Voldemort" ]</code>
+      
+    <li>It can appear on the right-hand side of an assignment statement
+    just like any other value. It's just longer, so we typically spread it
+    over multiple lines. But short ones can be done on one line:
+      <pre class="prettyprint lang-js">var friends_of_harry = ["Ron", "Hermione"];</pre>
+      
+    <li>Arrays can hold any kind of data, not just strings. Here's an array of
+    numbers stored in a variable.
+
+      <pre class="prettyprint lang-js">var scores = [17, 23, 25, 29, 37];</pre>
+
+  </ul>
+
+<h2>Compound Data and Indexing</h2>
+
+<p>So far in this course, we have learned about different <em>types</em>
+  of data:
+  <ul>
+    <li>Numbers
+    <li>Strings
+    <li>Booleans
+    <li>Dates
+  </ul>
+
+<p>With the exception of dates (and objects in general), each of these
+  seems like a single piece of information. With arrays, we have
+  a <em>collection</em> of information, so we call an array a <em>data
+  structure</em>. Indeed, it is a <em>compound data structure</em>. 
+
+<p>So, given the different items in the array of Hermione's courses, how
+  do we extract a particular item?  We do that using an <em>index</em>,
+  which is just the numerical position of the item in the array.
+
+<p><strong>Note:</strong> the numbering of the items starts
+  at <strong>zero</strong>.  So, item zero in the array above is
+  "Astronomy" and item 6 is "Divination".  This is an oddity of Computer
+  Science, but it's quite consistent. (The reason for it is that the
+  low-level implementation is that the index is the <em>distance from the
+  beginning</em> or the <em>number of items to skip to get to the desired
+  one</em>. So, naturally, the first one is index zero.)
+
+<p>Try the following:
+
+<pre class="prettyprint lang-js linenums executable">
+var courses = [ "Astronomy",
+                "Arithmancy",
+                "Ancient Runes",
+                "Care of Magical Creatures",
+                "Muggle Studies",
+                "Potions",
+                "Divination" ];
+
+alert( "course 0 is "+ courses[0] );
+alert( "course 6 is "+ courses[6] );
+alert( "course 2*3 is "+ courses[2*3] );
+var index = 6;
+alert( "course "+index+" is "+ courses[index] );
+</pre>
+
+<p>Note the syntax for getting an item out of the array. We give the name
+  of the variable containing the array, then square brackets enclosing the
+  numerical index of the one we want. In the previous example, we saw
+  three equivalent ways to get element 6 out of the array.
+
+<p>We can even replace an item in an array if we want to. If Hermione
+  drops Divination and replaces it with "History of Magic", we could do
+  this:
+
+<pre class="prettyprint lang-js linenums executable">
+var courses = [ "Astronomy",
+                "Arithmancy",
+                "Ancient Runes",
+                "Care of Magical Creatures",
+                "Muggle Studies",
+                "Potions",
+                "Divination" ];
+
+alert( "course 6 is "+ courses[6] );
+courses[6] = "History of Magic";
+alert( "course 6 is "+ courses[6] );
+</pre>
+
+<p>In our course, we will rarely modify an array. We'll mostly use arrays
+  as numbered lists of information. Nevertheless, it's good to understand.
+  You can think of an array as a bunch of variables, addressed by both
+  name and number.
+
+<h2>Length of an Array</h2>
+
+<p>Arrays also have a built-in property called <code>length</code> that
+  tells how many elements are in the array. So, for example, if we want to
+  know how many courses Hermione is taking, we can execute code like this:
+
+<pre class="prettyprint lang-js linenums executable">
+var courses = [ "Astronomy",
+                "Arithmancy",
+                "Ancient Runes",
+                "Care of Magical Creatures",
+                "Muggle Studies",
+                "Potions",
+                "Divination" ];
+
+alert( "The courses array has "+ courses.length + " elements." );
+</pre>
+
+<p>The indexes of an array will be from 0 up to one less than its
+  length. If the length is 7, the indexes will be from 0 to 6.
+
+<p>Note the syntax:  <pre class="prettyprint lang-js">courses.length</pre>
+
+<p>The variable has a dot and then the name of the property. This should
+  remind you of the syntax for a method on an object and that's no
+  coincidence, except that we omit the parentheses because it's just a
+  value, not a function.  
+
+<h2>Days of the Week</h2>
+
+<p>Let's see another example.  Earlier, we learned that the date object
+  would tell us the number of the day of the week, but not the name.
+  Partly, this is because the days could vary with language (English
+  versus French) or with the amount of abbreviation ("Wednesday" vs "Weds"
+  vs "Wed" vs "W").
+
+<p>Suppose we want to map the day number to the day name. We could use
+  arrays for this.  Not coincidentally, the fact that days are numbered
+  starting at zero will help us.  Consider the following function:
+
+<pre class="prettyprint lang-js linenums executable">
+function dayNamesEnglishAbbr(dayNum) {
+   var names = [ "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+   return names[dayNum];
+}
+
+alert( "day 0 is "+dayNamesEnglishAbbr(0) );
+alert( "day 1+2+3 is "+dayNamesEnglishAbbr(1+2+3) );
+</pre>  
+
+<p>This function works like any other, so its argument is still enclosed
+  in parentheses. The value of the <code>dayNum</code> parameter is then
+  used in the square brackets to retrieve the desired name for that day of
+  the week. 
+
+<p>If we wanted to be more careful (perhaps the programmers invoking our
+  function are sometimes sloppy), we can check that the value is okay. We
+  can use the <code>length</code> property here:
+
+<pre class="prettyprint lang-js linenums executable">
+function dayNamesEnglishAbbrCareful(dayNum) {
+   var names = [ "Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+   if( 0 <= dayNum && dayNum < names.length ) {
+      return names[dayNum];
+   } else {
+      return "invalid daynum";
+   }                               
+}
+
+alert( "day 13 is "+dayNamesEnglishAbbrCareful(13) );
+</pre>  
+  
+
+<h2 id="slideshow">Slide Show</h2>
+
+<p>We now have the foundation on which we can build our slide
+  shows. Here's the basic conceptual structure:
+  <ul>
+    <li>We'll have an array of URLs, one for each picture we want to
+    show. We'll call that <code>slides</code>.
+      
+    <li>We'll have a <em>global variable</em> that keeps track of which
+    image we are showing by storing the <em>index</em> of the current
+    picture (slide).  We'll call that <code>currentSlideIndex</code>.
+
+    <li>We'll have a place in the document where we display the current
+    slide. This will work just like
+    a <a href="galleries-and-drop-downs.html"><em>gallery</em></a>.
+
+  </ul>
+
+<p>Note: it's helpful if all the images are the same dimensions (width and
+  height) or at least the same aspect ratio, so that they will all
+  comfortably fit in the target IMG, without the page having to change its
+  layout.  Here, we resized all the images to be 1024 x 768 px, which
+  you'll see reflected in the filenames.
+
+<p>Here's the code we'll write:
+  <pre class="prettyprint lang-js linenums">
+var slides = [ "harry-potter-1024.jpeg",
+               "ron-weasley-1024.jpeg",
+               "hermione-granger-1024.jpeg" ];
+
+var currentSlideIndex = 0;
+</pre>
+
+<p>The HTML for our slide display is familiar. We put a button on top of
+  it to use for advancing the slideshow.
+  
+<pre id="slideshow-code" class="prettyprint lang-html"></pre>
+
+<h2>Displaying the Slide</h2>
+
+<p>Let's write a function that will display the slide.  Since we kept the
+URLs simple, instead of the full relative URL
+of <code>potterpics/harry-potter-1024.jpeg</code> tack on that folder name
+now.
+
+<pre class="prettyprint lang-js linenums">
+function displaySlide() {
+    var file = slides[ currentSlideIndex ];
+    var url = "potterpics/" + file;
+    $("#slideshow img").attr("src",url);
+}
+</pre>
+
+<p>We really should do something about the ALT and the FIGCAPTION, but
+  we'll leave that as an exercise for the reader. Hint: you could have an
+  array of values for each of those.
+
+<h2>Advancing the Slide</h2>
+
+<p>The easy part of advancing the slide is just to increment the
+  <code>currentSlideIndex</code> and then
+  invoking <code>displaySlide</code>, like this:
+
+<pre class="prettyprint lang-js linenums">
+// advance and display next slide
+currentSlideIndex++;
+displaySlide();
+</pre>
+
+<p>The tricky part of advancing the slide comes when we get to the last
+  slide.  In our example, we have just three slides, so the indexes will
+  be 0, 1 and 2, but <em>not</em> 3. What do we do then?  An easy thing to
+  do is to start over again at zero.  To make the function
+  more <em>general</em>, we can have it use the length of the array, so
+  that if we add another image or two, we don't have to modify this code
+  at all.  Here's the function:
+  
+<pre class="prettyprint lang-js linenums">
+// advance and display next slide
+currentSlideIndex++;
+if( currentSlideIndex >= slides.length ) {
+    currentSlideIndex = 0;
+}
+displaySlide();
+</pre>
+
+<p>This will have the effect of making the slideshow seem <q>circular</q>,
+  where it starts over again seamlessly.
+
+<p>The next step is to package this up into a function that can be
+  attached to the button under our figure to act as an event handler.
+  Here's the next step:
+
+<pre class="prettyprint lang-js linenums">
+function nextSlide() {
+    currentSlideIndex++;
+    if( currentSlideIndex >= slides.length ) {
+        currentSlideIndex = 0;
+    }
+    displaySlide();
+}
+</pre>  
+
+<p>We then can add a button to the page and attach this function to the
+  button, like this:
+  
+<pre class="prettyprint lang-js">
+$("#nextSlide").click(nextSlide);
+</pre>
+
+<p>Here's the final slideshow:
+  
+<div id="slideshow-html">
+<p><button type="button" id="nextSlide">next slide</button>
+<figure id="slideshow">
+   <img style="width: 100%" src="" alt="">
+   <figcaption></figcaption>
+</figure>
+</div>
+
+<script>
+document.getElementById("slideshow-code").innerText = document.getElementById("slideshow-html").innerHTML;
+</script>
+
+
+<script>
+var slides = [ "harry-potter-1024.jpeg",
+               "ron-weasley-1024.jpeg",
+               "hermione-granger-1024.jpeg" ];
+
+var currentSlideIndex = 0;
+
+function displaySlide() {
+    var file = slides[ currentSlideIndex ];
+    var url = "potterpics/" + file;
+    $("#slideshow img").attr("src",url);
+}
+
+function nextSlide() {
+    currentSlideIndex++;
+    if( currentSlideIndex >= slides.length ) {
+        currentSlideIndex = 0;
+    }
+    displaySlide();
+}
+
+displaySlide(); // display slide zero when page loads
+$("#nextSlide").click(nextSlide); // attach event handler
+</script>
+
+<p>Later, when we learn about animations, we'll learn a cool effect for
+  transitions between slides.
+
+<p>Implementing a <em>previous slide</em> button is left as an exercise
+  for the reader, possibly in lab.
+
+<h2 id="carousels">Carousels</h2>
+
+<p>A <em>carousel</em> or <em>automatic slide show</em> is just one that
+  advances without the user clicking a button. It's a nice effect, though
+  it can also be annoying if (1) the movement distracts from other
+  information on the page, or (2) the user would like to linger longer on
+  some slides than others. Nevertheless, a carousel is often a very nice
+  effect, so let's learn how to do it.
+
+<p>We already have a function that will advance the slide show, namely the
+  <code>nextSlide</code> function.  If there were a way to have the
+  browser automatically invoke that function every so often, we'd have an
+  automatic slide show.  It turns out that the browser provides exactly
+  the tool we need, namely <code>setInterval</code>.
+  The <code>setInterval</code> function takes two arguments:
+  <ul>
+    <li>A function. This function is being <em>given</em> to
+    the <code>setInterval</code> function, not being invoked, so we'll use
+    the name without the parens after it.
+      
+    <li>A time interval in milliseconds. Every time this many milliseconds
+    has elapsed, the function will be invoked again.
+  </ul>
+
+<p>Here's how we would arrange for our <code>nextSlide</code> function to
+  be invoked every 2.5 seconds:
+  <pre class="prettyprint lang-js">setInterval( nextSlide, 2500 );</pre>
+  
+<p>Let's see it in action:
+  
+<p>Here's the final carousel, with no button needed.
+  
+<figure id="carousel">
+  <img style="width: 100%" src="" alt="">
+  <figcaption></figcaption>
+</figure>
+
+<script>
+var currentCarouselIndex = 0;
+
+function displaySlideCarousel() {
+    var file = slides[ currentCarouselIndex ];
+    var url = "potterpics/" + file;
+    $("#carousel img").attr("src",url);
+}
+
+function advanceCarousel() {
+    currentCarouselIndex++;
+    if( currentCarouselIndex >= slides.length ) {
+        currentCarouselIndex = 0;
+    }
+    displaySlideCarousel();
+}
+
+displaySlideCarousel();  // so something is displayed right away.
+setInterval( advanceCarousel, 2500 );
+</script>
+
+<h2 id="random-images">Random Images</h2>
+
+<p>In the slideshow and carousel, the code marched steadily through the
+  array from 0 to the end, and then started over again. Something
+  different we can do is to choose a <em>random</em> element of the
+  array. Perhaps you want the opening page of your website to be a little
+  different from visit to visit, so your code will display a random
+  element each time.
+
+<p>To do that, we'll use the following function. This function
+  is <em>not</em> built-in to the JavaScript language or to jQuery, so
+  you'll have to copy its definition to your own .js file.  In a later
+  section, we'll learn how the function works, but for now, we'll just
+  trust it.
+
+  <pre class="prettyprint lang-js linenums executable">
+function randomElt(array) {
+    var len = array.length;
+    var randIndex = Math.floor(Math.random()*len);
+    return array[randIndex];
+}
+
+/* ================================================================
+example */
+
+var myArray = ["H", "He",
+               "Li", "Be", "B", "C", "N", "O", "F", "Ne",
+               "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar"];
+alert("Random Element is "+randomElt(myArray));
+</pre>
+
+<p>Try executing the code above a few times. You should get a different
+  element each time.
+
+<aside>Can you guess what the contents of <code>myArray</code> is? It's an
+  array of <em>elements</em>, like hydrogen, helium, etc. That's a pun;
+  sorry.
+</aside>
+
+<p>So, to display a random element each time the page loads, we just have
+  to employ this <code>randomElt</code> function in a script element, so
+  that it runs when the page loads.  Remember that the code has to
+  be <em>after</em> the <code>IMG</code> into which it will be loaded
+  exists.
+
+<pre class="prettyprint lang-js linenums">
+  var file = randomElt( slides );
+  var url = "potterpics/" + file;
+  $("#randomPicture img").attr("src",url);
+</pre>
+
+<p>Here it is in action. Try reloading the page a few times:
+
+<figure id="randomPicture">
+  <img style="width: 100%" src="" alt="">
+</figure>
+  
+<script>
+function randomElt(array) {
+    var len = array.length;
+    var randIndex = Math.floor(Math.random()*len);
+    return array[randIndex];
+}
+
+var file = randomElt( slides );
+var url = "potterpics/" + file;
+$("#randomPicture img").attr("src",url);
+</script>
+
+<h2>jQuery Wrapped Sets</h2>
+
+<p>As you know, jQuery returns the set of elements that matched the
+  selector expression. We can now reveal that the value returned by jQuery
+  when more than one element matches is an <em>array</em> of all the
+  matches.
+
+<p>Try typing a jQuery expression like the following into the JS
+  console. 
+
+<pre class="prettyprint lang-js">$("h2");</pre>
+
+<p>You'll see that the returned value has square brackets around it, just
+  like an array, because it is an array. (Actually, that's not strictly
+  true, but the returned value is so much like an array that it doesn't
+  matter.)
+
+<p>Therefore, to find out how many <code>h2</code> elements there are on this
+  page, we could just count the number of matches:
+  
+<pre class="prettyprint lang-js linenums executable">
+var h2_array = $("h2");
+var len = h2_array.length;
+alert("There are "+len+" h2 elements on this page.");
+</pre>
+
+<h2>How randomElt Works</h2>
+
+<p>The following is a little mathematical, but explains how
+  the <code>randomElt</code> function works.  Here's the code again:
+
+<pre class="prettyprint lang-js linenums">
+function randomElt(array) {
+    var len = array.length;
+    var randIndex = Math.floor(Math.random()*len);
+    return array[randIndex];
+}
+</pre>  
+
+<p>We can describe the operations in 4 steps:
+  <ol>
+    <li>Generate a random decimal between 0.00000 and 0.9999999. Call it x
+    (0 &le; x &lt; 1)
+    <li>Multiply x by the length of the array. If the length of the
+    array is 3, then 3x is between 0.0000 and 2.999999. Call the value y. (0 &le; y &lt; 3)
+      
+    <li>Take the <code>Math.floor</code> of y, which chops off the
+    decimal part and gives us one of {0, 1, 2}. Call that
+    value <code>i</code>.
+      
+    <li>Use <code>i</code> as the index into the array, returning whatever
+    element is there.
+
+  </ol>
+
+<p>The following figures illustrate the procedure:
+<figure>
+  <img style="width: 100%" src="arrays-and-slideshows-files/randomElt.png" alt="How randomElt works">
+  <figcaption>How randomElt works. The number line is oriented
+    vertically. In the leftmost figure, the light blue area shows that x
+    is in the range from 0 up to but not including 1. The five blue dots
+    are example values, corresponding to values like 0.04, 0.23, 0.48,
+    0.93, and 0.97. The second figure shows that multiplying by 3 spreads
+    the numbers over a wider range, from 0 up to but not including 3. The
+    third figure shows that <code>Math.floor</code> causes each value to
+    drop to the next lower integer, like weights dropping to the
+    floor. Finally, these integer values are used to index into the
+    array. Here, we only show the index value of 1 getting <q>Ron</q> out
+    of the array.</figcaption>
+</figure>
+
+
+
+<!--
+var elements = [
+    "Hydrogen", "Helium",
+    "Lithium", "Beryllium", "Boron", "Carbon", "Nitrogen", "Oxygen", "Fluorine", "Neon",
+    "Sodium", "Magnesium", "Aluminum", "Silicon", "Phosphorus", "Sulphur", "Chlorine", "Argon"];
+-->
+
+
+<p>
+  

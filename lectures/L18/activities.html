@@ -1,0 +1,476 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+
+    <div class="container">
+      <h1>The DOM and jQuery</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>understand the jQuery wrapper function, <code>$()</code></li>
+    <li>use the jQuery wrapper for selecting, creating or modifying elements</li>
+  </ol>
+  
+<p>Remember that jQuery is implemented using JavaScript, so there's
+    nothing that jQuery does that you can't do in raw JavaScript. 
+
+ <h2>Why jQuery over JavaScript?</h2>
+
+ <ol>
+   <li><p>It's more concise.
+     
+   <li><p>It handles browser inconsistencies and incompatibilities, so jQuery
+   code is more likely to run correctly in all browsers.
+     
+   <li><p>It does cool things like those animations that we have for
+       removing quiz answers (list items). You can try it on the items
+       below. We'll explain that code a bit later in the course. Here is a
+     <a href="../L20/jqueryEffects-ex.html" target="_blank">list of some other cool things</a>
+     that we'll also learn later.
+ </ol>
+<!--
+<p>Here's the code for those animations. It's shockingly short.
+  
+<pre class="prettyprint lang-js linenums">
+function hideAnswer() {
+    // hide a PRE or a P inside the LI (this). Don't hide the
+    // whole LI, or the numbering changes.
+    $("pre,p",this)
+         .css('border-color','red')
+         .css('background-color','#FF8080')
+         .fadeOut(1000);
+}
+
+$("li").click(hideAnswer);
+</pre>
+
+<p>Let's take a minute to make we understand that code, including the use
+  of <code>this</code>, the use of <em>chaining</em>, and even the
+  animation method, <code>.fadeOut()</code>.
+
+<p>The code could have been even <em>more</em> concise by using an
+  anonymous function instead of naming it <code>hideAnswer</code> and then
+  binding it.
+-->
+
+<h2>Recap</h2>
+
+<p>In the readings, the most important points we want you to understand
+  are:
+  <ul>
+    <li>The DOM is a bridge between the document and JavaScript. It presents a
+      set of JavaScript objects with methods that allow JS to create elements,
+      modify elements, and delete element.
+
+    <li>jQuery is a popular JavaScript library that makes code to modify
+    the document that is more concise, consistent and portable.
+      
+    <li>To use jQuery, you have to load the library. There are many ways;
+    we're going to load it from Google.
+
+<pre class="prettyprint lang-html">
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"&gt;&lt;/script&gt;
+</pre>
+<p>A common mistake is to forget to load that, or to load it after your
+    code that uses it.</p>
+
+    <li>Almost everything in jQuery works by selecting a set of elements
+    and then operating on them using methods. 
+      <pre class="prettyprint lang-js">$("set selector").meth1();</pre>
+
+    <li>When operating on sets of existing things, that <q>set
+    selector</q> is the same as the CSS language:
+      <pre class="prettyprint lang-js">$("nav a").css("text-decoration","none");</pre>
+
+    <li>jQuery can also create elements by putting HTML code in the
+    selector string:
+
+      <pre class="prettyprint lang-js">$("&lt;a&gt;").html("Search")</pre>
+
+    <li>jQuery methods can be <q>chained</q> so you can do several things
+    with the set of elements. For example, to add a link to the nav
+    element, we can do this:
+
+      <pre class="prettyprint lang-js">$("&lt;a&gt;").html("Search").attr("href","http://www.google.com/").appendTo("nav");</pre>
+
+    <li>Finally, we looked at hiding and showing elements, using
+      the <code>.hide()</code> and <code>.show()</code> methods.
+
+  </ul>
+
+  <h2>Quiz Question Nr. 1</h2>
+  <p>Assume you have an HTML page with a lot of text, for example the lecture notes.
+          What will the statement <code>$("p")</code> do?</p>   
+  <ol type="A">
+    <li><p>Return the first <code>p</code> element that it finds.</li>
+    <li><p>Return a set of all <code>p</code> elements in the document.</li>
+    <li><p>Create a new paragraph, unattached to the document.
+    <li><p>Create a new paragraph at the end of the body.
+  </ol> 
+          
+    <h2>Quiz Question Nr. 2</h2> 
+<p>Which of the following statements will add a new header element to the page?</p>
+          
+  <ol type="A">
+    <li><pre class="prettyprint lang-js"> $("h2").html("November").appendTo("body");</pre></li>
+
+    <li><pre class="prettyprint lang-js"> $("&lt;h2&gt;").html("November").appendTo("body");</pre></li>
+  </ol>
+          
+<p>What does the other one do?
+
+<h2>Quiz Question Nr. 3</h2> 
+
+<p>Using jQuery, how could we modify the SRC of an IMG whose ID is <code>pic</code> to be "percy.jpeg"
+  
+<ol type="A">
+  <li><pre class="prettyprint lang-js"> $("#pic").attr("src","percy.jpeg"); </pre></li>         
+  <li><pre class="prettyprint lang-js"> $("#pic").src("percy.jpeg"); </pre></li>  
+  <li><pre class="prettyprint lang-js"> $("#pic").html("&lt;img src='percy.jpeg'&gt;")</pre></li>         
+  <li><pre class="prettyprint lang-js"> $("#pic").setSrc("percy.jpeg")</pre></li>         
+</ol>          
+
+ <h2>Quiz Question Nr. 4</h2>         
+<p>Which of the following code excerpts will make an <code>h1</code>
+  element disappear?</p>
+<ol type="A">
+  <li><pre class="prettyprint lang-js">$("h1").attr("display","hidden"); </pre></li> 
+  <li><pre class="prettyprint lang-js">$("h1").display("none");</pre></li>  
+  <li><pre class="prettyprint lang-js">$("h1").remove();</pre></li>  
+  <li><pre class="prettyprint lang-js">$("h1").hide(); </pre></li>           
+</ol>          
+
+<p>What's another way to make it disappear?
+          
+<h2>Quiz Question Nr. 5</h2>
+
+<p>Suppose there are 5 H2 elements on a web page, and we execute the
+  following code:
+  <pre class="prettyprint lang-js">$("h2").css("color","red");</pre>
+  
+<ol type="A">
+  <li>The first one turns red.
+    
+  <li>The last one turns red.
+    
+  <li>All of them turn red.
+    
+  <li>An error is reported.
+</ol>
+
+
+<h2>Quiz Question Nr. 6</h2>
+
+<p>jQuery's method chaining does what?
+  
+<ol type="A">
+  <li>Applies the same method to several objects
+    
+  <li>Applies several methods to the same object(s)
+    
+  <li>Appends an object to a list
+    
+  <li>Adds an unattached object to the page
+</ol>
+
+
+<h2>Quiz Question Nr. 7</h2>
+
+<p>What happens when the jQuery selector expression doesn't match any objects?
+  
+<ol type="A">
+  <li>You get an error message in the console.
+    
+  <li>You get an alert indicating the error.
+    
+  <li>You get a warning in the console
+        
+  <li>None of the above. In fact, nothing happens.
+</ol>
+
+
+<h2>Exercise 1</h2>
+
+<ol>
+  <li>Open up <a target="_blank" href="hp-chars.html">hp-chars.html</a> in a
+    separate page. </li>
+    
+  <li>Take a minute to view the source and get a sense of what the page has.
+
+  <li>Open up the JavaScript console. You'll do this entire exercise using
+  the console.
+    
+  <li>This page has jQuery loaded. Test this by typing both of the
+  following variables in the console, to see what they contain:
+    <pre class="prettyprint lang-js linenumbers">
+      $
+      jQuery
+    </pre>
+    
+  <li>Select the H1 element(s) to see what the result is:
+    <pre class="prettyprint lang-js">$("h1");</pre>
+
+  <li>Select the LI element(s) to see what the result is:
+    <pre class="prettyprint lang-js">$("li");</pre>
+
+  <li>Store the H1 element(s) in a variable, and then type the name of the
+  variable and a dot, to see what kind of completions the Chrome Inspector
+  offers you. These are the jQuery methods on that object.
+    <pre class="prettyprint lang-js">
+      var h1 = $("h1");
+      h1.
+    </pre>
+
+  <li>Do the following operations on the h1 element:
+    <ul>
+      <li>Change the text to "J.K. Rowling's creations"
+        
+      <li>Change it to be 24px and in red.
+        
+    </ul>
+
+</ol>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js executable">
+$("h1").html("J.K. Rowling's creations");
+$("h1").css("font-size","24px");
+$("h1").css("color","red");
+  </pre>
+
+  <p>Alternatively, it might be:
+  <pre id="act2_src" class="prettyprint lang-js executable">
+$("h1").html("J.K. Rowling's creations").css("font-size","24px").css("color","red");
+  </pre>
+
+  <p>Or, more readably, this:
+  <pre id="act3_src" class="prettyprint lang-js executable">
+$("h1")
+    .html("J.K. Rowling's creations")
+    .css("font-size","24px")
+    .css("color","red");
+  </pre>
+
+<p>The latter two are equivalent, and preferable to the first because they
+    are more efficient (though a few milli-seconds hardly matters for code
+    like this).
+</div>
+  
+
+<h2>Multi-line Input in Chrome Inspector</h2>
+
+<p>The Chrome Inspector is great in many ways, but one weakness is that
+  it's hard to have multi-line input, even for something simple like this:</p>
+<pre class="prettyprint lang-js linenumbers">
+  function makeRed(sel) {
+      $(sel).css("color","red");
+  }
+</pre>
+
+<p>It's only three lines of code, but the Chrome Inspector will complain
+  about a syntax error when you hit "enter" after the open brace.</p>
+
+<p>There are two solutions:</p>
+  
+<ol>
+  <li>Put everything on one line, which is easy but ugly:
+    <pre class="prettyprint lang-js">function makeRed(sel) { $(sel).css("color","red");}</pre>
+
+  <li>Use Control+Enter instead of just Enter when you want a multi-line
+  input. (Use regular Enter when you're done.)
+
+</ol>
+
+<p>Try typing in the <code>makeRed</code> function, using either
+technique, and then using it to make the H2 elements red.
+
+<h2>Exercise 2</h2>
+
+<ol>
+  <li>Dynamically add the next Weasley, namely Percy, to the list
+  in <a target="_blank" href="hp-chars.html">hp-chars.html</a>.
+
+  <li>Define a <em>function</em> named <code>addWeasley</code> that takes
+    one argument, the name of a Weasley child, and adds them to the
+    appropriate list.
+    
+  <li>Use your function to add Fred, George, Ron and Ginny.
+</ol>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act4_src" class="prettyprint lang-js">
+$("&lt;li&gt;").html("Percy").appendTo("#list2");
+
+function addWeasley(name) {
+    $("&lt;li&gt;").html(name).appendTo("#list2");
+}
+
+addWeasley("Fred");
+addWeasley("George");
+addWeasley("Ron");
+addWeasley("Ginny");
+  </pre>
+</div>
+
+<h2>Exercise 3</h2>
+
+<p>Let's turn to the figure on the page.
+
+<ol>
+  <li>Write some jQuery code to show Hermione's picture (the relative URL
+  is <code>../potterpics/hermione-granger-thumb.jpeg</code>) instead of
+  Harry's picture. It'll do that by <em>changing value of the SRC attribute</em>.
+    
+  <li>Define a function name <code>changePic</code>that takes one of these names as an argument:
+    <ul>
+      <li>draco-malfoy</li>
+        
+      <li>harry-potter</li>
+        
+      <li>hermione-granger</li>
+
+      <li>ron-weasley</li>
+
+    </ul>
+
+    <p>The function then changes the SRC of the image appropriately. It
+      should also change the ALT and the FIGCAPTION text.</p>
+      
+  <li>Bonus points for a function that takes two arguments, first name and
+  last name, and does the same thing but the text looks nicer.
+
+    <li>Use your function to change the picture.
+
+</ol>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+
+  <pre id="act5_src" class="prettyprint lang-js">
+function changePic(name) {
+    $("#mainfig img")
+        .attr("src","../potterpics/"+name+"-thumb.jpeg")
+        .attr("alt",name);
+    $("#mainfig figcaption").html(name);
+}
+
+changePic("ron-weasley");
+</pre>
+
+<p>With bonus:
+  <pre class="prettyprint lang-js">
+$("#mainfig img")
+    .attr("src","../potterpics/hermione-granger-thumb.jpeg")
+    .attr("alt","Hermione Granger");
+$("#mainfig figcaption").html("Hermione Granger");
+
+function changePic(fname,lname) {
+    var with_hyphen = fname + "-" + lname;
+    var with_space  = fname + " " + lname;
+    $("#mainfig img")
+        .attr("src","../potterpics/"+with_hyphen+"-thumb.jpeg")
+        .attr("alt",with_space);
+    $("#mainfig figcaption").html(with_space);
+}
+
+changePic("ron","weasley");
+  </pre>
+</div>
+
+<h2>Exercise 4</h2>
+
+<ul>
+  <li>Use the <code>.hide()</code> method to make the figure disappear
+    
+  <li>Use the Chrome Inspector to check that the figure is still there,
+  just not displayed.
+
+  <li>Make it reappear using <code>.show()</code>
+
+  <li>For fun, try <code>.fadeOut()</code> and <code>.fadeIn()</code>.
+</ul>
+
+
+<h2>Summary</h2>
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>the jQuery wrapper function, <code>$()</code>
+    <li>using the .html() method to add content
+      
+    <li>using the .css() and .attr() methods to modify elements
+      
+    <li>using the hide() and show() methods
+  </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+  
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions">
+<p>Quiz Questions:
+<pre>
+    1. B
+    2. B
+    3. A
+    4. D  another way is $("h1").css("display","none");
+    5. C
+    6. B
+    7. D  I hate this feature of jQuery!
+</pre>    
+
+</div><!-- end of solutions -->
+
+        </div>
+      </div><!-- end of row -->
+
+    <!--#include virtual="/~cs110/modularity/footer-rel.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer-rel.part" -->
+    <script src="../../js/date-functions.js"></script>
+    <script>
+      revealLater("3/18/2016 1:00 PM"); 
+    </script>
+  </body>
+</html>

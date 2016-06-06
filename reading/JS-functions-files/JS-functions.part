@@ -1,0 +1,1006 @@
+<!-- 10/18/2015 Almost entirely new, by Scott -->
+<!-- TODO: picture of scope. Describe side-effects and return values. More examples. -->
+<!-- TODO: find some nice clipart to go with the metaphors. -->
+
+    
+ <style scoped>
+  span.fk { font-weight: bold; color: green; }    /* the function keyword */
+  span.fn { font-weight: bold; color: maroon; }   /* the function name */
+  span.pn { font-weight: bold; color: fuchsia; }  /* parens or parameters */
+  span.br { font-weight: bold; color: red; }      /* braces */
+  span.ar { font-weight: bold; color: red; }      /* arguments */
+  span.cm { font-style: italic; color: blue; }    /* comments */
+
+  /* an extra green box doesn't help, when the PRE inside already has a double black border */
+  div.scriptExample, div.verbatim {
+      /* border: 1px solid green; font-family: "Courier new", monospace; */
+      display: block;
+  }
+
+  .output {
+      border: 2px solid green;
+      width: 80%;
+      margin: 1em auto;
+      padding: 1em;
+  }
+ </style>
+
+<div class="alert alert-info">
+  <p>We recommend that you read pages 100-108 from Chapter 3 of the book
+    <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript and jQuery: The missing manual</a>.
+</div>
+        
+<h2 id="understanding-functions-conceptually">Understanding Functions Conceptually</h2>
+
+<p>In this reading, we'll learn a very powerful aspect of programming
+  languages, namely the ability to <em>define</em> and <em>use</em> our
+  own functions.  We have used many <q>built-in</q> functions, such
+  as <code>alert</code> and <code>parseInt</code>; now we will be able to
+  build our own.
+
+<p>Why is this so important?  Consider a function
+  like <code>parseInt</code>: it does something that is useful in many
+  situations and we can use it without understanding how it works
+  (its <em>implementation</em>). If we are involved in a large software
+  project, someone else on our team can <em>implement</em> a function that
+  we can <em>use</em>, and vice versa. We can use their code without
+  understanding all the details of its implementation, which saves us
+  mental effort.  This idea also allows the team to be more efficient than
+  if each person had to understand everything.
+
+<p>This is another manifestation of the idea of <em>modularity</em>. A
+  function is a kind of module.  It can be defined in one place and used
+  in many places, just as a single CSS rule can be defined in one place
+  and used in many places.  Furthermore, if we discover a bug in the
+  function, its definition can be fixed and every user of that code
+  gets the improvement. This is similar to modules in the real world,
+  where if you drop your headphones into the bathtub and short them out,
+  you can replace them without having to replace your music player, too.
+
+<p>So far, this may seem pretty intuitive; I certainly hope
+  so. Nevertheless, functions can be pretty complex at times. To explain
+  them, I will use three metaphors:
+  <ul>
+    <li>A function is like a <em>recipe</em>, say for chocolate cake, in
+      the sense that it is a procedure for accomplishing
+      something. This metaphor is particularly useful when we talk about
+      functions as step-by-step written directions. Indeed, part of the
+      magic of computer programming is that words <em>do stuff</em>.
+      
+    <li>A function is like a <em>machine</em>, say a blender or a meat
+    grinder. This metaphor is helpful when we talk about a function
+    having <em>inputs</em> (cubes of ice or meat) and <em>outputs</em>
+    (crushed ice or ground meat).
+
+    <li>A function is like a <em>workspace</em>, like a kitchen or study
+    carrel. This metaphor is most important when we want to talk about the
+    local storage of a function, which is part of how it works. Kitchens
+    have their own cupboards and mixing bowls, which are separate from
+    those found in other kitchens.
+      
+  </ul>
+
+<p>We can even combine all these metaphors and imagine a function as
+  kitchen with a chef inside.  The users of the kitchen don't need to know
+  anything about the workings of the kitchen. All they need to know is
+  that they give it certain inputs (eggs, flour, cocoa, or maybe just
+  money) and outputs are generated (a chocolate cake).
+
+<h2>Definition and Invocation</h2>  
+
+<p>Defining a function is like making up a recipe. We have to give it a
+  name and list the steps that need to be done. Once the recipe is
+  defined, anyone can use it.  
+
+<p>Let's look more precisely at the syntax of a function definition:
+
+<pre>
+&lt;script&gt;
+<span class="cm">// comment about your lovely function</span>
+<span class="fk">function</span> <span class="fn">functionName</span><span class="pn">()</span>
+<span class="br">{</span> 
+                            .
+                            .
+        JavaScript code to define the function goes here
+                            .
+                            .
+<span class="br">}</span> 
+</pre>
+  
+<p>To define your own function you need:
+
+<ul>
+  <li> the keyword <span class="fk">function</span>
+
+  <li> a name, which you make up, that replaces <span
+       class="fn">functionName</span> in the template
+
+  <li> parentheses, <span class="pn">()</span>, after the name.  Any
+       parameters must be included within the parentheses.
+
+  <li> curly braces <span class="br">{}</span> to demarcate the start
+       and end of your function
+
+  <li> your JavaScript code inside the body of the function &mdash; that is,
+       within the braces
+</ul>
+
+<p>It is also considered good practice to put a comment before the
+function describing what the parameters are for, what value gets computed
+if any, what actions are performed, etc.  Anything that isn't obvious from
+the code.  (Comments that just repeat the code in English are bad.)
+
+<p>Here's an example:
+<pre class="prettyprint lang-js">
+function chocolateCake() {
+    // step 1, combine sugar and flour in a large bowl
+    // step 2, add two large eggs
+    // ...
+    // frost and serve
+}
+</pre>
+
+<p>The chocolate cake example is a little silly, because we don't know any
+  JavaScript for the definition. Here's a better one that formats the date
+  on the page. You'll recognize this code from our recent discussion of
+  the Date object, though I've abbreviated the code a little.
+
+<pre class="prettyprint lang-js">
+function formatDate() {
+    // create a date object, representing this moment, and store it
+    var dateObj = new Date();
+
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector("#date2").innerHTML = current_date;
+}
+</pre>  
+
+<p>Now we come to an interesting situation, because we have defined a
+  function, but how do we <em>use</em> it. Here, I'll use the metaphor of
+  a machine:  we have a blender, but how do we turn it on?
+
+<p>Computer scientists have a special word for running a function (making
+  it do its job), and that is <em>invocation</em>. (Like invoking the
+  gods.)  We say that we <q>invoke</q> the <code>formatDate</code>
+  function to get it to run and insert the date onto the page.  In less
+  formal circumstances, we say that we <q>call</q> the function. (This is
+  like <q>call a friend for help</q>.)
+
+<p>You've been doing this all along, calling or invoking the built-in
+  functions. Here are some examples:
+
+  <pre class="prettyprint lang-js">
+var name = prompt("what's your name?");  // invoke prompt
+var now = new Date();                    // invoke Date
+formatDate();                            // invoke formatDate
+</pre>
+  
+<p>Invoking our <code>formatDate</code> function is no different from
+  invoking the built-in functions.  True, those built-in functions have 
+  <em>arguments</em>, which makes the invocation look a little different,
+  so we'll turn to that in a moment.
+
+<p>Your code can define lots of functions, maybe in several external .js
+  files so that the definitions can be shared by many files in your
+  website. None of those functions need ever be invoked, in which case
+  they will be useless, like those recipes and kitchen gadgets you never
+  use and which just collect dust. It's important to keep in mind the
+  difference between <em>definition</em> and <em>invocation</em> of a
+  function.
+
+<h2>Parameters and Arguments</h2>
+
+<p>The function above was fairly inflexible: it only formatted today's
+  date and it always inserted the date into the <code>#date2</code>
+  element on the page.  Imagine a kitchen gadget that could chop up ice
+  but nothing else. If you want to chop carrots, you have to buy a
+  different machine. To chop celery, yet another machine.  A more flexible
+  and general function would allow you to input the date to be formatted,
+  and the ID of the element you want to insert the date into.  For that,
+  we have to use a definition syntax that
+  specifies <em>parameters</em>. We will also have to change
+  the <em>invocation</em> of the function to supply these
+  associated <em>arguments</em>.
+
+<p>Here's our modified function.  Note that I've changed the name
+  to <code>formatDate2</code> only so that it's clear what version of the
+  function we are discussing.  I could have used the same name as the
+  first version, or I could have named it something different,
+  like <code>formatDate_version_2</code> or even <code>fred</code>.
+
+<pre class="prettyprint lang-js">
+function formatDate2(dateObj, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+</pre>  
+
+<p>Now, to get the same effect as we had before, namely to format the
+  current date into <code>#date2</code>, we would invoke the function like
+  this:
+
+  <pre class="prettyprint lang-js">formatDate2( new Date(), "#date2" );</pre>
+
+<p>So far, this seems less powerful than what we had before. In fact,
+  let's compare them side by side:
+
+<table>
+  <tr>
+    <th colspan="2">Definition</th>
+  </tr>
+  <td valign="top">
+<pre class="prettyprint lang-js">
+function formatDate() {
+    var dateObj = new Date();
+
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1;
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector("#date2").innerHTML = current_date;
+}
+</pre>  
+</td>
+  <td valign="top">
+<pre class="prettyprint lang-js">
+function formatDate2(dateObj, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1;
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+</pre>  
+</td>
+  </tr>
+<tr>
+  <th colspan="2">Original Invocation</th>
+</tr>
+<tr>
+  <td>
+    <pre class="prettyprint lang-js">formatDate();</pre>
+  </td>
+  <td>
+    <pre class="prettyprint lang-js">formatDate2(new Date(), "#date2");</pre>
+  </td>
+</tr>
+<tr>
+  <th colspan="2">Additional Invocation</th>
+</tr>
+<tr>
+  <td>
+    <pre class="prettyprint lang-js">???</pre>
+  </td>
+  <td>
+    <pre class="prettyprint lang-js">formatDate2(new Date("10/31/2015"), "#halloween");</pre>
+  </td>
+</tr>
+
+</table>
+
+<p>If you look at the original invocation, it looks like some of the code
+  has just migrated out of the function definition and become part of the
+  invocation, so it's now <em>harder</em> to use the function.  We've
+  transferred work from the implementation to the caller.
+
+<p>This is true. But this burden is useful, because it allows us to use
+  the function in other situations, such as formatting the date of
+  Halloween in another place on the page.  You can see that that's
+  impossible with the original version.
+
+<p>Notice, by the way, in that side-by-side comparison, that we are able
+  to make the function more flexible by replacing particular parts of the
+  definition with <em>variables</em> and then those variables are placed
+  between the parentheses in the first line of the function definition:
+
+<p><table class="bordercells">
+    <tr>
+      <th>variable</th>
+      <th>specific</th>
+    </tr>
+    <tr>
+      <td><code>dateObj</code></td>
+      <td><code>new Date()</code></td>
+    </tr>
+    <tr>
+      <td><code>targetSelector</code></td>
+      <td><code>#date2</code></td>
+    </tr>
+  </table>
+
+<p>This is a fairly common trick: making something more flexible by
+  replacing constants with variables, and supplying values for those
+  variables when the function is invoked.
+
+<p>The names in the parentheses in the function definition are
+  called <em>parameters</em>, and the values that are supplied when the
+  function is invoked are called <em>arguments</em>. (This terminology is
+  not standardize in computer science, but it's common and we will use
+  it.) The parameter is a kind of variable, in that it's a storage
+  location; it stores the corresponding argument.
+
+<p>In the examples above, we had:
+<p><table class="bordercells">
+      <tr><th>Parameter</th><th>Argument</th></tr>
+      <tr>
+        <th colspan="2">Original Invocation</th>
+      </tr>
+      <tr>
+        <td>
+          <code>dateObj</code>
+        </td>
+        <td>
+          <code>new Date()</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>targetSelector</code>
+        </td>
+        <td>
+          <code>"#date2"</code>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">Additional Invocation</th>
+      </tr>
+      <tr>
+        <td>
+          <code>dateObj</code>
+        </td>
+        <td>
+          <code>new Date("10/31/2015")</code>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <code>targetSelector</code>
+        </td>
+        <td>
+          <code>"#halloween"</code>
+        </td>
+      </tr>
+    </table>
+
+<p>If you like, you can think of the beginning of the function invocation
+  as a sequence of assignment statements, assigning the value of the each
+  argument, one at a time, to the corresponding parameter.
+
+<h2>Return Values</h2>
+    
+<p>If arguments are like inputs to a machine, can we also
+  have <em>outputs</em> from our machines?  Yes, a function in JavaScript
+  can have a <em>return value</em>.  One slight restriction is that a
+  JavaScript function can have any number of distinct inputs (arguments),
+  but it can only have one <em>return value</em>, just like you can put
+  any number of ingredients into your blender, but you only get one
+  output.
+
+<p>Let's define another function. This one will map day numbers (0 through
+  6) to the corresponding English name.  If we assume that the day number
+  is in a variable called <code>dayNum</code> and we want to compute the
+  result in a variable called <code>dayName</code>, we might write code
+  like this:
+
+<pre class="prettyprint lang-js">
+var dayName = "unknown";
+if( dayNum == 0 ) {
+    dayName = "Sunday";
+} else if ( dayNum == 1 ) {
+    dayName = "Monday";
+} else if ( dayNum == 2 ) {
+    dayName = "Tuesday";
+} else if ( dayNum == 3 ) {
+    dayName = "Wednesday";
+} else if ( dayNum == 4 ) {
+    dayName = "Thursday";
+} else if ( dayNum == 5 ) {
+    dayName = "Friday";
+} else if ( dayNum == 6 ) {
+    dayName = "Saturday";
+}
+</pre>  
+
+<p>That code just uses our skills in <q>cascading if</q> statements.  Now,
+  we need to package that code up into a function, a little machine that
+  will take in a number and give us back a string. By <q>take in</q>, we
+  mean the function takes an input in the form of an argument. Here's what
+  we might write:
+
+<pre class="prettyprint lang-js">
+function dayNameEnglish(dayNum) {
+    var dayName = "unknown";
+    if( dayNum == 0 ) {
+        dayName = "Sunday";
+    } else if ( dayNum == 1 ) {
+        dayName = "Monday";
+    } else if ( dayNum == 2 ) {
+        dayName = "Tuesday";
+    } else if ( dayNum == 3 ) {
+        dayName = "Wednesday";
+    } else if ( dayNum == 4 ) {
+        dayName = "Thursday";
+    } else if ( dayNum == 5 ) {
+        dayName = "Friday";
+    } else if ( dayNum == 6 ) {
+        dayName = "Saturday";
+    }
+   return dayName;
+}
+</pre>  
+
+<p>Here's an example of the function in action (that is, an invocation of
+  the function):
+
+<pre class="prettyprint lang-js">
+var name = dayNameEnglish(0);   // should be "Sunday"
+alert(name);
+</pre>  
+
+<p>Again, we refer to the 0 in the invocation as
+  the <em>argument</em>. Inside the machine, the
+  parameter <code>dayNum</code> will have the value 0.
+
+<p>At the end of the function is something new: <code>return
+    dayName</code>.  That code says that the value of the function is
+    whatever is in that variable.  
+
+<p>Armed with this new function, we can re-write our date formatting
+  function as follows, now named <code>formatDate3</code>
+
+<pre class="prettyprint lang-js">
+function formatDate3(dateObj, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var dayName = dayNameEnglish( dateObj.getDay() ); // e.g. "Friday"
+    var current_date = dayName + ", "+ the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+</pre>  
+
+<p>So that you can test this, we've created the following element:
+
+<div class="output">That date is formatted as <span id="test_date">YOUR DATE HERE</span></div>
+
+<form action="">
+<div>
+<textarea rows=3>
+var dateString = prompt("Enter a date","10/31/2015");
+formatDate3(new Date(dateString), "#test_date");
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note how the <code>formatDate3</code> function invokes
+  the <code>dayNameEnglish</code> function:
+
+<pre class="prettyprint lang-js">
+    var dayString = dayNameEnglish( dateObj.getDay() ); // e.g. "Friday"
+    var current_date = dayString + ", "+ the_month + "/" + the_date + "/" + the_year;
+</pre>  
+
+<p>This code is very abstract! The <code>dateObj</code> variable contains
+  an object that somebody wants formatted (whoever invoked
+  the <code>formatDate3</code> function). We use a
+  method, <code>.getDay()</code> to extract the number for the day of the
+  week.  That number is then sent as an argument to
+  the <code>dayNameEnglish()</code> function.  That function runs and
+  returns a string, which we store in <code>dayString</code> and use on
+  the next line.
+
+<p>When we are programming and defining functions, we often are in a
+  situation where we don't know the particulars. We are trying to create
+  a <em>general</em> solution. We don't know what date is being formatted
+  or where it's going to go on the page. We have to trust that the caller
+  knows what they are doing. In a way, this is like the chef in the
+  kitchen who gets an order for a chocolate cream pie. The chef doesn't
+  know whether the pie will be for dessert or used as a weapon, but that's
+  not their concern. Their job is just to make the pie.
+
+<h2>Sequence of Execution</h2>
+
+<p>You probably noticed in that last example that we had two functions
+  that we defined, one of which invoked the other. That often happens, and
+  you might think that the computer could get confused about what line of
+  code should be executed when. But, it's actually pretty intuitive.
+  <ol>
+    <li><code>formatDate3</code> starts at line 1
+      
+    <li>When it gets to the invocation of <code>dayNameEnglish</code>, the
+    computer puts this function on hold and
+      <ol>
+        <li><code>dayNameEnglish</code> starts at its line 1
+          
+        <li>when it gets to the <em>return</em> statement,
+        it <em>returns</em> to the caller (with a value)
+
+      </ol>
+      
+    <li><code>formatDate3</code> picks up where it left off
+  </ol>
+
+<p>This can be nested as deeply as you like (theoretically infinite,
+albeit not infinitely deep in practice) and the computer never gets
+confused, even when different functions are
+invoking <code>dayNameEnglish</code>. It always knows who and where to
+return to.
+
+<h2>Local Variables</h2>
+
+<p>Throughout our examples, we've never been reluctant to create new
+  variables inside our functions when we wanted them, such
+  as <code>the_date</code> and <code>the_month</code>.  This is perfectly
+  legal and desirable.  These are called <em>local</em> variables, because
+  they only exist inside the function. They are created when the function
+  is invoked, and they cease to exist when the function is finished.
+
+<p>If you had very sharp eyes, you might have noticed that our two
+  functions had a local variable that had the same name,
+  namely <code>dayName</code>.  That is also legal.  
+
+<p>To explain what's going on, I appeal to our third metaphor of
+  functions, as separate work spaces, like an enclosed kitchen.  Kitchens
+  have lots of storage containers that are not inputs or outputs ---
+  things like mixing bowls and measuring cups.  Different kitchens
+  have <em>different</em> storage containers, even if they are called the
+  same thing.  Here's an abstract example:
+
+<pre class="prettyprint lang-js">
+function fred() {
+    var snackbox = "puking pastille";
+    alert(snackbox);
+    ...
+}
+
+function george() {
+    var snackbox = "nosebleed nougat";
+    alert(snackbox);
+    ...
+}
+</pre>  
+
+<p>Here we have two functions named after Weasley twins in Harry
+  Potter. Each function has a local variable called <code>snackbox</code>,
+  but these are completely different storage locations.  Think of them as
+  being in different kitchens, each presided over by a different Weasley
+  twin.  The local variables come into existence when the function is
+  invoked and disappear when it finishes. (Easy cleanup!)
+
+<p>Local variables are distinguished from <em>global variables</em> which
+  are shared by everything.  The following example may help. Read the
+  code, then run it, and see if you can make sense of the behavior.
+
+<form action="">
+<div>
+<textarea rows=20>
+var snackbox = "fever fudge";   // global variable
+
+function fred() {
+    var snackbox = "puking pastille";
+    alert(snackbox);
+}
+
+function george() {
+    var snackbox = "nosebleed nougat";
+    alert(snackbox);
+}
+
+alert(snackbox);
+fred();
+george();
+alert(snackbox);
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+  
+<p>You saw the following sequence of output:
+  <ol>
+    <li>fever fudge, from the alert of the global
+    <li>puking pastille, from fred
+    <li>nosebleed nougat, from george
+    <li>fever fudge, from the second alert of the global
+  </ol>
+
+<p>The amazing thing is that all three of these variables are separate
+  storage locations, so none of the assignments affects any of the
+  others. There's a "snackbox" in Fred's private area; another, different,
+  one in George's private area, and a third one in the common room that
+  everyone shares.
+
+<p>Usually, that's exactly what you want. Occasionally, a function wants
+  to modify the global variable rather than a local variable. To do so,
+  just omit the <code>var</code> before the variable name:
+
+<form action="">
+<div>
+<textarea rows=20>
+var snackbox = "fever fudge";   // global variable
+
+function fred() {
+    snackbox = "puking pastille";
+    alert(snackbox);
+}
+
+function george() {
+    snackbox = "nosebleed nougat";
+    alert(snackbox);
+}
+
+alert(snackbox);
+fred();
+george();
+alert(snackbox);
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+  
+<p>This time, you saw the following sequence of output:
+  <ol>
+    <li>fever fudge, from the alert of the global
+    <li>puking pastille, from fred
+    <li>nosebleed nougat, from george
+    <li>nosebleed nougat because fred and george modified the global, but
+    george was second.
+  </ol>
+
+<p>The best practice is always to use local variables, creating them
+  with <code>var</code>, and only to use global variables when necessary.
+
+<p>A bit of terminology: the places that a variable is visible or usable
+is called its <em>scope</em>.  We might say that some variables have scope
+that is <em>local</em> while others are <em>global</em>.
+
+<h2>Functions as Values</h2>
+
+<p>At this point, you know most of what you need to know about functions
+  for this semester, but one mind-blowing concept remains. Programming
+  languages describe certain values as being <q>first class</q> objects
+  when you can do normal things with them like store them in variables and
+  pass them as arguments to a function.  In JavaScript, as you know,
+  numbers are first-class objects, and so are strings and even booleans.
+  Date objects are first-class.
+
+<p>The mind-blowing thing is that <em>functions</em> are first-class
+  objects!  That means we can store them in variables and pass them as
+  arguments to a function.  For example, we can do the following:
+  
+<pre class="prettyprint lang-js">
+var dayNamer = dayNameEnglish;
+</pre>
+
+<p>If the function is stored in a variable, can we still invoke it? Yes!
+  It turns out that the parentheses in a function invocation are sort-of
+  like the <q>on</q> button of a machine. Here's how we could invoke that
+  function above:
+
+<pre class="prettyprint lang-js">
+dayNamer( 0 ); // Sunday
+</pre>  
+
+<p>So what?  Imagine we define another day naming function:
+
+<pre class="prettyprint lang-js">
+function dayNameFrench(dayNum) {
+    var dayName = "unknown";
+    if( dayNum == 0 ) {
+        dayName = "Dimanche";
+    } else if ( dayNum == 1 ) {
+        dayName = "Lundi";
+    } else if ( dayNum == 2 ) {
+        dayName = "Mardi";
+    } else if ( dayNum == 3 ) {
+        dayName = "Mecredie";
+    } else if ( dayNum == 4 ) {
+        dayName = "Jeudi";
+    } else if ( dayNum == 5 ) {
+        dayName = "Vendredi";
+    } else if ( dayNum == 6 ) {
+        dayName = "Samedi";
+    }
+   return dayName;
+}
+</pre>  
+
+<p>Our date-formatting function seems to be always using the English days
+  of the week. Could it be made even more flexible, where we supply a
+  function that returns the correct day name?  Yes, we can. Here's the
+  latest version, now named <code>formatDate4</code>:
+
+<pre class="prettyprint lang-js linenums executable">
+function formatDate4(dateObj, dayNamer, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var dayName = dayNamer( dateObj.getDay() ); // e.g. "Friday" or "Vendredi"
+    var current_date = dayName + ", "+ the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+
+</pre>
+
+<p>So, the <code>dayNameEnglish</code> function on line 6 has now become
+  a <em>variable</em>, a <em>parameter</em> whose value will be supplied
+  when the function is invoked.
+
+<p>So that you can test this, we've created the following element:
+
+<div class="output">That date is formatted as <span id="test_date2">YOUR DATE HERE</span></div>
+
+<form action="">
+<div>
+<textarea rows=3>
+var dateString = prompt("Enter a date","10/31/2015");
+formatDate4(new Date(dateString), dayNameFrench, "#test_date2");
+</textarea><br>
+<input type=button value="Execute it" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Here's the key thing to notice and remember. When we
+  have <code>dayNameFrench</code> in the invocation, we <em>don't</em> use
+  parentheses. That's because we are not invoking it right now, but we are
+  passing it (the <code>dayNameFrench</code> function) into
+  the <code>formatDate4</code> function.  This is like handing someone a
+  blender or other kitchen gadget instead of the output of the gadget.
+
+<p>This may seem like an esoteric usage, and it is. We won't be asking you
+  to define functions as sophisticated
+  as <code>formatDate4</code>. However, we will expect you to understand
+  the difference between invoking a function, where the parentheses are
+  used, and passing it as an argument to another function, where the
+  parentheses are omitted.
+
+
+<h2 id="Functions_as_an_API">Functions as an API</h2>
+
+<p>Earlier, we noticed that the improved version of date formatting,
+  namely <code>formatDate2</code>, resulted in more work for the caller:
+
+<table>
+<tr>
+  <th colspan="2">Original Invocation</th>
+</tr>
+<tr>
+  <td>
+    <pre class="prettyprint lang-js">formatDate();</pre>
+  </td>
+  <td>
+    <pre class="prettyprint lang-js">formatDate2(new Date(), "#date2");</pre>
+  </td>
+</tr>
+<tr>
+  <th colspan="2">Additional Invocation</th>
+</tr>
+<tr>
+  <td>
+    <pre class="prettyprint lang-js">???</pre>
+  </td>
+  <td>
+    <pre class="prettyprint lang-js">formatDate2(new Date("10/31/2015"), "#halloween");</pre>
+  </td>
+</tr>
+</table>
+  
+<p>In both of these, the first argument is an expression that involves
+  the <code>Date</code> function and so on. As programmers, we can make
+  the caller's job easier with just a bit of work.  Here's what we would
+  like to say instead:
+
+<table>
+<tr>
+  <th colspan="2">Original Invocation</th>
+</tr>
+<tr>
+  <td>
+    <pre class="prettyprint lang-js">formatDate();</pre>
+  </td>
+  <td>
+    <pre class="prettyprint lang-js">formatDate2b("today", "#date2");</pre>
+  </td>
+</tr>
+<tr>
+  <th colspan="2">Additional Invocation</th>
+</tr>
+<tr>
+  <td>
+    <pre class="prettyprint lang-js">???</pre>
+  </td>
+  <td>
+    <pre class="prettyprint lang-js">formatDate2b("10/31/2015", "#halloween");</pre>
+  </td>
+</tr>
+</table>
+
+<p>That's much clearer and easier, and just involves a little bit of work
+  for the implementation. Here's one way, with the conversion of
+  the <code>dateSpec</code> parameter (date specification) into the
+  desired kind of Date object. This happens in the lines 2--6 of the
+  function, and everything else is the same.
+
+<pre class="prettyprint lang-js linenums">
+function formatDate2b(dateSpec, targetSelector) {
+    if( dateSpec == "today" ) {
+        var dateObj = new Date();
+    } else {
+        var dateObj = new Date(dateSpec);
+    }
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1;
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+</pre>  
+
+<p>The point here is that these interfaces between functions and other
+  bits of software are designed by humans, and they can be easier and more
+  convenient if we want them to be.  This is part of creating an
+  Application Programmer Interface (API).  An API is a term for a set of
+  software interfaces, such as functions and their arguments, that allow
+  an application programmer to get something done.
+
+<h2>Summary</h2>
+
+<p>We covered a lot of difficult ground in this reading.  The main points
+  are:
+  <ul>
+    
+    <li>Functions are <em>defined</em> and later can be <em>invoked</em>,
+    which means the code in the definition actually executes. The code
+    does not run until the function is invoked.
+
+    <li>Functions are text (like recipes) that have names. They are also
+    like machines in that they have inputs and, optionally, outputs, and
+    there is a distinction between defining one and running (invoking) it.
+
+      <li>Functions can define local variables as part of their
+      definition, and these belong only to the function. They are created
+      when the function executes, and they disappear when it completes.
+        
+      <li>Functions are also a kind of value, and they can be stored in
+      variables and passed as arguments to other functions.
+
+  </ul>
+
+
+<script>
+function formatDate() {
+    // create a date object, representing this moment, and store it
+    var dateObj = new Date();
+
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector("#date2").innerHTML = current_date;
+}
+
+function formatDate2(dateObj, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+
+function dayNameEnglish(dayNum) {
+    var dayName = "unknown";
+    if( dayNum == 0 ) {
+        dayName = "Sunday";
+    } else if ( dayNum == 1 ) {
+        dayName = "Monday";
+    } else if ( dayNum == 2 ) {
+        dayName = "Tuesday";
+    } else if ( dayNum == 3 ) {
+        dayName = "Wednesday";
+    } else if ( dayNum == 4 ) {
+        dayName = "Thursday";
+    } else if ( dayNum == 5 ) {
+        dayName = "Friday";
+    } else if ( dayNum == 6 ) {
+        dayName = "Saturday";
+    }
+   return dayName;
+}
+
+function formatDate3(dateObj, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var dayName = dayNameEnglish( dateObj.getDay() );
+    var current_date = dayName + ", "+ the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+
+function dayNameFrench(dayNum) {
+    var dayName = "unknown";
+    if( dayNum == 0 ) {
+        dayName = "Dimanche";
+    } else if ( dayNum == 1 ) {
+        dayName = "Lundi";
+    } else if ( dayNum == 2 ) {
+        dayName = "Mardi";
+    } else if ( dayNum == 3 ) {
+        dayName = "Mecredie";
+    } else if ( dayNum == 4 ) {
+        dayName = "Jeudi";
+    } else if ( dayNum == 5 ) {
+        dayName = "Vendredi";
+    } else if ( dayNum == 6 ) {
+        dayName = "Samedi";
+    }
+   return dayName;
+}
+
+function formatDate4(dateObj, dayNamer, targetSelector) {
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1; // Add 1 because Jan is 0, etc.
+    var the_year = dateObj.getFullYear();
+    var dayName = dayNamer( dateObj.getDay() ); // e.g. "Friday" or "Vendredi"
+    var current_date = dayName + ", "+ the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+
+function formatDate2b(dateSpec, targetSelector) {
+    if( dateSpec == "today" ) {
+        var dateObj = new Date();
+    } else {
+        var dateObj = new Date(dateSpec);
+    }
+    // format info about the day
+    var the_date = dateObj.getDate();
+    var the_month = dateObj.getMonth() + 1;
+    var the_year = dateObj.getFullYear();
+    var current_date = the_month + "/" + the_date + "/" + the_year;
+
+    // insert the formatted string into the document.
+    document.querySelector(targetSelector).innerHTML = current_date;
+}
+</script>

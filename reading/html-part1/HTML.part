@@ -1,0 +1,886 @@
+<div class="alert alert-info">
+<p>(Reading: We strongly suggest you read chapters 1, 3, and 6
+of <i><a href="http://shop.oreilly.com/product/9780596159924.do">Head
+First HTML and CSS</a></i> with these notes.)
+</div>
+        
+<h2 id="tags">HTML Elements and Tags</h2>
+
+<p>An HTML document is composed out of <strong>elements</strong> that
+begin and end with <strong>tags</strong>. For example, the <code>H2</code>
+<em>tag</em> was used to create the <em>header</em> element you see above:
+
+<blockquote>
+<table border=1>
+ <tr>
+   <th><code>&lt;h2&gt;</code></th>
+   <th><code>HTML Elements and Tags</code></th>
+   <th><code>&lt;/h2&gt;</code></th>
+ </tr>
+ <tr>
+   <td style="text-align: center; background-color:yellow;"><em>start tag</em></td>
+   <td style="text-align: center; background-color:red;"><em>contents</em></td>
+   <td style="text-align: center; background-color:cyan;"><em>end tag</em></td>
+ </tr>
+</table>
+</blockquote>
+
+<div class="new">
+<p>Here's an example of a simple page; it's an excerpt of the 
+
+  <pre class="prettyprint lang-html">
+&lt;!doctype html&gt;
+&lt;!-- created by Ellen --&gt;
+&lt;html&gt;
+
+    &lt;!-- A simple web page illustrating some basic HTML tags --&gt;
+
+    &lt;head&gt;
+        &lt;title&gt;Fun CS events&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Join us for some fun CS department events!&lt;/h1&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Spring Cirque du CS 
+            &lt;li&gt;Holiday cookie party
+            &lt;li&gt;Faculty-student frisbee game
+        &lt;/ul&gt;
+
+        &lt;h2&gt;Spring Cirque du CS&lt;/h2&gt;
+        &lt;p&gt;A celebration of student accomplishments in Computer Science! 
+           &lt;strong&gt;Demonstrate your CS110 project!&lt;/strong&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;img src="cirque1.jpg" alt="circus treats" height="200"&gt;
+        &lt;/p&gt;
+  
+        &lt;h2&gt;Outdoor Fun&lt;/h2&gt;
+
+        &lt;p&gt;All levels of skill and experience are welcome!&lt;/p&gt;
+        &lt;blockquote&gt;
+              &lt;p&gt;The faculty have always beaten us in the past, but never again! We have 
+              some Wellesley Whiptails &lt;br&gt; on our team and we've been practicing hard, 
+              so we're gonna kick the faculty's butt this year! &lt;br&gt;
+              &lt;em&gt;-- anonymous CS student&lt;/em&gt;
+              &lt;/p&gt;
+         &lt;/blockquote&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+
+
+<p>The following are some HTML tags that you can see above. If you
+forget what a tag does or are looking for a new tag, you can look up tags
+in an <a href="http://www.w3schools.com/tags/">HTML Reference</a>. (Note
+  that we will <em>not</em> be learning all the tags in that reference;
+  we'll learn a useful subset.) Some of the tags we've seen are:
+  are:
+
+<ul>
+   <li>Structural tags like
+   
+   <ul class="compact">
+      <li><code>&lt;html&gt;</code>
+      
+      <li><code>&lt;head&gt;</code>
+      
+      <li><code>&lt;title&gt;</code>
+      
+      <li><code>&lt;body&gt;</code>
+   </ul>
+   
+   <li>Header tags are <code>&lt;h1&gt;</code>&ndash;<code>&lt;h6&gt;</code>
+   
+   <li>Text tags like
+   
+   <ul class="compact">
+      <li><code>&lt;p&gt;</code>
+      
+      <li><code>&lt;br&gt;</code>
+      
+      <li><code>&lt;strong&gt;</code>
+
+      <li><code>&lt;em&gt;</code>
+
+      <li><code>&lt;code&gt;</code>
+
+      <li><code>&lt;q&gt;</code>
+   </ul>
+   
+   <li>List tags:
+   
+   <ul class="compact">
+      <li><code>&lt;ul&gt;</code>
+      
+      <li><code>&lt;ol&gt;</code>
+      
+      <li><code>&lt;li&gt;</code>
+   </ul>
+
+</ul>
+
+<p>There are several other tags that you have seen, but still need to learn more
+about.  
+<ul>
+   <li>The all-important anchor (hyperlink) tag: <code>&lt;a&gt;</code>
+
+   <li>The image tag: <code>&lt;img&gt;</code>
+
+   <li>Odd tags like <code>&lt;link&gt;</code> and <code>&lt;meta&gt;</code>
+</ul>
+
+<p>We'll learn more about these in this reading.
+
+<p>Most elements have an end tag that matches the start tag. 
+In a few special cases, particularly <code>&lt;/p&gt;</code>
+and <code>&lt;/li&gt;</code>, the end tag is optional and
+may be omitted because the browser can determine it from context. 
+
+<p>Some elements (such as <code>&lt;br&gt;</code>, 
+<code>&lt;hr&gt;</code>, 
+and <code>&lt;img&gt;</code>) consist only of a start tag
+and do not have corresponding end tags or contents. 
+These are called <strong>empty elements</strong>.
+
+<p>Tags serve as instructions telling the browser how to 
+display the contents of elements. The browser is an 
+<strong>interpreter</strong> for HTML code; it reads
+the HTML code and renders its elements based on rules
+for each kind of tag. 
+
+<h2 id="nesting">Nesting</h2>
+
+<p>Multiple tags can be <em>nested</em>:  one
+fits inside the other like measuring cups or Russian dolls.  If we
+have two tags, <code>fred</code> and <code>barney</code>, they 
+can be nested like this:
+
+<pre>
+&lt;fred&gt;
+   <em>Region A</em>
+      &lt;barney&gt;
+         <em>Region B</em>
+      &lt;/barney&gt;
+   <em>Region C</em>
+&lt;/fred&gt;
+</pre>
+
+<p>The <code>fred</code> tag applies to all three regions, <em>Region A</em>,
+<em>Region B</em> and <em>Region C</em>, while <code>barney</code> applies only to
+<em>Region B</em> that it surrounds.  The <em>Region A</em> and <em>Region C</em>
+only have the <code>fred</code> tag apply to them.
+
+<p>When nesting two tags, the inner tag must be closed before the outer tag
+is closed. Your browser may not enforce this; it may be forgiving of errors,
+but you can't be sure that every browser will be so forgiving, so
+always follow this syntactic rule.
+
+<h2 id="tag_syntax">Tag Syntax</h2>
+
+<p>We learned that tags always begin with a left angle
+bracket <code>&lt;</code> and close with a right angle bracket
+<code>&gt;</code>. (Remember that the browser doesn't care whether the
+tag's name is upper or lower case.) You can provide additional information 
+within the tag to further specify what it does, using <em>attributes</em>.
+
+<h2 id="hyperlinks">Hyperlinks (The <code>&lt;a&gt;</code> Tag)</h2>
+
+<p>A good example of the use of attributes is seen with the anchor
+tag, <code>&lt;a&gt;</code>.  To use it as a hyperlink, you have to
+specify where the link takes us. For example, to have a link that
+says <q>Google</q> and takes us to <code>www.google.com</code>, we say:
+
+<pre>&lt;a href="http://www.google.com"&gt;Google&lt;/a&gt;</pre>
+
+<p>The <code>href</code> part is the <em>attribute</em>.  For this tag,
+since the attribute is almost always required, we can almost think of it
+as an <code>a href</code> tag, but that way of thinking will confuse us
+later, so it's best to think of it as two separate ideas.  Later, we'll
+see other attributes for the <code>&lt;a&gt;</code> tag.
+
+<h3>Exercise 1</h3>
+
+<div class="new">
+<p>(Note: we will intersperse exercises like this in the reading. They are
+  solely for your benefit. They are typically short and may help with
+  understanding the concepts and techniques. They are not graded. We
+  highly recommend that you make time for them.)
+</div>
+
+<p>To start this exercise, click on this link to <a target="_blank"
+  href="http://jsfiddle.net/">JSFiddle</a>.  JSFiddle is an extremely
+  popular <q>sandbox</q> that allows you to play with HTML, CSS and JS
+  right in your browser, without having to launch an editor (such as
+  TextWrangler), save files to your server, or any other such
+  infrastructure. We'll use it a lot in this course.
+
+<p>Copy/paste the following code into the HTML box of the JSFiddle. Then
+  click the "Run" menu item to see the result.
+
+<pre>
+  &lt;p&gt;This is the text on my little page.
+
+  &lt;p&gt;This is some additional, very boring, text on my page.
+
+</pre>
+
+<p>Then <strong>add an</strong> <code>h1</code> 
+<strong> header and an </strong><code>h2</code> <strong>header</strong> 
+to the page. 
+<!-- , using one of the <code>H1</code>&ndash;<code>H6</code> header tags.-->
+
+<p>Now <strong>put in a link</strong> to your favorite website. Here are some
+of ours. (To see the URL where they go 
+    hover over a link and look at the left-bottom bar of your browser.)
+
+<ul>
+   <li><A HREF="http://www.bostonmagazine.com/">Boston Magazine</A>
+   
+   <li><a HREF="http://www.imdb.com/">The Internet Movie Database</a>
+   
+   <li><a HREF="http://www.reelviews.net/">ReelViews: Movie
+   Reviews and Criticism by James Berardinelli </a>
+
+   <li><A HREF="http://www.snopes.com/">Snopes.com Urban Legends Reference Pages</a>
+</ul>
+
+<div class="new">
+<h2 id="title">The <code>title</code> tag</h2>
+
+<p>The contents of the <code>title</code> tag doesn't appear on the body
+  of the web page (though it often appears at the top of the window in the
+  title bar). It is, however, very important for two reasons:
+  <ul>
+    <li>It tells search engines what stuff is on the page.
+      
+    <li>It appears in menus when someone bookmarks a page or looks in
+    their history. 
+  </ul>
+
+<p>For both those reasons, a page title like <q>about us</q>
+  or <q>contact</q> is often not helpful. It's a good idea to put
+  something more descriptive in the title, such as <q>About CS 110</q>
+  or <q>CS 110 staff contact information</q>.
+</div>
+
+<h2 id="here_links">The <q>Here</q> Link</h2>
+
+<p>Once, it was very popular on the web to have links like this:
+  <ul>
+    <li>Click <a href="http://google.com/search?as_q=apple+pie+recipes">here</a> for
+    apple pie recipes
+    <li>Click <a href="http://google.com/search?as_q=peach+pie+recipes">here</a> for
+    peach pie recipes
+    <li>Click <a href="http://google.com/search?as_q=prune+pie+recipes">here</a> for
+    prune pie recipes
+  </ul>
+
+<p>It seemed so clever and intuitive, making the clickable text be the
+  word "here."  There are two big problems with this, though:
+  <ul>
+
+    <li><strong>Accessibility</strong>: Screen-reading software for the
+    blind often will read the text of the links on a page so that the user
+    can easily navigate to other pages.  Links like those above read as
+    "here," "here," "here" &mdash; useless.
+      
+    <li><strong>Indexing</strong>: Search engines pay special attention to
+    the click text on a page, since those are often an important clue
+    about the content of the destination page.  The links above don't show
+    what the important words are.
+  </ul>
+
+<p>So what do you do instead?  Just wrap the link tags around important
+  words:
+  
+  <ul>
+    <li>Here are some <a href="http://google.com/search?as_q=apple+pie+recipes">
+    apple pie recipes</a>.
+    <li>Click here for <a href="http://google.com/search?as_q=peach+pie+recipes">
+    peach pie recipes</a>.
+    <li>Yo, check out the <a href="http://google.com/search?as_q=prune+pie+recipes">
+    prune pie recipes</a>.
+  </ul>
+
+<p>Accessibility is very important in CS 110, so keep that in mind.
+
+<h2 id="link">The LINK tag</h2>
+
+<p>In the <code>head</code> element of each CS110 lecture page, you'll see 
+some HTML that looks something like: 
+
+<pre>
+   &lt;link href="http://cs.wellesley.edu/~cs110/cs110-main-style.css" rel="stylesheet" type="text/css"&gt;
+</pre>
+
+<p>Like the anchor tag, the <code>&lt;link&gt;</code> tag also has an
+<code>href</code> attribute, and it also links one web page with another.
+However, it has a different purpose.  Instead of producing a clickable
+link, the <code>&lt;link&gt;</code> tag tells the browser that there is
+some additional information about this page located in a different file.
+The <code>href</code> attribute of the <code>&lt;link&gt;</code> tag tells
+the browser where to find the other file.  The <code>href</code> attribute
+contains a URL, which we'll learn about later.
+
+<p>The <code>&lt;link&gt;</code> tag contains other attributes depending
+on the purpose of the connection.  In our case, it contains: <ul>
+
+   <li>a <code>rel</code> attribute that says what the RELationship
+   the other file has to this one.  We use it to specify a
+   <em>style sheet</em>, which says how tags should be formatted.
+
+   <li>a <code>type</code> attribute that says what kind of stuff the
+   other file contains.  In our case, we say that the file contains
+   <code>text/css</code>. 
+
+</ul>
+        
+<div class="alert alert-danger">In HTML5, the attribute <code>type</code> is not
+        required anymore. The reason is that
+        CSS is declared the default style for HTML5. However, you might see <code>type</code>
+        in our older examples and in many pages on the Web. It is not an error to use it,
+        but it's not required anymore.
+</div>
+
+<p>The <code>&lt;link&gt;</code> tag <em>can</em> be used for a variety of
+purposes, but most current browsers only use it for style sheets.
+
+<p>At this point, the <code>&lt;link&gt;</code> tag is still a mystery.
+We've told you what it's for, and something about its syntax, but not what
+goes in the other file.  We'll learn more about the <code>&lt;link&gt;</code>
+tag, style sheets and CSS in later lectures.
+
+<h4>Exercise 2</h4>
+
+<p>Modify the JSFiddle from the previous exercise by adding the
+following <code>link</code> element near the top.  (You'll get a minor
+  complaint from JSFiddle, but you can ignore it.)
+
+<pre>
+&lt;link href="http://cs.wellesley.edu/~cs110/cs110-main-style.css" rel="stylesheet"&gt;
+</pre>
+
+<p>How does this affect the appearance of the document? 
+
+<p>In the modified document, how can you change the appearance of an 
+unvisited hyperlink from blue text to text that is large and green? 
+(Hint: use a header tag.)
+
+
+<h2 id="attributes">Tag and Attribute Syntax</h2>
+
+<p>We can now generalize start tag syntax to include any number of
+attributes, as follows:
+
+<pre>
+&lt;tag attr1 = "value1" attr2 = "value2" ... attrN = "valueN"&gt; 
+   <em>contents</em>
+&lt;/tag&gt;
+</pre>
+
+<p>Browsers differ on how nit-picky they are about attributes.  Many will
+let you get away with omitting the quotation marks when the value is a
+single solid word (no spaces in the value).  Others will complain if you
+have line-breaks in your attributes.  In general, it's best to comply with
+the strictest syntax rules, so that your site will work on the most
+browsers.
+
+<p>Note that some versions of HTML, namely XHTML, require attributes to be
+in quotation marks.  We're using HTML5, which is much more liberal, and
+will let you omit quotation marks unless the value contains a space, a
+line break, grave accent (&grave;), equals sign (=), less than sign
+(&lt;), greater than sign (&gt;), quote (&quot;) or apostrophe (&apos;).
+In short, if there's anything confusing in the value, use quotation marks.
+<!--For the purposes of this course, you may omit unnecessary quotation marks.
+You'll find that your instructors aren't always consistent.-->
+
+<h2 id="images">Using Images</h2>
+         
+<p>One thing that we all want to do with our web pages is add pictures.
+Because the picture file is a separate file, we have to link to it, just
+like the <code>href</code> attribute of the anchor
+(<code>&lt;a&gt;</code>) tag.
+
+<p>Once you have an image file, say <code>small_weasel.jpg</code> you can
+use it on your web page like this:
+         
+<pre>
+&lt;img src = "small_weasel.jpg" alt = "a small weasel"&gt;
+</pre>
+         
+<p>with the following result:</P>
+         
+<blockquote><p><img src="small_weasel.jpg" alt="a small weasel" width=289 height=234></blockquote>
+         
+<p>Of course, this only works if the server can find the image file.
+The <code>src</code> attribute must be
+the <a href="../L02/URLs.html"><em>URL</em></a> of the image file. It can be an
+absolute URL or a relative URL. What did we use here?
+         
+<p>When the browser asks for this page, the server sends it back and it
+also finds and sends back any image files that the page references. If the
+server doesn't find the file (or the file is corrupted in some way), the
+browser will show this:
+         
+<blockquote><p><img src="small_weasel-not-found.jpg" alt="a small weasel"></blockquote>
+         
+<p>Depending on your browser, you may see a broken-image icon above, the
+  <code>alt</code> text, or possibly nothing at all.
+
+<h4>Exercise 3</h4>
+
+<p>Modify the JSfiddle to display an image of the weasel. (Of course, you
+could replace this image by any other image you'd like!)  Note that
+  you <em>must</em> use an absolute URL for the IMG, namely:
+
+<pre>
+http://cs.wellesley.edu/~cs110/lectures/L01-html/small_weasel.jpg
+</pre>
+
+<p>Add a <code>title</code> attribute with value <code>"small weasel image"</code>
+to the image.  What does this do? 
+
+
+<h3 id="ALT">The ALT Attribute</h3>
+
+<p>You noticed that we added an ALT attribute to the IMG tag that is a
+small piece of text that can be used in place of the image in certain
+circumstances.  The ALT attribute is an important part of the HTML
+standard.  Perhaps its most important use supports
+<em>accessibility</em>.  Unfortunately, not everyone has good enough
+vision to see the images that we use in our websites, but that
+doesn't mean they can't and don't use the Web.  Instead, they
+(typically) have software that reads a web page to them, including
+links.  When the software gets to an IMG tag, it reads the
+ALT text.  If there is no ALT text, it may read the SRC attribute,
+hoping there's a hint there, but all too often the SRC attribute is
+something like <code>"../images/DCN87372.jpg"</code> and the visually 
+impaired web user is left to guess.
+
+<p>Therefore, you should always include a brief, useful value for the ALT
+attribute.  If your page is an image gallery, then your ALT text could be
+a description of the image.  However, describing the image is not, in
+general, the idea.  For example, if the image is a link whose target is
+made clear by the image, then the ALT text should say something like,
+"Link to ..." so the user will know what to do with it.  The sole
+exception is for images that are just used for formatting, such as blank
+pictures that fill areas or colorful bullets for bullet lists.  In those
+cases, in fact, it's better to include an ALT attribute that
+is <em>empty</em>, so that the user doesn't have to listen to the SRC
+attribute being read.  In both cases, the text should be useful for
+someone who wants to use your site but isn't sighted.  It helps to turn
+off images and view your site to check.
+
+<p>Furthermore, you should avoid having critical information on your website
+conveyed only in images.  There may be times when it is unavoidable, but
+to the extent that it is possible, we want our websites to be easily
+usable by all people, including the blind and visually impaired.
+
+<p>Accessibility is important in modern society.  We build ramps as well
+as stairs, we put cutouts in curbs, and we allocate parking spaces for the
+handicapped.  Indeed, most federal and state government websites are
+legally required to be accessible, and ALT attributes are just one part of
+that.
+
+<p>In this class, we expect you to always use the
+ALT attribute. If you find an image or an example where we've forgotten to
+use one, please bring it to our attention.
+
+<p>For more information, you can read the following
+<ul>
+
+    <li><a href="http://www.htmlhelp.com/feature/art3.htm"> more thorough
+    discussion of ALT </a>
+
+    <li><a href="http://www.pantos.org/atw/35534.html">The Art of ALT</a>
+
+</ul> 
+
+<h3 id="aspectratio">Resizing and Aspect Ratio</h3>
+
+<p>If you want to display a bunch of pictures, the web page appears neater if
+the pictures align well.  You can align them vertically if they all have
+the same width, or horizontally if they all have the same height.  For
+example, the following three pictures are all 150 pixels high.
+
+<blockquote>
+<p>
+  <img src="molehill.jpeg" alt="a molehill" height="150">
+  <img src="eiffel-tower.jpeg" alt="the Eiffel Tower" height="150">
+  <img src="matterhorn.jpeg" alt="the Matterhorn" height="150">
+</blockquote>
+
+<p>Regardless of the actual dimensions of an image, the browser will
+squeeze it into a set size if requested.  You can do this with two new
+attributes, namely <strong>HEIGHT</strong> and <strong>WIDTH</strong>:
+
+<pre>
+&lt;img src="..." alt="..."  height="<span style='font-style: italic'>height-goes-here</span>"   width="<span style='font-style: italic'>width-goes-here</span>"&gt;
+</pre>
+
+<p>Replace the "height-goes-here" and "width-goes-here" with integers
+specified in <!--a href="../M01-color/index.html#pixel"--><em>pixels</em>,
+which we'll discuss later.  If both width and height are specified, both
+will be obeyed, but you have to be careful with that.  Suppose the
+original image is 160x240: taller than it is wide.  Technically, the ratio
+of the width to the height is called the <strong>aspect ratio</strong>.
+The Eiffel Tower picture has an aspect ratio of 160:240 or 2:3.  If you
+set the height and width so that they don't have the same aspect ratio,
+the picture will look distorted. Here is the Eiffel Tower with the wrong
+aspect ratio:
+
+<blockquote>
+<pre class="prettyprint lang-html">
+&lt;img src="eiffel-tower.jpeg" alt="the Eiffel Tower" width="300" height="150"&gt;
+</pre>
+<p><img src="eiffel-tower.jpeg" alt="the Eiffel Tower" width="300" height="150">
+</blockquote>
+
+<p>If you use <em>either</em> the HEIGHT or the WIDTH attributes, but not
+<em>both</em>, the browser will usually calculate the other attribute so
+that the aspect ratio is preserved.  Thus, the picture will have either
+the width or height you want, but will not be distorted.  That's how we
+did that row of pictures above.
+
+<h4>Exercise 4</h4>
+
+<p>Modify the JSfiddle to display an image of the Eiffel tower next to the
+  weasel so that both images have the same height. You'll have to use an
+  absolute URL for the IMG:
+
+<pre>
+http://cs.wellesley.edu/~cs110/lectures/L01-html/small_weasel.jpg
+</pre>
+
+<h2 id="comments">Comments</h2>
+
+<p>From the very first computer program, programmers have needed to
+leave <q>notes</q> in the code to help themselves and others understand
+what's going on or what the code's purpose is.  These notes are called
+<em>comments.</em> Comments are a part of the program text (they're
+not written separately, because then, well, they'd get separated),
+but they are ignored by the computer. Comments aren't about what someone 
+can discover by reading the code, but should cover the background context 
+of the code, or its goal.
+
+<p>Because it's important to get in the habit of putting comments in your
+HTML code, we will <em>require</em> comments in this course. At this
+point, you won't have a lot to say, and that's fine.  You will start by
+labeling each file with its name, your name, the date, and any sources you 
+consulted (such as the source code of other web pages).  Think of this as
+signing your work.  Later, when you're designing a website with many
+coordinated pages, you can use comments on a page to talk about how it
+fits into the overall plan. 
+
+<h2 id="html_comments">HTML Comment Syntax</h2>
+
+<p>The HTML comment syntax is a little odd-looking.
+<!-- because it doesn't have any letters in it.  -->
+Here's an example:
+
+<pre>&lt;!-- I can say anything I want in a comment.  --&gt;</pre>
+
+<p>The syntax starts with a left angle bracket <code>&lt;</code> then an
+exclamation point and two hyphens, then the comment (anything you
+want) and ends with two hyphens and a right angle bracket <code>&gt;</code>.
+<!--You can see other examples of comments by viewing the source of this
+web page (select View/View Source in Safari or Tools/Web Developer/Page Source 
+in Firefox).-->
+
+<!-- Do HTML comments nest properly? Lyn checked, but unclear from documentation -->
+
+<h2 id="beauty">Beauty in Websites</h2>
+
+<p>Ah, but you object that your web page looks <em>ugly</em> without
+centering, font changes, colors, and so forth.  That may be; we're not
+going to try to contradict your aesthetic sense.  However, for the first
+week of this course, we don't want to confuse anyone by introducing style
+sheets right away.  So, we ask you to be patient.  We will get to style
+sheets very soon.</p>
+
+<p>In the meantime, consider the fact that many visitors to your site
+might not gain any advantage from style sheets anyway, because they are
+visually impaired, or because they are using an old or alternative browser that
+doesn't honor style sheets.  For such users, the most important thing is
+the <em>content</em> and having that content well-structured and clearly
+conveyed.  So, until we get to style sheets, consider that you are
+designing your website with accessibility in mind.
+
+<h2 id="debugging">Bugs and Debugging</h2>
+
+<p>An HTML document may contain many different kinds of errors
+that prevent it from rendering as you expect. 
+Errors in code are known as <strong>bugs</strong>, and the process
+of finding and correcting such errors is called 
+<strong>debugging</strong>. 
+
+<p>Here are some common types of HTML bugs:
+
+<ul>
+
+<li> a tag name is misspelled/wrong, such as <code style="color:red;">&lt;tilte&gt;</code>
+     or <code style="color:red;">&lt;break&gt;</code>.
+
+<li> a start tag is used in place of an end tag: 
+
+<blockquote style="color:red;">
+<p>&lt;em&gt;important&lt;em&gt;
+</blockquote>
+
+<li> a tag is malformed: 
+
+<blockquote style="color:red;">
+<p>&lt;em important&lt;/em&gt;
+</blockquote>
+
+
+<li> an element has an end tag that doesn't match the start tag:
+
+<blockquote style="color:red;">
+<p>&lt;h1&gt;CS110 HTML Coding&lt;/h2&gt;
+</blockquote>
+
+<li> tags aren't nested properly (really just a special case of the previous bug): 
+
+<blockquote style="color:red;">
+<p>&lt;h1&gt;&lt;em&gt;CS110 HTML Coding&lt;/h1&gt;&lt;em&gt;
+</blockquote>
+
+<li> attribute names are misspelled/wrong: 
+
+<blockquote style="color:red;">
+<p>&lt;img source="logo.jpg" hieght=100&gt;
+</blockquote>
+
+<li> quote marks aren't properly matched: 
+
+<blockquote style="color:red;">
+<p>&lt;img src="logo.jpg height=100&gt;
+</blockquote>
+
+</ul>
+
+
+<h4>Exercise 5</h4>
+
+<p>Copy the following buggy HTML code into a JSfiddle
+and debug the code until it looks like you think it's intended to look. 
+
+<pre>
+&lt;h1&gt;A Buggy HTML File&lt;/h1&gt;
+
+&lt;p&gt; This HTML file contains several &lt;em&gt;bugs&lt;/em&gt; (i.e., errors).
+&lt;br&gt;
+Can you &lt;em&gt;debug&lt;/em&gt; them (i.e., find and fix them)?
+
+&lt;p&gt;Here's an unordered list with three items: 
+
+&lt;ul&gt;
+
+    &lt;li&gt;A &lt;bold&gt;bold&lt;/bold&gt; item.&lt;/li&gt;
+
+    &lt;li&gt;An ordered sublist with two items: 
+
+        &lt;ol&gt; 
+
+          &lt;p&gt; A CAPITALIZED item 
+
+          &lt;li&gt; An &lt;a href="http://www.wellesley.edu"&gt;
+                  &lt;em&gt;italic link&lt;/a&gt;&lt;/em&gt;
+   
+    &lt;li&gt; A final &lt;code&gt;item&lt;code&gt;, using code font.
+
+&lt;/ul&gt;
+
+&lt;p&gt;Here's &lt;a href="http://cs.wellesley.edu another link&lt;/a&gt;
+
+</pre><!-- close that extra quotation mark: " -->
+
+
+<h2 id="validation">Validation of HTML Code</h2>
+
+<p>How can you be sure you've followed every nit-picky rule that the HTML
+standards committee devised?  (The standards committee is
+the <a href="http://www.w3.org/"><q>World Wide Web Consortium</q></a> or
+W3C.)  Even if you have memorized all the rules, checking a page would be
+tedious and error-prone &ndash; perfect for a computer!  Fortunately, the
+W3C created an <a href="http://validator.w3.org/">HTML validator</a>.  You
+can validate by supplying a URL, by uploading a file, or even
+copy/pasting in some HTML.  Visit that page and try validating
+your <code>little.html</code> file, 
+debugged <code>buggy.html</code> file,
+or even the file for this lecture. 
+An HTML validator is an excellent tool to help you debug your HTML code. 
+
+
+<p>Validation also helps with accessibility. 
+One important aspect of accessibility is having the proper HTML syntax
+for each page in your site.  Visitors with accessibility needs will use
+the alternative browsers and screen readers, and that software will be
+aided by syntactically correct HTML.  Read the following for a longer
+discussion
+of <a href="http://validator.w3.org/docs/help.html#why-validate">why to
+validate your HTML pages</a>.
+
+
+<p>Throughout the semester, if you need to validate a web page, you can
+find the HTML validator and others in the <a
+href="../../documentation/">validators
+section of the CS110 documentation page</a>.
+
+<p>If you haven't already, try validating <code>little.html</code>.
+You'll see that it doesn't validate.  The reasons are slightly technical,
+so bear with us, but you'll see how to make your own documents valid.
+
+<h3 id="doctype">Document Type</h3>
+
+<p>There are several different, incompatible HTML versions, and so a
+  document that is valid HTML 3.2 is invalid HTMl 4.01 and vice versa.
+  Neither would be valid XHTML 1.0.  So, the validator needs to know what
+  version of HTML you're using.  More importantly, the browser or screen
+  reader or other software needs to know what syntax to expect.
+  Therefore, the first thing any web page needs to do is announce the
+  syntax it's using.  This is done with a special <code>DOCTYPE</code>
+  (for <q>document type</q>) tag.  
+
+  <p>In this course, we're using HTML5.  (Your book describes HTML 4.01
+  (and also XHTML), but HTML 4.01 is essentially a subset of HTML5, so
+  nothing they tell you will be incorrect.)  Fortunately, the doctype for
+  HTML5 is very simple and easy, certainly compared to HTML 4.01.  It
+  looks like this:
+
+    <pre>
+      &lt;!doctype html&gt;
+    </pre>
+
+    <p>We urge you just to copy/paste that tag to your own pages and don't
+  worry about it further.
+
+    <p><em>Note</em>:  because HTML5 is very new, the validator at W3C
+    will give you a warning that the result is "experimental." 
+
+<h3 id="charset">Charset</h3>
+
+<p>A browser needs to know what <em>characters</em> (letters, numbers,
+and punctuation) are in the HTML file.  Are they <q>western
+European</q> characters, or Russian, Greek, Sanskrit, Korean, Japanese,
+Chinese, or <a href="http://en.wikipedia.org/wiki/!Kung_people">!Kung</a>
+or something else?  This information is called the <em>character set</em>
+or <em>charset</em> for short.  For our purposes, we can use something
+called <a href="http://en.wikipedia.org/wiki/UTF-8"><q>UTF-8</q></a>.</p>
+
+<p>To do so, we put a <code>&lt;meta&gt;</code> tag in
+the <code>&lt;head&gt;</code> of our document.  It looks like this:</p>
+
+<pre>
+ &lt;meta charset="utf-8"&gt;
+</pre>
+
+<p>Again, we urge you just to copy/paste that code and don't worry about
+it.</p>
+
+<!-- Scott, Jan 2015, omitted this exercise, because it doesn't work well with JSfiddle
+
+<h4>Exercise 6</h4>
+
+<p>Copy the DOCTYPE and CHARSET code into <code>little.html</code>
+   and/or the debugged <code>buggy.html</code>
+   and check that the result is now valid.
+
+-->
+
+<h3 id="valid_icon">Icon Declaring Validation</h3>
+
+<p>Once you get your page to validate, you can put some HTML code on your
+page to give it a <q>seal of approval</q>, declaring that it is valid (and
+what standard it meets). You will see in lab examples of this strategy.  
+<!--You can see an example on the bottom of the
+CS110 pages, including this one.-->
+
+<p>The very cool thing about this icon is that it is clickable, and
+clicking it will cause the validator to process your page again.  Thus,
+you can modify your page, upload the changes, and click the icon to
+re-validate it, making validation <em>very</em> easy.  In fact, we suggest
+that you put the icon on your page <em>before</em> it's valid, and use it
+during your debugging process.</p>
+
+<p>The snippet of code is just the following, so go ahead and copy/paste
+  it into your pages. The code doesn't use anything we don't know, so read
+  it!
+
+<pre>
+&lt;p&gt;
+  &lt;a href="http://validator.w3.org/check?uri=referer"&gt;
+     &lt;img 
+       src="http://cs.wellesley.edu/~cs110/Icons/valid-html5v2.png"
+       alt="Valid HTML 5"
+       title="Valid HTML 5"  
+       height="31" width="88"&gt;
+  &lt;/a&gt; 
+&lt;/p&gt;
+</pre>
+
+<!--p>You can change the "v1" in the URL for the icon to "v2" to get an a
+  different icon.  You can see examples of both at the bottom of this
+  page.
+
+<p>Here is a link to a new version of the 
+<a href="../L01-welcome/csfun/CSfun2.html">
+web page about fun CS activities</a> with the additional HTML code needed for validation.
+The page does not yet validate successfully, because the <code>&lt;img&gt;</code> tag
+around the image of the frisbee game is not placed within a <em>block</em> tag such
+as a <code>&lt;p&gt;</code> tag - add a <code>&lt;p&gt;</code> tag to see that the
+page now validates for HTML 5. </p-->
+
+
+<h2 id="template">An HTML Template</h2>
+
+<p>The preceding requirements result in a kind of <q>boilerplate</q> that
+  you'll need for all your web pages. Feel free to copy/paste the
+  following to begin all your HTML pages, or to use
+  this <a href="template.html">template.html</html>
+
+<pre class="prettyprint lang-html">
+&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+    &lt;meta name=author content="Your name here"&gt;
+    &lt;title&gt;title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;p&gt;
+  &lt;a href="http://validator.w3.org/check?uri=referer"&gt;
+     &lt;img 
+       src="http://cs.wellesley.edu/~cs110/Icons/valid-html5v2.png"
+       alt="Valid HTML 5"
+       title="Valid HTML 5"  
+       height="31" width="88"&gt;
+  &lt;/a&gt; 
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+
+<h2>Solutions to Exercises</h2>
+
+<UL>
+   <LI><A HREF="ex1.html">Exercise 1</A>
+   
+   <LI><A HREF="ex2.html">Exercise 2</A>
+
+   <LI><A HREF="ex3.html">Exercise 3</A>
+
+   <LI><A HREF="ex4.html">Exercise 4</A>
+
+   <LI><A HREF="ex5.html">Exercise 5</A>
+
+   <LI><A HREF="ex6.html">Exercise 6</A>
+   
+</UL>

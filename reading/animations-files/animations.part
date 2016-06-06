@@ -1,0 +1,524 @@
+<p>We just learned about <em>arrays</em>, an important data structure for
+  storing multiple values. In this reading, we'll learn about another data
+  structure that holds multiple values, namely <em>objects</em>.  Later,
+  we'll see them in action in the context of
+  jQuery <em>animations</em>.</p>
+
+<p>We've talked about <a href="date-objects.html">objects</a> before, and
+  we used <code>Date</code> objects as examples. In this reading, we'll
+  create objects from scratch, with complete control over the values
+  stored in them.</p>
+
+<p>You can copy the following code in the console of the browser to
+execute it.</p>
+
+<pre class="prettyprint lang-js linenums executable">
+var student1 = new Object();
+student1.firstName = "Harry";
+student1.lastName = "Potter";
+student1.age = 17;
+console.log(student1);
+</pre>
+
+<p>The result you will see is the following:</p>
+
+<figure>
+<img src="animations-files/object-harry.png"
+     alt="object in the console"
+     style="width: 100%; max-width: 600px;">
+<figcaption>How the <code>student1</code> object prints in the JS Console</figcaption>
+</figure>
+
+<p>Let's see what the code does. In the first line, we declare a variable
+  that will be storing an object, by invoking a special kind of function,
+  called a constructor. When we created dates, we also used the
+  constructor for dates, <code>new Date()</code>.  We know that we're
+  using a constructor, because of the special
+  keyword <code>new</code>. (JavaScript programmers also have a convention
+  &mdash; a general agreement &mdash; that constructors will be named with
+  an initial capital letter and only constructors will be named like
+  that.)
+  
+<p>You might remember that when we declared variables before, we likened
+  the process as one of storing a value in a box with a label.  The role
+  of the <em>constructor</em> is to create a special kind of box, that
+  allows us to store many other values (properties) inside the box,
+  instead of only one value at a time.</p>
+  
+<p>Then, in the following three lines, we added three properties to this object: <code>firstName</code>,
+  <code>lastName</code> and <code>age</code> by also assigning them values. Printing the
+  object on the console shows how all this information is now stored inside the variable
+  <code>person</code>. </p>
+
+<p>Visually, we can represent how this variable is stored in the computer memory, as shown below:</p>                
+<figure>
+ <img src="animations-files/student1.png"
+      alt="model of the object variable"
+      style="width: 50%; max-width: 625px;">               
+<figcaption>A visual model of the <code>student1</code> object</figcaption>
+</figure>
+
+<h2 id="literal">Object Literals</h2>
+  
+<p>There is another (more compact) way for creating Javascript objects
+through the use of the <em>object literal</em> notation. We will use this
+exclusively from now on.</p>
+
+<p>Concretely, the example we just saw can be rewritten in this way:</p>
+
+<pre class="prettyprint lang-js linenums executable">
+var student2 = {firstName: "Harry", lastName: "Potter", age: 17}
+console.log(student2);
+</pre>
+
+<p>If you copy and paste this into the JS console, you will get the same
+result as before.</p>
+
+<p><strong>Syntax rules:</strong> An object literal
+  <ul>
+    <li>is enclosed in braces <code>{}</code>
+      
+    <li>has zero or more pairs of property names and associated values,
+      
+    <li>The property names follow the same rules as variables (letters,
+    digits and underscores, starting with a letter)
+      
+    <li>The values can be any data type: numbers, strings, booleans, date
+    objects, arrays, even other objects.
+      
+    <li>The property names are separated from the value with a colon
+      
+    <li>The property-value pairs are separated from one another with commas.
+  </ul>
+                
+<h2>Objects versus Arrays</h2>
+
+<p>Since objects and arrays both store multiple pieces of information, how
+  do you choose between them?  The answer depends on how you expect
+  to <em>access</em> (get or store) the data:
+  <ul>
+    <li>If you expect to organize them by <em>number</em>, arrays are
+    best. This is often the case when all the values are <em>uniform</em>
+    or <em>homogeneous</em>.  An array of URLs is good for a slideshow,
+    and we access them by a numerical index.
+      
+    <li>If you expect to organize them by <em>name</em>, objects are
+    best. This is often the case when the values
+    are <em>heterogenous</em>: different kinds or types of things.
+    Our <code>student1</code> example had two strings
+    (<code>firstName</code> and <code>lastName</code>) and one number
+    (<code>age</code>) in it.
+
+  </ul>
+
+<p>You can, of course, combine these ideas. Here's an array of three
+  students, along with some code to access some of the data in it. Can you
+  guess what the alert will show? Try it!
+
+<pre class="prettyprint lang-js linenums executable">
+var students = [ {name: "Harry Potter", pet: "Hedwig", age: 17},
+                 {name: "Ron Weasley", pet: "Scabbers", age: 17},
+                 {name: "Hermione Granger", pet: "Crookshanks", age: 17}];
+alert( students[1].pet );
+</pre>  
+
+<p>However, you need not worry about these more complex uses of arrays and
+  objects. In this reading, we'll stick to simple objects where all the
+  values are numbers.
+
+<h2>Animations</h2>
+
+<p>As you know, jQuery can read the current value of a CSS property of an
+element and it can also dynamically change that value.  Consider the
+following figure, which is just a box with a green background:
+
+<figure>
+  <div id="box1" style="height: 50px; width: 50px; background-color: #ccffcc">box1</div>
+  <figcaption>A box with ID <code>box1</code> and a background color</figcaption>
+</figure>
+
+<p>Try the following code, which reads the current width of the box, and
+updates it to make it 50px larger, until it reaches a maximum width of
+300px.  Click the button as many times as you like.
+
+<pre class="prettyprint lang-js linenums executable">
+var curr_width = parseInt( $("#box1").css("width") );
+console.log("curr_width is "+curr_width);
+if( curr_width < 600 ) {
+   curr_width = curr_width + 50;
+   $("#box1").css("width", curr_width+"px");
+}
+</pre>  
+
+<p>Now, imagine a process that will click that button for you, maybe using
+smaller steps and smaller time intervals, so that the box smoothly widens
+to some desired target value.
+
+<figure>
+  <div id="box2" style="height: 50px; width: 50px; background-color: #ccffcc">box2</div>
+  <figcaption>A box with ID <code>box2</code> and a background color</figcaption>
+</figure>
+
+<p>jQuery provides a method to do that, namely the <code>.animate()</code>
+method. The way we will use it, that method takes <em>two arguments</em>:
+  <ul>
+    <li>properties: this is a JS object literal consisting of CSS
+    properties and the <em>target</em> values you'd like them to have.
+      
+    <li>How long you want the animation to run, in milliseconds.
+  </ul>
+
+<p>Let's see it in action.  Here's a new box, with ID=box2:
+
+<pre class="prettyprint lang-js executable">
+$("#box2").animate( {width: "600px"}, 2000 );
+</pre>
+
+<p>Wasn't that <em>cool?</em>  Did you notice how it accelerated at the
+beginning and decelerated at the end?  Very nice effects. 
+
+<h2>Animations with Multiple Changes</h2>
+
+<p>The jQuery <code>animate</code> method works with lots of CSS
+properties, but not all of them. They have to have <em>numerical</em>
+values, since what's happening under the covers is the successive
+incrementing that we saw earlier.  You can't animate a change in font or a
+change in color (well, there's a plugin that allows that). However, you
+can change multiple CSS properties at once. That's why the first argument
+is an object literal: you can specify a set of CSS properties and the
+target values you want, all in one convenient package.
+
+<p>We can even chain a series of animations together.  Here's an example,
+where we enlarge three properties simultaneously over the course of 2
+seconds, and then shrink them back in just 1 second.  Click the button as
+often as you like.
+
+<figure>
+  <div id="box3" style="height: 50px; width: 50px; background-color: #ccffcc; font-size: 15px">box3</div>
+  <figcaption>A box with ID <code>box3</code> and a background color</figcaption>
+</figure>
+
+<pre class="prettyprint lang-js executable">
+$("#box3")
+   .animate( {width: "600px", height: "300px", fontSize: "45px"}, 2000 )
+   .animate( {width: "50px", height: "50px", fontSize: "15px"}, 1000 );
+</pre>
+
+<p>(Those of you with sharp eyes may spot that we renamed the CSS
+property <code>font-size</code> to <code>fontSize</code>. That's a
+standard pattern to convert CSS properties with hyphens to acceptable JS
+property names: remove the hyphens and capitalize the letter after the
+hyphen.)
+
+<h2>Moving An Element</h2>
+
+<p>We learned about <code>position:relative</code>
+and <code>position:absolute</code>. With those ways of positioning, we
+used properties like <code>left</code> and <code>top</code> to position
+elements. jQuery animations can smoothly modify those properties for you
+as well, so you can move elements on the page.
+
+<p>In the following figure, we use <code>position:absolute</code>
+(relative to the figure) to position the figure of Harry and the
+broomstick.
+
+<figure style="height: 200px; position: relative; width: 100%">
+  <img src="potterpics/harry-potter-thumb.jpeg" alt="Harry Potter"
+       width="300"
+       style="position:absolute; left:0px">
+  <img id="broomstick"
+       width="200"
+       src="potterpics/broomstick-noun_228764_cc.png" alt="broomstick"
+       style="position:absolute; left:800px">
+</figure>
+
+<pre class="prettyprint lang-js linenums executable">
+$("#broomstick").animate({left: "200px"},500);
+</pre>
+
+<p>We should rename that "execute it" button to be <em>accio
+broomstick</em>!
+
+<h2>Carousels</h2>
+
+<p>We now know all that we need to understand how to make a cool effect
+for our automatic slideshow (carousel).  The basic ingredients are these:
+  <ol>
+    <li>We'll use CSS to lay out all the images in the slideshow side by
+    side, left to right. This might be really wide, much wider than our
+    browser, but don't worry.
+      
+    <li>We'll put all the images in a container that is only as wide
+    as <em>one</em> slide, so that the others will stick out to the left
+    and right of the container
+      
+    <li>We'll use the CSS <code>overflow:hidden</code> to ensure that the
+      ones that stick out will not be seen by the user.
+      
+    <li>We'll use the <code>position:relative</code> and <code>left</code>
+    properties to move the assembled slides to the left, so that a
+    different one shows.
+      
+    <li>We can animate that change to the <code>left</code> property, just
+    as we moved the broom above.
+  </ol>
+
+<p>Let's take those one step at a time.
+  
+<h3>All Images Left to Right</h3>
+
+<p>We'll put the images in an unordered list. Since each of our slides is
+256px wide, the UL will be 1024px wide (though anything wider than that
+would also work). We'll make the slides <code>float:left</code> so that
+they'll be arranged left to right.
+
+<div id="carousel1-html">
+<figure id="slides1">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+</div>
+
+<style id="carousel1-css" scoped>
+  #slides1 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+#slides1 li {
+     float: left;
+  }
+</style>
+
+<p>Here's the HTML code:
+<pre id="carousel1-pre-html" class="prettyprint lang-html"></pre>  
+
+<script>
+document.getElementById('carousel1-pre-html').innerText = document.getElementById('carousel1-html').innerHTML;
+</script>
+
+<p>And the CSS code:
+
+<pre id="carousel1-pre-css" class="prettyprint lang-css"></pre>
+
+<script>
+document.getElementById('carousel1-pre-css').innerText = document.getElementById('carousel1-css').innerHTML;
+</script>
+
+<h3>A One-Slide Container</h3>
+
+<p>Here's our next version:
+
+<figure id="slides2">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+
+<style id="carousel2-css" scoped>
+  /* This rule is new */
+  #slides2 {
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+  }
+
+  /* these are all the same */
+  #slides2 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #slides2 li {
+      float: left;
+  }
+</style>
+
+<p>The HTML code is unchanged; here is the CSS code, which only adds one
+rule.  You're strongly encouraged to right-click on the image above and
+do <em>inspect element</em>, so that you can use the Chrome Inspector to
+see that the other images are all there.  Try unchecking the checkbox next
+to <code>overflow:hidden</code> or <code>width:256px</code> on
+the <code>#slides2</code> element.
+  
+<pre id="carousel2-pre-css" class="prettyprint lang-css"></pre>
+
+<script>
+document.getElementById('carousel2-pre-css').innerText = document.getElementById('carousel2-css').innerHTML;
+</script>
+
+<h3>Animating the Sliding</h3>
+
+<p>Now, let's animate the sliding of the <em>entire</em> unordered list.
+Since this is an editable execution box, try different target values for
+the <code>left</code> property. From the starting position
+where <code>left</code> is zero, negative values move the list to the
+left, positive values move it to the right. If the target value is a
+multiple of 256px (the width of a slide), the display moves to a slide
+boundary.
+
+<figure id="slides3">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+
+<style id="carousel3-css" scoped>
+  #slides3 {
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+  }
+
+  #slides3 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #slides3 li {
+      float: left;
+  }
+</style>
+
+<form action="">
+<div>
+<textarea rows=2>
+$("#slides3 ul").animate({left: "-256px"}, 3000);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note that the JS object has a <em>target</em> value, not an amount by
+which to change. So, to move from slide to slide, we need to calculate the
+new target value.
+
+<h3>Calculating Target Value for Left</h3>
+
+<p>If we are keeping track of the index of the current slide in a global
+variable, say <code>currentSlideIndex</code>, we can use that to calculate
+the desired target value.  Here's a slideshow that does that. (Assume that
+the <code>currentSlideIndex</code> is initialized to zero when the page
+loads.)
+
+<figure id="slides4">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+
+<style id="carousel3-css" scoped>
+  #slides4 {
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+  }
+
+  #slides4 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #slides4 li {
+      float: left;
+  }
+</style>
+
+<script>
+var currentSlideIndex = 0; 
+</script>
+
+<form action="">
+<div>
+<textarea rows=7>
+currentSlideIndex ++;
+if( currentSlideIndex >= $("#slides4 li").length ) {
+    currentSlideIndex = 0;
+}
+var target = -256 * currentSlideIndex;    
+$("#slides4 ul").animate({left: target+"px"}, 2000);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note that we take advantage of the fact that when the selector matches
+more than one element, jQuery returns an array-like value that has
+a <code>.length</code> property.
+
+<h2 class="line">Additional Material</h2>
+
+<p>The following material is optional, but is here for the interested student.
+
+<h2>Embedded Objects</h2>
+
+<p>The values in an object are not limited to simple objects like the
+  one <code>student1</code> example at the beginning of the reading; we
+  can create objects that are composed of other objects. Let us see an
+  example:</p>
+
+<pre class="prettyprint lang-js linenums">
+var hogwartsHouses = {<strong>gryffindor</strong>: 
+                       {founder: "Godric Gryffindor", mascot: "lion", value: "courage"},
+                      <strong>hufflepuff</strong>:  
+                       {founder: "Helga Hufflepuff", mascot: "badger", value: "hard work"},
+                      <strong>rawenclaw</strong>: 
+                       {founder: "Rowena Rawenclaw",mascot: "eagle",value: "intelligence"},
+                      <strong>slytherin</strong>: 
+                       {founder: "Salazar Slytherin", mascot: "serpent", value: "ambition"}
+}
+</pre>
+
+<p>In this example, the object <code>hogwartsHouses</code> has four properties and each of them
+has as a value an object. Running this code on the console and accessing the properties, will verify
+this fact:</p>
+
+<figure>
+<img src="animations-files/composedobjects.png" alt="composed objects"
+     style="width:100%; max-width: 787px">
+<figcaption>What the JS Console shows when access properties of
+  our <code>hogwartsHouses</code> object of object</figcaption>
+</figure>
+
+<h2 id="json">JSON</h2>
+
+        <p>JSON (JavaScript Object Notation) is the most popular open format for transmiting 
+                data objects consisting of property/value pairs over the Web. It uses the Javascript
+                object literal notation to represent objects and it can be parsed by every programming
+                language. It can only contain properties, not method definitions. 
+        </p>
+        <p>All major websites use JSON to transmit data from their servers to the clients. Here 
+        is an examples:</p>
+        <ul>
+                <li>Google uses JSON to transmit data from all of its services. Here is an example
+                of Google Books API that has information about all published versions of 
+                <a href="https://www.googleapis.com/books/v1/volumes?q=ISBN:9780486284736">Pride and Prejudice</a>.</li>
+        </ul>
+

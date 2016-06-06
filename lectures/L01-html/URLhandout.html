@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+    <!-- A simple web page about URLs -->
+
+    <head>
+         <link rel="stylesheet" 
+                 type="text/css"
+                 href="http://cs.wellesley.edu/~cs110/cs110-main-style.css">
+         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>URLs</title>
+
+        <style type="text/css">
+           .hl {color: red;}
+        </style>
+    </head>
+
+    <body>
+         <h1>URLs: Uniform Resource Locators</h1>
+ 
+         <h2> Absolute URLs</h2>
+
+<p>
+<TABLE BORDER=1 style="cell-padding: 0px">
+      <TR>
+         <td><code>http://</code> </td>
+         <td><code>cs.wellesley.edu/</code></td>
+         <td><code>~cs110/lectures/L03-html/</code></td>
+         <td><code>URLs.html</code></td>
+      </TR>
+      <TR>
+      <TR>
+         <td>protocol</td>
+         <td>server.domain</td>
+         <td>path</td>
+         <td>filename</td>
+      </TR>
+  </TABLE>
+</p>
+
+   <p>
+    FirstClass from a browser: &nbsp; <code>https://firstclass.wellesley.edu/</code>
+   </p>
+   <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="hl">Protocol?</strong>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong class="hl">Filename?</strong></p>
+
+<h2>Important! Tips on directory and file names:</h2>
+
+<UL>
+   <LI><strong class="hl">use letters and digits</strong> - no special characters like /, *, #, &amp;
+   
+   <LI><strong class="hl">no spaces</strong> - e.g. use <CODE>cats_and_dogs.html</CODE>, not
+          <CODE>cats and dogs.html</CODE>
+
+   <LI><strong class="hl">case matters</strong> - <CODE>cats.html</CODE> not the same as
+          <CODE>Cats.html</CODE> 
+</ul>
+
+<h2>Directory Trees</h2>
+
+    <p><img src="Joss-dirtree-hand-new.png" alt="Joss directory tree drawn by hand" 
+           style="display: block; margin: 10px; padding: 5px; border: 2px solid black"
+           width="600"></p>
+
+    <p><img src="Joss-dirtree-mac.png" alt="Joss directory tree on a Mac"
+         style="display: block; margin: 10px; border: 1px solid black"
+         width="600"></p>
+
+<h2>Relative URLs</h2>
+
+<ul>
+<li><strong class="hl">Files on the same server</strong> - don't need protocol and server name
+<li><strong class="hl">File in the same folder:</strong> link in <code>buffy.html</code> to the file 
+                 <code>willow.html</code>
+   <p>&nbsp;&nbsp;<code>&lt;a href="willow.html"&gt;her best friend Willow&lt;/a&gt;</code></p>
+
+<li><strong class="hl">File in a sibling folder:</strong> 
+       link in <code>mythology.html</code> to the file <code>angel.html</code>
+   <p>&nbsp;&nbsp;<code>&lt;a href="cast/angel.html"&gt;Angel, the vampire with a soul&lt;/a&gt;</code></p>
+
+<li><strong class="hl">File in a folder "above":</strong>
+      link in <code>host.html</code> to the file <code>season3.html</code>
+   <p>&nbsp;&nbsp;<code>&lt;a href="../season3.html"&gt;the Host returned in season 3&lt;/a&gt;</code></p>
+
+<li><strong class="hl">File in a folder that's multiple levels up:</strong>
+        link in <code>buffy.html</code> to the file <code>comics.html</code>
+   <p>&nbsp;&nbsp;<code>&lt;a href="../../comics.html"&gt;another layer in the comics&lt;/a&gt;</code></p>
+
+<li>Add a link in <code>comics.html</code> to the file <code>gunn.html</code>
+       <pre>
+
+
+       </pre>
+
+<li>Add a link in <code>host.html</code> to the file <code>buffy.html</code>
+       <pre>
+
+
+       </pre>
+</ul>
+
+<h2>Fragments</h2>
+
+<p>Jump to the description of 
+<a href="http://cs.wellesley.edu/~cs110/lectures/L03-html/URLs.html#relative">
+Relative URLs</a> in the URLs lecture notes</p>
+
+<p>
+<ol>
+
+   <li> Give the destination a name:
+     <p><code>&lt;h2 id="relative"&gt;Relative URLs&lt;/h2&gt;</code></p>
+
+    <li> Add the destination name to the link:
+</ol>
+<p>
+<TABLE BORDER=1 style="cell-padding: 0px">
+      <TR>
+         <td><code>http://</code> </td>
+         <td><code>cs.wellesley.edu/</code></td>
+         <td><code>~cs110/lectures/L03-html/</code></td>
+         <td><code>URLs.html#</code></td>
+         <td><code>relative</code></td>
+      </TR>
+      <TR>
+      <TR>
+         <td>protocol</td>
+         <td>server.domain</td>
+         <td>path</td>
+         <td>filename</td>
+         <td>fragment id</td>
+      </TR>
+  </TABLE>
+</p>
+</p>
+
+<p>In the same file, just use the <code>id</code> name:
+   <p>&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;a href="#relative"&gt;Relative URLs&lt;/a&gt;</code></p>
+
+<p><strong class="hl">Check the table of contents on a CS110 lecture notes page!</strong>
+    </body>
+</html>
+

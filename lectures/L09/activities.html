@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">        
+    <title>Lecture 9:  Class Activities</title>
+        
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+  <link rel="stylesheet" href="../../css/prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+      td { width: 3em; }
+
+      form {
+         border: 2px solid #2e9ad3;
+         padding: 10px 2em;
+      }
+
+    </style>
+  </head>
+    
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+    
+    <div class="container">
+      <h1>Lecture 9 &nbsp; <small>Class Activities Conditionals</small></h1>
+    </div>
+        
+    <div class="container">
+      <div class="row">
+            
+        <!-- Three columns of the grid are reserved for the sidebar-->
+        <div class="col-md-3">         
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul id="insert_TOC_here" class="nav bs-sidenav">  
+            </ul>
+          </div>
+
+        </div><!--end of "col-md-3" div-->
+        
+        <!-- Nine columns of the grid are reserved for the main content-->
+        <div class="col-md-9">
+         <div class="alert alert-warning">
+           <ul>
+             <li>Assumptions about how this course works
+             <li>Google is your friend.
+             <li>Exam in two weeks
+             <li>no calculators on the exam; expressions okay for some answers
+             <li>SI sessions and review beforehand
+           </ul>
+         </div>
+          
+         <h2>Today</h2>
+
+         <ul>
+           <li>Brief recap of JS so far.</li>
+           <li>The activity from last time.</li>
+           <li>Conditionals</li>
+         </ul>
+
+<h2>Quiz Question Nr. 1</h2>  
+
+<p>What does the following statement do?
+ 
+<pre class="prettyprint lang-js">
+x = y;
+</pre>
+
+<ol type="A">
+<li><p> It gets an error</p></li>
+<li><p> It tests whether the two variables are equal</p></li>
+<li><p> It copies the value of <code>y</code> into <code>x</code></p></li>
+<li><p> It copies the value of <code>x</code> into <code>y</code></p></li>
+</ol>
+
+<h2>Getting Data</h2>
+
+<p>In this course, variables will almost always get their values from
+  <ol>
+    <li>other variables and expressions
+      
+    <li>a user input function like <code>prompt</code> (mostly for testing)
+      
+    <li>a form. We'll learn how to do forms a bit later.
+  </ol>
+
+<h2>Quiz Question Nr. 2</h2>  
+
+<p>We want some code that will ask the user their name and greet
+  them. Which of the following does that?
+ 
+<ol type="A">
+<li><pre class="prettyprint lang-js">
+var user = alert("what's your name?");
+prompt("Greetings, "+user);
+</pre>
+
+<li><pre class="prettyprint lang-js">
+var user = prompt("what's your name?");
+alert("Greetings, "+user);
+</pre>
+
+<li><pre class="prettyprint lang-js">
+var user = prompt("what's your name?");
+var greet = "Greetings, "+user;
+alert(greet);
+</pre>
+
+<li><pre class="prettyprint lang-js">
+var user = alert("what's your name?");
+var greet = "Greetings, "+user;
+prompt(greet);
+</pre>
+
+</ol>
+
+<p>There's a pattern to that kind of code:
+  <ol>
+    <li>Get some input
+      
+    <li>process it, deriving some result
+      
+    <li>report the result
+  </ol>
+
+<p>Not all of our code will show that pattern, but it often will, so it's
+  worth stepping back to see the pattern.
+
+<h2>Booleans and Conditionals</h2>
+
+<ul>
+  <li>Booleans are values that are either <em>true</em> or <em>false</em>
+    
+  <li>Booleans are rarely typed in. They usually come about
+  from <em>tests</em> and <em>comparisons</em>.  For example <code>age
+  &ge; 18</code>
+    
+  <li>Conditionals (<code>if</code> statements) can use booleans to decide
+  whether to execute chunks of code or which of two blocks to execute.
+
+  <li>For example, whether to execute some code:
+    <pre class="prettyprint lang-js">
+if( age &ge; 18 ) {
+   alert("Don't forget to vote!");
+}
+</pre>
+
+    <li>For example, choosing which of two block to execute:
+    <pre class="prettyprint lang-js">
+if( cash &lt; 12 ) {
+   alert("I'll have pizza");
+} else {
+   alert("I'll have the filet mignon, please.");
+}
+</pre>
+
+    <li>Anything can be in the blocks of code of a conditional, including
+    calculations, prompts and other conditionals. Notice how helpful the indentation is!
+
+    <pre class="prettyprint lang-js">
+if( people_in_party &gt; 1 ) {
+    if( cash &lt; 12 ) {
+       alert("let's have pizza; my treat!");
+    } else {
+       alert("filet mignon is on me!");
+    }
+} else {
+    alert("I'll just have the pizza and eat it alone....");
+}
+</pre>
+
+    <li>This may seem easy so far, but it'll get complicated quickly.
+</ul>
+
+<h2>Diagrams for Conditionals</h2>
+
+<p>There are some conventional diagrams to help understand conditionals;
+  these are known as <em>flowcharts</em>.
+
+  <figure>
+    <img src="if-then.png" alt="if-then statement">
+    <figcaption>The first form allows you to optionally skip a code
+    block</figcaption>
+  </figure>
+
+  <figure>
+    <img src="if-else.png" alt="if-else statement">
+    <figcaption>The second form allows you to choose one of two mutually
+    exclusive code blocks</figcaption>
+  </figure>
+
+<h2>Quiz Question Nr. 3</h2>
+
+<p>Suppose a variable called <code>hour</code> contains the hour of the
+  day, using a 24-hour clock (0--23).  What is the best way to greet
+  someone?
+
+<ol type="A">
+  <li>
+
+  <pre class="prettyprint lang-js">
+    if hour < 12 {
+        alert("Good morning!");
+    } else {
+        alert("Good afternoon!");
+    }
+</pre>
+
+  <li>
+  <pre class="prettyprint lang-js">
+    if( hour < 12 ) {
+        alert("Good afternoon!");
+    } else {
+        alert("Good morning!");
+    }
+</pre>
+
+  <li>
+  <pre class="prettyprint lang-js">
+    if( hour < 12 ) {
+        alert("Good morning!");
+    }
+    if( hour > 12 ) {
+        alert("Good afternoon!");
+    }
+</pre>
+
+  <li>
+  <pre class="prettyprint lang-js">
+    if( hour < 12 ) {
+        alert("Good morning!");
+    } else {
+        alert("Good afternoon!");
+    }
+</pre>
+</ol>
+
+<p>Note: A common beginner error is to test for <em>both</em> something
+  and its opposite.  For example, testing if a number is odd and then
+  testing if it's even.  Better is to test if it's odd, and if
+  it's <em>not</em>, you know it's even, so you can just use
+  the <code>else</code> keyword.
+
+
+<h2>Quiz Question Nr. 4</h2>
+
+<p>Suppose you've just used the <code>prompt()</code> function to ask the
+  user for their name, and the value is stored in a variable
+  called <code>username</code>.  You want to see if they typed anything
+  and complain if they didn't.  Which of the following would complain
+  appropriately? (The value <code>""</code> refers to an empty string.)
+
+<ol type="A">
+  <li>
+
+ <pre class="prettyprint lang-js">
+   if( username = "" ) {
+       alert("please type your name");
+   }
+</pre>
+
+  <li>
+ <pre class="prettyprint lang-js">
+   if( username.length < 1 ) {
+       alert("please type your name");
+   }                      
+</pre>
+
+  <li>
+ <pre class="prettyprint lang-js">
+   if( username.length == "" ) {
+       alert("please type your name");
+   }
+</pre>
+
+  <li>
+ <pre class="prettyprint lang-js">
+   if( username == "" ) {
+       alert("please type your name");
+   }
+</pre>
+</ol>
+
+<p>Note:
+  <ul>
+    
+    <li>Be really careful when you use equality tests; it's so easy to
+    confuse <code>=</code> with <code>==</code>.
+
+    <li>The boolean expression in the parentheses is either true or false.
+      
+    <li>It's equivalent to compare to the empty string and to check that
+    the length is zero. Those are the same.
+      
+    <li>It's optional to surround a single statement with braces,
+    but <em>we recommend it</em>.
+  </ul>
+
+<h2>Hex Conversions in JavaScript</h2>
+
+<p>We can use JavaScript to convert decimal values to hex values. This
+  will give us some opportunities to use conditionals.
+
+<p>Write some JS code to do the following in the JS console
+  <ol>
+    <li>prompt the user for a decimal number, capturing the string of
+    digits in a variable. You get to name the variable.
+      
+    <li>use the <code>parseInt</code> function to convert the string of
+    digits into a number that we can do arithmetic with. Put the result in
+    a new variable. You get to name this variable, too.
+      
+    <li>Use the remainder operator, <code>%</code>, to compute the units
+    digit of the hex conversion. Put the result in a new variable.
+      
+    <li>Report the result using <code>alert</code>.
+      
+    <li>Copy your code to <a href="https://jsfiddle.net">jsfiddle.net</a>,
+    so that you can easily re-run it by clicking the "run" button.
+      
+    <li>Test your code
+  </ol>
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js executable">
+    var entered = prompt("Please enter a decimal number");
+    var num = parseInt(entered);
+    var units = num % 16;
+    alert("The units digit is "+units);
+  </pre>
+</div>
+
+<h2>Hex Conversions with Conditionals</h2>
+
+<p>Once you've got that working, add a conditional to report whether the
+  units digit will be a numeral (0-9) or a letter (A-F). Test it with your
+  jsfiddle.
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act2_src" class="prettyprint lang-js executable">
+    var entered = prompt("Please enter a decimal number");
+    var num = parseInt(entered);
+    var units = num % 16;
+    alert("The units digit is "+units);
+    if( units > 9 ) {
+        alert("digit will be a letter");
+    } else {
+        alert("digit will be a numeral");
+    }
+  </pre>
+</div>
+
+<h2>Hex with More Conditionals</h2>
+
+<p>Add another conditional to report whether the hex string will be one
+  digit or more than one digit.  Can you think of how to do this? Test it
+  with your jsfiddle.
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act3_src" class="prettyprint lang-js executable">
+    var entered = prompt("Please enter a decimal number");
+    var num = parseInt(entered);
+    var units = num % 16;
+    alert("The units digit is "+units);
+    if( units > 9 ) {
+        alert("digit will be a letter");
+    } else {
+        alert("digit will be a numeral");
+    }
+    if( num >= 16 ) {
+        alert("result will be multiple digits");
+    }
+  </pre>
+</div>
+
+<h2>Quiz Question Nr. 5</h2>
+
+<p>What is the result of the following code? Note that you
+  are <span style="text-decoration:line-through">allowed</span>
+  encouraged to use the JS console to find out!
+
+  <pre class="prettyprint lang-js">var y = Math.floor(3.8);</pre>
+
+<ol type="A">
+  <li><p>3.8</p></li>
+  <li><p>4</p></li>
+  <li><p>3.5</p></li>
+  <li><p>3</p></li>
+</ol>
+
+<h2>Quiz Question Nr. 6</h2>
+
+<p>What is the value of <code>y</code> as a result of the following code?
+Again, you are <span style="text-decoration:line-through">allowed</span>
+encouraged to use the JS console to find out!  We'll discuss this syntax
+  (called a <em>method</em> a bit later in the course).
+
+  <pre class="prettyprint lang-js">var x = 13;
+var y = x.toString(16);</pre>
+
+<ol type="A">
+  <li><p>13</p></li>
+  <li><p>3</p></li>
+  <li><p>a</p></li>
+  <li><p>d</p></li>
+</ol>
+
+<h2>Hex Conversions with 16s Place</h2>
+
+  <ol>
+    <li>Add code to compute the value of the 16s place.</li>
+      
+    <li>create the hex string for the conversion.</li>
+      
+  </ol>
+
+<p>After each step, test it with your jsfiddle.
+
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre id="act4_src" class="prettyprint lang-js executable">
+    var entered = prompt("Please enter a decimal number");
+    var num = parseInt(entered);
+    var units = num % 16;
+    var sixteens = Math.floor(num/16);
+    alert("The sixteens digit is "+sixteens);
+    alert("The units digit is "+units);
+    var hex = sixteens.toString(16) + units.toString(16);
+    alert("the hex conversion is "+hex);
+  </pre>
+</div>
+
+<h2>Conditionals with Fall Colors</h2>  
+  
+<p>We've implemented a function on this page, just for fun:
+  <ul>
+    <li><code>fallColors()</code> changes the colors of the page
+  to a garish display of fall colors
+
+  </ul>
+
+<p>Implement some JavaScript code that prompts the user for their favorite
+  season. If they answer "fall", invoke the <code>fallColors()</code>
+  function. Note that you won't be able to test this using jsfiddle
+  (because jsfiddle lacks the magic functions), but you can test it in
+  your JS console. The point of this is to do a conditional using a
+  string.
+  
+<p>You might come up with something like this:
+  
+<div class="hidden_from_student">
+  <pre class="prettyprint lang-js executable">
+    var season = prompt("What's your favorite season?");
+    if( season == "fall" ) {
+        fallColors();
+    }
+  </pre>
+</div>
+
+    <!--#include virtual="../../modularity/footer-rel.part" -->
+    
+    <h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+    <div id="solutions">
+      <p>Quiz answers:
+      <pre>
+        1. C ; it copies into x, the left-hand side
+        2. B or C; either will work
+        3. D is best.  C will also work but it's not as good
+        4. B or D will work. D is most common.
+        5. D ; Math.floor() computes the integer below the number
+        6. D ; .toString(16) converts to base 16.
+      </pre>
+
+      <p>Activity solutions.
+
+        <p>Hex Conversions in JavaScript:
+
+        <pre id="act1_dst" class="prettyprint lang-js"></pre>
+
+        <p>Hex Conversions with Conditionals:
+
+        <pre id="act2_dst" class="prettyprint lang-js"></pre>
+
+        <p>Hex with More Conditionals:
+
+        <pre id="act3_dst" class="prettyprint lang-js"></pre>
+
+        <p>Hex Conversions with 16s Place:
+
+        <pre id="act4_dst" class="prettyprint lang-js"></pre>
+
+        <script>
+          function copyCode(n) {
+              src = document.getElementById("act"+n+"_src");
+              dst = document.getElementById("act"+n+"_dst");
+              dst.textContent = src.textContent;
+          }
+          copyCode(1);
+          copyCode(2);
+          copyCode(3);
+          copyCode(4);
+        </script>
+    </div>
+
+
+    </div> <!--end of container -->
+        
+        
+    <!--#include virtual="../../modularity/bs-footer-rel.part" -->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>prettyPrint();</script>
+    <script src="../../js/cookies.js"></script>
+<script>
+      function fallColors() {
+          $("h2").css("color","red");
+          $("body").css({"background-color":"#FFCC00","color":"brown"});
+      }
+</script>
+
+    <script>revealLater("2/23/2016 1:00 pm");</script>
+
+  </body>
+</html>

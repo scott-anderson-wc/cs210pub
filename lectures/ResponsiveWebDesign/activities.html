@@ -1,0 +1,388 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!--#include virtual="../../modularity/bs-head.part" -->
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs307/js/google-code-prettify/prettify-sda.css">
+  <script src="http://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+  <link rel="stylesheet" href="prettify.css">
+    <style>
+      #TOC_list {list-style-type: none;}
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar.part" -->
+
+    <div class="container">
+      <h1>Responsive Design</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>write <em>cascading if</em> statements
+    <li>use media queries for responsive design</li>
+  </ol>
+
+<h2>Getting to know the JS Console</h2>
+
+<p>The JS Console is very important:
+<ul>
+  <li>It's where error messages are printed
+    
+  <li>It's where <code>console.log</code> messages are printed
+    
+  <li>It's where you can type in bits of code just to see what they do.
+</ul>
+
+<p>In general, you should always have the JS console open when you are
+  coding JS.
+
+<p>You owe it to yourself to learn the keyboard shortcut for opening the
+  JS console. I do it a zillion times a day, and if I can save myself 5
+  seconds each time...
+
+<p>Command-option-j on the Macs will do the trick. Do that now, please.
+
+<h2>Datatypes Matter</h2>
+
+<p>Look at each of the following expressions and guess their value. Write
+  down your predictions. (This is important, so that you will notice if
+  you are wrong.) Then, type or copy/paste the expressions into the JS
+  console and see if you were right.
+
+<pre>
+3 &lt; 11;
+"3" &lt; "11";
+3 &lt; "11";
+</pre>
+
+<p>Hunh? What does this all mean?
+  <ul>
+    <li>The first compares two <em>numbers</em>.
+      
+    <li>The second compares two <em>strings</em>, which uses a character
+    by character comparison, like "ax" &lt; "cab"
+      
+    <li>The third compares a number and a string. What happens then?
+  </ul>
+
+<p>The take-home message is that if you are treating things as numbers,
+  make sure they are numbers, not strings.
+
+<h2>If statements</h2>
+
+<p>We'll return to the last two exercises from last time (the time-based
+ones).
+
+
+<h2>Cascading IF Statements</h2>
+
+<p>We saw this in the reading:
+
+<pre class="prettyprint lang-js">
+    if (grade &gt;= 90) {
+        letterGrade = "A";
+    } else if (grade &gt;= 80) {
+        letterGrade = "B";
+    } else if (grade &gt;= 70) {
+        letterGrade = "C";
+    } else if (grade &gt;= 60) {
+        letterGrade = "D";
+    } else {
+        letterGrade = "F";
+    }
+</pre>
+  
+<h2>Quiz Question Nr. 1</h2>
+
+<p>We all know that a B is a grade between 80 and 90 (at least in
+  this example), but the code above does <em>not</em> check that the grade is
+  less than 90!  Is that okay?
+
+<ol type="A">
+    <li><p>It's okay, the <code>letterGrade</code> variable gets overwritten by the correct value</p></li>
+    <li><p>It's okay, the test comes after the test for A</p></li>
+    <li><p>It's okay, the test comes in the <code>else</code> </p></li>
+    <li><p>Oops, that's a bug in the code!</p></li>
+</ol>
+
+<h2>Exercise on Page Width</h2>
+
+<p>Suppose we want to categorize a screen as "narrow", "medium" or "wide",
+  storing the result in a variable called "screenKind". Imagine we do it
+  this way:
+
+<ul>
+  <li>wide:  wider than 960px
+    
+  <li>medium:  480-960
+    
+  <li>narrow:  0-480
+</ul>
+
+<p>Your code should prompt the user for the screen width.  (But, you
+  should know that there is a built-in <code>screen.availWidth</code>
+  global variable that contains this info.)
+
+<p>You might come up with something like this:
+
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js executable">
+var width = parseInt(prompt("Enter screen width in pixels"));
+if( width >= 960 ) {
+    screenKind = "wide";
+} else if( width > 480 ) {
+    screenKind = "medium";
+} else {
+    screenKind = "narrow";
+}
+  </pre>
+</div>
+
+<p>Is 480 narrow or medium?
+
+<h2>Cascaded IF Summary</h2>
+
+<p>If you use <code>if-else</code>, you don't have to test for the
+  negation of something.
+
+<p>Don't test for things that you know are true. If you know that a coin
+  flip is not <em>heads</em>, you don't have to test that
+  it's <em>tails</em>.
+
+<p>Even more generally, keep your code as simple as possible.  If you're
+  given someone's age, you don't have to test that it's a positive number.
+  Professional code is littered with "sanity checks" like that, but even
+  the pros find that annoying.  For us, let's focus on the important
+  conditions.</p>
+
+<h2>Responsive Design</h2>    
+
+<p>Let's refresh some CSS knowledge.      
+          
+    <h2>Quiz Question Nr. 2</h2> 
+<p>You're given the following CSS rule:</p>
+
+<pre class="prettyprint">
+  div p {
+    width: 100%;
+    max-width: 500px;
+  }
+</pre>
+<p>When will the elements <code>p</code> within the <code>div</code> have
+  exactly the width 500px?</p>
+<ol type="A">
+  <li>Always</li>
+  <li>When the parent's width is less than 500px</li>
+  <li>When the parent's width is more than 500px</li>
+</ol>
+          
+<h2>Quiz Question Nr. 3</h2> 
+
+<p>How can you read the following CSS rule (called a media query) in English:</p>
+      
+<pre class="prettyprint">
+@media handheld and (max-width: 600px) {
+      /* ... */
+}
+</pre>
+      
+<ol type="A">
+  <li>all media elements in a handheld device cannot have a width more than 600px</li>
+  <li>set all media elements in a page to at least 600px of width</li>
+  <li>if the media type is a handheld device and the display's width is greater than 600px do</li>
+  <li>if the media type is a handheld device and the display's width is up to 600px do</li>
+</ol>
+      
+<div class="alert alert-warning">
+
+    <h4>Media Query</h4>  
+      To learn about media types, their properties and how to create media query rules read more at
+      <a href="http://www.w3schools.com/cssref/css3_pr_mediaquery.asp">W3 Schools</a>. 
+</div>  
+     
+<h2>Responsive Design Example</h2>
+
+<p>You have an opportunity to take a web page with a fixed-width design
+  and convert it to responsive design that changes appearance based on the
+  width of the device. Download
+  <a href="foxes.zip">this
+    folder</a> that contains the HTML file and three images. Unzip it on your Desktop. Or, get the files one at a time from the <a href="foxes">directory</a></p> 
+  
+     <h3>Step 1</h3>
+    <p>Change the CSS for the element <code>wrapper</code> to move from
+    fixed-width to fluid width. (Note the margin property with 3 values:
+    top left-and-right bottom.)
+        
+      
+  <div class="row">
+   <div class="col-md-5"> 
+     <pre class="prettyprint">
+#wrapper {
+  width: 960px;
+  margin: -10px auto 0;
+  background-color: #FFEFDF;
+}
+</pre>
+     <p>Original Version</p>
+     </div>
+      <div class="col-md-5"> 
+        <pre class="prettyprint">
+#wrapper {
+  max-width: 960px;
+  width: 100%;
+  margin: -10px auto 0;
+  background-color: #FFEFDF;
+}
+</pre>
+        <p>Modified Version</p>
+</div>
+</div>
+ <h4>Ask yourself</h4>     
+     <p>What does it mean for the <code>wrapper</code> to have a width of 100%?</p> 
+ <p>Resize the page after this change. What do you see?</p>     
+ <h3>Step 2</h3>     
+ <p>The banner image is not changing because the image width is also 960px. When the page
+   becomes smaller than the image, a horizontal scrollbar is added. We can force the banner image
+   to change its width with the page by creating a rule to set it to 100%. Do that now and test
+   the result.
+   
+  <h3>Step 3</h3>
+   <p>After the first two steps, the page text flows with the page and the banner image shrinks too when
+     we resize. The biggest problem for the moment is the navbar. Let's look at its code:
+     
+   <pre class="prettyprint">
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  text-align: center;
+  width: 137px;
+  padding: 20px 0;
+}
+   </pre>  
+ <p>Every value in pixels for the width property is a problem for the fluid design, 
+      we need to convert it to a % value.
+      How do we do that?</p>
+      
+      <h4>Ask yourself</h4>
+      <p>The value 137px doesn't seem random. Why is every list item of the navbar set to 137px? What is 
+      the corresponding in %? Make that change into the code and test the page.</p>
+   
+ <h3>Step 4</h3>     
+  <p>The menu items are showing in a horizontal line because of the property <code>display: inline-block;</code>.
+      If you were to delete the word "inline", you'd see them stacking vertically. However, this is not a behavior
+      you want from the beginning. We want this only when the screen is small. In this case we will need a media 
+      query rule.</p>  
+      
+  <pre class="prettyprint">
+ @media screen and (max-width: 680px){
+    nav ul li {
+      display: block;
+      width: 100%; /* let's fill all available space*/
+      padding: 1% 0; /* 1% of width of element*/
+      border-bottom: 1px solid white;
+    }
+  }
+  </pre>
+   <p>Add this rule to the page and resize it. </p>  
+      
+<h3>Step 5</h3>
+<p>We're almost done. If you resize to a small width, you'll see the images sticking out left and right.
+      This can also be fixed with the following media query:</p>  
+      <pre class="prettyprint">
+@media screen and (max-width: 480px) {
+  #text img {width: 100%};
+}
+      </pre>
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+    <li>Using cascading "if" statements, and avoiding unnecessary tests.
+    <li>using media queries to create responsive design
+
+  </ul>
+
+<div class="hidden_from_student">
+    <p>The <a target="_blank" href="responsive-practice.html">foxes exercise</a> and
+
+        the <a target="_blank"  href="responsive-practice-solution.html">solution to the
+            foxes exercise</a>.  Compare the CSS.
+</div>
+
+
+    <h2 id="sec_solutions">Solutions</h2>
+
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+    <div id="solutions">
+      <p>Quiz answers:
+      <pre>
+        1. C  we don't have to test for the negation because we used ELSE
+        2. C  it can be smaller than 500 if the parent is smaller than 500
+        3. D  "max" means "it can't be more than, but it can be less"
+      </pre>
+
+      <p>Activity solutions.
+
+        <p>Exercise on Page Width:
+
+        <pre id="act1_dst" class="prettyprint lang-js"></pre>
+
+        <p>The <a href="responsive-practice.html">foxes exercise</a> and
+
+        the <a href="responsive-practice-solution.html">solution to the
+        foxes exercise</a>.  Compare the CSS.
+
+    </div>
+
+
+      </div><!-- end of row -->
+    </div><!-- end of class=container -->
+
+
+
+    <!--#include virtual="../../modularity/bs-footer.part" -->
+    <script src="../../js/TOC.js"></script>
+    <script src="/~cs307/js/google-code-prettify/prettify.js"></script>
+    <script>insertTOC_textual(); prettyPrint();</script>
+    <script src="../../js/cookies.js"></script>
+   </div>
+  </div>
+  <!--#include virtual="/~cs110/modularity/footer.part" -->
+ </div> <!--end of container>
+        
+        
+ <!--#include virtual="/~cs110/modularity/bs-footer.part" -->
+    <script src="../../js/activities.js"></script>
+    <script>
+      copyCode(1);
+
+      revealLater("3/1/2016 1:00 PM"); 
+
+   </script>
+
+  </body>
+</html>

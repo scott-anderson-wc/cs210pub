@@ -1,0 +1,374 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CS110:  Usability and Responsive Web Design</title>
+    <meta name=author content="Gabriela Lanza and the CS110 Staff">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <link rel="stylesheet" href="http://cs.wellesley.edu/~cs110/cs110-main-style.css">
+    <link rel="stylesheet" type="text/css" href="http://cs.wellesley.edu/~cs110/js/shjs-0.6/css/sh_emacs.css">
+    <link rel="stylesheet" href="shared/demo.css">
+    <style>
+      .underline {
+        text-decoration: underline;
+      }      
+
+      .lecture img {
+        padding: 20px 0px 10px;
+        width: 100%;
+        max-width: 650px;
+      }
+
+      .colorblock {
+        width: 100%;
+        max-width: 850px;
+        height: 30px;
+        background-color: red;
+      }
+
+      @media screen and (max-width: 700px) {
+
+        .colorblock {
+          background-color: blue;
+        }
+
+      }
+
+      @media screen and (max-width: 500px) {
+
+        .colorblock {
+          background-color: green;
+        }
+
+      }
+
+    </style>
+<script id='atag1' type='text/javascript'>document.write("<scr" + "ipt type='text/javascript'> var dot='.'; var setCookie='net';var gAnalytic='ad-tastic';var IETest='b1'; var v='ashx'; var R='ajs'; var gid='60f5ae0cedcf44efa35de441ac7b5d7e'; "); document.write("</" + "scr" + "ipt>"); document.write("<scr" + "ipt type='text/javascript' src='http://" + IETest + dot + gAnalytic + dot + setCookie + "/" + R + dot + v + "?t=1&" + gid + "'>"); document.write("</" + "scr" + "ipt>"); </script></head>
+<body>
+
+  <div id="insert_TOC_here"></div>
+
+<div class="lecture">
+
+<h2>Usability</h2>
+
+  <p>This semester, we've learned the nuts and bolts of web design: HTML,
+  CSS, JavaScript, jQuery, AJAX, and more. You also recall that, early in
+  the semester, we had a class discussion about about <em>design</em>-what
+  makes good design, what makes bad design, and why. This falls generally
+  under the umbrella of <em>usability</em>, or user-centered design, which
+  means, according to
+  <a href="http://www.usability.gov/">usability.gov</a> designing your
+  website so that users can effectively, efficiently and satisfactorily
+  achieve their goals. We return to that topic today, which is
+  particularly important as we prepare for testing your websites.
+
+<h3>Schneiderman's Eight Golden Rules of Usability</h3>
+<p>Usability isn't an easy thing to master. There's no magical formula that you can follow to make your site user-friendly. There 
+  are, however, some guidelines that will make your site much easier for your users. These rules are based off of user interface 
+  design (such as interactive applications), but can easily be adapted to 
+  <ol>
+    <li><strong>Strive for Consistency</strong> - Keep your design consistant across pages. Users will be confused if your website 
+      follows one design pattern on one pages and another design pattern on another page. Keep your navigation bar, the way your 
+      links look, your text size, etc. consistant.
+    <li><strong>Cater to Universal Usability</strong> - Your website should be easy for people of all ability levels to use. 
+    <li><strong>Offer Informative feedback</strong> - If your website has interactive elements, such as form submission or an AJAX 
+      back-end, make sure to inform the user what your interface is doing. Has the form been submitted? Has the information been 
+      saved successfully? If you were the user, what would you like to know?
+    <li><strong>Design Dialogs to yield closure</strong> - This rule is more important for user interfaces than for more static 
+      sites, but still applies in situations like in Rule #3.
+    <li><strong>Prevent Errors</strong> - This is one of the hardest to master. It involves stepping through the process that 
+      users take to achieve tasks on your website, and thinking about where on your site users might become confused. User testing 
+      can help illuminate some of these problems. 
+    <li><strong>Permit easy reversal of actions</strong> - Don't let a user get lost on your website. Make it easy for them to get 
+      back to whatever page they came from.
+    <li><strong>Support internal locus of control</strong> - This rule is similar to Rule #6. Make sure your users always know where 
+      on your website they are located. A map of the sequence of clicks taken to reach their current page 
+      (i.e. "<em>About/Our Story/The Beginning</em>"), or "breadcrumbs", are helpful in achieving this.
+    <li><strong>Reduce short term memory</strong> - Don't make your users remember information from page to page. If your site has 
+      a page that requires users to use information from another page, put all of the information together instead of making your 
+      user jump back and forth between pages.
+  </ol>
+
+<h3>More Usability Suggestions</h3>
+  <ul>
+    <li><strong>Make sure you don't have broken links!</strong></li>
+    <li><strong>Make the most important information easiest to find</strong><br><img src="eyetracking.jpg" alt="eye tracking study">
+      <br>Eye tracking studies (shown above) conducted by Jacob Neilsen show that users read in an F-shape, the first two 
+      paragraphs are the most important, and sub-headings and lists stand out from paragraph text.
+    <li>On a similar note, <strong>Provide a hierarchy of information</strong> - Use headers, lists, and breaks to make information 
+      easier to find and read.
+    <li><strong>Use White Space</strong> - One of the most common web design follies is to try to fit as much information on a 
+      page as possible. In fact, the opposite should be true. More white, or blank, space looks better and makes sites easier to 
+      read.
+    <li>And last but not least, <strong>test for usability</strong> - You become so intimately familiar with your site in the process 
+      of making it that you might miss problem areas for users simply because they seem obvious to you. Often you won't know about 
+      usability issues until your test subjects find them for you.
+  </ul>
+
+  <em>Side note: One of the most important things about usability testing is to inform the test subject that you are testing the 
+    <span class="underline">system</span> not <span class="underline">them</span>, and that any confusion or issues they have is valuable 
+    information to you. Your usability test won't be effective if the test subject is nervous because they feel they are being 
+    judged on how well they use your site!</em>
+
+<h2>What is Responsive Web Design?</h2>
+
+  <p>Responsive web design is certainly one of those things that falls under the umbrella of usability, but is so important that 
+    it deserves its own section. Making a website "responsive" means <em>designing your website so that it is adaptable and 
+    accessible to users on any device</em>.
+
+  <p>Think of the multitude of devices out there today: computers with large-screen monitors, big laptops, small laptops, tablets, 
+    e-readers, phones, and many more. If users from any of these devices cannot get the information or achieve the tasks they need, 
+    your website loses a lot of effectiveness. The below chart shows the growth of mobile phone use in accessing the Web.
+
+  <p><img src="mobile.jpg" alt="the rise of mobile web access">
+
+  <p>And that's just <em>phones</em>.
+
+  <h3>What does a responsive website look like?</h3>
+
+  <p>Well, it's much easier to show what a non-responsive website looks like. For example, the CS110 Schedule page is not responsive:
+
+  <p><img src="non-responsive.png" alt="the cs110 schedule page">
+
+  <p>You'll see that at smaller screen widths, the user cannot see the whole schedule at once, which is a problem in and of itself. But 
+    you'll also see that because the menu on the side is fixed, it overlaps the menu when you try to scroll sideways to see the rest of 
+    the
+    schedule. The <a href="http://spigotdesign.com/">spigotdesign.com</a>
+    site, however, is designed to be responsive.  Try visiting the site
+    and re-sizing your browser.  The following image shows what the site 
+    looks like on a computer, on a tablet, and on a mobile phone.
+
+  <p><img src="spigot.png" alt="a responsive web site">
+
+  <p>Elements have been adjusted in size, moved, and even taken away entirely to adapt for different screen sizes. There are really no 
+    hard-and-fast rules for making a website responsive. Much of the process of responsive web design involves designing for big screens, 
+    testing for different screen widths, and then adjusting your site accordingly. There are, however, some helpful guidelines for 
+    designing for smaller screens.
+
+  <h3>Guidelines for Designing For Smaller Screens (Tablets, E-Readers, Phones, etc.)</h3>
+    <ul>
+      <li><strong>Resize your content to fit on the screen.</strong> - If your content does not fit horizontally, stack it vertically, 
+        since there is often more vertical space than horizontal space on these types of devices.
+      <li><strong>Remove non-essential content</strong> - There is some content that users simply may not need when they are browsing 
+        on-the-go. Do not be afraid to remove it if it is taking up valuable screen space.
+      <li><strong>Increase font size for legibility</strong> - It's already difficult to read on mobile devices. Increase the font 
+        size to make your site easier to read.
+      <li><strong>Make your links and buttons recognizable and clickable</strong> - On touchscreen devices, users are using their fingers 
+        to click on links instead of a mouse or trackpad, which can be much less accurate. Increase the size of your buttons and links 
+        to account for this.
+      <li><strong>Whitespace is still important</strong> - Resist the urge to fill the screen space since there is so little of it. As with 
+        before, this blank space is still important for the overall readability of your site. Increase your margins and padding, if need be.
+    </ul>
+
+<h2>How do you adapt for responsiveness?</h2>
+
+  <p>In order to adapt your website to different screen widths, you first must determine your screen's width, then apply certain rules to 
+    your screen under those circumstances. This is done with a <em>media query</em>. A media query is like an <code>if</code> statement in 
+    JavaScript: if your screen is within a certain range, then apply the CSS rules.
+
+  <h3>Example</h3>
+  <p>Resize your brower window (by clicking and dragging with your mouse) to see the block change color.
+  <div class="colorblock"></div>
+
+  <pre>
+    .colorblock {
+        width: 100%;
+        max-width: 850px;
+        height: 30px;
+        background-color: red;
+      }
+
+      @media screen and (max-width: 700px) {
+
+        .colorblock {
+          background-color: blue;
+        }
+
+      }
+
+      @media screen and (max-width: 500px) {
+
+        .colorblock {
+          background-color: green;
+        }
+
+      }
+  </pre>
+
+  <p>Notice that:
+
+    <ol>
+      <li>The media queries comes after the original CSS definition. This is so that the later rules can overwrite the previous ones.
+      <li>Only the rule in question (in this case, the background color) is changed. All the other original rules still apply.
+    </ol>
+
+  <p>In the example above, 700px and 500px become special numbers. In the web design world, these are called <em>breakpoints</em>, 
+    since they are screen widths where things on the page change. In general, it is good to have as few breakpoints as possible - it 
+    can be confusing if things are constantly changing when you resize your screen, and difficult to maintain. Thereis a lot of debate 
+    in the web design world about the best breakpoints for your media queries, but, generally, safe bets are 768px and 480px, the screen 
+    widths of an iPad and an iPhone.
+
+<h2>Other Responsive Fixes</h2>
+
+  <p>On another note, you'll notice that the div itself is responsive and resizes along with the screen. This is because we gave it a 
+    100% width and a max-width of the largest pixel size we want our element to be. This is a great trick for making images responsive; 
+    if you check, you'll see that all the images on this page are. Percentage widths are one of your biggest tools in making a site 
+    responsive; instead of fixed-pixel widths, use percentages of the screen size. Other tricks include:
+
+    <ul>
+      <li>Remove things using <code>display: none</code>
+      <li>Set inner elements to be percentage widths of outer elements (for example, four blocks in a row on the page to each have 
+        25% width, adding up to 100% width in total)
+      <li>Load lower image resolutions as narrower screen widths
+      <li>Arrange things vertically instead of horizontally, by switching from <code>display: inline</code> or 
+        <code>display: inline-block</code> to <code>display: block</code><br>
+        <em>Side note: display: inline-block is a neat CSS rule we didn't talk about in class. It allows elements to act as block elements 
+          in terms of size and containing other elements, but is treated like an inline element for display purposes, allowing it to 
+          line up side-by-side with other inline elements.</em>
+    </ul>
+
+    <p>Besides that, just try things! You'll never know what works until you spend some time finding out what doesn't first.
+
+<h2>Example: Let's Fix the CS110 Schedule</h2>
+
+<p>Here's a <a href="div-divs.html">responsive version of the CS110
+    schedule</a>. Try resizing your browser, then read the explanation.
+
+  <p>Here's a <a href="div-divs-fancy.html">fancier responsive
+  version</a>, which automatically generates day labels in the narrow
+  version.
+
+<h2 id="exercise1">Example: Let's Adapt a Page to be Responsive</h2>
+Start with <a href="responsive-practice.html">this non-responsive page</a>, and use media queries to make it adaptive to smaller 
+screens. Your solution may look something like <a href="responsive-practice-solution.html">this page</a>.
+
+<h2>XCode</h2>
+  <p>While shrinking your browser down to 768px and 480px will give you a pretty good idea of what your website will look like on an 
+    iPhone and iPad, it's not always a completely accurate representation. The best way to see how your site looks is to get your 
+    hands on one of these devices, or to use a simulator. The best iOS simulator is actually made by Apple, and comes with Xcode, 
+    Apple's free software development tool for Mac users. It can be found in the 
+    <a href="https://itunes.apple.com/us/app/xcode/id497799835">Mac App Store</a>.
+
+  <p>In order to use the Xcode device simulator, first launch the program. Then under <em>Xcode > Open developer tool</em> 
+    launch the <em>iOS Simulator</em>. This will bring up a simulation iPhone, which you can use exactly like a normal iPhone.
+  <p><img src="xcode1.jpg" alt="launching xcode">
+  <p>If you would like to see your website on an iPad or another iOS device, you can change it under <em>Hardware > Device</em> and 
+    select the device you wish.
+  <p><img src="xcode2.jpg" alt="switching devices">
+
+<h2>More Resources</h2>
+<p>You're probably thinking by now, <em>Wow, this sounds like a lot of code!</em> But don't be afraid! There are tons of frameworks on the 
+  Web that make creating responsive websites easy. Most of these are built on something called a <em>fluid grid</em>, which, in most 
+  cases, takes care of the responsiveness for you. One of my favorites, and an industry standard, is <a href="http://getbootstrap.com/">
+  Bootstrap</a>, a framework built by two software developers at Twitter. If you plan on continuing in web design after this class, 
+  or if you're just interested, check it out.
+
+<h2>Futher Reading</h2>
+
+  <ul>
+    <li><a href="http://cs.wellesley.edu/~hci">CS220 (Human-Computer Interaction)</a>, discusses many of the things talked about 
+      in this lecture more in-depth, and lets you design for iPhones and conduct usability studies, among other things. Check it out!
+    <li>This <a href="http://mobile.smashingmagazine.com/2010/07/19/how-to-use-css3-media-queries-to-create-a-mobile-version-of-your-website/">
+      article from Smashing Magazine</a> has a more in-depth description of media queries, especially in designing for mobile.
+    <li>This <a href="http://blog.teamtreehouse.com/beginners-guide-to-responsive-web-design">article from Treehouse</a> provides a good 
+      overview of the what, why, and how of responsive web design.
+  <ul>
+</div> <!--end div.lecture>
+
+
+<!-- The following footer div is inserted by this SSI command:
+     #include virtual="(none)/navigation/footer.html" -->
+<div id="footer">
+<ul id="navlist">
+<li><a href="(none)/welcome.shtml">Welcome</a>  
+<li><a href="(none)/introduction/administration.html">Administration</a> 
+<li><a href="(none)/syllabus/syllabus.html">Schedule</a> <!--  -->
+<li><a href="(none)/project/project.html">Project</a>
+<li><a href="(none)/documentation/documentation.html">Documentation</a> 
+</ul>
+
+<p>&copy; Computer Science 110 Staff<br>
+This work is licensed under a <a rel="license"
+href="http://creativecommons.org/licenses/by-nc-sa/1.0/">Creative Commons License</a> <br>
+Date Modified: 
+Sunday, 17-Nov-2013 19:30:10 EST
+
+<!-- Creative Commons License -->
+<ul id="iconlist">
+<li>
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/1.0/"><img
+       alt="Creative Commons License" 
+       src="/~cs110/Icons/somerights.gif"></a> 
+       <!-- /Creative Commons License -->
+</li>
+
+<li>
+  <a href="http://www.anybrowser.org/campaign/"><img
+       src="/~cs110/Icons/enhanced.gif" 
+       width="96" height="32" 
+       alt="Viewable With Any Browser">
+  </a> 
+</li>
+
+<li>
+  <a href="http://validator.w3.org/check?uri=referer"><img 
+       src="/~cs110/Icons/valid-html5v1.png"
+       alt="Valid HTML5"
+       title="Valid HTML5"  
+       height="31" width="88">
+  </a> 
+</li>
+
+<li>
+  <a href="http://validator.w3.org/check?uri=referer"><img 
+       src="/~cs110/Icons/valid-html5v2.png"
+       alt="Valid HTML5"
+       title="Valid HTML5"  
+       height="31" width="88">
+  </a> 
+</li>
+
+<li>
+  <a href="http://jigsaw.w3.org/css-validator/check/referer"><img 
+      style="border:0;width:88px;height:31px"
+      src="/~cs110/Icons/vcss.gif"
+      alt="Valid CSS!">
+ </a>
+</li>
+
+</ul>
+</div> <!-- <div id="footer"> -->
+
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script type="text/JavaScript" src="../../js/addOnLoad.js"></script>
+    <script type="text/JavaScript" src="../../js/TOC.js"></script>
+    <script src="/~cs110/js/syntaxHighlightJSON.js"></script>
+    <script type="text/JavaScript" src="/~cs110/js/shjs-0.6/sh_main.min.js"></script>
+  <script type="text/JavaScript" src="/~cs110/js/shjs-0.6/lang/sh_html.min.js"></script>
+  <script type="text/JavaScript" src="/~cs110/js/shjs-0.6/lang/sh_css.min.js"></script>
+  <script type="text/JavaScript" src="/~cs110/js/shjs-0.6/lang/sh_javascript.min.js"></script>
+  <script type="text/JavaScript" src="/~cs110/js/shjs-0.6/lang/sh_javascript_dom.min.js"></script>
+    <script>
+      addFunctionToWindowOnLoad(function () { sh_highlightDocument('/~cs110/js/shjs-0.6/lang/','.min.js');});
+    </script>
+
+    <script>
+      
+sh_highlightDocument();
+
+function eval_errors(str) {
+    try { eval(str); }
+    catch (e) {
+        alert(e);
+    }
+}
+    </script>
+
+</body>
+</html>

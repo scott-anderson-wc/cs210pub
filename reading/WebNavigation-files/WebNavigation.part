@@ -1,0 +1,87 @@
+<p>Let's look now at some of the standard navigational structures of web
+pages. As the name suggests, a site's navigational structure describes the
+paths of navigation through the site. When thinking about these
+structures, keep in mind that while some sites consist of only a single
+page, most &quot;real&quot; websites consist of many pages. In most
+websites with more than just a few pages, you will see a combination
+of several of these structures.
+
+<h2>Linear and Circular</h2>
+
+<P> <img id="linear" src="WebNavigation-files/linear.gif" alt="linear and circular navigation" width="462" height="74">
+
+<UL>
+  <LI>Follows pre-defined path
+  <li>Links to NEXT and PREV
+  <li>Examples: Slide Show, Tour or Presentation
+</UL>
+
+<h2>Hub and Spoke</h2>
+
+<p><img id="hubspoke" src="WebNavigation-files/hubwheel.gif" width="241" height="199" alt="hub and spoke navigation">
+  
+<ul>
+   <li>Central navigation hub with many links
+   <li>Other pages only have one "back" link, hence no navigation overhead
+   <li>Example: CS110 syllabus page links to each lecture page
+</ul>
+
+<h2>Clique</h2>
+
+<!-- made this slightly smaller than its natural size so that -->
+<!-- it will fit better on the printout -->
+
+<p><img src="WebNavigation-files/clique.png" alt="clique navigation" width="256" height="256" id="clique">
+
+<ul>
+   <li>Every page connects to every other page
+   
+   <li>No special "navigation" page
+
+   <li>Quickest to get around in, but every page must have all N links on it
+   <li>Adequate for small sites but unwieldy for larger
+     sites
+   <li>Example:  the top level of the CS110 site
+</ul>
+
+<h2>Rooted Tree</h2>
+
+<p><img id="tree" src="WebNavigation-files/tree.gif" alt="tree navigation" width="252" height="178">
+
+<ul>
+  
+  <li>The structure is &quot;self-similar&quot;. It has a root web page that has  subtrees
+    as its branches. Each subtree is a root with subtrees. 
+  <li>Very modular, conceptually clear
+  <li>Separate subareas aren't connected
+  <li>Works well for big sites
+  <li>Examples: Yahoo!, NY Times
+</ul>
+
+<h2>Network or Graph</h2>
+
+<p><img id="netleft" src="WebNavigation-files/networkleft.gif" alt="network navigation, left half" width="196"
+height="138"><img id="netright" src="WebNavigation-files/networkright.gif" alt="network navigation, right
+half" width="194" height="210">
+
+<ul>
+
+   <li>Interconnections on a somewhat <span style="font-style: italic">ad hoc</span> basis
+
+   <li>A page might be connected to a number of other pages (based on logical content of pages on site)
+
+   <li>Can be too random; hard for visitors to understand   
+   <li>Almost necessary for a large site
+   <li>Examples:  Wellesley College Website
+
+</ul>
+
+<h2>Project Considerations</h2>
+
+<p>Your project should consist of 8-10 pages.  You should make sure to
+  discuss with your partner how your web pages are linked to make
+  navigation easy and logical for visitors. In the project design phase
+  you are required to describe the interconnection of all the pages on
+  your site and provide a brief discussion about the site's navigation
+  structure using the terminology learned today.
+

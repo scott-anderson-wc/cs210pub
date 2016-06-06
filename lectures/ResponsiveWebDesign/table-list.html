@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name=author content="Scott D. Anderson and the CS110 Staff">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <style>
+      /* wide-screen */
+      /*
+      @media screen and (min-device-width: 480px) {
+      */
+          h2 {
+              color: blue;
+             font-size: 24px;
+          }
+
+          /* inner most cells, particular days */
+          ul ul li {
+              width: 20%;  /* of the parent ul, right? */
+              display: table-cell;
+              border: 1px solid blue;
+           }
+           ul li ul {
+              width: 100%; /* of the parent */
+              display: table-row;
+           }
+           ul li {
+              width: 100%; /* of the parent UL */
+           }
+      
+           #schedule>ul {
+              display: table;
+              width: 100%;
+           }
+           #schedule {
+              width: 100%;
+           }
+      /*
+      }
+      */
+    </style>
+</head>
+<body>
+
+  <div id="insert_TOC_here"></div>
+
+  <h2>Schedule</h2>
+
+  <div id="schedule">
+  <ul>
+    <!-- headers -->
+    <li><ul>
+        <li>Monday
+        <li>Tuesday
+        <li>Wednesday
+        <li>Thursday
+        <li>Friday
+      </ul>
+      <!-- week 1 -->
+    <li><ul>
+        <li>Labor Day Holiday
+        <li>Lab 1: Basics
+        <li>
+        <li>HTML
+        <li>email your instructor
+      </ul>
+      <!-- week 2 -->
+    <li><ul>
+        <li>URLs
+        <li>Lab 2: Web Pages with Links and Images
+        <li>
+        <li>CSS 1
+        <li>H1 due: first web page
+      </ul>
+  </ul>
+  </div>
+
+<!--#include virtual="../../navigation/footer.html" -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Activities</title>
+    <!-- use relative pathnames in #include so when this site is archived,
+         say as cs110f15, the include refers to the same file -->
+    <!--#set var="reltop" value="../../" -->
+    <!--#include virtual="../../modularity/bs-head-rel.part" -->
+    <style>
+      #TOC_list {list-style-type: none;}
+
+      img.full { width: 100%; }
+      img.half { width: 49%; }
+    </style>
+    
+  </head>
+  <body>
+    <!--#include virtual="../../modularity/navbar-rel.part" -->
+
+    <div class="container">
+      <h1>Arrays and Slideshows</h1>
+      <hr>
+    </div>
+      
+    <div class="container">
+      <div class="row">
+     
+        <div class="col-md-3">
+          <div class="bs-sidebar hidden-print" role="complementary">
+            <ul class="nav bs-sidenav">  
+              <div id="insert_TOC_here"></div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          
+<h2>Goal</h2>
+
+<p>By the end of today, you will be able to:
+  <ol>
+    <li>Understand how to create and use <em>arrays</em>.
+      
+    <li>Understand the ideas behind <q>top-down</q> and <q>bottom-up</q>
+      programming.
+            
+    <li>Create a slideshow. 
+
+    <li>Create an automatic slideshow (carousel).
+      
+  </ol>
+
+<h2 id="recap">Recap</h2>
+
+<p>We learned about <em>arrays</em> and <em>slideshows</em>. We'll talk
+  about slideshows a bit later.
+
+<h2>Arrays</h2>
+
+<ul>
+  <li>A data structure for multiple values.
+    
+  <li>The values can be any datatype (strings, numbers, booleans, dates).
+    
+  <li>The values are accessed by their <em>index</em>.
+    
+  <li>The index is a number from zero to one less than the length of the
+  array.
+    
+  <li>The array has a <code>.length</code> property that we can use.
+</ul>
+
+
+<h2>Quiz Nr. 1</h2>
+
+<p>Suppose we want to define a array of the grades on the last
+  homework. Which is correct:
+  
+<ol type="A">
+  <li><pre class="prettyprint lang-js">hw6 = [ 10, 9.5, 9.1, 10, 10 ];</pre></li>
+  <li><pre class="prettyprint lang-js">var hw6 = ( 10, 9.5, 9.1, 10, 10 );</pre></li>
+  <li><pre class="prettyprint lang-js">var hw6 = { 10, 9.5, 9.1, 10, 10 };</pre></li>
+  <li><pre class="prettyprint lang-js">var hw6 = [ 10, 9.5, 9.1, 10, 10 ];</pre></li>
+</ol>
+
+<h2>Quiz Nr. 2</h2>
+
+<p>What's the syntax error in the following array creation?
+  
+<pre class="prettyprint lang-js">var hw6 = [ 10, 9.5 9.1, 10, 10 ];</pre>
+
+<ol type="A">
+  <li><p>missing comma</p></li>
+  <li><p>uses <code>var</code> when it shouldn't</p></li>
+  <li><p>uses <code>[]</code> when it should use <code>()</code></p></li>
+  <li><p>should use line breaks</p></li>
+</ol>
+
+<h2>Quiz Nr. 3</h2>
+
+<p>Suppose we want to correct the first score to be 9.9 instead of
+  10. Which is correct:
+  
+<ol type="A">
+  <li><pre class="prettyprint lang-js">hw6[1] = 9.9;</pre></li>
+  <li><pre class="prettyprint lang-js">hw6.1 = 9.9;</pre></li>
+  <li><pre class="prettyprint lang-js">hw6["1"] = 9.9;</pre></li>
+  <li><pre class="prettyprint lang-js">hw6[0] = 9.9;</pre></li>
+</ol>
+
+<h2>Day-Child Form</h2>
+
+<p>Many of us have heard the following Mother Goose rhyme:
+<blockquote>
+  Monday's child is fair of face,</br>
+  Tuesday's child is full of grace;</br>
+  Wednesday's child is full of woe,</br>
+  Thursday's child has far to go;</br>
+  Friday's child is loving and giving,</br>
+  Saturday's child works hard for its living;</br>
+  But the child that is born on the Sabbath day</br>
+  is bonny and blithe and good and gay.
+</blockquote>  
+
+<p>(We won't comment on just how silly it is.)
+
+<p>Let's implement a form that will tell someone which kind of child they
+are. Here's the form source code:</p>
+
+<pre id="form1-html" class="prettyprint lang-html linenums"></pre>  
+
+<blockquote>(The <code>output</code> tag is like <code>span</code>, but
+  assistive browsers are notified that its contents might be updated. See
+  <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Forms/How_to_structure_an_HTML_form#The_<output>_element">the
+  output element in How to Structure an HTML form</a>.)
+</blockquote>
+
+<p>Here it is in action:</p>
+
+<div id="form1"><form>
+  <label for="birthdate">
+    <p>Enter your date of birth:
+      <input type="text" id="birthdate" name="birthdate">
+    </p>
+  </label>
+  <button id="tell-button" type="button">tell me about myself</button>
+  <output id="child-description"></output>
+</form>
+</div>
+
+<script>
+document.getElementById('form1-html').textContent = document.getElementById('form1').innerHTML;
+</script>
+
+<h2>Top-Down and Bottom-up Programming</h2>
+
+<p>How shall we attack the programming of that form? Let's first step back
+  and think about how we can use <em>divide and conquer</em> to break down
+  the problem into parts that are </p>
+<ul>
+    <li>Easier
+    <li>Modular (reusable)
+</ul>
+
+<p>Here's one way to think about it:
+
+<figure>
+  <img class="full" src="dayChild.png" alt="Breakdown of the dayChild problem">
+  <figcaption>Breakdown of the problem of coding a form that inserts the
+    relevant line of the poem into the form, given a particular
+    date.</figcaption>
+</figure>
+
+<p>We've now divided the problem into three parts, each of which should be
+  relatively straightforward, easier than the original, and collectivelyl
+  solve the problem. Which should we do first? There are two major ways we
+  could proceed, namely:
+  <ul>
+    <li>top-down: starting at the top function and then implementing the
+    ones it invokes.
+      
+    <li>bottom-up: starting with the lower functions, and then
+      implementing the one that invokes them.
+  </ul>
+
+<p>Here's how that might look, side-by-side:
+  
+<figure>
+  <img class="half" src="dayChild-top-down.png" alt="top-down breakdown of the dayChild problem">
+  <img class="half" src="dayChild-bottom-up.png" alt="bottom-up breakdown of the dayChild problem">
+  <figcaption>On the left, we see a top-down approach to the
+    implementation, and on the right, a bottom-up approach. The gray boxes
+    are not yet implemented.</figcaption>
+</figure>
+
+<h3>Top-Down</h3>
+
+<blockquote><p>
+If you have built castles in the air, your work need not be lost; that is
+where they should be. Now put the foundations under them. &mdash; Henry
+David Thoreau
+</blockquote>
+
+<p>The top-down approach is perfectly good, but notice that in order to do
+  its job, the event handler relies on the lower functions that it
+  invokes.  It's a castle in the air. This means you can't test anything
+  until the lower levels are built. If there's a bug in the behavior, it
+  could lurk in any of the three functions, because none of them have yet
+  been debugged. That makes debugging harder.
+
+<h3>Bottom-Up</h3>
+
+<p>With the bottom-up approach, we <em>can</em> test the lower functions
+  as soon as we implement them. We can test them using the JavaScript
+  console, providing inputs and looking at outputs there. If we get a bug,
+  we know it can only be in the function we are currently testing, so it's
+  easier to find and squash. Then, when we get to implementing the event
+  handler, we know that it is built on a firm, bug-free foundation.  Any
+  bugs we find have to be in the event handler.
+
+<p>Consequently, in this course, we advocate and encourage you to build
+  your code in a bottom-up fashion, testing early and often.
+
+<h2>The dayName function</h2>
+
+<p>The first function we will implement is the <code>dayName</code>
+  function. We saw a function just like this in the reading, so if you're
+  stumped, feel free to review that.  Abbreviate the names, to avoid lots
+  of typing. Write your code here:
+
+<form action="">
+<div>
+<textarea rows=10>
+
+
+
+
+
+/* testing */
+alert( "day 0 is "+dayName(0) );
+alert( "day 6 is "+dayName(6) );
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act1_src" class="prettyprint lang-js linenums executable">
+function dayName(day) {
+    var en = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return en[day];
+}
+
+/* testing */
+alert( "day 0 is "+dayName(0) );
+alert( "day 6 is "+dayName(6) );
+  </pre>
+</div>
+
+<h2>Exercise: dayChild function</h2>
+
+<p>Now, implement the <code>dayChild</code> function. To avoid some
+  tedious typing, I've given you some strings:
+
+<form action="">
+<div>
+<textarea rows=12>
+                         "bonny and blithe and good and gay",
+                         "fair of face",
+                         "full of grace",
+                         "full of woe",
+                         "well-traveled",
+                         "loving and giving",
+                         "hard working"
+
+
+
+
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act2_src" class="prettyprint lang-js linenums executable">
+function dayChild(dayNum) {
+    var descriptions = [ "bonny and blithe and good and gay",
+                         "fair of face",
+                         "full of grace",
+                         "full of woe",
+                         "well-traveled",
+                         "loving and giving",
+                         "hard working"];
+    return descriptions[dayNum];
+}
+
+/* testing */
+alert( "people born on Monday are "+dayChild(1) );
+alert( "people born on Friday are "+dayChild(5) );
+  </pre>
+</div>
+
+<h2>Exercise: the event handler</h2>
+
+<p>Let's finish the job and implement the event handler. This one we'll do
+  using <a target="_blank" href="http://jsfiddle.net/vxf8nkvg/1/">jsfiddle</a>
+
+<p>Here are the steps your event handler should go through. Let's talk
+    about these first:
+    <ol>
+        <li>Get the birthdate from the form.
+        <li>Convert that string to a date object.
+        <li>Get the day number out of the date object.
+        <li>Use the day number and the two previous functions to get the
+        name of the day of the week and the description..
+        <li>Construct a sentence and insert it into the page.
+    </ol>
+
+<p>Package all that up into a function and attach it to the button on the page.
+
+<p>Here's my <a  target="_blank" href="http://jsfiddle.net/vxf8nkvg/">solution</a>:
+
+<div class="hidden_from_student">
+  <pre id="act3_src" class="prettyprint lang-js linenums executable">
+function handleTellButton () {
+    var datestr = $("#birthdate").val();
+    var birthdate = new Date(datestr);
+    var n = birthdate.getDay();
+    var day = dayName(n);
+    var desc = dayChild(n);
+    $("#child-description").html(day+"'s child is "+desc);
+}
+
+$("#tell-button").click(handleTellButton);
+  </pre>
+</div>
+
+<h2>Slideshow</h2>
+
+<p>As we know from the readings, the ingredients of a slideshow are:
+  <ul>
+    <li>An array of filenames or URLs.
+      
+    <li>A global variable that keeps track of the <em>index</em> of the
+    current slide.
+      
+    <li>A destination img whose <code>src</code> attribute will be
+      modified so that it displays the desired slide.
+
+    <li>An event handler that increments the global variable, possibly
+      wrapping around to zero when it runs off the end of the array, and
+      then displays the current slide.
+
+    <li>A button or something that invokes the event handler when the user
+    clicks it, or
+      
+    <li>Using <code>setInterval</code> to automatically invoke the event
+      handler at the desired frequency.
+  </ul>
+
+<h2>Quiz Nr. 4</h2>
+
+<p>What's the correct way to display the current slide?
+  
+<ol type="A">
+  <li><pre class="prettyprint lang-js">$("#slide").attr("src",slideURLs[currIndex]);</pre>
+  <li><pre class="prettyprint lang-js">$("#slide").html("&lt;img src=",slideURLs[currIndex]+"&gt;");</pre>
+  <li><pre class="prettyprint lang-js">$("#slide").append("&lt;img src=",slideURLs[currIndex]+"&gt;");</pre>
+  <li><pre class="prettyprint lang-js">$("#slide").src(slideURLs[currIndex]);</pre>
+</ol>
+
+<h2>Exercise: prev button</h2>
+
+<p>Here's the HTML for the working slideshow from the reading, but with
+  more buttons:
+
+<pre id="slideshow-code" class="prettyprint lang-js linenums"></pre>  
+
+<p>Here's the JavaScript code. Make sure you understand it:
+  
+<pre id="slideshow-js-code" class="prettyprint lang-js linenums"></pre>
+
+<p>Here's the working slideshow:
+
+<div id="slideshow-html"><p>
+  <button type="button" id="nextSlide">next slide</button>
+  <button type="button" id="prevSlide">prev slide</button>
+  <button type="button" id="firstSlide">first slide</button>
+  <figure id="slideshow">
+   <img style="width: 50%; margin: 10px auto;" src="" alt="">
+   <figcaption></figcaption>
+</figure>
+</div>
+
+<script>
+document.getElementById("slideshow-code").textContent = document.getElementById("slideshow-html").innerHTML;
+</script>
+
+
+<script id="slideshow-script">var slides = [ "harry-potter-1024.jpeg",
+                    "ron-weasley-1024.jpeg",
+                    "hermione-granger-1024.jpeg",
+                    "draco-malfoy-1024.jpeg" ];
+
+var currentSlideIndex = 0;
+
+function displaySlide() {
+    var file = slides[ currentSlideIndex ];
+    var url = "../../reading/potterpics/" + file;
+    $("#slideshow img").attr("src",url);
+}
+
+function nextSlide() {
+    currentSlideIndex++;
+    if( currentSlideIndex >= slides.length ) {
+        currentSlideIndex = 0;
+    }
+    displaySlide();
+}
+
+displaySlide(); // display slide zero when page loads
+$("#nextSlide").click(nextSlide); // attach event handler
+</script>
+
+<script>
+document.getElementById('slideshow-js-code').textContent = document.getElementById('slideshow-script').innerHTML;
+</script>
+
+<p>Write some code to implement a <em>previous</em> button, allowing the
+  user to back up.
+
+<form action="">
+<div>
+<textarea rows=12>
+
+
+
+
+
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Your solution might look like this:
+
+<div class="hidden_from_student">
+  <pre id="act3_src" class="prettyprint lang-js linenums executable">
+function prevSlide() {
+    currentSlideIndex -- ;
+    if( currentSlideIndex < 0 ) {
+        currentSlideIndex = slides.length - 1;
+    }                            
+    displaySlide();
+}
+$("#prevSlide").click(prevSlide);
+  </pre>
+</div>
+
+
+<h2>Exercise: first slide button</h2>
+
+<p>How would you implement a button to go to the start of the show?
+
+<h2>Summary</h2>
+
+<p>We hope that after these activities you have a good understanding of:
+  <ul>
+
+    <li>Arrays and how to use them.
+    <li>Slideshow and how to set them up.
+  </ul>
+
+<h2 id="sec_solutions">Solutions</h2>
+  
+<p id="solutions_later">Will be posted later, visit again after
+  <span id="later"></span>.</p>
+
+<div id="solutions">
+
+<p>Quiz answers:
+<pre>
+1. D
+2. A
+3. D
+4. A
+</pre>
+
+<script>
+function handleTellButton () {
+    var birthdate = new Date($("#birthdate").val());
+    var n = birthdate.getDay();
+    var day = dayName(n);
+    var desc = dayChild(n);
+    $("#child-description").html(day+"'s child is "+desc);
+}
+
+// Returns the English name for the day. Assumes the day number is 0-6.
+
+function dayName(day) {
+    var en = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return en[day];
+}
+
+function dayChild(dayNum) {
+    var descriptions = [ "bonny and blithe and good and gay",
+                         "fair of face",
+                         "full of grace",
+                         "full of woe",
+                         "well-traveled",
+                         "loving and giving",
+                         "hard working"];
+    return descriptions[dayNum];
+}
+
+$("#tell-button").click(handleTellButton);
+</script>
+
+                </div>
+
+    <!--#include virtual="/~cs110/modularity/footer-rel.part" -->
+    
+    </div> <!--end of container>
+        
+        
+    <!--#include virtual="/~cs110/modularity/bs-footer-rel.part" -->
+    <script src="../../js/date-functions.js"></script>
+    <script>
+      revealLater("4/5/2016 1:00 PM"); 
+   </script>
+
+  </body>
+</html>
