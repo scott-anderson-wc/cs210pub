@@ -1,0 +1,16 @@
+#TOC {
+    height: 1000px;
+}
+
+#TOC nav {
+    position: fixed;
+    background-color: #eee;
+    top: 5%;
+    padding: 10px;
+}
+
+.half {
+    box-sizing: border-box:
+    margin: 0;
+    width: 50%;
+}
