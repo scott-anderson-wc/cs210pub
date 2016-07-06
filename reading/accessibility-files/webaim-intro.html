@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>WebAIM: Introduction to Web Accessibility</title>
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="home" href="/">
+	<link rel="search" href="/search/">
+	<link rel="alternate" href="http://webaim.org/blog/feed" type="application/rss+xml" title="WebAIM Blog">
+	
+	<link href="/styles/main.css" rel="stylesheet">
+	<link href="/styles/print.css" rel="stylesheet" type="text/css" media="print">
+	<script src="/media/scripts/jquery.js"></script>
+	<script src="/media/scripts/main.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Kameron:400,700' rel='stylesheet' type='text/css'>
+	<link href="/styles/documents.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
+
+<!--[if lt IE 9]>
+	<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="headcontainer" class="clearfix" style="background-image: url(/media/banners/articles.jpg)">
+<header role="banner">
+	<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+	
+	<h2><a href="/"><img src="/media/logo.png" width="302" height="80" alt="WebAIM - Web Accessibility In Mind"></a></h2>
+
+	<nav role="navigation">
+		<h2 class="hidden">Main Navigation</h2>
+		<ul>
+			<li><a href="/services/">Services</a></li>
+			<li class="current"><a href="/articles/">Articles</a></li>
+			<li><a href="/resources/">Resources</a></li>
+			<li><a href="/community/">Community</a></li>
+		</ul>
+	</nav>
+	<div id="search">
+		<form method="get" role="search" action="/search/" id="sitesearch">
+			<p class="search"><label for="q" class="hidden">Search Terms</label> <input type="text" name="q" id="q" placeholder="Search WebAIM"><input type="image" src="/media/template/search.png" alt="Submit Search"></p>
+		</form>
+		
+		<p class="intro"><a href="/intro">Introduction to Web Accessibility</a></p>
+		
+		<p class="training"><a href="/training">WebAIM Training</a></p>
+	</div>
+
+</header>
+</div>
+
+<main id="maincontainer" role="main" class="clearfix">
+
+<article id="maincontent">
+
+<h1>Introduction to Web Accessibility</h1>
+
+<p id="breadcrumbs"><span class="hidden">You are here: </span><a href="/">Home</a> &gt; <a href="/articles/">Articles</a> &gt; Introduction to Web Accessibility</p>
+
+
+<nav role="navigation">
+	<h2>Article Contents</h2>
+	<ol>
+		<li><a href="#intro">Introduction</a></li>
+		<li><a href="#people">People with Disabilities on the Web</a></li>
+		<li><a href="#implementing">Implementing Web Accessibility</a></li>
+		<li><a href="#principles">Principles of Accessible Design</a></li>
+		<li><a href="#conclusion">Conclusion</a></li>
+	</ol>
+</nav>
+
+<div class="section" id="intro">
+<h2>Introduction</h2>
+
+<p>Most people today can hardly conceive of life without the internet. Some have argued that no other single invention has been more revolutionary since Gutenberg's printing press in the 1400s. Now, at the click of a mouse, the world can be "at your fingertips"&mdash;that is, if you can use a mouse... and see the screen... and hear the audio&mdash;in other words, if you don't have a disability of any kind.</p>
+
+<p>This introduction should help you understand how people with disabilities use the web, the frustrations they feel when they cannot access the web, and what you can do to make your sites more accessible.</p>
+
+	<div class="section" id="opportunities">
+		<h3>The Web Offers Unprecedented Opportunities</h3>
+		
+		<p><span class="floatleft"><img class="border" src="media/man_reading.jpg" alt="" width="150" height="128"></span>The internet is one of the best things that has ever happened to people with disabilities. You may not have thought about it that way, but all you have to do is think back to the days before the internet to see why this is so. For example, before the internet, how did blind people read newspapers? They mostly didn't. Audiotapes or Braille printouts were expensive - a Braille version of the Sunday New York Times would be too bulky to be practical. At best, they could ask a family member or friend to read the newspaper to them. This method works, but it makes blind people dependent upon others.</p>
+
+		<p><span class="floatright"><img class="border" src="media/headlines.jpg" alt="" width="160" height="192"></span>Most newspapers now publish their content online in a format that has the potential to be read by screen readers used by the blind. These software programs read electronic text out loud so that blind people can use computers and access any text content through the computer. Suddenly, blind people don't have to rely on other people to read the newspaper to them. They don't have to wait for expensive audio tapes or expensive, bulky Braille printouts. They simply open a web browser and listen as their screen reader reads the newspaper to them, and they do it independently, when they want to, and as soon as the content is published.</p>
+
+		<p><span class="floatleft"><img class="border" src="media/man_in_wheelchair.jpg" alt="" width="104" height="131"></span>Similarly, people with motor disabilities who cannot pick up a newspaper or turn its pages can access online newspapers through their computer, using certain assistive technologies that adapt the computer interface to their own disabilities. Sometimes the adaptations are simple, such as having the person place a stick in the mouth and use it to type keyboard commands. In other cases, the adaptations are more sophisticated, as in the use of special keyboards or eye-tracking software that allows people to use a computer with nothing more than eye movements.</p>
+		
+		<p>People who are deaf may be able to read newspapers on their own, but they can also read online transcripts or captions of online multimedia content. Many people with cognitive disabilities can also benefit greatly from the structure and flexibility of web content.</p>
+	</div>
+
+	<div class="section" id="short">
+		<h3>Falling Short of the Web's Potential</h3>
+		
+		<p><span class="floatright"><img class="border" src="media/wheelchair.jpg" alt="" width="110" height="74"></span>Despite the web's great potential for people with disabilities, this potential is still largely unrealized. For example, some sites can only be navigated using a mouse, and only a very small percentage of video or multimedia content has been captioned for the Deaf. What if the internet content is only accessible by using a mouse? What do people do if they can't use a mouse? And what if web developers use graphics instead of text? If screen readers can only read text, how would they read the graphics to people who are blind?</p>
+		<p>As soon as you start asking these types of questions, you begin to see that there are a few potential glitches in the accessibility of the internet to people with disabilities. The internet has the potential to revolutionize disability access to information, but if we're not careful, we can place obstacles along the way that destroy that potential and which leave people with disabilities just as discouraged and dependent upon others as before.</p>
+	</div>
+</div>
+
+<div class="section" id="people">
+<h2>People with Disabilities on the Web</h2>
+
+<p>Though estimates vary, most studies find that about one fifth (20%) of the population has some kind of disability. Not all of these people have disabilities that make it difficult for them to access the internet, but it is still a significant portion of the population. Businesses would be unwise to purposely exclude 20, 10, or even 5 percent of their potential customers from their web sites. For schools, universities, and government entities it would not only be unwise, but in many cases, it would also violate the law.</p>
+
+	<div class="important" id="types">
+		<div class="title">Important</div>
+		<p>The major categories of disability types are:</p>
+		<dl>
+			<dt><img src="media/icon_eye.gif" width="30" height="30" alt="" style="padding-right: 5px; vertical-align: middle;"><a href="/articles/visual/">Visual</a></dt>
+			<dd>Blindness, low vision, color-blindness</dd>
+			<dt><img src="media/icon_ear.gif" alt="" width="30" height="30" style="padding-right: 5px; vertical-align: middle;"><a href="/articles/auditory/">Hearing</a></dt>
+			<dd>Deafness and hard-of-hearing</dd>
+			<dt><img src="media/icon_hand.gif" alt="" width="30" height="30" style="padding-right: 5px; vertical-align: middle;"><a href="/articles/motor/">Motor</a></dt>
+			<dd>Inability to use a mouse, slow response time, limited fine motor control</dd>
+			<dt><img src="media/icon_brain.gif" alt="" width="30" height="30" style="padding-right: 5px; vertical-align: middle;"><a href="/articles/cognitive/">Cognitive</a></dt>
+			<dd>Learning disabilities, distractibility, inability to remember or focus on large amounts of information</dd>
+		</dl>
+	</div>
+
+<p>Each of the major categories of disabilities requires certain types of adaptations in the design of web content. Most of the time, these adaptations benefit nearly everyone, not just people with disabilities. Almost everyone benefits from helpful illustrations, properly-organized content, and clear navigation. Similarly, while captions are a necessity for deaf users, they can be helpful to others, including anyone who views a video without audio. </p>
+
+	<div class="example" id="video">
+		<div class="title">Keeping Web Accessibility in Mind</div>
+
+		<p>Gain an appreciation of web accessibility by understanding the user perspective. This 11.5 minute video provides an overview of the difficulties users with disabilities face on the web and some of the motivations for web accessibility.</p>
+		<iframe width="480" height="360" src="http://www.youtube.com/embed/yx7hdQqf8lE?rel=0&cc_load_policy=1" frameborder="0" allowfullscreen></iframe>
+		<p><a href="media/asd.htm">View transcript</a></p>
+	</div>
+	
+	<div class="example" id="experiences">
+		<div class="title">Experiences of Students with Disabilities</div>
+		<p>The students in the following video share some of their experiences with the web and accessibility.</p>
+		<iframe width="480" height="360" src="http://www.youtube.com/embed/BEFgnYktC7U?rel=0&cc_load_policy=1" frameborder="0" allowfullscreen></iframe>
+		<p><a href="media/k12.htm">View transcript</a></p>
+	</div>
+
+</div>
+
+<div class="section" id="implementing">
+<h2>Implementing Web Accessibility </h2>
+
+<p>Before anyone can make their web site accessible, they must understand accessibility, be committed to ensuring accessibility, learn how to implement accessibility, and understand their legal obligations. </p>
+
+	<div class="section" id="commitment">
+		<h3>Commitment and accountability</h3>
+		
+		<p><strong>Awareness.</strong> The foundation of any kind of commitment to web accessibility is awareness of the issues. Most web developers are not opposed to the concept of making the internet accessible to people with disabilities. Most accessibility errors on web sites are the result of lack of awareness, rather than malice or apathy.</p>
+		
+		<p><strong>Leadership.</strong> Understanding the issues is an important first step, but it does not solve the problem, especially in large organizations. If the leadership of an organization does not express commitment to web accessibility, chances are low that the organization's web content will be accessible. Oftentimes, a handful of developers make their own content accessible while the majority don't bother to, since it is not expected of them.</p>
+		
+		<p><strong>Policies and Procedures.</strong> Even when leaders express their commitment to an idea, if the idea is not backed up by policy, the idea tends to get lost among the day-to-day routines. The best approach for a large organization is to <a href="/articles/implementation/">create an internal policy</a> that outlines specific standards, procedures, and methods for monitoring compliance.</p>
+	</div>
+	
+	<div class="section" id="training">
+		<h3>Training and technical support</h3>
+		
+		<p>Sometimes web developers fear that it is more expensive and time-consuming to create accessible web sites than it is to create inaccessible ones. This fear is largely untrue. The benefits of providing access to a larger population almost always outweigh the time required by a knowledgeable developer to implement that accessibility. </p>
+		
+		<p>A developer can learn the basics of web accessibility in just a few days, but, as with any technical skill, it often takes months to internalize the mind set as well as the techniques. Online resources, such as the WebAIM <a href="/articles/">articles</a>, <a href="/resources/">resources</a>, <a href="/discussion/">email discussion list</a>, <a href="/newsletter/">monthly newsletter</a>, and <a href="/blog/">blog</a> provide relevant resources for administrators, developers, and designers. There are many professionals that can help your organization ensure high accessibility. WebAIM offers <a href="/training/">onsite training</a>, <a href="/consulting/">consulting &amp; technical assistance</a>, accessible site <a href="/design/">design</a>, and <a href="/services/">other services</a>.</p>
+	</div>
+	
+	<div class="section" id="standards">
+		<h3>Laws and standards</h3>
+		
+		<p>If you live in the United States, applicable laws include <a href="/articles/laws/usa/ada">The Americans with Disabilities Act (ADA)</a> and the <a href="/articles/laws/usa/rehab">Rehabilitation Act</a> of 1973 (Sections 504 and <a href="/standards/508/checklist">Section 508</a>). Many <a href="/articles/laws/world/">international laws</a> also address accessibility.</p>
+
+		<p>The <a href="http://www.w3.org/TR/WCAG20/">Web Content Accessibility Guidelines (WCAG)</a> provide an international set of guidelines. They are developed by the Worldwide Web Consortium (W3C), the governing body of the web. These guidelines are the basis of most web accessibility law in the world. Version 2.0 of these guidelines, published in December 2008, are based on four principles:</p>
+		
+		<ul>
+			<li><a href="/articles/pour/perceivable">Perceivable</a>: Available to the senses (vision and hearing primarily) either through the browser or through assistive technologies (e.g. screen readers, screen enlargers, etc.)</li>
+			<li><a href="/articles/pour/operable">Operable</a>: Users can interact with all controls and interactive elements using either the mouse, keyboard, or an assistive device.</li>
+			<li><a href="/articles/pour/understandable">Understandable</a>: Content is clear and limits confusion and ambiguity.</li>
+			<li><a href="/articles/pour/robust">Robust</a>: A wide range of technologies (including old and new user agents and assistive technologies) can access the content.</li>
+		</ul>
+		
+		<p>These first letters of these four principles spell the word POUR. This may help you remember them.</p>
+		<ul>
+			<li><a href="/standards/wcag/">Read more about WCAG 2.0</a></li>
+			<li><a href="/articles/pour/">Read more on the principles of WCAG 2.0</a></li>
+		</ul>
+	</div>
+</div>
+
+<div class="section" id="principles">
+<h2>Principles of Accessible Design</h2>
+
+	<p>Below you will find a list of some key principles of accessible design. Most accessibility principles can be implemented very easily and will not impact the overall &quot;look and feel&quot; of your web site.</p>
+	<dl>
+		<dt><a href="/techniques/alttext/">Provide appropriate alternative text</a></dt>
+		<dd>Alternative text provides a textual alternative to non-text content in web pages. It is especially helpful for people who are blind and rely on a screen reader to have the content of the website read to them.</dd>
+		<dt><a href="/techniques/semanticstructure/">Provide appropriate document structure</a></dt>
+		<dd>Headings, lists, and other structural elements provide meaning and structure to web pages. They can also facilitate keyboard navigation within the page.</dd>
+		<dt><a href="/techniques/tables">Provide headers for data tables</a></dt>
+		<dd>Tables are used online for layout and to organize data. Tables that are used to organize tabular data should have appropriate table headers (the <code>&lt;th</code>&gt; element). Data cells should be associated with their appropriate headers, making it easier for screen reader users to navigate and understand the data table.</dd>
+		<dt><a href="/techniques/forms">Ensure users can complete and submit all forms</a></dt>
+		<dd>Ensure that every form element (text field, checkbox, dropdown list, etc.) has a label and make sure that label is associated to the correct form element using the <code>&lt;label&gt;</code> element. Also make sure the user can <a href="/techniques/formvalidation/">submit the form and recover from any errors</a>, such as the failure to fill in all required fields.</dd>
+		<dt><a href="/techniques/hypertext">Ensure links make sense out of context</a></dt>
+		<dd>Every link should make sense if the link text is read by itself. Screen reader users may choose to read only the links on a web page. Certain phrases like &quot;click here&quot; and &quot;more&quot; must be avoided.</dd>
+		<dt><a href="/techniques/captions/">Caption and/or provide transcripts for media</a></dt>
+		<dd>Videos and live audio must have captions and a transcript. With archived audio, a transcription may be sufficient. </dd>
+		<dt>Ensure accessibility of non-HTML content, including <a href="/techniques/acrobat/">PDF files</a>, <a href="/techniques/word/">Microsoft Word</a> documents, <a href="/techniques/powerpoint/">PowerPoint</a> presentations and <a href="/techniques/flash">Adobe Flash</a> content.</dt>
+		<dd>In addition to all of the other principles listed here, PDF documents and other non-HTML content must be as accessible as possible. If you cannot make it accessible, consider using HTML instead or, at the very least, provide an accessible alternative. PDF documents should also include a series of tags to make it more accessible. A tagged PDF file looks the same, but it is almost always more accessible to a person using a screen reader.</dd>
+		<dt><a href="/techniques/skipnav/">Allow users to skip repetitive elements on the page</a></dt>
+		<dd>You should provide a method that allows users to skip navigation or other elements that repeat on every page. This is usually accomplished by providing a &quot;Skip to Main Content,&quot; or &quot;Skip Navigation&quot; link at the top of the page which jumps to the main content of the page.</dd>
+		<dt><a href="/articles/visual/colorblind">Do not rely on color alone to convey meaning</a></dt>
+		<dd>The use of color can enhance comprehension, but do not use color alone to convey information. That information may not be available to a person who is colorblind and will be unavailable to screen reader users.</dd>
+		<dt><a href="/techniques/writing/">Make sure content is clearly written and easy to read</a></dt>
+		<dd>There are many ways to make your content easier to understand. Write clearly, <a href="/techniques/fonts/">use clear fonts</a>, and <a href="/techniques/semanticstructure/">use headings and lists appropriately</a>.</dd>
+		<dt><a href="/techniques/javascript/">Make JavaScript accessible</a></dt>
+		<dd>Ensure that <a href="/techniques/javascript/eventhandlers">JavaScript event handlers</a> are device independent (e.g., they do not require the use of a mouse) and make sure that your page does not rely on JavaScript to function.</dd>
+		<dt>Design to standards</dt>
+		<dd>HTML compliant and accessible pages are more robust and provide better search engine optimization. <a href="/techniques/css/">Cascading Style Sheets</a> (CSS) allow you to separate content from presentation. This provides more flexibility and accessibility of your content.</dd>
+	</dl>
+
+	<p>This list does not present all accessibility issues, but by addressing these basic principles, you will ensure greater accessibility of your web content to everyone. You can learn more about accessibility by browsing our <a href="/articles/">articles</a> and <a href="/resources/">resources</a>. </p>
+</div>
+
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+
+<p>The web offers many opportunities to people with disabilities that are unavailable through any other medium. It offers independence and freedom. However, if a web site is not created with web accessibility in mind, it may exclude a segment of the population that stands to gain the most from the internet. Most people do not intend to exclude people with disabilities. As organizations and designers become aware of and implement accessibility, they will ensure that their content can be accessed by a broader population. </p>
+</div>
+
+</article>
+<aside id="articlemeta" role="complementary">
+
+	<div id="updated">Last updated: <time datetime="2016-03-15">Mar 15, 2016</time></div>
+				<div id="translations">
+			<h2>Translations</h2>
+			<ul>
+			<li><a href="http://www.smart-interactive.de/barrierefreies-webdesign-einfuehrung.php"><img src="/media/common/flags/de.png" alt="">German</a> by <a href="http://www.smart-interactive.de/">Smart Interactive</a></li>
+<li><a href="http://microo.net/article.php?intro-to-web-accessibility"><img src="/media/common/flags/gr.png" alt="">Greek</a> by Giorgos Tsiledakis</li>
+<li><a href="http://www.brasilmedia.com/Acessibilidade-na-Web.html"><img src="/media/common/flags/br.png" alt="">Brazilian Portuguese</a> by Fernando Oliveira</li>
+<li><a href="http://www.certifiedchinesetranslation.com/openaccess/WebAIM.html"><img src="/media/common/flags/cn.png" alt="">Simplified Chinese</a> by <a href="http://www.certifiedchinesetranslation.com/">Abacus Chinese Translation Services</a></li>
+<li><a href="http://www.certifiedchinesetranslation.com/openaccess/WebAIM-tc.html"><img src="/media/common/flags/tw.png" alt="">Traditional Chinese</a> by <a href="http://www.certifiedchinesetranslation.com/">Abacus Chinese Translation Services</a></li>
+<li><a href="http://couponhostgator.info/uvod-v-spletno-dostopnost/"><img src="/media/common/flags/si.png" alt="">Slovenian</a> by <a href="http://couponhostgator.info/">Hostgator</a></li>
+<li><a href="http://mikheev.biz/intro.html"><img src="/media/common/flags/by.png" alt="">Belorussian</a> by <a href="http://mikheev.biz/">Slava Mikheev</a></li>
+<li><a href="http://www.portablecomponentsforall.com/edu/intro-ua/"><img src="/media/common/flags/ua.png" alt="">Ukrainian</a> by <a href="http://www.portablecomponentsforall.com/">PortableComponentsForAll</a></li>
+<li><a href="http://financesonline.com/WebAIM/WebAIM_Intro.htm"><img src="/media/common/flags/ph.png" alt="">Tagalog</a> by <a href="http://financesonline.com/">Finances Online</a></li>
+<li><a href="https://www.languagemarketplace.ca/WebAIM-French-U-A1-Introduction.html"><img src="/media/common/flags/fr.png" alt="">French</a> by <a href="https://www.languagemarketplace.ca/">Language Marketplace Inc.</a></li>
+<li><a href="http://www.everycloudtech.com/%C3%BAvod-do-pr%C3%ADstupnosti-k-webu"><img src="/media/common/flags/sk.png" alt="">Slovak</a> by <a href="http://www.everycloudtech.com/">Everycloudtech</a></li>
+<li><a href="http://www.dirtywork.it/blog/accessibilita-siti-web/"><img src="/media/common/flags/it.png" alt="">Italian</a> by <a href="http://www.dirtywork.it/">Dirty Work</a></li>
+<li><a href="http://mertsahinoglu.com/web-erisilebilirlige-giris/"><img src="/media/common/flags/tr.png" alt="">Turkish</a> by <a href="http://mertsahinoglu.com/">Mert Sahinoglu</a></li>
+<li><a href="http://blogofscience.com/intro.html"><img src="/media/common/flags/es.png" alt="">Spanish</a> by <a href="http://blogofscience.com/">Larisa</a></li>
+			</ul>
+		</div>
+		
+				<div id="related">
+			<h2>Related Resources</h2>
+			<ul>
+			<li><a href="/articles/pour/">Constructing a POUR Website</a></li>
+<li><a href="/articles/visual/">Visual</a></li>
+<li><a href="/articles/auditory/">Hearing</a></li>
+<li><a href="/articles/motor/">Motor</a></li>
+<li><a href="/articles/cognitive/">Cognitive</a></li>
+<li><a href="/articles/seizure/">Seizure</a></li>
+<li><a href="/articles/design/">Design Considerations</a></li>
+			</ul>
+		</div>
+		
+</aside>
+</main>
+
+<footer role="contentinfo">
+	<div id="footerresources">
+		<div class="footerblock">
+			<p id="copyright"><span class="hidden">&copy; </span>2016 WebAIM</p>
+			<p id="contact">Center for Persons with Disabilities<br>
+			Utah State University<br>
+			6807 Old Main Hill<br>
+			Logan, UT 84322-6807<br>
+			<a class="phone" href="tel:4357977024">435.797.7024</a></p>
+		</div>
+		<div class="footerblock">
+			<h2 id="blog">From the Blog</h2>
+			<ul><li><a href="/blog/testing-with-the-nvda-screen-reader/">Testing with the NVDA Screen Reader</a></li><li><a href="/blog/moving-the-needle-of-change/">What will it take to move the needle of change?</a></li><li><a href="/blog/wave-updates/">WAVE Updates and Future Plans</a></li><li><a href="/blog/resurgence-of-zoomtext-and-window-eyes/">The Resurgence of ZoomText and Window-Eyes</a></li></ul>		</div>
+		<div class="footerblock">
+			<h2 id="popular">Popular Resources</h2>
+			<ul>
+				<li><a href="/training/">WebAIM Training</a></li>
+				<li><a href="/standards/wcag/checklist">WCAG 2.0 Checklist</a></li>
+				<li><a href="/standards/508/checklist">Section 508 Checklist</a></li>
+				<li><a href="/resources/contrastchecker">Color Contrast Checker</a></li>
+				<li><a href="/resources/designers/">Web Accessibility for Designers</a></li>
+				<li><a href="http://wave.webaim.org/">WAVE Web Accessibility Evaluation Tool</a></li>
+			</ul>
+		</div>
+		<div class="footerblock" id="checkpage">
+			<h2>Check Your Accessibility</h2>
+			<form action="http://wave.webaim.org/report" novalidate>
+				<label for="waveurl" class="hidden">Web site address</label>
+				<input type="url" id="waveurl" name="url" placeholder="web site address" title="web site address">
+				<input type="submit" value="WAVE">
+			</form>
+		</div>
+		<div id="footerlinks">
+			<ul>
+				<li><a id="footercontact" href="/contact">Contact Us</a></li>
+				<li><a id="footerabout" href="/about">About Us</a></li>
+				<li><a id="footerrss" href="/community/rss">RSS Feeds</a></li>
+				<li><a id="footertwit" href="http://twitter.com/webaim">Twitter</a></li>
+				<li><a id="footercopyright" href="/copyright">Copyright &amp; Terms of Use</a></li>
+			</ul>
+		</div>
+		
+		<div class="clear"></div>
+	</div>
+
+</footer>
+
+<script>
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-302059-1']);
+	_gaq.push(['_trackPageview']);
+	
+	(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+
+</body>
+</html>
