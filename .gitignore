@@ -6,3 +6,5 @@
 *.elc
 auto-save-list
 .\#*
+# This file is automatically created by bin/makeall
+reading/all.md

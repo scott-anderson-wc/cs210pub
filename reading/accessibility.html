@@ -34,10 +34,10 @@
         <!-- needs a skip-to-content link -->
         <nav id="site_nav">
             <ul>
-                <li id="home"><a href="index.html">Home</a></li>
-                <li id="about"><a href="about.html">About</a></li>
-                <li id="schedule"><a href="schedule.html">Schedule</a></li>
-                <li id="reference"><a href="reference.html">Reference</a></li>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
             </ul>
         </nav>
     </header>
@@ -260,6 +260,13 @@ Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.</p>
 <li>don't use mouseover, mouseout and hover, since those are mouse-only</li>
 <li>use :focus for links that are in focus</li>
 </ul>
+<h2>Accessible jQuery</h2>
+<p>Many jQuery methods, such as <code>.hide()</code> and <code>.slideUp()</code> use the CSS
+setting <code>display:none</code> to achieve the hiding. That method means the
+resulting content is inaccessible to a screen reader.  If you don't
+want that, a better idea is to add an after-event handler to the
+jQuery code to display the content but offscreen (or using one of the
+other techniques for hiding content).</p>
 <h2>Accessible Drop-down Menus</h2>
 <h2>Accessible Slideshows</h2>
 <h2>Conclusion</h2>
