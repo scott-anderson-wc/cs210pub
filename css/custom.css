@@ -1,0 +1,53 @@
+#site_nav {
+    background: #1EAEDB;  /* or some other color */
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9999;
+    width: 100%;
+}
+
+#site_nav ul {
+    list-item-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+#site_nav li {
+    display: inline-block;
+    margin: 0px;
+    padding: 1% 2%;
+    font-size: 1.6rem;
+}
+
+#site_nav a {
+    text-decoration: none;
+    color: black;
+}
+
+#site_nav li:hover, #site_nav .current_page {
+    background: #eee;
+}
+
+
+#TOC {
+    height: 1000px;
+}
+
+#TOC nav {
+    position: fixed;
+    background-color: #eee;
+    top: 5%;                /* Needs to compensate for height of #site_nav */
+    padding: 10px;
+}
+
+#main {
+/*    margin-top: 5%;                /* Needs to compensate for height of #site_nav */
+}
+
+.half {
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 0;
+    width: 48%;
+}

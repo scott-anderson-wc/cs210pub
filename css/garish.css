@@ -1,0 +1,9 @@
+.column, .columns {  background-color: #ff0; }
+.container { background-color: #cfc; }
+.row { border: 1px solid black; }
+
+.twelve.columns { background-color: white; }
+
+/* attempt to even the height of the columns */
+.even_height { padding-bottom: 32000rem; margin-bottom: -32000rem; }
+.even_height { overflow: hidden; }
