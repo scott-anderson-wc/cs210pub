@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ ! -x "bin/makepage.py" ]; then
+    echo "Can't find the bin/makepage.py script"
+    echo "Please run this script in the top git directory"
+    echo "That's the same directory as the .git dir and the .gitignore file"
+    exit
+fi
+
+cd reading
+../bin/makepage.py *.md *.part
+# special for the combined reading
+cat HTML.part accessibility.md > all.md
+../bin/makepage.py all.md
