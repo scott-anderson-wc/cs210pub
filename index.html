@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="index.html">Home</a></li>
+                <li id="about"><a href="about.html">About</a></li>
+                <li id="schedule"><a href="schedule.html">Schedule</a></li>
+                <li id="reference"><a href="reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        <article id="main" class="twelve columns">
+
+            <h1>CS210: Introduction to Front-End Web Development</h1>
+
+            <div id="splash"></div>
+
+            <!-- The following is from the course bulletin -->
+
+            <p>This course introduces modern web development using HTML,
+            CSS and JavaScript. JavaScript is explored in detail,
+            including scoping, closures, objects, prototype inheritance,
+            and namespacing. The jQuery library is also introduced, and
+            the course covers event handling and Ajax
+            interactions. Students will build web pages using front-end
+            templates such as bootstrap and JavaScript libraries for
+            client-side templating. Designed web pages will be modern,
+            responsive and accessible. The course also covers the jQuery
+            UI (User Interface) library and its capabilities. Other topics
+            may include encryption, copyright, intellectual property and
+            version control.
+
+
+    </article>
+
+</div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<template id="splash_html">
+    <figure>
+        <ul>
+        </ul>
+        <figcaption></figcaption>
+    </figure>
+</template>
+<script>
+(function () {
+      function setHeaderHeight() {
+          var sitenav = document.getElementById('site_nav');
+          var header = sitenav.parentElement;
+          // console.log("height of header is "+header.clientHeight);
+          header.style.height = sitenav.clientHeight + "px";
+          console.log("Setting height of header to "+header.clientHeight);
+      }
+
+      setHeaderHeight();
+      window.addEventListener('resize', setHeaderHeight, false);
+})();
+</script>
+<script>
+// Maybe load jQuery
+</script>
+<script>
+// Maybe load splash content (for larger browsers)
+</script>
+
+</body>
+</html>
