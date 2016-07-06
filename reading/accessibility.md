@@ -231,6 +231,15 @@ Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.
 * don't use mouseover, mouseout and hover, since those are mouse-only
 * use :focus for links that are in focus
 
+## Accessible jQuery
+
+Many jQuery methods, such as `.hide()` and `.slideUp()` use the CSS
+setting `display:none` to achieve the hiding. That method means the
+resulting content is inaccessible to a screen reader.  If you don't
+want that, a better idea is to add an after-event handler to the
+jQuery code to display the content but offscreen (or using one of the
+other techniques for hiding content).
+
 
 ## Accessible Drop-down Menus
 
