@@ -28,8 +28,6 @@
 
       .label-lecture { background-color: #428bca; }
 
-      .label-lab { background-color: #5bc0de; }
-
       .label-project { background-color: #5cb85c; }
 
       @media print {
@@ -97,23 +95,27 @@
         <h1>CS 210 Schedule</h1>
 
         <div class="alert alert-warning"><strong>Homework is due at 12:00
-        midnight on Wednesday and project work is due at 5:00 p.m. on
-        Friday on the listed due date unless otherwise
+        midnight on the listed due date otherwise
         specified.</strong></div>
 
         <div>
                 <h2>Legend</h2>
                 <span class="label label-lecture">Lecture</span>
-                <span class="label label-lab">Lab</span>
                 <span class="label label-hwk">Homework/Exam</span>
-                <span class="label label-project">Project</span>
                 <span class="label label-default">No Class</span>
 
         </div>
-    </div>
 
-        <p>
-        <p>Here is a link to <a href="../reading/all.html">all the reading,</a> so far.
+        <p>Here is a link to <a href="../reading/all.html">all the reading,</a> so far.</p>
+        
+        <h2>Schedule as a List</h2>
+
+        <ol>
+            <li><a href="../reading/HTML.html">HTML</a>,
+                <a href="../reading/URLs.html">URLs</a>
+            <li><a href="../reading/accessibility.html">Accessibility</a>
+        </ol>
+
 
         <table id="schedule">
         <thead>
@@ -134,14 +136,10 @@
                   <li><a href="../lectures/L01/todo.html">To do list</a></li>
                   <li><a href="../lectures/L01/01_activities.html">Class Activities</a></li>
                 </ul>
-                <p class="label label-project"><a href="../project/getting_started.html">P0
-                    starts: Partner and Project</a></p>
                 </div>
              </td>
             <td><p class="label label-default">Jan 27</p> </td>
-            <td><p class="label label-lab">Jan 28; Lab 1</p>
-                <ol><li><a href="http://cs110.wellesley.edu//labs/?lab=1&part=1">Basics</a></li></ol>
-             </td>
+            <td></td>
             <td><p class="label label-lecture">Jan 29; Lecture 2</p>
               <ol>
                 <li><a href="../reading/HTML.html">HTML</a></li>
@@ -165,12 +163,7 @@
                 </ol>
             </td>
             <td><p class="label label-default">Feb 3</p> </td>
-            <td><p class="label label-lab">Feb 4; Lab 2</p>
-    <ol>
-      <li><a href="http://cs110.wellesley.edu//labs/?lab=2&part=1">HTML practice, images, and validation</a></li>
-      <li><a href="http://cs110.wellesley.edu//labs/?lab=2&part=2">Image editing</a></li>
-    </ol>
-  </td>
+            <td></td>
   <td><p class="label label-lecture">Feb 5; Lecture 4</p>
       <ol>
         <li><a href="../reading/css-selectors.html">CSS Selectors</a></li>
@@ -197,26 +190,14 @@
                 </a>
                 </p>
             </td>
-            <td><p class="label label-lab">Feb 11; Lab 3</p>
-                <ol>
-                    <li><a href='http://cs110.wellesley.edu//labs/?lab=3&part=1'>CSS</a></li>
-                    <li><a href='http://cs110.wellesley.edu//labs/lab03/solutions/wellesley/wellesley.html'>Solution</a>
-                </ol>
-            </td>
+            <td></td>
             <td><p class="label label-lecture">Feb 12; Lecture 6</p>
                 <p>Binary, ASCII
                     <ol>
                         <li><a href="../reading/computer-model.html">Computer Model</a></li>
                         <li><a href="../reading/information-representation.html">Information Representation</a></li>
-                        <li><a href="../project/projectplanning.html">Planning your Project</a></li>
                         <li><a href="../lectures/compModel/activities.html">class activities</a></li>
                     </ol>
-                <p>
-                    <a class="label label-project"
-                    href="../project/team-account-request.html">P0 ends:
-                    request team account</a>
-         <a class="label label-project" href="../project/req.html">P1 Start</a>
-       </p>
 
             </td>
 
@@ -242,18 +223,11 @@
         </p>
 
     </td>
-    <td><p class="label label-lab">Feb 18; Lab 4</p>
-      <ol>
-        <li><a href='http://cs110.wellesley.edu/labs/?lab=4&part=1'>Layout with CSS</a></li>
-        <!--<li><a href='http://cs110.wellesley.edu/labs/?lab=4&part=2'>Server Side Includes (SSI)</a></li>-->
-        <li><a href='http://cs110.wellesley.edu/labs/lab04/solutions/'>Solutions</a></li>
-      </ol>
-    </td>
+    <td></td>
             <td><p class="label label-lecture">Feb 19; Lecture 8</p>
       <p>Intro to JS, Variables, Types, and Values
       <ol>
         <li><a href="../reading/JSProgramming.html">Intro to Javascript</a></li>
-        <li><a href="../project/minimum-requirement.html">Javascript Applications</a></li>
         <li><a href="../lectures/JSProgramming/activities.html">class activities</a></li>
       </ol>
       <p><em>Supplemental Reading: <br>Chap 1 &amp; 2 of <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript & jQuery book</a>.</em></p>
@@ -277,20 +251,12 @@
       </a>
       </p>
     </td>
-    <td><p class="label label-lab">Feb 25; Lab 5</p>
-      <p>
-          <ol>
-              <li><a href='http://cs110.wellesley.edu/labs/?lab=5&part=1'>Intro to JavaScript</a>
-              <li><a href='http://cs110.wellesley.edu/labs/?lab=5&part=2'>Image file size calculation</a>
-              <li><a href='http://cs110.wellesley.edu/labs/lab05/solutions'>Solutions</a>
-          </ol>
-    </td>
+    <td></td>
             <td><p class="label label-lecture">Feb 26; Lecture 10</p>
                 <ol>
                     <li><a href="../reading/Conditionals-2.html">Conditionals [part 2]</a></li>
                     <li><a href="../lectures/L10/activities.html">class activities</a></li>
                 </ol>
-                <p><a class="label label-project" href="../project/req.html">P1: Project Requirements</a></p>
             </td>
 </tr>
 <tr>
@@ -309,12 +275,7 @@
       </a>
       </p>
             </td>
-            <td><p class="label label-lab">Mar 3; Lab 6</p>
-                <ol>
-                    <li><a href='http://cs110.wellesley.edu/labs/?lab=6&part=1'>Conditionals</a></li>
-                    <li><a href='http://cs110.wellesley.edu/labs/lab06/solutions/lab06.js'>Solution</a></li>
-                </ol>
-            </td>
+    <td></td>
             <td><p class="label label-lecture">Mar 4; Lecture 12</p>
                 <p class="label label-hwk"><strong>Midterm in Class</strong></p>
                 <p><a href="../midterm-review/review-questions.pdf">review questions</a>
@@ -338,12 +299,7 @@
       </a>
       </p>
     </td>
-    <td><p class="label label-lab">Mar 10; Lab 7</p>
-        <ol>
-            <li><a href='http://cs110.wellesley.edu/labs/?lab=7&part=1'>Date Objects</a></li>
-            <li><a href='http://cs110.wellesley.edu/labs/lab07/solutions'>Solutions</a></li>
-        </ol>
-    </td>
+    <td></td>
     <td><p class="label label-lecture">Mar 11; Lecture 14</p>
     <ol>
       <li><a href="../reading/JS-functions.html">Functions</a>
@@ -367,18 +323,12 @@
 
   <td><p class="label label-default">Mar 16</p>
   </td>
-  <td><p class="label label-lab">Mar 17; Lab 8</p>
-       <ol>
-            <li><a href='http://cs110.wellesley.edu/labs/?lab=8&part=1'>Functions</a></li>
-            <li><a href='http://cs110.wellesley.edu/labs/lab08/solutions'>Solutions</a></li>
-        </ol>
-  </td>
+    <td></td>
   <td><p class="label label-lecture">Mar 18; Lecture 16</p>
         <ol>
             <li><a href="../reading/modularity.html">Modularity</a></li>
             <li><a href="../lectures/L22/activities.html">Class Activities</a></li>
         </ol>
-    <p><a class="label label-project" href="../project/design.html">P2 Due: Project Design</a></p>
   </td>
 </tr>
 
@@ -404,12 +354,7 @@
       </a>
       </p>
     </td>
-    <td><p class="label label-lab">Mar 31; Lab 9</p>
-        <ol>
-          <li><a href='http://cs110.wellesley.edu/labs/?lab=9&part=1'>Forms and Event Handling</a>
-          <li><a href='http://cs110.wellesley.edu/labs/lab09/solutions'>Solutions</a>
-        </ol>
-  </td>
+    <td></td>
   <td><p class="label label-lecture">Apr 1; Lecture 18</p>
         <ol>
             <li><a href="../reading/galleries-and-drop-downs.html">Galleries and Drop-Down Menus</a></li>
@@ -434,12 +379,7 @@
       </a>
       </p>
     </td>
-    <td><p class="label label-lab">Apr 7; Lab 10</p>
-        <ol>
-            <li><a href='http://cs110.wellesley.edu/labs/?lab=10&part=1'>Arrays</a></li>
-           <li><a href='http://cs110.wellesley.edu/labs/lab10/solutions'>Solutions</a></li>
-        </ol>
-  </td>
+    <td></td>
   <td><p class="label label-lecture">Apr 8; Lecture 20</p>
         <ol>
             <li><a href="../reading/animations.html">Animations and JS Literals</a></li>
@@ -454,7 +394,6 @@
           <li><a href="../reading/ajax.html">Submitting Forms and Ajax</a></li>
           <li><a href="../lectures/L21/activities.html">Class Activities</a></li>
       </ol>
-      <p><a  class="label label-project" href="../project/coding.html#status">P2.5: status email</a></p>
     </td>
     <td><p class="label label-default">Apr 13<br></p>
       <p class="label label-hwk">
@@ -463,12 +402,7 @@
       </a>
       </p>
     </td>
-    <td><p class="label label-lab">Apr 14; Lab 11</p>
-        <ol>
-            <li><a href='http://cs110.wellesley.edu/labs/?lab=11&part=1'>Submitting Forms & Ajax</a>
-           <li><a href='http://cs110.wellesley.edu/labs/lab11/solutions/'>Solutions</a>
-        </ol>
-    </td>
+    <td></td>
     <td><p class="label label-lecture">Apr 15; Lecture 22</p>
         <p>Copyright; Catchup and Review
             <ol>
@@ -482,7 +416,6 @@
         <p>Patriot's Day</p></td>
     <td><p class="label label-default">Apr 19</p>
         <p>Monday Schedule</p>
-      <p><a  class="label label-project" href="../project/coding.html#checkup">P2.9: Requests for checkups</a></p>
     </td>
     <td><p class="label label-default">Apr 20<br></p>
         <p class="label label-hwk">
@@ -490,13 +423,7 @@
       Homework 9: Emailed forms
       </a></p>
     </td>
-    <td><p class="label label-lab">Apr 21; Lab 12</p>
-      <ol>
-        <li><a href='http://cs110.wellesley.edu/labs/?lab=13&part=2'>Presentation info</a></li>
-        <li><a href='http://cs110.wellesley.edu/labs/?lab=13&part=1'>Project testing forms</a>
-        <li>Project Help
-        </ol>
-    </td>
+    <td></td>
     <td><p class="label label-lecture">Apr 22; Lecture 23</p>
         <ol>
             <li><a href="../reading/sound.html">Sound Representation</a></li>
@@ -507,7 +434,6 @@
 </tr>
 <tr>
     <td><p class="label label-default">Apr 25</p>
-      <p><a  class="label label-project" href="../project/coding.html">P3 Due: Coding</a></p>
     </td>
     <td><p class="label label-lecture">Apr 26; Lecture 24</p>
           <ol>
@@ -518,16 +444,7 @@
     <td class="noclass"><p class="label label-default">Apr 27</p>
         <p>Ruhlman</p>
     </td>
-    <td><p class="label label-lab">Apr 28; Lab 13</p>
-    <div>
-    <ol>
-        <li><a class="label label-project" href="../project/presentation.html">P4: Presentation</a>
-        <li> <a href="../project/order.html">Schedule of Presentations</a>
-    </ol>
-    <strong>Attendance Mandatory</strong>
-    
-    </div>
-    </td>
+    <td></td>
     <td><p class="label label-lecture">Apr 29; Lecture 25</p>
       <p>Digital Signatures
           <ol>
@@ -556,7 +473,6 @@
       </ul>
   </td>
   <td class="noclass"><p class="label label-default">May 6</p>
-      <p><a  class="label label-project" href="../project/testing.html">P5: Testing</a></p>
   </td>
 </tr>
 </tbody>
