@@ -216,6 +216,9 @@ Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.
 
 ## Labels for Form Controls
 
+Each form control (input element, such as a text input or a menu)
+needs to have a label. 
+
 ## Avoid Color
 
 
