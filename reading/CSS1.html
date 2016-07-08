@@ -1,45 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">        
-    <meta name="author" content="Scott D. Anderson and the CS110 Staff">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS110: CSS Introduction</title>
-    <!-- use relative pathnames in #include so when this site is archived,
-         say as cs110f15, the include refers to the same file -->
-    <!--#set var="reltop" value="../" -->
-    <!--#include virtual="../modularity/bs-head-rel.part" -->
- </head>
-  <body>
-    <!--#include virtual="../modularity/navbar-rel.part" -->
-    
-    <div class="container">
-      <h1>Introduction to CSS</h1>
-    </div>
-    
-    <div class="container">
-      <div class="row">
-            
-         <!-- Three columns of the grid are reserved for the sidebar-->
-        <div class="col-md-3">
-          <div class="bs-sidebar hidden-print affix">
-            <nav id="insert_TOC_here" class="nav bs-sidenav">
-            </nav>
-          </div>
-        </div><!--end of "col-md-3" div-->
-                                        
-        <div class="col-md-9">      
-          <!--#include virtual="CSS1-files/CSS1.part" -->
-          <!--#include virtual="../modularity/footer.part" -->
+<head>
 
-        </div><!--end of column -->
-            
-      </div><!--end of "row"-->
- 
-    </div> <!--end of container -->
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
         
-    <!--#include virtual="../modularity/bs-footer-rel.part" -->
-  </body>
 
+<nav id="TOC" class="three columns">
+    Not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <h1>Unknown</h1>
+
+    content
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
+
+</body>
 </html>

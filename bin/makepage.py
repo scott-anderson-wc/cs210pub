@@ -17,8 +17,8 @@ if __name__ == '__main__':
 
     try:
         os.stat('templates')
-    except:
-        print "Couldn't see local directory 'templates'"
+    except Exception as err:
+        print "Couldn't see local directory 'templates'", err
         sys.exit(1)
 
     env = Environment(loader=FileSystemLoader(['/home/cs210/public_html/cs210pub/templates',

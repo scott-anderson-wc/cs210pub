@@ -7,8 +7,9 @@ if [ ! -x "bin/makepage.py" ]; then
     exit
 fi
 
-cd reading
-../bin/makepage.py *.md *.part
+bin/makepage.py reading/*.md reading/*.part
 # special for the combined reading
-cat HTML.part accessibility.md > all.md
-../bin/makepage.py all.md
+cd reading
+cat HTML.part URLs.part CSS1.part fonts.part accessibility.md > all.md
+cd ..
+bin/makepage.py reading/all.md
