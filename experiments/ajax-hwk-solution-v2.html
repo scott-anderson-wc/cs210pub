@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ruhlman Display</title>
+    <meta name=author content="Scott D. Anderson and the CS304 Staff">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <link rel="stylesheet" type="text/css" href="ajax-hwk.css">
+</head>
+<body>
+
+<div id="whole_page">
+
+<p>This is an example solution to a new assignment in which data is read
+  from a static .json file and processed in the browser to create a
+  display of all the data. I'm allowing a lot of latitude in the display,
+  and here I've shown one option.  A successful solution must do the
+  following:
+  <ul>
+    <li>Display all the talks in a <q>compact</q> form. Here, the compact
+    form has the title, authors, start time and location.
+      
+    <li>Clicking on a compact display yields a detailed display that
+    includes the abstract.  (You can add other data as well.)  Even
+    better, activating it via the space bar or enter key should do the
+    same.
+      
+    <li>Clicking on the detailed display returns to the compact display.
+  </ul>
+
+<h1>The 2014 Ruhlman conference</h1>
+
+<ul id="summary-div">
+    <!-- added tabindex and aria stuff to make this more accessible. See
+    https://www.marcozehe.de/2013/04/24/easy-aria-tip-6-making-clickables-accessible/ -->
+  <li class="summary" tabindex="0" role="button" aria-label="">
+    Talk #<span class="index">0</span>: 
+    <span class="title">My Interesting Paper</span>, by
+    <span class="authors">I. M. Amazing</span>
+    <p>Starting at <span class="start">1:23 am</span>
+        in <span class="location">someplace</span></p>
+    <div class="abstract" aria-expanded="false"></div>
+  </li>
+</ul>
+
+<div id="summaries"></div>
+
+</div><!-- whole_page -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="ajax-hwk-solution-v2.js"></script>
+</body>
+</html>
