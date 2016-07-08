@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Ruhlman Display</title>
+    <meta name=author content="Scott D. Anderson and the CS304 Staff">
+    <meta name=description content="">
+    <meta name=keywords content="">
+    <link rel="stylesheet" type="text/css" href="ajax-hwk.css">
+</head>
+<body>
+
+<div id="whole_page">
+
+<p>This is an example solution to a new assignment in which data is read
+  from a static .json file and processed in the browser to create a
+  display of all the data. I'm allowing a lot of latitude in the display,
+  and here I've shown one option (I plan to add another).  A successful solution must do the
+  following:
+  <ul>
+    <li>Display all the talks in a <q>compact</q> form. Here, the compact
+    form has the title, authors, start time and location.
+      
+    <li>Clicking on a compact display yields a detailed display that
+    includes the abstract.  (You can add other data as well.)  Here, I did
+    it as a lightbox-like overlay.
+      
+    <li>Clicking on the detailed display returns to the compact display.
+  </ul>
+
+<h1>The 2014 Ruhlman conference</h1>
+
+<div id="overlay">
+  <div>
+    <div id="detail">
+      <p>Click anywhere to close
+      <h2>Abstract for Better Angels</h2>
+      <div>
+
+        <p>While   routine vaccination has helped raise juvenile life expectancy and eradicate   diseases, vaccine delivery systems have not capitalized on our current   understanding of the adaptive immune response. Recently identified toll-like   receptors (TLRs) provide promising targets for novel vaccine delivery;   however, free adjuvant can trigger systemic toxicity. We hypothesize that   nanoparticles engineered to deliver a TLR agonist and antigen in a   controlled-release manner to antigen-presenting cells (APC) can utilize TLR   targets for immunostimulation at a reduced risk. Our vaccines augment antigen   presentation and co-stimulatory DC molecule production for model protein   ovalbumin and mount an antigen-specific CD8+ naïve cell-proliferation in   vitro. In vivo, our vaccines increase the antigen-specific adaptive immune   response for both the cell-mediated and humoral branches. Our findings   demonstrate clinical potential for safe delivery of novel TLR adjuvants and   polymeric nanoparticles towards the development of effective and low-cost   vaccines.",
+        <p>Mumbo jumbo, blah blah blah, yadda yadda.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="summary-div">
+  <div class="summary">
+    Talk #<span class="index">0</span>: 
+    <span class="title">My Interesting Paper</span>, by
+    <span class="authors">I. M. Amazing</span>
+    <p>Starting at <span class="start">1:23 am</span>
+      in <span class="location">someplace</span>
+  </div>
+</div>
+
+<div id="summaries"></div>
+
+</div><!-- whole_page -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="ajax-hwk-solution.js"></script>
+</body>
+</html>
