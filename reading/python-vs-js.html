@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs -->
+  <meta charset="utf-8">
+  <title>CS210</title>
+  
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <header>
+      <nav>
+        <div class="navitem"><a href="index.html">Home</a></div>
+        <div class="navitem"><a href="info.html">Class Info</a></div>
+        <div class="navitem"><a href="schedule.html">Schedule</a></div>
+        <div class="navitem"><a href="reference.html">Reference</a></div>
+      </nav> 
+  </header>
+
+  <!-- Start primary page content -->
+  <div class="container">
+    <div class="lecture">
+    <h3>Introduction to JavaScript for Python Users</h3>
+    <p>Python and JavaScript are actually quite similar languages. 
+    One major similarity is that they are both <b>interpreted</b> languages, in that when the code is run, 
+    each statement is checked statement-by-statement and executed in this fashion.
+    This is different from a <b>compiled</b> language, where the code 
+    is checked all at once by the compiler machine before it is run. CS 230 teaches Java, which is a compiled language. 
+   </p>
+    
+    
+    <p>Think of translation of spoken languages--There are people who translate speech on the 
+    fly while it's being spoken. There are also people who will read an entire script beforehand, translate it 
+    in one sitting, then give the entire translated speech at once. Computer science-wise, the person who 
+    translates on the fly is like an interpreted language, while the person who translates in one sitting 
+    is like a compiled language.</p>
+    
+    <p>On another note, you may think that JavaScript is similar to Java due to their names, but make no mistake! 
+    They are extremely different in functionality, and the name JavaScript was only given in an attempt 
+    to boost its popularity (as Java was quite popular at the time). The official name of JavaScript is 
+    actually ECMAscript, but we will continue to refer to it as JavaScript.</p>
+    
+    <p>In this reading, we'll be highlighting some important differences between JavaScript and Python.</p>
+    
+    <hr>
+    
+    <h3>Syntactic Differences</h3>
+    
+    <p>Python:</p>
+    
+    <pre><code>def helloWorld():
+    print "Hello world!
+    print "I like CS 210"
+    </code></pre>
+    
+    <p>JavaScript:</p>
+    
+    <pre><code>function helloWorld() {
+    // Similar to Python's print, but console.log is most often 
+    // used in the browser rather than an environment like Canopy
+    console.log("Hello world!"); 
+    console.log("I like CS 210");
+}</code></pre>
+
+    <p>JavaScript uses <b>curly braces</b> to indicate code blocks, while python uses indentation. 
+    Also, Javascript uses <b>semicolons</b> to terminate statements, while python uses newlines.
+    </p>
+
+    <p>Technically speaking, this is acceptable and does the same thing:</p>
+    
+    <pre><code>function helloWorld(){console.log("Hello world!");console.log("I like CS 210");}</code></pre>
+    
+    <p>In fact, sometimes JavaScript is <b>minified</b>, where all unnecessary characters are removed for faster performance. 
+    But for readability, (as there will be humans reading your code, not just machines!) it's important to indent properly.</p>
+    
+    <hr>
+    
+    <h3>Type</h3>
+    
+    <p>The type of values in JavaScript look like:</p>
+    
+    <ul>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" title="The Number JavaScript object is a wrapper object allowing you to work with numerical values. A Number object is created using the Number() constructor."><code>Number</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" title="The String global object is a constructor for strings, or a sequence of characters."><code>String</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" title="The Boolean object is an object wrapper for a boolean value."><code>Boolean</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" title="The Object constructor creates an object wrapper."><code>Object</code></a>
+  <ul>
+   <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function" title="The Function constructor creates a new Function object. In JavaScript every function is actually a Function object."><code>Function</code></a></li>
+   <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" title="The JavaScript Array object is a global object that is used in the construction of arrays; which are high-level, list-like objects."><code>Array</code></a></li>
+   <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" title="Creates a JavaScript Date instance that represents a single moment in time. Date objects are based on a time value that is the number of milliseconds since 1 January, 1970 UTC."><code>Date</code></a></li>
+   <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp" title="The RegExp constructor creates a regular expression object for matching text with a pattern."><code>RegExp</code></a></li>
+  </ul>
+ </li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null" title="The value null represents the intentional absence of any object value. It is one of JavaScript's primitive values."><code>null</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined" title="The global undefined property represents the primitive value undefined. It is one of JavaScript's primitive types."><code>undefined</code></a></li>
+</ul>
+
+<p>We will be discussing more of these types as the course continues. For now, the links above take you to MDN's JavaScript documentation if you're interested. An interesting fact to note
+is that while Python has several numerical types (float, int, complex, etc.), JavaScript has only one, <code>Number</code>.</p>
+ 
+<hr>
+    <h3>Variable Declaration</h3>
+    
+    <p>Python:</p>
+    <pre><code>animal = "cat"</code></pre>
+    
+
+    <p>JavaScript</p>
+    <pre><code>var animal = "cat";</code></pre>
+<!--    There is, however, a slight difference of global scope. In python, a global variable is used 
+    using the key word <code>global</code> as follows</p>
+    
+    
+<pre><code>animal = "cat"
+    
+def printAnimal(): 
+    animal = "wallaby"
+    print animal
+    
+    global animal
+    print animal
+
+printAnimal()
+</code></pre>
+
+    <p>With the output:</p>
+    
+<pre><code>wallaby
+cat
+</code></pre>
+
+<p>In JS, no key word <code>global</code> is needed due to the key word of <code>var</code>.</p>
+    
+<pre><code>var animal = "cat";
+
+function printAnimal() {
+    console.log(animal);
+    
+    var animal = "wallaby";
+    console.log(animal);
+}
+</code></pre>
+
+<p>With the output:</p>
+    
+<pre><code>cat
+wallaby
+</code></pre>-->
+
+<p>When you use <code>var</code>, you are declaring a new variable. Without <code>var</code>, you are referencing a previous variable.</p>
+<p>In general, JavaScript variables act quite similarly to Python variables. </p>
+
+    <hr>
+    
+    <h3>Conditionals</h3>
+    <p>Python:</p>
+    
+<pre><code># Python conditionals
+
+if age >= 18:
+    print "You can vote"
+    
+    if age >= 21 or (age >=18 and !currentlyInUS):
+        print "You can get a drink"
+        
+elif age >= 16:
+    print "You can get your license"
+    
+elif age == 15:
+    print "You can get your permit"
+    
+else:
+    print "No special privileges yet"
+</code></pre>
+
+<p>JavaScript:</p>
+
+<pre><code>// JS conditionals. Notice the logical expressions in parenthesis, such as (age >= 18)
+
+if (age >= 18) {
+    console.log("You can vote");
+
+    if (age >= 21 || (age >= 18 && !currentlyInUS)) {
+        console.log("You can get a drink");
+    }
+}
+    
+else if (age >= 16) {
+    console.log("You can get your license");
+}
+
+else if (age == 15) {
+    console.log("You can get your permit");
+}
+
+else {
+    console.log("No special privileges yet");
+}
+</code></pre>
+    
+<p>Here's a quick summary of the differences for condionals and booleans:</p>
+    
+  <table style="width:100%", border = 2>
+  <tr>
+    <td>Python:</td>
+    <td>and</td>
+    <td>or</td> 
+    <td>elif</td>
+    <td>True</td>
+    <td>False</td>
+    <td><code>if True: <br>
+        # Do something</code></td>
+  </tr>
+  <tr>
+    <td>JavaScript:</td>
+    <td>&&</td>
+    <td>||</td> 
+    <td>else if</td>
+    <td>true</td>
+    <td>false</td>
+    <td><code>if (true) { <br>
+    // Do something <br>
+    }</code></td>
+  </tr>
+</table>
+
+<hr>
+
+<h3>Functions</h3>
+
+<p>As you've seen earlier, JavaScript functions differ as it uses the key word <code>function</code> instead of <code>def</code>.
+</p>
+
+<pre><code>function name(parameter1, parameter2, parameter3) {
+    return value
+}</code></pre>
+
+<p>Like in Python, JavaScript functions are <b>first-class values</b>, so they can be stored in variables.
+Functions without the function names are called <b>anonymous</b> functions. In Python, you use <code>lambda</code> to
+create anonymous functions.</p>
+
+<pre><code>multiply = lambda a, b: a * b
+
+# x is the returned value of 20
+x = multiply(4,5) 
+</code></pre>
+
+<p>To create an anonymous function in Javascript, simply use the keyword <code>function</code> without the function name.</p>
+
+<pre><code>var multiply = function (a, b) {return a * b};
+
+// x is the returned value of 20
+var x = multiply(4,5) 
+</code></pre>
+
+<p>We'll see how anonymous functions can be used in more practical applications later.</p>
+
+<hr>
+<h3>Built-in Functions</h3>
+
+<p>Here are some useful built in functions and their JavaScript equivalent:</p>
+
+<table style="width:100%", border = 2>
+  <tr>
+    <td><b>Python</b></td>
+    <td><b>JavaScript</b></td>
+    <td><b>Description</b></td>
+  </tr>
+    <tr>
+    <td>len(a)</td>
+    <td>a.length</td>
+    <td>Returns length</td>
+  </tr>
+    <tr>
+    <td>str(a)</td>
+    <td>String(a) or a.toString()</td>
+    <td>Converts type to string</td>
+  </tr>
+  <tr>
+    <td>raw_input(str)</td>
+    <td>prompt(str)</td>
+    <td>Not an exact comparison, but the Python version gives a text prompt, 
+    while the JAvaSCript version gives a pop-up prompt in the browser.</td>
+  </tr>
+    <tr>
+    <td>max(a, b)</td>
+    <td>Math.max(a, b)</td>
+    <td>Returns maximum of two numbers</td>
+  </tr>
+    <tr>
+    <td>min(a, b)</td>
+    <td>Math.min(a, b)</td>
+    <td>Returns minimum of two numbers</td>
+  </tr>
+    <tr>
+    <td>random.randint(a, b)</td>
+    <td>Math.random()</td>
+    <td>Returns a random number. Python returns a random number 
+    from a to b inclusive, while Javascript returns a random decimal number from o to 1. You can use write a function to
+    specify what you need, as detailed in this <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random"> documentation.</a>
+    You need to import the random library for Python, while JavaScript's Math object is already built-in.</td>
+  </tr>
+</table>
+    <hr>
+    <h3>Gotchas!</h3>
+    
+    <p>An important fact is that you can add numbers and strings together in JavaScript, which is 
+    unlike Python. Javascript turns the number into a string, concatenates the two together, and returns the resulting string.</p>
+    
+    <pre><code>var notFour = 2 + "2" // Gets "22"
+var ourClass = "CS" + 210 // Gets  "CS210"
+var piString = 3.14 + "1519" // Gets "3.141519"</code></pre>
+
+<p>If you want to change your string into a number, there are the functions parseInt() and parseFloat()</p>
+<pre><code>three = parseInt("3.14") // Gets 3
+pi = parseFloat("3.14") // Gets 3.14
+</code></pre>
+    
+</body>
+</html>

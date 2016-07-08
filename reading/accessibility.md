@@ -216,6 +216,10 @@ Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.
 
 ## Labels for Form Controls
 
+Each form control (input element, such as a text input or a menu)
+needs to have a label. It can be tempting to omit the labels when you
+have placeholders and such, but labels are necessary.
+
 ## Avoid Color
 
 
