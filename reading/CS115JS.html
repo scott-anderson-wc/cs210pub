@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs -->
+  <meta charset="utf-8">
+  <title>CS210</title>
+  
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <header>
+      <nav>
+        <div class="navitem"><a href="index.html">Home</a></div>
+        <div class="navitem"><a href="info.html">Class Info</a></div>
+        <div class="navitem"><a href="schedule.html">Schedule</a></div>
+        <div class="navitem"><a href="reference.html">Reference</a></div>
+      </nav> 
+  </header>
+
+  <!-- Start primary page content -->
+  <div class="container">
+    <div class="lecture">
+      
+      
+      <h3>Reintroduction to JavaScript</h3>
+      <p>You have seen JavaScript already in CS 115, but here's a review for CS 210. In JavaScript, 
+      values have certain <b>types</b>, including (but certainly not limited to) numbers,
+      strings, and booleans. We will first review those.</p>
+      
+      <hr>
+      <h3>Numbers</h3>
+      
+      <p><b>Numbers</b> are what you'd expect. For instance, the values below are of type <code>number</code>.</p>
+      
+      <ul>
+        <li>0</li>
+        <li>1</li>
+        <li>50.0</li>
+        <li>3.1415</li>
+        <li>-1234567</li>
+      </ul>
+      
+      <p>You can perform numerical operations on numbers, and order of operations applies.
+      Try these out in your JavaScript console.</p>
+      
+      <pre><code>3+3;
+      
+5/3;
+
+10+5*2;
+
+10%3;</code></pre>
+      
+      <p>The percent sign in the last example is a <b>modulo</b>, which means it taking the remainder. 10/3 is
+      3, with a remainder of 1. So 10 modulo 3 is 1.</p>
+      
+      <hr>
+      <h3>Strings</h3>
+      
+      <p>Strings are a sequences of characters. A string is indicated by its quotation marks.
+      The values below are of type string.</p>
+      
+      <ul>
+        <li>"2.0"</li>
+        <li>'9001'</li>
+        <li>'#yikes'</li>
+        <li>"Wellesley College!"</li>
+        <li>'CS 210'</li>
+      </ul>
+      
+      <p>Note, you can use either double or single quotation marks, as long as you are consistent
+      in starting and ending in the same quotation mark.</p>
+      
+      <p>You can add strings together, also called <b>concatenation</b>. When you concatenate two strings,
+      it puts the two strings together to create a larger string. Try these in your console:</p>
+      
+      <pre><code>"3" + "3"; 
+"3.0" + "-123";
+"CS 210 " + "rocks";
+"Hello " + "World!";
+      
+// Results
+// "33"
+// "3.0-123"
+// "CS 210 rocks!"
+// "Hello World!"</code></pre>
+
+<hr>
+
+<h3>Adding Numbers and Strings: Gotcha!</h3>
+
+<p>So what happens when you add number and strings together? JavaScript has something called
+<b>type coercion</b>. When you add a number and string together, the number is automatically 
+converted to a string, and the two strings are added together. For example:</p>
+
+<pre><code>12 + "1"; 
+3.0 + 4.5 + "1.0";
+"CS " + 210;
+      
+// Results
+// "121"
+// "3.04.51.0"
+// "CS 210"</code></pre>
+
+<p>This is something to be careful of. Make sure your types are correct when adding values together, 
+as you might get some unintended results if you add a number and a string.</p>
+
+<hr>
+      
+      <h3>Variables</h3>
+      
+      <p>In programming languages, there are entities called <b>variables</b>. Think of variables as storage
+      units that reference some value. A variable is written like so:</p>
+      
+      <pre><code>var cat = "meow";</code></pre>
+      
+      <p>The name of the variable is cat, and cat is referring to the string "meow".</p>
+      
+      <p>Note that new variables always start with the key word <code>var</code>. If you want to reference
+      an old variable, use the variable name (in this case, cat) without using var.</p>
+      
+<hr>
+
+<h3>Booleans</h3>
+<p>Booleans are the values <code>true</code> and <code>false</code>.</p>
+
+<p>For instance,</p>
+
+<pre><code>1 &gt; 3; 
+3 &lt; 15;
+3 == 3;
+"cat" == "dog";
+3 != 4;
+      
+// Results
+// false
+// true
+// true 
+// false
+// true</code></pre>
+
+<p><code>==</code> means equals, while <code>!=</code> means not equals. They are called <b>equality operators</b>.</p>
+
+<hr>
+
+<h3>Logical Operators</h3>
+
+<p>Boolean values can be tranformed and combined via three <b>logical operators.</b></p>
+
+<ol>
+  <li><code>!</code> (pronounced "not") negates a boolean value. <code>!true</code> becomes false and <code>!false</code> becomes true.</li>
+    <li><code>&&</code> (pronounced "and") returns true if both arguments are true. Otherwise, it returns false.</li>
+  <li><code>||</code> (pronounced "or") returns true if at least one argument is true. Otherwise, it returns false.</li>
+</ol>
+
+<p>For instance:</p>
+
+<pre><code>!(3==3)
+!(3!=3)
+(1 &lt; 3) && (1 &lt; 5); 
+(1 &lt; 3) && (100 &lt; 5);
+(1 &lt; 3) || (100 &lt; 5);
+(3 &gt; 100) || (5 &lt; 1);
+      
+// Results
+// false
+// true
+// true 
+// false
+// true
+// false
+</code></pre>
+
+<hr>
+
+<h3>Conditionals</h3>
+
+<p>In JavaScript, there are conditional statements that decide what action to execute. For instance,</p>
+
+<pre><code>if (grade >= 90) {
+  letterGrade = "A";
+} 
+
+else if (grade >= 80) {
+  letterGrade = "B";
+} 
+
+else if (grade >= 70) {
+  letterGrade = "C";
+} 
+
+else if (grade >= 60) {
+  letterGrade = "D";
+} 
+
+else {
+  letterGrade = "F";
+}</code></pre>
+
+
+<pre><code>if (!sunny) {
+  alert("bring an umbrella");
+} 
+
+else if( sunny && hot ) {
+  alert("wear a hat");
+}
+
+else if( cold || windy ) {
+  alert("wear a coat!");
+}
+
+else {
+  alert("you must have the perfect weather right now");
+}</code></pre>
+
+<pre><code>if (grade >= 90) {
+  letterGrade = "A";
+} </code></pre>
+
+<hr>
+
+<h3>Equals vs Gets: Gotcha!</h3>
+
+<p>What's wrong with this code?</p>
+
+<pre><code>if (grade = 100) {
+  console.log("Wow you didn't miss a single question!");
+}</code></pre>
+
+<p>Be careful of the difference between <code>==</code> and <code>=</code>. Multiple equal signs
+indicates that its an equality operater that should be used for testing if two values are equal.
+
+A single equals sign is for varible declaration, such as <code>var grade = 100;</code>.
+</p>
+
+<hr>
+
+<h3>Functions</h3>
+
+<p>A programming function is akin to a mathematical function in that you give an inputted value,
+and you receive an output.</p>
+
+<p>For example, in the mathematical function x + 2 = y, you can input an x value of 3. The outputted 
+y value becomes 5. Here is the code equivalent:</p>
+
+<pre><code>function addTwo(x) {
+    var y = x + 2;
+    return y;
+}
+
+addTwo(3);
+</code></pre>
+
+<p>The name of the JavaScript function is <code>addTwo</code>. You can give the function some value <code>x</code>, as indicated by the two parenthesis surrounding it. <code>x</code> is
+called a <b>parameter</b>, because x can become any value that you input (3, 7, 8, etc.) That 
+<code>x</code> value is then added to 2, and stored in a variable called <code>y</code>. <code>y</code> is then <b>returned</b> from the function as
+the final result. The last line, <code>addTwo(3)</code> <b>invokes</b> the function, meaning that you 
+use it with your own particular values, also known as <b>arguments</b>. The argument in this case is 3. The function is invoked,
+and the return value from the addTwo function is 5.</p>
+
+
+<pre><code>function name(parameter1, parameter2, parameter3) {
+    return value;
+}</code></pre>
+
+<p>This is the general syntax. 
+JavaScript uses the key word <code>function</code> to declare a function. You can have any number
+of parameters separated from a comma and in between parenthesis. The curly braces indicate the body of
+the function, or where the computation is performed. The end result of that computation is then 
+returned (or sometimes not, depending on what you want. This is just capturing a general, common function
+layout.).
+</p>
+
+<!--
+<hr>
+
+<h4>Exercise: Rock, Paper, Scissors</h4>
+
+In the two-player game, each player secretly
+chooses one of three values
+(rock, paper, scissors)
+and both players announce their choices at the same time. 
+The rules are: <br><br>
+
+<ul>
+
+<li><b>rock</b> beats <b>scissors</b>;
+
+<li><b>scissors</b> beats <b>paper</b>;
+
+<li><b>paper</b> beats <b>rock</b>;
+
+<li>a tie is declared if both players choose the same value. 
+
+</ul>
+
+<ol>
+
+<li>In the following program skeleton, assume that the variables <b>p1</b> and 
+<b>p2</b> each hold one of the three strings
+"rock", 
+"paper", 
+or "scissors"
+for player 1 and player 2, respectively. 
+Flesh out the program so that it pops up an alert box displaying 
+
+  <ul> 
+
+  <li> <b>players tie</b> if the players tie. 
+
+  <li> <b>player 1 wins</b> if player 1 wins
+
+  <li> <b>player 2 wins</b> if player 2 wins
+
+  </ul>
+  
+<iframe width="100%" height="300" src="//jsfiddle.net/2x604o5q/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+-->
+
+</body>
+</html>
