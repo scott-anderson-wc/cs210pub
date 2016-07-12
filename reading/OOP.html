@@ -76,31 +76,31 @@
         
     <p>Let's make our ball object through JavaScript:</p>
         
-    <pre><code>var Ball = function (color, radius, hasPolkaDots) {
+    <pre><code>function Ball(color, radius, hasPolkaDots) {
     this.ballColor = color;
     this.ballRadius = radius;
     this.doesThisBallhavePolkaDots = hasPolkaDots;
 };
 
 Ball.prototype.bounce = function() {
-  console.log("Booiiiiinng. Ball is bouncing");
+  console.log("currently bouncing");
 };
 
 var ball1 = new Ball("Purple", 12, true);
 var ball2 = new Ball("Blue", 5, false);
 
-ball1.ballColor  //Purple"
-ball2.ballRadius  //5
-ball2.doesThisBallhavePolkaDots  //false
-</code></pre>
+console.log(ball1.ballColor);  //Purple"
+console.log(ball2.ballRadius);  //5
+console.log(ball2.doesThisBallhavePolkaDots);  //false
+
+ball1.bounce();   // "Booiiiiinng. Ball is bouncing"
+ball2.bounce();   // "Booiiiiinng. Ball is bouncing"</code></pre>
         
 <p>Let's break the code into sections. The first 5 lines of this code is:</p>
         
 <img src="images/constructor.png" alt="constructor">
 
-<p>The <b>class name</b> is <code>Ball</code>, as indicated by the box and purple in the picture. Class names are always capitalized by convention. When creating a Ball, it needs to be given a color, a radius, and whether or not it has polka dots. This is indicated by the <b>parameters</b>. The key word <code>this</code> indicates that you are binding
-the parameter (color, radius, hasPolkaDots) to the name of the <b>instance variable</b> (ballColor, ballRadius, doesThisBallHavePolkaDots). The instance variables describes the
-properties or <b>state</b> of the object, as described earlier in this reading.</p>
+<p>The <b>class name</b> is <code>Ball</code>, as indicated by the box and purple in the picture. Class names are always capitalized by convention. When creating a Ball, it needs to be given a color, a radius, and whether or not it has polka dots, as shown by the green. The code with the keyword <code>this</code> indicates that you are binding the green parameters (color, radius, hasPolkaDots) to the name of the <b>instance variable</b> (ballColor, ballRadius, doesThisBallHavePolkaDots). The instance variables describes the properties or <b>state</b> of the object, as described earlier in this reading.</p>
         
 <img src="images/method.png" alt="method">
         
@@ -111,18 +111,25 @@ you always preface the function with the name of the class (in this case, Ball) 
 word <code>prototype</code>.</p>
         
 
-<img src="images/calling.png" alt="creating two ball objects, calling instance variables and methods">
+<img src="images/main.png" alt="creating two ball objects, calling instance variables and methods">
 
 <p>After you create the Ball class, you can create specific <b>instances</b> of Ball objects.
-The first two lines of code create ball1 and ball2, each with its own characteristics.
+The first two lines of code create ball1 and ball2, each with its own characteristics. Notice that
+when you create brand new objects, you must use the keyword <code>new</code>.
 The next three lines of code accesses the different instance variables. For example,
 ball1 is purple. Finally, the last two lines of code access the method of the Ball class.
-Both ball1 and ball2 have the method bounce, so they will both behave the same way.
+Both ball1 and ball2 have the method bounce, so they will behave the same way.
 Notice that when you access methods, you must use parenthesis at the end! (as shown by 
 the orange).</p>
-      
         
-<iframe width="100%" height="300" src="https://jsfiddle.net/1ngdn481/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<hr>
 
+<h3>Exercises</h3>
+<p>1. Here is the Ball code in JSfiddle to explore. Open up JSfiddle and the console, and try creating new objects, accessing instance variables, and calling methods. Afterwards, try
+creating new instance variables and methods to your liking.</p>
+<iframe width="100%" height="300" src="https://jsfiddle.net/1ngdn481/3/embedded/js/" allowfullscreen="allowfullscreen" frameborder="0"></iframe> <br><br>
+
+<p>2. Create your own Person class. Add instance variables and methods of your choices.</p>
+        
 </body>
 </html>
