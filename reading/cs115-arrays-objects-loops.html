@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs -->
+  <meta charset="utf-8">
+  <title>CS210</title>
+  
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <header>
+      <nav>
+        <div class="navitem"><a href="index.html">Home</a></div>
+        <div class="navitem"><a href="info.html">Class Info</a></div>
+        <div class="navitem"><a href="schedule.html">Schedule</a></div>
+        <div class="navitem"><a href="reference.html">Reference</a></div>
+      </nav> 
+  </header>
+
+  <!-- Start primary page content -->
+  <div class="container">
+    <div class="lecture">
+      
+      
+      <h3>Arrays, Loops, and Functions</h3>
+      <hr>
+      
+      <h3>Arrays</h3>
+
+<p> Arrays are often used for storing collections of values together under one name. To start off with, here is an empty array with no values.</p>
+        
+<pre><code>var emptyArray = [];</code></pre>
+
+<p>We indicate that this is an array by use of the square brackets. This is an array of animals:</p>
+<pre><code>var animals = ["cat", "dog", "wallaby"];
+</pre></code>
+
+<p>Here is a visualization of the same array:</p>
+<img src="images/arrayAnimal.png" alt="animal array visualization for showing indices" style="border:none">
+        
+<p>The red numerical indices shown directly in the visualization are implicit when the array is created in code. Note that the index for the first item starts at 0, which is true for all arrays in JavaScript. To get an item from the array, you use the numerical indices. For instance:</p>
+
+<pre><code>var meow = animals[0]; 
+var woof = animals[1];
+var wallabySound = animals[2];
+</pre></code>
+
+<p>The variable meow is now "cat", the variable woof is "dog", and the variable wallabySound is "wallaby".</p>
+
+<p>This animals array is <b>homogeneous</b>, as the whole entire array consists of strings.
+JavaScript arrays can alse be <b>heterogeneous</b>, in which the array consists of
+values of different types. For example, this array consists of a string, a number, and a boolean:
+
+<pre><code>var animals = ["kitten", 3.1415, true];
+</code></pre>        
+
+</p>
+
+<hr>
+
+<p>Here are some <b>methods</b> for arrays. Think of the methods as actions performed on the array.</p>
+      
+<table style="width:100%", border = 2>
+    <tr>
+        <td><b>JavaScript</b></td>
+        <td><b>Description</b></td>
+      </tr>
+      <tr>
+        <td>array.length</td>
+        <td>returns length of the list/array</td>
+      </tr>
+        <tr>
+        <td>array.push(item)</td>
+        <td>Adds item to end.</td>
+      </tr>
+        <tr>
+        <td>array.pop()</td>
+        <td>removes the last item and returns the value that was removed.</td>
+      </tr>
+</table>
+        
+<p>For example:</p>
+
+<pre><code>var animals = ["cat", "dog", "wallaby"];
+
+animals.length;  // 3
+animals.push("panda");  // Adds "panda" to array. Array becomes ["cat", "dog", "wallaby", "panda"]
+animals.pop();  // Removes "panda" and returns it. Array becomes ["cat", "dog", "wallaby"]
+</pre></code>
+
+<hr>
+      
+<h3>Objects</h3>
+      
+<p>Objects are very similar to arrays, in that instead of numerical indices, 
+we can use strings to get an item. We call these strings <b>keys</b>
+and the items that they get, <b>values</b>. </p>
+
+<img src="images/animalObject.png" alt="visualization of the animal object">
+
+<p>Here is the code equivalent:</p>
+      
+<pre><code>var animals = {kitten:"cat", puppy:"dog", joey:"wallaby"};
+</code></pre>
+      
+      <p>The keys and values are separated by a colon.</p>
+      
+      <p><b>Keys</b>: Note that the JavaScript keys must be strings, yet kitten, puppy, and joey are not in quotations marks. This is because when you create an object's keys, JavaScript automatically converts them into strings. The quotation marks for keys are optional when writing an object.</p>
+      
+      <p><b>Values</b>: Object values can be of any type, such as string, number, boolean, or function. Therefore, you must still use quotation marks, as it specifies that the value
+        is a string as opposed to another type, such as number.</p>
+
+<hr>
+
+<p>You can get a value by using its key. For instance:</p>
+      
+<pre><code>var adultKitten = animal["kitten"];
+var adultPuppy = animal["puppy"];
+var adultJoey = animal["joy"];
+</code></pre>
+      
+<p>The variable adultKitten is now "cat", adultPuppy is "dog", and adultJoey is "wallaby". Notice that you must still use the quotation marks when indexing with square brackets, even though
+the original object did not use quotation marks for the keys.</p>
+
+<p>Another way to index values is the following:</p>
+      
+<pre><code>var adultKitten = animal.kitten;
+var adultPuppy = animal.puppy;
+var adultJoey = animal.joy;
+</code></pre>
+    
+<p>This is equivalent to the code above using square brackets, and is called <b>dot notation</b>. When using dot notation, you do not put the keys as strings.</p>
+      
+<p>Dot notation is faster to write and clearer to read. However, square bracket notation
+allows access items when keys have special characters, such as spaces. For example,</p>
+      
+<pre><code>var numAnimalsObject = {"number of animals":1000}    // key must use quotations because of spaces 
+var numAnimalsValue = numStudentsObject["number of animals"];    // gets item correctly
+var numAnimalsValue = numStudentsObject."number of animals";    // error!</code></pre>
+      
+<hr>
+      
+<p>To add an item to an object, simply use the same bracket or dot notation for 
+an item that is not yet in the obect.</p>
+      
+<pre><code>var zoo = {}    // empty object
+zoo.tigers = 2;    // add tigers to zoo object
+zoo["panda"] = 1;    // add panda to zoo object
+zoo.flamingos = 10    // add flamingos to zoo object
+zoo["bears"] = 25;    // add bears to zoo object
+</code></pre>
+      
+<p>In the end, the zoo object will look like so:</p>
+      
+<pre>var zoo = {tigers:2, panda:1, flamingos:10, bears:25};</pre>
+      
+<hr>
+      
+<h3>Loops</h3>
+        
+<p>Here is a <b>for-of loop</b> in JavaScript.</p>
+
+<pre><code>var animals = ["cat", "dog", "wallaby"];
+
+// for-of loop
+for (var animal of animals) {
+  console.log("What a cute " + animal + "!");
+}
+</pre></code>
+        
+<p>Let's break this down into a few steps.</p>
+
+<img src="images/forOfLoop.png" alt="step-by-step breakdown of for-of loop">
+
+<ol>
+    <li>We first declare an array of animals, named the variable <code>animals</code>.</li>
+    <li><code>for</code> every <code>animal</code> in the array <code>animals</code> </li>
+    <li>We print the message "What a cute ______! with the blank being an animal.</li>   
+</ol>
+      
+<p>Therefore, the results of this loop in the console will be:</p>
+      
+<pre><code>What a cute cat!
+What a cute dog!
+What a cute wallaby!</code></pre>
+      
+<p>In step two, the variable <code>animal</code> singular can be named anything to your liking. Line 2 could have been <code>for (var fred of animals) {</code> and worked just fine (if you changed line 3 to have fred as well). The important part to remember is that the variable you name is referring to each item in the array, and <code>animals</code> plural is referring to the array itself.
+</p>
+      
+<hr>
+
+      <p>Here is a standard <b>for-loop</b> in JavaScript:</p>
+      
+<pre><code>var animals = ["cat", "dog", "wallaby"];
+
+// for loop
+for (var i = 0; i < animals.length; i++) {
+    console.log("What a cute " + animals[i] + "!";
+}</code></pre>
+
+<p>An image to visualize it:</p>
+<img src="images/forLoopAnimals.png" alt="visualization ofJavaScript for-loop">
+
+<ol>
+  <li>We first create an array of animals.</li>
+  <li><b>Assignment</b>: the variable <code>i</code> starts at 0, 
+  <li><b>Conditional statement</b>: If <code>i</code> is less than the length of animals,
+  <li><b>Update</b>: Increment <code>i</code> by one. 
+  <li>Get the element out of the array using the numerical index, and console.log the message.</li>
+</ol> <br>
+
+<p>Let's focus on the last 4 steps. Here is the complete process for this loop: </p>
+
+<ul>
+    <li>i is <b>assigned</b> to be 0. We check the <b>conditional statement</b>, 
+    and 0 is less than 3 (the length of the animals array, as there are 3 items in it). Since the conditional statement is true, "What a cute " + animal[0] "!" is logged, which is "What a cute
+    cat!" i is <b>updated</b> to 1 and the loop continues.   
+    </li>
+    
+    <li>i is now 1. We check the <b>conditional statement</b>, and 1 is less than 3. Since the conditional statement is true, "What a cute " + animal[1] "!" is logged, which is "What a cute dog!" i is <b>updated</b> to 2 and the loop continues. 
+    </li>
+    
+    <li>i is now 2. We check the <b>conditional statement</b>, and 2 is less than 3. Since the conditional statement is true, "What a cute " + animal[2] "!" is logged, which is "What a cute wallaby!" i is <b>updated</b> to 3 and the loop continues.  
+    </li>
+    
+    <li>i is now 3. We check the <b>conditional statement</b>, and 3 is <em>not</em> less than 3. Since the conditional statement is false, the loop stops.  
+    </li>
+    
+</ul>
+
+<p>This loop has the same exact results as the for-of loop above, except it uses a numerical
+index, i, to get its results. You will typically see both kinds of loops in JavaScript.</p>
+
+
+</body>
+</html>
