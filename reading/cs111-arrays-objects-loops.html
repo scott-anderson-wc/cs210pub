@@ -100,7 +100,7 @@ animals.push("panda");
 <pre><code># Creates an empty dictionary
 emptyDict2 = {}
 
-zoo = {"tigers": 2, "panda":1, "flamingos":10}
+zoo = {"tigers":2, "panda":1, "flamingos":10}
 
 # Adds to dictionary
 zoo["platypuses"] = 4
@@ -111,24 +111,25 @@ numPanda = zoo["panda"]
 
 <p>JavaScript:</p>
 <pre><code>// creates an empty object
-var emptyObj2 = {}
+var emptyObj2 = {};
 
-var zoo = {tigers: 2, panda:1, flamingos:10} // Strings are not required for keys
+var zoo = {tigers:2, panda:1, flamingos:10}; // String notation not required for keys
+
+// Gets value from object
+numPanda = zoo["panda"]; // Must use string form when using braces
+numTigers= zoo.tigers; // Dot notation is also accepted
+numTigers= zoo.tigers; // Dot notation is also accepted
 
 // Adds to object
 zoo["platypuses"] = 4; // Must use string form when using braces
-zoo.bears = 25; // Dot notation is also accepted
-
-// Gets value from object
-numPanda = zoo["panda"];
-numTigers= zoo.tigers;
+zoo.bears = 25; 
 </pre></code>
 
 <p>The main cursory differences between Python dictionaries and JavaScript functions are that:</p>
 <ol>
   <li>JavaScript can use dot notation.</li>
-  <li>JavaScript keys names do not require string notation when writing the original object. However, when indexing 
-  using braces, the string form must be used (even if original was not in string form).</li>
+  <li>JavaScript keys are always strings, yet do not require string notation when writing the original object. This is because JavaScript automatically converts them into strings, so the
+      quotation marks are optional (if they do not contain spaces or special characters, otherwise the quotation marks are still neccessary for keys). However, when indexing using braces, the string form must still be used (even if the original did not use it).</li>
 </ol>
 
 <p>We will learn more about JavaScript objects as the course continues, as they play a huge role in the language.</p>
@@ -143,7 +144,7 @@ numTigers= zoo.tigers;
 
 for animal in animals:
   print animal
-}</code></pre>
+</code></pre>
         
 <p>This loop style is similar to the <b>for-of loop</b> in JavaScript.</p>
 
