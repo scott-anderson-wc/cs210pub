@@ -27,6 +27,9 @@ you're removing exactly one element from the document, you can do:
 
 Creative Commons license
 
+Revision history:
+7/14/2016: omit selector if it's undefined.
+
 TODO:
 
 Allow it to use console.log instead?
@@ -37,16 +40,23 @@ Allow it to use console.log instead?
 (function ( $ ) {
     $.fn.bounds = function(min,max) {
         var len = this.length;
-        var sel = this.selector;
-        // someday, figure out how to say where the bug is when selector=="", which happens with
-        // event handlers.
-        jqSelector = sel;
-        jqThis = this;
+        // someday, figure out how to find out the most recent selector.
+        var desc = this.selector ? "with selector "+this.selector : "" ;
         if(len < min) {
-            throw new RangeError("jQuery collection with selector '"+sel+"' has only "+len+" elements, but specified minimum is "+min);
+            throw new RangeError("jQuery collection "+desc+" has only "+len+" elements, but specified minimum is "+min);
         } else if( max && len > max ) {
-            throw new RangeError("jQuery collection with selector '"+sel+"' has "+len+" elements, but specified maximum is "+max);
+            throw new RangeError("jQuery collection "+desc+" has "+len+" elements, but specified maximum is "+max);
         }
         return this;
-    }
+    };
+
+    $.fn.one = function () { 
+        var len = this.length;
+        if( len != 1 ) {
+            throw new RangeError("jQuery collection has "+len+
+                                 " elements, but you specified it should have exactly 1");
+        }
+        return this;
+    };
+            
 }( jQuery ));

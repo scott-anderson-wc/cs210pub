@@ -69,9 +69,10 @@ var TASKMIN = TASKMIN || {};
 
 var Task = function (inits) {
     var that = this === document ? {} : this;
+    if( typeof inits === "undefined" ) inits = {};
     that.text = inits.text || "no description"; // error?
     that.done = inits.done || false;
-    that.duedate = new Date(inits.duedate);
+    that.duedate = beforeMidnight(inits.duedate || "today");
     that.priority = inits.priority || "medium";
     that.tags = inits.tags || [];
     that.taskId = Task.list.length;
@@ -79,18 +80,79 @@ var Task = function (inits) {
     return that;
 };
 
+// Class static methods
+
 Task.list = [];
 
 Task.save = function () {
     localStorage.setItem("TASKMIN-tasklist",JSON.stringify(Task.list));
-    // localStorage.setItem("TASKMIN-taglist","");
 };    
+
+Task.read = function () {
+    localStorage.getItem("TASKMIN-tasklist");
+};    
+    
+Task.show = function () {
+    var tasklist = Task.list;
+    for( var i in tasklist ) {
+        console.log(i+": "+tasklist[i].text);
+    }
+};
+
+// ================================================================
+// Sorting.  Could allow list of sort keys, but not yet.
+
+Task.sortKey = "taskId";         // the default.
+
+Task.sort = function (sortKey) {
+    if(sortKey) {
+        Task.sortKey = sortKey;
+    } else {
+        sortKey = Task.sortKey;
+    }
+    switch (sortKey) {
+    case "taskId" : 
+        Task.list.sort(function (a,b) {
+            return a.taskId - b.taskId;
+        });
+        break;
+    case "dueDate":
+        Task.list.sort(function (a,b) {
+             // subtracting date objects is okay, but not strings
+            return new Date(a.duedate) - new Date(b.duedate);
+        });
+        break;
+    case "mainTag":
+        Task.list.sort(function (a,b) {
+            var atag = a.mainTag();
+            var btag = b.mainTag();
+            // sorting by strings needs this method
+            return atag.localeCompare(btag);
+        });
+        break;
+    }
+};
+
+// ================================================================
+// Instance methods
 
 Task.prototype.toString = function () {
     var due = this.duedate ? ' due on ' + this.duedate : '';
     var tags = this.tags.length == 0 ? '' : ' (' + this.tags.join(',') + ')';
     return '#<Task '+this.text+due+tags+'>';
 };
+
+Task.prototype.mainTag = function () {
+    var tags = this.tags;
+    if( tags.length == 0 ) {
+        return "";
+    } else {
+        return tags[0];
+    }
+}
+
+
+// This function formats the Task for display on a web page.
 
 Task.prototype.format = function (templateElt) {
     templateElt = templateElt || $('#templatetasklist > li');
@@ -99,33 +161,29 @@ Task.prototype.format = function (templateElt) {
     clone.find(".duedate").text(this.duedate.toDateString());
     clone.find(".priority").text(this.priority);
     clone.find(".text").text(this.text);
-    // definitely need to make this more general and abstract
-    if(this.tags && this.tags.indexOf("personal") != -1) {
-        clone.addClass("personal");
+    var tags = this.tags;
+    var tagsElt;
+    for( var i in tags) {
+        // I've decided to store tag names rather than indexes in the Task, even
+        // though that will make lookup a bit less efficient. But the list of tags
+        // should be short.
+        var tagName = tags[i];
+        var tag = Tag.getTagByName(tagName);
+        if( !tagsElt ) {
+            tagsElt = clone.find(".tags");
+            $(tagsElt).text(tag.abbr);
+        } else {
+            $(tagsElt).text(", "+tag.abbr);
+        }
     }
+    if(tags.length > 0) {
+        var mainTag = Tag.getTagByName(this.mainTag());
+        clone.css("background-color",mainTag.color);
+    }
+    if(this.done) clone.addClass("done");
     return clone;
 };
 
-// Each button will have a class name that indicates what we want to do.
-
-Task.prototype.admin = function (todo, taskElt) {
-    /*
-    if( this.hasOwnProperty(todo) ) {
-        this[todo].call(this);
-    } else {
-        throw "No such method: "+todo;
-    }
-    */
-    console.log("DO '"+todo+"' to element "+taskElt);
-    switch(todo) {
-    case "done": this.markDone(taskElt); break;
-    case "del": this.remove(taskElt); break;
-    case "undo": this.undoDone(taskElt); break;
-    case "more": this.nyi(taskElt); break;
-    default:
-        throw "No such method: "+todo;
-    }
-};
 
 Task.prototype.nyi = function (taskElt) {
     console.log("click on button for task "+this.taskId+" not yet implemented");
@@ -148,7 +206,7 @@ Task.prototype.markDone = function (taskElt) {
     var orig = $(taskElt).html();
     $(taskElt).html(button);
     var reallyDone = function () {
-        $(taskElt).html(orig).css("opacity",0.5);
+        $(taskElt).html(orig).addClass("done");
         Task.save();
         console.log("Task "+index+" is really done");
     };
@@ -159,36 +217,6 @@ Task.prototype.markDone = function (taskElt) {
     }
     button.blur(reallyDone).click(undoDone).focus();
 };
-
-// ================================================================
-// Example of closure failure. The following doesn't work:
-
-/*
-Task.prototype.markDoneFail = function (taskElt) {
-    var index = this.taskId;
-    console.log("Marking task "+index+" as done");
-    this.done = true;
-    var button = $('<button type="button" class="undo">undo</button>'); 
-    var orig = $(taskElt).html();
-    $(taskElt).html(button);
-    var reallyDone = function () {
-        $(taskElt).html(orig).css("opacity",0.5);
-        Task.save();
-        // Can't use this.taskId, because "this" doesn't have the right
-        // value when the event handler is invoked. Can't "close" over the
-        // value of "this." So, I assigned this.taskId to a local variable
-        // and closed over that.  Could also assign "this" to "that" and
-        // close over "that."
-        console.log("Task "+this.taskId+" is really done");
-    };
-    var undoDone = function () {
-        this.done = false;
-        $(taskElt).html(orig);
-    }
-    button.blur(reallyDone).click(undoDone).focus();
-};
-*/
-
 
 // ================================================================
 
@@ -216,37 +244,22 @@ Task.prototype.remove = function (taskElt) {
 
 // ================================================================
 
-function resetLocalStorage() {
-    localStorage.setItem("TASKMIN-tasklist","");
-    localStorage.setItem("TASKMIN-taglist","");
-}
-
 var example_task_list =
     [
         {text: "Create CS 210",
          priority: "medium",
-         duedate: [ "August 1, 2016 23:59" ],
+         duedate: "August 1, 2016 23:59",
          tags: []
         },
         {text: "Help Mom with her taxes",
          priority: "medium",
-         duedate: [ "August 8, 2016 23:59" ],
+         duedate: "August 8, 2016 23:59",
          tags: ["personal"]
         }
     ];
 
 var task1 = new Task( example_task_list[0] );
 var task2 = new Task( example_task_list[1] );
-
-var example_tag_list =
-    [
-        {name: "personal",
-         abbr: "P",
-         color: "#2BFF9C"},
-        {name: "done",
-         abbr: "D",
-         color: "#cccccc"}
-    ];
 
 // ================================================================
 
@@ -257,7 +270,7 @@ function readTaskList() {
         console.log("Using real saved data");
         tasklist = JSON.parse(stored);
     } else {
-        console.log("Using example data");
+        console.log("Using example task data");
         tasklist = example_task_list;
     }
     Task.list = [];
@@ -275,23 +288,26 @@ function formatTaskList() {
     for( var i in Task.list ) {
         var task = Task.list[i];
         var elt = task.format(template);
-        if (task.done) $(elt).css("opacity",0.5);
+        if (task.done) $(elt).addClass("done");
         list.append(elt);
     }
     $("#tasklist").empty().append(list);
 }
 
-readTaskList();
-formatTaskList();
-
 function beforeMidnight(date) {
-    console.log("allDay: "+date);
+    // console.log("beforeMidnight: "+date);
+    if( date == "today" ) date = new Date();
     if( date instanceof Date ) {
         date.setHours(23);
         date.setMinutes(59);
         return date;
     } else if( typeof date === typeof "string" ) {
-        if( date.match(/^\d\d\d\d-\d\d-\d\d$/) ) {
+        if( date.indexOf(":") != -1 ) {
+            // make the reasonable but possibly erroneous assumption that if the
+            // string contains a colon, it has be previously regularized
+            return new Date(date);
+        } else if( date.match(/^\d\d\d\d-\d\d-\d\d$/) ) {
+            // Date pickers often return ISO 8601 format. Chrome's does.
             console.log("ISO 8601 format: YYYY-MM-DD, which parses as UTC time");
             return new Date(date+"T23:59:00Z");
         } else {
@@ -348,12 +364,6 @@ function addTask() {
 $("#done-add-task").click(function () { addTask(); $("#addtask-form").slideUp(); });
 $("#cancel-add-task").click(function () { $("#addtask-form").slideUp(); });
 
-$("#reset-button").click(function () {
-    resetLocalStorage();
-    readTaskList();
-    formatTaskList();
-});
-
 // the form is hidden when page loads; has to be opened explicitly
 $("#addtask-form").hide();
 
@@ -363,47 +373,127 @@ $("#addtask-button").click(function () {
 });
     
 // ================================================================
+/* Task tags. A task can have more than one tag. Each has a text label,
+ * and optional abbreviation, and an optional background color (default
+ * gray). All are added to the LI.task span.tags.  The last tag decides
+ * the background color; no choice there, except to delete other tags.
+ * Tags are very similar to Tasks, so maybe use some inheritance?
 
-/* This function gets any event that bubbles up from clicking on or
- * otherwise activating a button on a task. */
+ * inits properties are text, abbr, and color
 
-var gtarget, gtaskElt, gtaskId;
+ */
 
-function handleTaskEvent(evt) {
-    console.log("task event"+JSON.stringify(evt));
-    var target = evt.target;
-    console.log("click on "+target.outerHTML);
-    gtarget = target;
-    // var taskElt = $(target).closest("li.task");
-    var taskElt = $(target).closest("li");
-    gtaskElt = taskElt;
-    if( taskElt.length === 0 ) {
-        throw "didn't find a task element";
+var Tag = function(inits) {
+    var that = this === document ? {} : this;
+    if( typeof inits === "undefined" ) inits = {};
+    that.text = inits.text || "no name"; // error?
+    that.abbr = inits.abbr;
+    that.color = inits.color || "#cccccc"; // make this a global parameter
+    that.tagId = Tag.list.length;
+    Tag.list.push(that);
+    return that;
+};
+
+// Class static methods
+
+Tag.list = [];
+
+Tag.save = function () {
+    localStorage.setItem("TASKMIN-taglist",JSON.stringify(Tag.list));
+};    
+
+Tag.getTagByName = function (name) {
+    var tag = Tag.list.find(function (tag) { return tag.text == name; });
+    if( ! tag ) {
+        throw "Couldn't find tag named "+name;
     }
-    console.log("taskElt is "+taskElt.html());
-    var attrTaskId = $(taskElt).attr("data-taskId");
-    if( typeof attrTaskId === 'undefined' ) {
-        throw "no data-taskId attribute";
-    }
-    var taskId = parseInt(attrTaskId);
-    gtaskId = taskId;
-    if( ! typeof taskId === "number" ) {
-        throw "task doesn't have an ID"+taskElt;
-    }
-    var task = Task.list[taskId];
-    // What kind of element was clicked on?
-    if( target.tagName === "BUTTON" ) {
-        task.admin(target.className, taskElt);
+    return tag;
+};
+
+// Instance Methods
+
+Tag.prototype.toString = function () {
+    var abbr = this.abbr == this.text ? "" : " ("+this.abbr+")";
+    return '#<Tag '+this.text+abbr+" "+this.color+'>';
+};
+
+// TODO
+
+Tag.prototype.format = function (templateElt) {
+    templateElt = templateElt || $('#task-checkbox-template > li');
+    var clone = templateElt.clone();
+    var id = "tag-"+this.text;
+    var input = clone.find("input").one();
+    input.attr("id",id);
+    input.attr("value",this.text);
+    clone.find("label").one().attr("for",id);
+    clone.find(".tag-abbr").one().text(this.abbr);
+    clone.find(".tag-text").one().text(this.text);
+    return clone;
+};
+
+var example_tag_list =
+    [
+        {text: "personal",
+         abbr: "P",
+         color: "#2BFF9C"},
+        {text: "work",
+         abbr: "W",
+         color: "#FF2b9d"}
+    ];
+
+var tag1 = new Tag( example_tag_list[0] );
+var tag2 = new Tag( example_tag_list[1] );
+
+function readTagList() {
+    var stored = localStorage.getItem("TASKMIN-taglist");
+    var taglist;
+    if( stored ) {
+        console.log("Using real saved tag data");
+        taglist = JSON.parse(stored);
     } else {
-        console.log("non-button click");
-        // probably allow the user to edit the target
+        console.log("Using example tag data");
+        taglist = example_tag_list;
+    }
+    Tag.list = [];
+    for(var i in taglist) {
+        var inits = taglist[i];
+        if( inits != null )
+            new Tag(inits);
     }
 }
 
-// $("#tasklist").click(handleTaskEvent);
+function addTag() {
+    var inits = {};
+    inits.text = $("#tag-text").val();
+    // TODO: UX for empty value
+    if( inits.text == "" ) { throw "tag text required"; }
+    inits.abbr = $("#tag-abbr").val();
+    inits.color = $("#tag-color").val();
+    var tag = new Tag(inits);
+    // Update the Add Task form
+    formatAddTask();
+    // Save
+    Tag.save();
+    // And disappear
+    $("#edittags-area").slideUp();
+}
 
+$("#done-add-tag").click(function () { addTag(); $("#edittags-area").bounds(1,1).slideUp(); });
+$("#cancel-add-tag").click(function () { $("#edittags-area").one().slideUp(); });
+
+// the form is hidden when page loads; has to be opened explicitly
+$("#edittags-area").hide();
+
+$("#edittags-button").click(function () {
+    $("#edittags-area").slideToggle();
+});
+    
 // ================================================================
-// Try event delegation instead
+// Buttons on individual task elements.
+// Try event delegation instead of a single click handler for #tasklist
+
+var gtarget, gtaskElt, gtaskId;
 
 $("#tasklist").on("click",
                   "button.done",
@@ -435,6 +525,9 @@ $("#tasklist").on("click",
                       task.nyi(taskElt);
                   });
 
+// ================================================================
+
+
 function getTaskElt(target) {
     var result = $(target).closest("LI.task");
     if( result.length != 1 ) {
@@ -457,26 +550,55 @@ function getTaskId(elt) {
 }
 
 // ================================================================
+// Add the tags to the Add Task form
 
-
-/*
-
-$(document).keypress(function (evt) {
-    SPC = 32;
-    ENTER = 13;
-    
-    switch (evt.which) {
-    case SPC:
-    case ENTER:
-        // these keys trigger a click event on the focussed element
-        $(event.target).click();
-        break;
-
-    default:
-        console.log("Don't know how to handle "+evt.which
-                    +" ("+String.fromCharCode(evt.which)+")");
+function formatAddTask() {
+    var template = $("#task-checkbox-template > li").one();
+    var dest = $("#task-tag-checkboxes").one();
+    var tagList = $("<ul>");
+    var tags = Tag.list;
+    for( var i in tags ) {
+        var tag = tags[i];
+        var tagElt = tag.format(template);
+        tagList.append(tagElt);
     }
+    dest.empty().append(tagList);
+}
+
+// ================================================================
+// Sorting Menu
+
+$("#sort-button").one().click( function () { $("#sort-menu").one().slideToggle(); });
+
+$("#sort-menu").one().hide();
+
+$("#sort-by-taskId").one().click(function () {
+    Task.sort("taskId"); formatTaskList(); $("#sort-menu").one().slideUp(); });
+$("#sort-by-dueDate").one().click(function () {
+    Task.sort("dueDate"); formatTaskList(); $("#sort-menu").one().slideUp(); });
+$("#sort-by-mainTag").one().click(function () {
+    Task.sort("mainTag"); formatTaskList(); $("#sort-menu").one().slideUp(); });
+
+
+// ================================================================
+
+function resetLocalStorage() {
+    localStorage.setItem("TASKMIN-tasklist","");
+    localStorage.setItem("TASKMIN-taglist","");
+}
+
+function initializeAll() {
+    readTaskList();
+    readTagList();
+    formatTaskList();
+    formatAddTask();
+}
+
+$("#reset-button").click(function () {
+    resetLocalStorage();
+    initializeAll();
 });
 
-*/
+// The only function invoked in loading this file, except for adding event handlers
 
+initializeAll();
