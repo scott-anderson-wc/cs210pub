@@ -536,9 +536,14 @@ function getTaskElt(target) {
     return result[0];
 }
 
+var gelt, gattr;
+
 function getTaskId(elt) {
+    gelt = elt;
     var attr = $(elt).attr("data-taskId");
     if( typeof attr !== typeof "string" || attr.length == 0 ) {
+        console.log("bad attr is "+attr);
+        gattr = attr;
         throw "No valid data-taskId attribute for "+$(elt).html();
     }
     try {
@@ -602,3 +607,17 @@ $("#reset-button").click(function () {
 // The only function invoked in loading this file, except for adding event handlers
 
 initializeAll();
+
+$("#tasklist > ul").one().sortable({
+    update: function( event, ui ) {
+        $("#tasklist > ul > li").each( function (index, elt) {
+            var taskId = getTaskId(this);
+            var task = Task.list[taskId];
+            $(this).attr("data-taskId",index);
+            task.taskId = index;
+        });
+        console.log("sorting tasks");
+        Task.sort("taskId");
+        Task.save();
+    }
+});

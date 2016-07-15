@@ -21,6 +21,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"></script>
 
   <style>
       /* Use document level style because this is only one page. */
@@ -35,19 +36,23 @@
       
       #task-tag-checkboxes { list-style-type: none; }
 
+      #addtag-form ul { list-style-type: none; }
+
+      #sort-menu { list-style-type: none; }
+
       #tasklist ul { list-style-type: none; }
 
       #tasklist li {
           margin: 0.2rem;
           max-width: 30rem;
+          border-style: solid;
+          border-color: black;
           border-radius: 0.5rem;
           padding: 0.2rem;
-          background-color: #eee;
       }
 
-      /* tags */
-      #tasklist li.personal { background-color: #2BFF9C; }
-      #tasklist li.done { background-color: #cccccc; }
+      /* completed tasks */
+      #tasklist li.done { opacity: 0.5; border-style: dotted; }
 
   </style>
 
@@ -95,19 +100,57 @@
                         <!-- see
                         http://uxmovement.com/forms/why-your-checkboxes-need-to-have-label-tags/ -->
                         <h3>task tags</h3>
-                        <ul id="task-tag-checkboxes">
-                            <li><input type="checkbox" id="tag-personal" value="personal">
-                                <label for="tag-personal">
-                                    <span class="tag-text">P</span>
-                                    personal</label></li>
-                            <!-- additional labels filled in dynamically -->
-                        </ul>
+                        <div id="task-tag-checkboxes">
+                            <!-- replaced by tags filled in dynamically -->
+                            <ul>
+                                <li><input type="checkbox" id="tag-personal" value="personal">
+                                    <label for="tag-personal">
+                                        <span class="tag-abbr">P</span>
+                                        <span class="tag-text">personal</span></label></li>
+                            </ul>
+                        </div><!-- task-tag-checkboxes -->
                         <button type="button" id="done-add-task">Add This Task</button>
                         <button type="button" id="cancel-add-task">Cancel</button>
+                        <ul id="task-checkbox-template" style="display:none">
+                            <!-- same as example above-->
+                            <li><input type="checkbox" id="tag-personal" value="personal">
+                                <label for="tag-personal">
+                                    <span class="tag-abbr">P</span>
+                                    <span class="tag-text">personal</span></label></li>
+                        </ul>
                     </form>
                 </div><!-- addtask-form -->
-                <button type="button" id="editlabels-button">Edit Labels</button>
+                <button type="button" id="edittags-button">Edit Tags</button>
+                <div id="edittags-area">
+                    <h2>Delete Tags</h2>
+                    <div id="edit-tags-list"></div>
+                    <h2>Add Tag</h2>
+                    <form id="addtag-form" action="">
+                        <ul>
+                            <li><label for="tag-text">Text:
+                                    <input size="13" type="text" require="required"
+                                           id="tag-text" placeholder="tag text">
+                                </label></li>
+                            <li><label for="tag-abbr">Abbreviation:
+                                    <input size="3" type="text"
+                                           id="tag-abbr" placeholder="tag abbr">
+                                </label></li>
+                            <li><label for="tag-color">Color:
+                                    <input type="color" value="#ffffff" id="tag-color">
+                                </label></li>
+                        </ul>
+                        <!-- see
+                        http://uxmovement.com/forms/why-your-checkboxes-need-to-have-label-tags/ -->
+                        <button type="button" id="done-add-tag">Add This Tag</button>
+                        <button type="button" id="cancel-add-tag">Cancel</button>
+                    </form>
+                </div><!-- addtag-form -->
                 <button type="button" id="sort-button">Sort</button>
+                <ul id="sort-menu">
+                    <li><button id="sort-by-taskId">by task number</button></li>
+                    <li><button id="sort-by-dueDate">by due date</button></li>
+                    <li><button id="sort-by-mainTag">by main tag</button></li>
+                </ul>
                 <button type="button" id="reset-button">Reset</button>
                 </div><!-- main buttons -->
                 
@@ -118,6 +161,7 @@
                 <ul id="templatetasklist" style="display:none">
                     <li class="task"><span class="duedate"></span>
                         <span class="priority"></span>
+                        <span class="tags"></span>
                         <div class="text"></div>
                         <!-- from the Unicode dingbats block -->
                     <button type="button" class="done">&#x2714;</button>
@@ -135,6 +179,9 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <script src="//code.jquery.com/jquery-3.0.0.js"></script>
 <script src="bounds-plugin.js"></script>
+<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<!-- Thanks to http://touchpunch.furf.com/ -->
+<script src="jquery.ui.touch-punch.min.js"></script>
 <script src="taskmin.js"></script>
 
 </body>
