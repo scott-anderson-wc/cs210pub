@@ -1,4 +1,17 @@
 #!/usr/local/bin/python2.7
+
+'''Script to wrap some page content with our boilerplate skeleton. The
+page content could be in MarkDown (extension of .md) or plain HTML
+(extension of .part).
+
+Scott D. Anderson
+summer 2016
+
+change log:
+
+7/18 fixed a bug where content was just 'content' and not the variable value
+'''
+
 import os,sys,re,codecs,markdown,re
 from jinja2 import Environment, FileSystemLoader
 
@@ -10,6 +23,10 @@ def file_contents(filename):
 
 if __name__ == '__main__':
     
+    if len(sys.argv) == 1:
+        print "Usage: {cmd} [-force] file{{.md,.part}} ...".format(cmd=sys.argv[0])
+        sys.exit(0)
+
     force = '-force' in sys.argv
     print 'force is ',force
     if force:
@@ -75,7 +92,7 @@ if __name__ == '__main__':
             content = os.linesep.join(content_lines)
             render_args = {'TOC': 'Not yet implemented',
                            'title': 'Unknown',
-                           'article': 'content'}
+                           'article': content}
         elif ext == 'md':
             # new Markdown file like Susan uses
             with codecs.open(src,mode='rt',encoding='utf=8',errors='strict') as fin:
@@ -88,7 +105,7 @@ if __name__ == '__main__':
                 else:
                     render_args = {'TOC': 'Not yet implemented',
                                    'title': 'Unknown',
-                                   'article': 'content'}
+                                   'article': content}
         else:
             print 'Unknown file type', ext
             raise Exception

@@ -1,5 +1,21 @@
 #!/bin/bash
 
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 [-force] yes"
+    exit
+fi
+
+if [ $1 = '-force' ]; then
+    force='-force'
+    shift
+else
+    force=''
+fi
+
+if [ $1 != 'yes' ]; then
+    exit
+fi
+
 if [ ! -x "bin/makepage.py" ]; then
     echo "Can't find the bin/makepage.py script"
     echo "Please run this script in the top git directory"
@@ -7,9 +23,9 @@ if [ ! -x "bin/makepage.py" ]; then
     exit
 fi
 
-bin/makepage.py reading/*.md reading/*.part
+bin/makepage.py $force reading/*.md reading/*.part
 # special for the combined reading
 cd reading
 cat HTML.part URLs.part CSS1.part fonts.part accessibility.md > all.md
 cd ..
-bin/makepage.py reading/all.md
+bin/makepage.py $force reading/all.md
