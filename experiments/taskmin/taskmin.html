@@ -34,6 +34,10 @@
 
       #addtask-form ul { list-style-type: none; }
       
+      #edit-tags-list ul { list-style-type: none; }
+
+      #edit-tags-list li { padding: 0.2rem 0.5rem; }
+
       #task-tag-checkboxes { list-style-type: none; }
 
       #addtag-form ul { list-style-type: none; }
@@ -124,6 +128,14 @@
                 <div id="edittags-area">
                     <h2>Delete Tags</h2>
                     <div id="edit-tags-list"></div>
+                    <ul id="edit-tag-list-template" style="display:none">
+                        <li class="tag">
+                            <button type="button" class="delete">delete</button>
+                            <span class="tag-abbr"></span>
+                            <span class="tag-text"></span>
+                        </li>
+                    </ul>
+                                
                     <h2>Add Tag</h2>
                     <form id="addtag-form" action="">
                         <ul>
@@ -183,6 +195,14 @@
 <!-- Thanks to http://touchpunch.furf.com/ -->
 <script src="jquery.ui.touch-punch.min.js"></script>
 <script src="taskmin.js"></script>
+<script src="Task.js"></script>
+<script src="TaskList.js"></script>
+<script src="Tag.js"></script>
+<script>
+// Defined in taskmin.js, but we're not ready until those other files are loaded.
+initializeAll();
+</script>
+
 
 </body>
 </html>

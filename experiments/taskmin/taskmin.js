@@ -1,4 +1,6 @@
-// V1.0 by Scott D. Anderson
+// V2.0 by Scott D. Anderson
+
+
 
 // A Task Administration app using JavaScript and LocalStorage. 
 
@@ -26,7 +28,7 @@
 
 */
 
-/* V2.0
+/* future versions
 
    May allow a list of dates to the task. Each task automatically gets
    dates for 'created'.  A task can have a list of dates (e.g. created,
@@ -63,236 +65,8 @@
 "use strict";
 
 var TASKMIN = TASKMIN || {};
+TASKMIN.version = 2.0;
 
-// ================================================================
-// Task objects
-
-var Task = function (inits) {
-    var that = this === document ? {} : this;
-    if( typeof inits === "undefined" ) inits = {};
-    that.text = inits.text || "no description"; // error?
-    that.done = inits.done || false;
-    that.duedate = beforeMidnight(inits.duedate || "today");
-    that.priority = inits.priority || "medium";
-    that.tags = inits.tags || [];
-    that.taskId = Task.list.length;
-    Task.list.push(that);
-    return that;
-};
-
-// Class static methods
-
-Task.list = [];
-
-Task.save = function () {
-    localStorage.setItem("TASKMIN-tasklist",JSON.stringify(Task.list));
-};    
-
-Task.read = function () {
-    localStorage.getItem("TASKMIN-tasklist");
-};    
-    
-Task.show = function () {
-    var tasklist = Task.list;
-    for( var i in tasklist ) {
-        console.log(i+": "+tasklist[i].text);
-    }
-};
-
-// ================================================================
-// Sorting.  Could allow list of sort keys, but not yet.
-
-Task.sortKey = "taskId";         // the default.
-
-Task.sort = function (sortKey) {
-    if(sortKey) {
-        Task.sortKey = sortKey;
-    } else {
-        sortKey = Task.sortKey;
-    }
-    switch (sortKey) {
-    case "taskId" : 
-        Task.list.sort(function (a,b) {
-            return a.taskId - b.taskId;
-        });
-        break;
-    case "dueDate":
-        Task.list.sort(function (a,b) {
-             // subtracting date objects is okay, but not strings
-            return new Date(a.duedate) - new Date(b.duedate);
-        });
-        break;
-    case "mainTag":
-        Task.list.sort(function (a,b) {
-            var atag = a.mainTag();
-            var btag = b.mainTag();
-            // sorting by strings needs this method
-            return atag.localeCompare(btag);
-        });
-        break;
-    }
-};
-
-// ================================================================
-// Instance methods
-
-Task.prototype.toString = function () {
-    var due = this.duedate ? ' due on ' + this.duedate : '';
-    var tags = this.tags.length == 0 ? '' : ' (' + this.tags.join(',') + ')';
-    return '#<Task '+this.text+due+tags+'>';
-};
-
-Task.prototype.mainTag = function () {
-    var tags = this.tags;
-    if( tags.length == 0 ) {
-        return "";
-    } else {
-        return tags[0];
-    }
-}
-
-
-// This function formats the Task for display on a web page.
-
-Task.prototype.format = function (templateElt) {
-    templateElt = templateElt || $('#templatetasklist > li');
-    var clone = templateElt.clone();
-    clone.attr("data-taskId",this.taskId);
-    clone.find(".duedate").text(this.duedate.toDateString());
-    clone.find(".priority").text(this.priority);
-    clone.find(".text").text(this.text);
-    var tags = this.tags;
-    var tagsElt;
-    for( var i in tags) {
-        // I've decided to store tag names rather than indexes in the Task, even
-        // though that will make lookup a bit less efficient. But the list of tags
-        // should be short.
-        var tagName = tags[i];
-        var tag = Tag.getTagByName(tagName);
-        if( !tagsElt ) {
-            tagsElt = clone.find(".tags");
-            $(tagsElt).text(tag.abbr);
-        } else {
-            $(tagsElt).text(", "+tag.abbr);
-        }
-    }
-    if(tags.length > 0) {
-        var mainTag = Tag.getTagByName(this.mainTag());
-        clone.css("background-color",mainTag.color);
-    }
-    if(this.done) clone.addClass("done");
-    return clone;
-};
-
-
-Task.prototype.nyi = function (taskElt) {
-    console.log("click on button for task "+this.taskId+" not yet implemented");
-    var button = $('<button type="button" class="nyi">Not Yet Implemented</button>'); 
-    var orig = $(taskElt).html();
-    $(taskElt).html(button);
-    var clear = function (evt) {
-        console.log("Clearing NYI button");
-        $(taskElt).html(orig);
-        evt.stopPropagation();
-    };
-    button.focus().blur(clear);
-}
-
-Task.prototype.markDone = function (taskElt) {
-    var index = this.taskId;
-    console.log("Marking task "+index+" as done");
-    this.done = true;
-    var button = $('<button type="button" class="undo">undo</button>'); 
-    var orig = $(taskElt).html();
-    $(taskElt).html(button);
-    var reallyDone = function () {
-        $(taskElt).html(orig).addClass("done");
-        Task.save();
-        console.log("Task "+index+" is really done");
-    };
-    var undoDone = function () {
-        this.done = false;
-        $(taskElt).html(orig);
-        console.log("undo!");
-    }
-    button.blur(reallyDone).click(undoDone).focus();
-};
-
-// ================================================================
-
-Task.prototype.remove = function (taskElt) {
-    var index = this.taskId;
-    console.log("removing task "+index+": "+this.text);
-    console.log("matching elt is "+taskElt);
-    this.deleted = true;
-    // for now, just update the display
-    var button = $('<button type="button" class="undo">undo delete</button>'); 
-    var orig = $(taskElt).html();
-    $(taskElt).html(button);
-    var reallyDone = function () {
-        delete Task.list[index];
-        $(taskElt).remove();
-        Task.save();
-        console.log("Task "+index+" is really deleted");
-    };
-    var undoDelete = function () {
-        $(taskElt).html(orig);
-        console.log("undo!");
-    }
-    button.click(undoDelete).blur(reallyDone).focus();
-};
-
-// ================================================================
-
-var example_task_list =
-    [
-        {text: "Create CS 210",
-         priority: "medium",
-         duedate: "August 1, 2016 23:59",
-         tags: []
-        },
-        {text: "Help Mom with her taxes",
-         priority: "medium",
-         duedate: "August 8, 2016 23:59",
-         tags: ["personal"]
-        }
-    ];
-
-var task1 = new Task( example_task_list[0] );
-var task2 = new Task( example_task_list[1] );
-
-// ================================================================
-
-function readTaskList() {
-    var stored = localStorage.getItem("TASKMIN-tasklist");
-    var tasklist;
-    if( stored ) {
-        console.log("Using real saved data");
-        tasklist = JSON.parse(stored);
-    } else {
-        console.log("Using example task data");
-        tasklist = example_task_list;
-    }
-    Task.list = [];
-    for(var i in tasklist) {
-        var taskDesc = tasklist[i];
-        if( taskDesc != null )
-            new Task(taskDesc);
-    }
-}
-
-function formatTaskList() {
-    console.log("formatting list of "+Task.list.length+" tasks");
-    var template = $("#templatetasklist > li");
-    var list = $("<ul>");
-    for( var i in Task.list ) {
-        var task = Task.list[i];
-        var elt = task.format(template);
-        if (task.done) $(elt).addClass("done");
-        list.append(elt);
-    }
-    $("#tasklist").empty().append(list);
-}
 
 function beforeMidnight(date) {
     // console.log("beforeMidnight: "+date);
@@ -326,7 +100,6 @@ function beforeMidnight(date) {
     }
 }
 
-/*
 beforeMidnight.test = function () {
     var standard = Date.parse("7/13/2016 23:59");
     var cases = this.cases;
@@ -338,10 +111,15 @@ beforeMidnight.test = function () {
     }
 }
 
-beforeMidnight.cases = ["7/13/2016", "2016-07-13", "7/13/2016 8:00 am", "July 13, 2016 8:00 am"];
+beforeMidnight.cases = ["7/13/2016",
+                        "2016-07-13",
+                        "7/13/2016 8:00 am",
+                        "July 13, 2016 8:00 am"];
 
 // beforeMidnight.test();
-*/
+
+// ================================================================
+// Dealing with the add task form
 
 function addTask() {
     var inits = {};
@@ -358,7 +136,6 @@ function addTask() {
     var task = new Task(inits);
     $("#tasklist > ul").append(task.format());
     // should sort it into the right place, too
-    localStorage.setItem("TASKMIN-tasklist", JSON.stringify(Task.list));
 }
 
 $("#done-add-task").click(function () { addTask(); $("#addtask-form").slideUp(); });
@@ -367,101 +144,12 @@ $("#cancel-add-task").click(function () { $("#addtask-form").slideUp(); });
 // the form is hidden when page loads; has to be opened explicitly
 $("#addtask-form").hide();
 
-
 $("#addtask-button").click(function () {
     $("#addtask-form").slideToggle();
 });
     
 // ================================================================
-/* Task tags. A task can have more than one tag. Each has a text label,
- * and optional abbreviation, and an optional background color (default
- * gray). All are added to the LI.task span.tags.  The last tag decides
- * the background color; no choice there, except to delete other tags.
- * Tags are very similar to Tasks, so maybe use some inheritance?
-
- * inits properties are text, abbr, and color
-
- */
-
-var Tag = function(inits) {
-    var that = this === document ? {} : this;
-    if( typeof inits === "undefined" ) inits = {};
-    that.text = inits.text || "no name"; // error?
-    that.abbr = inits.abbr;
-    that.color = inits.color || "#cccccc"; // make this a global parameter
-    that.tagId = Tag.list.length;
-    Tag.list.push(that);
-    return that;
-};
-
-// Class static methods
-
-Tag.list = [];
-
-Tag.save = function () {
-    localStorage.setItem("TASKMIN-taglist",JSON.stringify(Tag.list));
-};    
-
-Tag.getTagByName = function (name) {
-    var tag = Tag.list.find(function (tag) { return tag.text == name; });
-    if( ! tag ) {
-        throw "Couldn't find tag named "+name;
-    }
-    return tag;
-};
-
-// Instance Methods
-
-Tag.prototype.toString = function () {
-    var abbr = this.abbr == this.text ? "" : " ("+this.abbr+")";
-    return '#<Tag '+this.text+abbr+" "+this.color+'>';
-};
-
-// TODO
-
-Tag.prototype.format = function (templateElt) {
-    templateElt = templateElt || $('#task-checkbox-template > li');
-    var clone = templateElt.clone();
-    var id = "tag-"+this.text;
-    var input = clone.find("input").one();
-    input.attr("id",id);
-    input.attr("value",this.text);
-    clone.find("label").one().attr("for",id);
-    clone.find(".tag-abbr").one().text(this.abbr);
-    clone.find(".tag-text").one().text(this.text);
-    return clone;
-};
-
-var example_tag_list =
-    [
-        {text: "personal",
-         abbr: "P",
-         color: "#2BFF9C"},
-        {text: "work",
-         abbr: "W",
-         color: "#FF2b9d"}
-    ];
-
-var tag1 = new Tag( example_tag_list[0] );
-var tag2 = new Tag( example_tag_list[1] );
-
-function readTagList() {
-    var stored = localStorage.getItem("TASKMIN-taglist");
-    var taglist;
-    if( stored ) {
-        console.log("Using real saved tag data");
-        taglist = JSON.parse(stored);
-    } else {
-        console.log("Using example tag data");
-        taglist = example_tag_list;
-    }
-    Tag.list = [];
-    for(var i in taglist) {
-        var inits = taglist[i];
-        if( inits != null )
-            new Tag(inits);
-    }
-}
+// Dealing with the form to add a tag
 
 function addTag() {
     var inits = {};
@@ -471,15 +159,45 @@ function addTag() {
     inits.abbr = $("#tag-abbr").val();
     inits.color = $("#tag-color").val();
     var tag = new Tag(inits);
-    // Update the Add Task form
-    formatAddTask();
-    // Save
-    Tag.save();
-    // And disappear
+    addTagsToAddTaskForm();
+    addTagsToEditForm();
+    // clear the form
+    $("#tag-text").val("");
+    $("#tag-abbr").val("");
+    $("#tag-color").val("#ffffff");
+    // and disappear
     $("#edittags-area").slideUp();
 }
 
-$("#done-add-tag").click(function () { addTag(); $("#edittags-area").bounds(1,1).slideUp(); });
+// This is also invoked when we create the page.
+
+function addTagsToAddTaskForm() {
+    var template = $("#task-checkbox-template > li").one();
+    var dest = $("#task-tag-checkboxes").one();
+    var tagList = $("<ul>");
+    var tags = TagList.list;
+    for( var i in tags ) {
+        var tag = tags[i];
+        var tagElt = tag.formatCheckbox(template);
+        tagList.append(tagElt);
+    }
+    dest.empty().append(tagList);
+}
+
+function addTagsToEditForm() {
+    var template = $("#edit-tag-list-template > li").one();
+    var dest = $("#edit-tags-list").one();
+    var tagList = $("<ul>");
+    var tags = TagList.list;
+    for( var i in tags ) {
+        var tag = tags[i];
+        var tagElt = tag.formatListItem(template);
+        tagList.append(tagElt);
+    }
+    dest.empty().append(tagList);
+}
+
+$("#done-add-tag").click(function () { addTag(); $("#edittags-area").one().slideUp(); });
 $("#cancel-add-tag").click(function () { $("#edittags-area").one().slideUp(); });
 
 // the form is hidden when page loads; has to be opened explicitly
@@ -490,9 +208,28 @@ $("#edittags-button").click(function () {
 });
     
 // ================================================================
+// Edit form: allow tags to be deleted.
+
+var gliElt;
+
+$("#edit-tags-list")
+        .one()
+        .on("click",
+            "button.delete",
+            function () {
+                var liElt = $(this).closest("li.tag").one();
+                gliElt = liElt;
+                var index = parseInt($(liElt).attr("data-tagid"),10);
+                console.log("deleting tag w/ index "+index);
+                TagList.del(index);
+                $(liElt).remove();
+            });
+
+// ================================================================
 // Buttons on individual task elements.
 // Try event delegation instead of a single click handler for #tasklist
 
+// These globals are just for debugging. No longer necessary.
 var gtarget, gtaskElt, gtaskId;
 
 $("#tasklist").on("click",
@@ -501,7 +238,7 @@ $("#tasklist").on("click",
                       var taskElt = getTaskElt(this);
                       var taskId = getTaskId(taskElt);
                       gtarget = this; gtaskElt = taskElt; gtaskId = taskId;
-                      var task = Task.list[taskId];
+                      var task = TaskList.get(taskId);
                       task.markDone(taskElt);
                   });
 
@@ -511,7 +248,7 @@ $("#tasklist").on("click",
                       var taskElt = getTaskElt(this);
                       var taskId = getTaskId(taskElt);
                       gtarget = this; gtaskElt = taskElt; gtaskId = taskId;
-                      var task = Task.list[taskId];
+                      var task = TaskList.get(taskId);
                       task.remove(taskElt);
                   });
 
@@ -521,12 +258,12 @@ $("#tasklist").on("click",
                       var taskElt = getTaskElt(this);
                       var taskId = getTaskId(taskElt);
                       gtarget = this; gtaskElt = taskElt; gtaskId = taskId;
-                      var task = Task.list[taskId];
+                      var task = TaskList.get(taskId);
                       task.nyi(taskElt);
                   });
 
 // ================================================================
-
+// Utility functions for working with the DOM task elements.
 
 function getTaskElt(target) {
     var result = $(target).closest("LI.task");
@@ -536,6 +273,7 @@ function getTaskElt(target) {
     return result[0];
 }
 
+// more globals for debugging. 
 var gelt, gattr;
 
 function getTaskId(elt) {
@@ -555,22 +293,6 @@ function getTaskId(elt) {
 }
 
 // ================================================================
-// Add the tags to the Add Task form
-
-function formatAddTask() {
-    var template = $("#task-checkbox-template > li").one();
-    var dest = $("#task-tag-checkboxes").one();
-    var tagList = $("<ul>");
-    var tags = Tag.list;
-    for( var i in tags ) {
-        var tag = tags[i];
-        var tagElt = tag.format(template);
-        tagList.append(tagElt);
-    }
-    dest.empty().append(tagList);
-}
-
-// ================================================================
 // Sorting Menu
 
 $("#sort-button").one().click( function () { $("#sort-menu").one().slideToggle(); });
@@ -578,25 +300,26 @@ $("#sort-button").one().click( function () { $("#sort-menu").one().slideToggle()
 $("#sort-menu").one().hide();
 
 $("#sort-by-taskId").one().click(function () {
-    Task.sort("taskId"); formatTaskList(); $("#sort-menu").one().slideUp(); });
+    TaskList.sort("taskId").format(); $("#sort-menu").one().slideUp(); });
 $("#sort-by-dueDate").one().click(function () {
-    Task.sort("dueDate"); formatTaskList(); $("#sort-menu").one().slideUp(); });
+    TaskList.sort("dueDate").format(); $("#sort-menu").one().slideUp(); });
 $("#sort-by-mainTag").one().click(function () {
-    Task.sort("mainTag"); formatTaskList(); $("#sort-menu").one().slideUp(); });
+    TaskList.sort("mainTag").format(); $("#sort-menu").one().slideUp(); });
 
 
 // ================================================================
 
 function resetLocalStorage() {
-    localStorage.setItem("TASKMIN-tasklist","");
-    localStorage.setItem("TASKMIN-taglist","");
+    TaskList.clear();
+    TagList.clear();
 }
 
 function initializeAll() {
-    readTaskList();
-    readTagList();
-    formatTaskList();
-    formatAddTask();
+    TaskList.readInstances().format();
+    TagList.readInstances();
+    addTagsToAddTaskForm();
+    addTagsToEditForm();
+    addSortableBehavior();
 }
 
 $("#reset-button").click(function () {
@@ -604,20 +327,24 @@ $("#reset-button").click(function () {
     initializeAll();
 });
 
-// The only function invoked in loading this file, except for adding event handlers
+// ================================================================
 
-initializeAll();
+// We use jQuery UI's sortable method to allow users to reorder tasks
+// using the mouse (and a plug-in to allow them to use a touch
+// screen). This update method lets us renumber the tasks whenever that
+// happens.
 
-$("#tasklist > ul").one().sortable({
-    update: function( event, ui ) {
-        $("#tasklist > ul > li").each( function (index, elt) {
-            var taskId = getTaskId(this);
-            var task = Task.list[taskId];
-            $(this).attr("data-taskId",index);
-            task.taskId = index;
-        });
-        console.log("sorting tasks");
-        Task.sort("taskId");
-        Task.save();
-    }
-});
+function addSortableBehavior() {
+    $("#tasklist > ul").one().sortable({
+        update: function( event, ui ) {
+            $("#tasklist > ul > li").each( function (index, elt) {
+                var taskId = getTaskId(this);
+                var task = TaskList.get(taskId);
+                $(this).attr("data-taskId",index);
+                task.taskId = index;
+            });
+            console.log("sorting tasks");
+            TaskList.sort("taskId").save();
+        }
+    });
+}
