@@ -1,5 +1,14 @@
+/* font */
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,600)
+
+/* ================================================================ */
+/* colors (someday, make these variables)
+   #1EAEDB: the blue used for the nav bar background and other highlighting
+
+*/
+   
 #site_nav {
-    background: #1EAEDB;  /* or some other color */
+    background: #1EAEDB;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -8,7 +17,7 @@
 }
 
 #site_nav ul {
-    list-item-type: none;
+    list-style-type: none;
     padding: 0px;
     margin: 0px;
 }
@@ -50,4 +59,22 @@
     box-sizing: border-box;
     margin: 0;
     width: 48%;
+}
+
+/* ================================================================ */
+/* when printing the reading, use the whole width */
+
+@media print {
+    nav { display: none; }
+    #TOC { display: none; }
+    #main { width: 100%; }
+}
+
+/* ================================================================ */
+
+pre.prettyprinted {
+    background-color: #eee;
+    border: 2px solid #1EAEDB;
+    border-radius: 1rem;
+    padding: 1rem;
 }
