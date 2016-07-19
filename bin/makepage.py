@@ -74,6 +74,7 @@ if __name__ == '__main__':
 
         # skip if up-to-date
         if (not force and
+            os.path.isfile(outfile) and
             os.stat(outfile).st_mtime > os.stat(src).st_mtime and
             os.stat(outfile).st_mtime > newest_template_time):
             print "{src} is up-to-date -- skipping".format(src=src)
@@ -98,7 +99,10 @@ if __name__ == '__main__':
             with codecs.open(src,mode='rt',encoding='utf=8',errors='strict') as fin:
                 text = fin.read()
                 # still need to recognize H2 (##) elements and built the TOC
-                html = markdown.markdown(text)
+                html = markdown.markdown(text,
+                                         extensions=[
+                        'markdown.extensions.fenced_code'
+                        ])
                 content = html
                 if src == 'index.md':
                     render_args = {'content': content}
