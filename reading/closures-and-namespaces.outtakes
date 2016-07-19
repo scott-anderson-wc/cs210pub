@@ -1,0 +1,67 @@
+## Creating Multiple Closures
+
+A tricky thing can occur when you attempt to put similar closures on each
+of several elements. We can illustrate this by extending our previous
+fruit example.  You noticed that we still had to invoke the
+`groceryClickHandlerMaker` for each button, and if we had lots of buttons,
+that would get tedious and error prone. Instead, imagine that we have all
+our fruits in a nice array like this:
+
+```javascript
+var fruits = ["apple", "banana", "coconut", "date", "eggplant", "fig" ];
+```
+
+We can create the buttons and attach click handlers like this (I'll omit
+the code to create the output elements and such).
+
+<pre class="prettyprint lang-javascript">
+function addButtons() {
+    for( var i in fruits ) {
+        var fruit = fruits[i];
+        var counter = 0;
+        $("<button>")
+            .html("click on "+fruit)
+            .click(function () {
+               counter++;
+               updateDatabase(fruit,counter);
+               $(
+
+
+
+================================================================
+
+so that helper functions and variables don't clutter up the
+global namespace. Here are two functions, `genPrimes` and `isPrime` that
+need a list of primes as auxiliary data. They also have a helper function
+called `square`:
+
+<script class="eg">
+var primes = [2, 3, 5, 7, 11];
+var biggest = 11;
+
+function square (n) { return n*n; };
+
+// generate primes up to sqrt of max
+function genPrimes(max) {
+    var cand = biggest;
+    while( square(cand) < max ) {
+        cand += 2;
+        if( isPrime(cand) ) {
+           primes.push(cand);
+           biggest = cand;
+           }
+   }
+}   
+
+function isPrime (n) {
+    if( square(biggest) < n ) {
+         genPrimes(n);
+         }
+    for( var i in primes ) {
+        var prime = primes[i];
+        if( n % prime == 0 ) return false;
+    }
+    return true;
+}
+</script>
+
