@@ -39,10 +39,10 @@ Heavily revised by Scott, Summer 2015.
           <p>In addition, an ID can be used as the <em>selector</em> in a
           CSS rule.  Thus, the following rule was used to make that H2
           section header teal:
-            <pre class="prettyprint lang-css">#css_and_id {
+            <pre class="prettyprint lang-css"><code class="css">#css_and_id {
    color: teal;
 }
-</pre>
+</code></pre>
 
             <p>Notice the syntax here: the ID is preceded by
             a <code>#</code> symbol (pronounced <q>hash,</q> or <q>sharp
@@ -56,10 +56,10 @@ Heavily revised by Scott, Summer 2015.
             the <code>#2EA9D3</code> code, but for now, trust us that it
             means light blue)
               
-            <pre class="prettyprint lang-css">h2 {
+            <pre class="prettyprint lang-css"><code class="css">h2 {
    color: #2EA9D3;
 }
-</pre>
+</code></pre>
           
             <p>The conflict is resolved by using the
             more <em>specific</em> rule, which is the one with the
@@ -90,7 +90,7 @@ Heavily revised by Scott, Summer 2015.
             </ul>
 
           <p>Here's the source code:
-<pre class="prettyprint lang-html">&lt;ul&gt;
+<pre class="prettyprint lang-html"><code class="html">&lt;ul&gt;
     &lt;li class="important"&gt;milk
     &lt;li class="important"&gt;bread
     &lt;li&gt;apples
@@ -98,7 +98,7 @@ Heavily revised by Scott, Summer 2015.
     &lt;li class="important"&gt;toilet paper
     &lt;li&gt;soap
 &lt;/ul&gt;
-</pre>            
+</code></pre>            
 
          <p>You can see that class works just like ID, in that you specify
          it as the value of an HTML attribute.  Note that, just like ID,
@@ -110,11 +110,11 @@ Heavily revised by Scott, Summer 2015.
           in the list above got styled using bold red using a CSS rule
           like this:
             
-            <pre class="prettyprint lang-css">.important {
+            <pre class="prettyprint lang-css"><code class="css">.important {
    color: red;
    font-weight: bold;
 }
-</pre>
+</code></pre>
 
           <p>First, note the syntax of the selector. The name of the class
           is preceded by a dot or a period (a <q>full stop</q> if you're
@@ -144,20 +144,20 @@ Heavily revised by Scott, Summer 2015.
           CSS file that every page uses, so the CSS rule is just in one
           place, like this:
 
-            <pre class="prettyprint lang-css">.boldred {
+            <pre class="prettyprint lang-css"><code class="css">.boldred {
    color: red;
    font-weight: bold;
 }
-</pre>
+</code></pre>
 
           <p>One day, the boss comes in and
             says <q>I'm tired of the bold red; it's too scary. Change them
               all to medium maroon.</q> You change the rule as follows:
-            <pre class="prettyprint lang-css">.boldred {
+            <pre class="prettyprint lang-css"><code class="css">.boldred {
    color: maroon;
    font-weight: medium;
 }
-</pre>
+</code></pre>
             and you're done in five minutes, with all the hundreds of
             pages instantly getting the new rule. The boss thinks you're a
             wizard. This shows the power of modularity &mdash; in this case,
@@ -220,22 +220,22 @@ elements per page, so these might have an <em>id</em>.
           are blue and underlined. That might be what you want for most of
           your page, but in the nav bar you want them to be, say, green
           and not underlined. Here's one way:
-            <pre class="prettyprint lang-html">&lt;nav&gt;
+            <pre class="prettyprint lang-html"><code class="html">&lt;nav&gt;
   &lt;ul&gt;
     &lt;li&gt;&lt;a class="navlink" href="home.html"&gt;Home&lt;/a&gt;
     &lt;li&gt;&lt;a class="navlink" href="about.html"&gt;About Us&lt;/a&gt;
     &lt;li&gt;&lt;a class="navlink" href="contact.html"&gt;Contact Info&lt;/a&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;
-</pre>
+</code></pre>
 
             <p>You can combine that with the following CSS rule:
-              <pre class="prettyprint lang-css">.navlink {
+              <pre class="prettyprint lang-css"><code class="css">.navlink {
     text-decoration: none;
     color: green;
     background-color: gray;
 }
-</pre>
+</code></pre>
 
             <p>That's not too bad, but supposing that you also want to
             adjust other elements inside the NAV (say removing the bullets
@@ -247,7 +247,7 @@ elements per page, so these might have an <em>id</em>.
             an element are selected.  (The UL is a child of the NAV, the
             LI elements are grandchildren, and the A elements are
             great-grandchildren.)  Here's an example:
-              <pre class="prettyprint lang-css">nav ul {
+              <pre class="prettyprint lang-css"><code class="css">nav ul {
     list-style-type: none;
 }
 
@@ -256,7 +256,7 @@ nav a {
     color: green;
     background-color: gray;
 }
-</pre>
+</code></pre>
 
             <p>With a descendant selector, you give <em>two</em>
             selectors.  The first is the ancestor and the second is the
@@ -271,7 +271,7 @@ nav a {
             one of the three basic selectors we know: (1) tags, (2) ID,
             and (3) class.  For example:
               
-              <pre class="prettyprint lang-css">#banner H1 {
+              <pre class="prettyprint lang-css"><code class="css">#banner H1 {
     font-size: xx-large;  /* banner header is huge */
 }
 
@@ -286,7 +286,7 @@ nav a {
 .appendix .important {
    color: black;  /* since it's in an appendix, don't use red */             
 }
-</pre>                
+</code></pre>                
 
             <p>In practice, you wouldn't use an ID as the second selector,
             since an ID is already unique and doesn't gain any specificity
@@ -338,7 +338,7 @@ nav a {
 
           <p>Here's an example of some CSS to style all four states:
             
-              <pre class="prettyprint lang-css">#hyperlink-example a:link {
+              <pre class="prettyprint lang-css"><code class="css">#hyperlink-example a:link {
     color: orange;
 }                
                 
@@ -356,7 +356,7 @@ nav a {
     font-size: 2em;                
     font-weight: bold;                
 }
-</pre>                
+</code></pre>                
 
           <p>Here's the example in action:
             <div id="hyperlink-example">
@@ -382,10 +382,10 @@ nav a {
               you can specify the appearance just using the <code>A</code>
               tag:
               
-              <pre class="prettyprint lang-css">#hyperlink-stateless a {
+              <pre class="prettyprint lang-css"><code class="css">#hyperlink-stateless a {
     color: green;
 }                
-</pre>                
+</code></pre>                
 
           <p>Here's the stateless example in action:
             <div id="hyperlink-stateless">
@@ -449,14 +449,14 @@ nav a {
   and <code>hermione</code>. If they all have different colors, but the
   same font, you could do:
 
-<pre class="prettyprint lang-css">#harry { color: red; }
+<pre class="prettyprint lang-css"><code class="css">#harry { color: red; }
 #ron { color: green; }                
 #hermione { color: blue; }                
 
 #harry, #ron, #hermione {
    font-family: impact;
 }
-</pre>
+</code></pre>
 
 <p>You can see that there's just one rule to specify the font family for
   all three.  All you have to do is list all the selectors, separated by

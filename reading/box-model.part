@@ -69,10 +69,10 @@ filled with as many images as will fit before starting the next line.
 <p>The contents of a box can optionally be surrounded by a
   border.  For example, the following CSS
 
-</p><pre>p {
+</p><pre><code class="css">p {
     border: 2px dashed red;
 }
-</pre>
+</code></pre>
 
 <p>will put a 2 pixel dashed red line around the contents of each
 paragraph.
@@ -107,14 +107,14 @@ paragraph.
 <p>Here's the CSS. Notice we use a descendant selector, so as not to
   modify every paragraph on the page.
 
-<pre class="prettyprint lang-css">
+<pre class="prettyprint lang-css"><code class="css">
 .eg_box p {
    border: 1px solid orange;
    background-color: yellow;
    padding: 5px 2em;
    margin: 10px;
 }
-</pre>
+</code></pre>
 
 <p>Again, we've used short-hand properties. With padding and margins, if
   you give one number, as we did with the margin, you get 10px on all four
@@ -124,40 +124,18 @@ paragraph.
   top, right, bottom and left (clockwise from the top). So the following
   is equivalent:
   
-<pre class="prettyprint lang-css">
+<pre class="prettyprint lang-css"><code class="css">
 .eg_box p {
    border: 1px solid orange;
    background-color: yellow;
    padding: 5px 2em 5px 2em;
    margin: 10px 10px 10px 10px;
 }
-</pre>
+</code></pre>
 
 <p>Note that margin-collapse means that the two paragraphs are 10px apart,
   which is reasonable and easy to specify.  So margin-collapse is usually
   a help rather than a hindrance.
-
-<div class="bs-callout bs-callout-danger">
-      <h4>Exercise 1</h4>    
-
-
-<p>Look at this <a href="box-model-files/box-ex1.html">modifying boxes using Inspect Element</a>.
-    (Dummy text courtesy of <a href="http://lipsum.com/">lipsum.com</a>.)
-
-
-<p>In the exercise, you'll notice that contents of the box, including the
-padding, acquire the background color, but the margins are always
-transparent.  Thus, padding and margins, which seem to be interchangeable
-when there isn't a border, aren't the same if you have a background color.
-
-<p>You'll also notice some big differences between blocks and inline
-  elements.  Not only are the inline elements put together on a line,
-  but a <code>&lt;span&gt;</code> can be broken up if it's too wide
-  (certain inline elements, such as images, can't be broken up).
-  Also, the width and height, and top and bottom margins of inline
-  elements are completely ignored.</p>
-  
-  </div>
 
 <p>You are probably wondering how to set all these distances.  There
 are CSS properties to control the thickness of each side of the box
@@ -176,8 +154,8 @@ the only indented paragraph in the site.  We did it using the following
 code:
 </p>
           
-<pre>&lt;p style="text-indent: 0.5in"&gt;Now that you've seen some CSS properties ...
-</pre>
+<pre<code class="html">>&lt;p style="text-indent: 0.5in"&gt;Now that you've seen some CSS properties ...
+</code></pre>
 
 <p>You might guess that <code>in</code> means <q>inches.</q> To
 specify lengths effectively, you need to know the <em>units</em> that
@@ -211,6 +189,25 @@ and in CSS is defined to be equal to the size of the font.  The
 <code>ex</code> measure is named for the height of the letter <q>x</q> in
 the current font, and in CSS is usually about half the size of the font.
 
+</li><li><em>Alternative Font-relative units.</em> The <code>EM</code> is
+        a good unit, but because it's inherited, and can be changed by
+        different ancestor elements, it can be constantly changing based
+        on its context.  Enter <q>Root EM</q> or <code>REM</code>
+        unit. It's always equal to the font-size specified on
+        the <code>HTML</code> element, which typically defaults to 16px on
+        most browsers. Thus, you can use 1rem as an equivalent to 16px,
+        but with the benefit that if the you or the user has changed the
+        default font size, your REM units will scale appropriately. Here
+        is a discussion of <a href="http://zellsk.com/blog/rem-vs-em/">REM
+        versus EM</a>, which suggests a set of simple rules and shows how
+        they play out.
+        <ol>
+            <li>Size in <code>em</code> if the property scales according
+            to its <code>font-size</code>
+                
+            <li>Size everything else in <code>rem</code>.
+        </ol>
+
 </li><li><em>Percentages.</em> These are best for elements whose size you 
 want to specify relative to the size of the enclosing element or the window.  
 
@@ -218,7 +215,7 @@ want to specify relative to the size of the enclosing element or the window.
 the enclosing <code>&lt;div&gt;</code>, you can use code like the
 following:
 
-<pre>
+<pre><code class="css">
 #content {
    width: 800px;
    margin-left: 100px;
@@ -234,7 +231,7 @@ following:
    ...
    &lt;p id="note"&gt;And here is a narrow note on the right side.&lt;/p&gt;
 &lt;/div&gt;
-</pre>
+</code></pre>
 
 <p>Look at the <a href="box-model-files/percentage.html" title="an example of setting paragraph widths using percentages">percentage example in action</a>.
 
@@ -335,10 +332,10 @@ is centered.  Thus:
 </div>
 
 <p>Here's the code that accomplishes that:
-<pre class="prettyprint lang-css">
+<pre class="prettyprint lang-css"><code class="css">
 #outer_box_example {  width: 80%; border: 3px solid blue; }
 #inner_box_example {  width: 70%; border: 2px solid red; margin: 0 auto; }
-</pre>  
+</code></pre>  
 
 <p>This makes the browser calculate the necessary margin for centering,
   and works even when the widths are in percentages. When the width is a
@@ -413,22 +410,22 @@ a <a href="box-model-files/full-box.html">full, not overfull box</a> created wit
  say it shouldn't be repeated.  This paragraph is put on a wooden
  background image by using the following CSS:
 
-  <pre class="prettyprint lang-css">
+  <pre class="prettyprint lang-css"><code class="css">
 #bgimage {
     background: url("wood-texture.jpeg");
 }
-</pre>
+</code></pre>
 
 <p>The header for this section also uses a background image. We make the
   image not-repeat and slide the text over by using some padding (not
   margin), like this:
   
-  <pre class="prettyprint lang-css">
+  <pre class="prettyprint lang-css"><code class="css">
 #background_images {
     background: url("cs110.png") no-repeat;
     padding-left: 35px;
 }
-</pre>
+</code></pre>
 
 <p>You can learn more and try it out at this
   page: <a href="http://www.w3schools.com/cssref/pr_background-image.asp">W3
@@ -471,14 +468,14 @@ a <a href="box-model-files/full-box.html">full, not overfull box</a> created wit
   we can specifiy the x and y values for each corner separately. Below is a concrete
   example:</p>
             
-<pre>
+<pre class="prettyprint lang-css"><code class="css">
 div {
     border-top-left-radius: 20px; 
     border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px; 
     border-bottom-left-radius: 20px;
 }
-</pre>
+</code></pre>
 
 <p>If only one value has been specified, that means that both x and y are
   using the same radius. Otherwise, we will specify two values in every
@@ -506,12 +503,13 @@ div {
 
 <p>Here is the <a href="box-model-files/css3_examples/ex1.html">example of a page with one 
     background image</a>, which was generated with this CSS rule:</p>
-<pre>
+
+<pre class="prettyprint lang-css"><code class="css">
 header {
   height: 640px;
   background: url('images/blue-sky.jpg') no-repeat;
 }
-</pre>
+</code></pre>
           
 <p> To make things more interesting we can add other images on top of an
 existing background image, again, only using CSS3.
@@ -520,13 +518,13 @@ existing background image, again, only using CSS3.
     the bird on the blue sky</a> from the previous example.</p>
             
           <p>This is the CSS rule we used:</p>
-<pre>
+<pre class="prettyprint lang-css"><code class="css">
 header {
   height: 640px;
   background: url('images/bird.png') no-repeat,
               url('images/blue-sky.jpg') no-repeat; 
 }
-</pre>            
+</code></pre>            
 
         <p>Notice that we use a <code>,</code> to list all images that we want to appear
             in the background. The order in which the images appear in this list is
@@ -549,14 +547,14 @@ header {
           center bottom example</a>.
           </p>
           <p>We needed to add one line to our CSS rule:</p>
-          <pre>
+<pre class="prettyprint lang-css"><code class="css">
 header {
   height: 640px;
   background: url('images/bird.png') no-repeat, 
               url('images/blue-sky.jpg') no-repeat; 
   <strong>background-position: center bottom, 0% 0%;</strong>
 }
-</pre>
+</code></pre>
           <p>Because there are two images, we specify the position for both of them. This
           property takes several values and you can play with them in this 
           <a href="http://www.w3schools.com/cssref/playit.asp?filename=playcss_background-position">
@@ -568,7 +566,7 @@ header {
             <a href="box-model-files/css3_examples/ex2-2.html">example with many 
           flying birds</a>.</p>
           
-          <pre>
+<pre class="prettyprint lang-css"><code class="css">
 header {
   height: 640px;
   background: url('images/bird.png') no-repeat 5% 105%, 
@@ -580,7 +578,7 @@ header {
               url('images/blue-sky.jpg') no-repeat 50% 50%; 
   background-size: auto, 10%, 10%, 5%, 5%, 5%,  auto;
 }
-</pre>
+</code></pre>
           
           <p>The <code>background-size</code> property can also 
             <a href="http://www.w3schools.com/cssref/css3_pr_background-size.asp">

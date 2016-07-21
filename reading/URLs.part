@@ -9,16 +9,16 @@
           <blockquote>
             <table class="table-bordered">
               <tr>
-                <td><code>http://</code> </td>
-                <td><code>cs.wellesley.edu/</code></td>
-                <td><code>~cs110/lectures/L02/</code></td>
-                <td><code>URLs.html</code></td>
+                <th>protocol</th>
+                <th>server.domain</th>
+                <th>path</th>
+                <th>filename</th>
               </tr>
               <tr>
-                <td>protocol</td>
-                <td>server.domain</td>
-                <td>path</td>
-                <td>filename</td>
+                <td><code>https://</code> </td>
+                <td><code>cs210.wellesley.edu</code></td>
+                <td><code>/reading/</code></td>
+                <td><code>URLs.html</code></td>
               </tr>
             </table>
           </blockquote>
@@ -26,29 +26,29 @@
           <p>let's break it down in its components:</p>
           
           <ul>
-            <li><code>http://</code>&nbsp;This is the protocol, which is almost always
-            HTTP, the HyperText Transfer Protocol. You'll also occasionally
-            see FTP, the File Transfer Protocol; HTTPS, the secure version of
-            HTTP; and others.</li>
+            <li><code>http://</code>&nbsp;This is the protocol, which is
+            almost always HTTP, the HyperText Transfer Protocol, or HTTPS,
+            its secure counterpart. You'll occasionally see FTP and
+            others.</li>
             
-            <li><code>cs.wellesley.edu/</code>&nbsp; This is the <em>server</em>: a
-             machine connected to the internet that hands out files to anyone
-             who asks. <code>cs</code> is the name of the machine; 
-             <code>wellesley.edu</code> is
-             the domain. The name of the server combined with the domain must
-             be <em>unique</em> in the <em>world</em>. In fact, the domain must
-             be unique in the world, and the server name must be unique within
-             the domain.</li>
+            <li><code>cs210.wellesley.edu</code>&nbsp; This is
+             the <em>server</em>: a machine connected to the internet that
+             hands out files to anyone who asks. <code>cs210</code> is the
+             name of the machine;
+             <code>wellesley.edu</code> is the domain. The name of the
+             server combined with the domain must be <em>unique</em> in
+             the <em>world</em>. In fact, the domain must be unique in the
+             world, and the server name must be unique within the
+             domain.</li>
             
-            <li><code>~cs110/lectures/L02/</code>&nbsp; This is the
-             <em>path</em>: a sequence of directories (AKA folders), separated by
-             slashes, that indicates where on the server the file is located. 
-             In this path, there's a tilde (<code>~</code>), which means to start at the
-             <code>public_html</code> directory under the <code>home</code>
-             directory of the <code>cs110</code> account. We'll always be using
-             that kind of URL in this class, so keep this special rule in mind.</li>
+            <li><code>/reading/</code>&nbsp;This is the
+             <em>path</em>: a sequence of directories (AKA folders),
+             separated by slashes, that indicates where on the server the
+             file is located. Here there is only one folder, but there
+             could be several.</li>
           
-            <li><code>URLs.html</code>&nbsp; This is the file that is being requested.</li>         
+            <li><code>URLs.html</code>&nbsp;This is the file that is being
+            requested.</li>
           </ul>
           
           <p>Because URLs can specify files on many different kinds of
@@ -72,27 +72,17 @@
           same filename, but to a computer, they're as different as
           <CODE>cats.html</CODE> and <CODE>dogs.html</CODE>. The same rule is true
           of directory names: they are case-sensitive. Many people like to stick to
-          all lower-case, just so they don't have to remember.  <!--Wellesley's web 
-          standard is that folder names start with an upper-case letter and file
-          names start with a lower-case letter-->.</p>
+          all lower-case, just so they don't have to remember. </p>
           
-          <div class="alert alert-warning">
-            <h4>Exercise 1</h4>
-            <p>Use a file transfer program (such as Fetch or WinSCP) to create a
-              path of directories in your CS account, and then create a simple web
-              page that just says &ldquo;hello world&rdquo; and put it in the
-              bottommost directory. <!--Finally, put in a link to that &ldquo;hello
-              world&rdquo; page in <code>little.html</code-->Construct the URL to 
-              the page and then try to view the page with your browser.
-          </div>
-          
-          <p>Certain parts of the end of an absolute URL can be omitted.  For
-          example, the filename can be omitted and (usually) defaults to a file
-          named <code>index.html</code> in the specified directory (for an example, see 
-            our <a href="http://cs.wellesley.edu/~cs110/">course homepage</a>). Similarly, the
-          path can be omitted, in which case the page is in the <q>top</q> directory of
-          the web server.  However, <em>the protocol and server must be
-          specified</em>. You can't omit those.  If a URL has a protocol, it's an
+          <p>Certain parts of the end of an absolute URL can be omitted.
+          For example, the filename can be omitted and (usually) defaults
+          to a file named <code>index.html</code> in the specified
+          directory (for an example, see
+          our <a href="http://cs210.wellesley.edu/">course
+          homepage</a>). Similarly, the path can be omitted, in which case
+          the page is in the <q>top</q> directory of the web server.
+          However, <em>the protocol and server must be specified</em>. You
+          can't omit those.  If a URL has a protocol, it's an
           <strong>absolute URL</strong>, otherwise it'll be treated as a 
           <strong>relative URL</strong>.</p>
             
@@ -124,7 +114,7 @@
             <figure>
               <img src="URLs-files/images/Joss-dirtree-hand-new.png" alt="Joss directory tree drawn by hand" 
                    class="img-thumbnail center-block">
-              <figcaption>A hand drawing for the Joss Whedon's website.</figcaption>
+              <figcaption>A hand drawing for the Joss Whedon website.</figcaption>
             </figure>
               
             <figure>
@@ -155,7 +145,7 @@
           specify the location of a file relative to a known file. Here are the
           basic rules:
           
-          <ul>
+          <ol>
              <li>Relative URLs are only for files on the same server.
              Therefore, we can leave off the protocol and server name.
              
@@ -164,18 +154,18 @@
              we want to put a link <EM>in</EM> the file <CODE>buffy.html</CODE>
              linking it to <code>willow.html</code>, we can say:
              
-            <div class="bs-callout bs-callout-warning">
+            <pre class="prettyprint">
               <code>&lt;a href="willow.html"&gt;her best friend Willow&lt;/a&gt;</code>
-            </div>
+            </pre>
                
                <li>If a file is in a sibling subdirectory, we can just give the
                path starting from the sibling. So, if we are in the file called
                <code>mythology.html</code> and we want to give a link to the file
                <code>angel.html</code>, we can say:
                
-            <div class="bs-callout bs-callout-warning">
+            <pre class="prettyprint">
               <code>&lt;a href="cast/angel.html"&gt;Angel, the vampire with a soul&lt;/a&gt;</code>
-            </div>
+            </pre>
                
                <li>If the file is in a directory that contains a subdirectory that 
                contains the HTML file with the link,
@@ -184,9 +174,9 @@
                are in the file <code>host.html</code> and we want to make a link to
                <code>season3.html,</code> we can say:
                
-            <div class="bs-callout bs-callout-warning">
+            <pre class="prettyprint">
               <code>&lt;a href="../season3.html"&gt;the Host returned in season 3&lt;/a&gt;</code>
-            </div>
+            </pre>
                
                That last step, with the <code>..</code> is tricky: to go up, we write
                <code>..</code>; while to go down we have to indicate which subdirectory
@@ -195,65 +185,49 @@
                from <code>buffy.html</code> to <code>comics.html</code>. In this case,
                we can write:
             
-            <div class="bs-callout bs-callout-warning">
+            <pre class="prettyprint">
             <code>&lt;a href="../../comics.html"&gt;another layer in the comics&lt;/a&gt;</code>
-            </div>
+            </pre>
                
-          </ul>
-          
-          
-          <div class="alert alert-warning">
-             <h4>Exercise 2</h4>
-             <p>Create some additional directories in the <code>public_html</code> folder of 
-               your CS account and practice
-              with the relative URLs. Relative URLs will make your lives much
-              easier when you produce different versions and when you deliver your
-              website to your client. Try the equivalent of:</p>
-          
-          <ul>
-             <li>A link from <code>plot.html</code> to <code>comics.html</code>
-             
-             <li>A link from <code>season3.html</code> to <code>plot.html</code>
-             
-             <li>A link from <code>gunn.html</code> to <code>willow.html</code>
-          </ul>
-          </div>
-          
+          </ol>
           
           <h2 id="fragments">Fragments</h2>
           
-          <p>The model above establishes a one-to-one correspondence between a URL
-            and a file (web page) somewhere in the vast Internet.  Sometimes,
-            however, you want to address (point to) a particular
-            location <em>within</em> a page. Such locations are
-            called <em>fragments</em>.
+          <p>The model above establishes a one-to-one correspondence
+            between a URL and a file (web page) somewhere in the vast web.
+            Sometimes, however, you want to address (point to) a
+            particular location <em>within</em> a page. Such locations are
+            called <em>fragments</em>.  Here is a link
+            to <a href="#fragments">this section of this page</a>
+            (actually the header of the section). Try it!</p>
           
           <p>While fragments can be used in many ways, one common use is to have
             a <q>table of contents</q> at the top of a page, allowing readers to skip
             down to the particular section they are interested in.  An example of
-            such a table of contents is at the left side of these notes.
+            such a table of contents is at the left side of these notes.</p>
           
-          <p>Fragments are addressed by extending the URL by adding a <code>#</code> character
-            and the <a href="http://www.w3schools.com/tags/att_global_id.asp">id</a> attribute 
-            of the fragment (the HTML element that refers to the 
-            fragment).  Thus, we have:
+          <p>Fragments are addressed by extending the URL by adding
+            a <code>#</code> character and
+            the <a href="http://www.w3schools.com/tags/att_global_id.asp">id</a>
+            attribute of the fragment (the HTML element that we are
+            referring to).  Thus, we have:</p>
           
           <p>
           <blockquote>
             <table class="table-bordered">
                 <tr>
-                   <td><code>http://</code> </td>
-                   <td><code>cs.wellesley.edu/</code></td>
-                   <td><code>~cs110/lectures/L03-html/</code></td>
-                   <td><code>URLs.html#</code></td>
-                   <td><code>relative</code></td>
+                   <th>protocol</th>
+                   <th>server.domain</th>
+                   <th>path</th>
+                   <th>filename</th>
+                   <th>fragment id</th>
                 </tr>
                 <tr>
-                   <td>protocol</td>
-                   <td>server.domain</td>
-                   <td>path</td>
-                   <td>filename</td>
-                   <td>fragment id</td>
+                   <td><code>https://</code> </td>
+                   <td><code>cs210.wellesley.edu</code></td>
+                   <td><code>/reading</code></td>
+                   <td><code>URLs.html</code></td>
+                   <td><code>#relative</code></td>
                 </tr>
             </table>
           </blockquote>
@@ -264,9 +238,9 @@
             every HTML tag.  We typically add it to the header tag (such
             as <code>h2</code>) of the section we want to skip to.  For example:
           
-          <div class="bs-callout bs-callout-warning">
+            <pre class="prettyprint">
             <code>&lt;h2 id="relative"&gt;Relative URLs&lt;/h2&gt;</code>
-          </div>
+          </pre>
           
           <p>Given the code above, we can then point to that section from any web
             page anywhere, using an absolute URL, like the one in the table above.

@@ -26,6 +26,8 @@
   
 <!-- Scott, Summer 2015: Commented out example 3 because it dealt too much with the box model, which they haven't learned yet. -->
 
+<!-- Scott, Summer 2016: recycled this for CS 210 -->
+
       <div class="alert alert-info">
         Reading: We strongly suggest you read chapter 7
         of <em><a href="http://shop.oreilly.com/product/9780596159924.do">Head
@@ -85,13 +87,14 @@
       
           </li><li><em>External Style Sheets.</em> These are specified in a
           separate CSS file that is connected to the HTML file by the
-          <code>&lt;link&gt;</code> tag.  We discussed this link in the 
-            <a href="../L01-html/HTML.html#link">HTML lecture</a>.
+          <code>&lt;link&gt;</code> tag.  We discussed this link in the
+            <a href="HTML.html#link">HTML reading</a>.
           </li></ol>
           </div>
           
-          <p>Suppose that we always want <code>&lt;em&gt;</code> to be red. 
-            (Be aware of <a href="#accessibility">accessibility</a>.)</p>
+          <p>Suppose that we always want <code>&lt;em&gt;</code> to be red
+            in addition to being in italics.  (Be aware
+            of <a href="#accessibility">accessibility</a>.)</p>
          
           <ol>
 
@@ -106,9 +109,9 @@
           case the user's browser has specified a background color that
           matches your foreground color.  Here's the example:
 
-<pre>
+<pre><code class="html">
 this is an <code class="html"><span class="nt">&lt;em</span> <span class="na">style=</span><span class="s">&quot;color: red; background-color: white&quot;</span>&gt;important<span class="nt">&lt;/em&gt;</span></code> word
-</pre>
+</code></pre>
 
     which results in:<br>
 
@@ -122,13 +125,13 @@ this is an <code class="html"><span class="nt">&lt;em</span> <span class="na">st
     document to specify the style for the <code>&lt;em&gt;</code> tag once and
     for all:
 
-<pre>&lt;style&gt;
+<pre><code class="css">&lt;style&gt;
    em { 
       color: red; 
       background-color: white;
    }
 &lt;/style&gt;
-</pre>
+</code></pre>
 
     <p>In your document (that is, in the tags enclosed by &lt;<code>body&gt;</code>), 
       you just use the <code>&lt;em&gt;</code> tag normally, and it will be rendered as red.
@@ -143,18 +146,14 @@ this is an <code class="html"><span class="nt">&lt;em</span> <span class="na">st
     <code>&lt;style&gt;</code> tag.  Suppose we create a file called
     <code>my-style.css</code> that contains the following:
 
-<pre class="sh_css">em { 
+<pre><code class="css">em { 
    color: red; 
    background: white;
-}</pre>
+}</code></pre>
 
     <p>and we reference it in the <code>&lt;head&gt;</code> like this:
 
-<!-- </p><pre>&lt;link rel="stylesheet" type="text/css" href="my-style.css"&gt; -->
-
-</p><pre class="sh_html">&lt;link rel="stylesheet" href="my-style.css"&gt;
-
-</pre>
+</p><pre><code class="html">&lt;link rel="stylesheet" href="my-style.css"&gt;</code></pre>
 
     <p>As with document-level style sheets, we can just use the <code>&lt;em&gt;</code> tag
     normally from then on.
@@ -218,15 +217,15 @@ this is an <code class="html"><span class="nt">&lt;em</span> <span class="na">st
           begin and <code>*/</code> to end.  Thus, for an external style
           sheet, you might have:
       
-      <pre class="sh_css">
-/* Written by the CS110 Faculty
-   Specifies a CSS Rule for the element <code>&lt;em&gt;</code> 
+      <pre><code class="css">
+/* Written by the CS210 Faculty
+   Decided on 7/19/2016 to make EM magenta
 */
       
 em {
    color: magenta; 
    background-color: white;
-} </pre>    
+} </code></pre>    
   
       </li></ul>
           
@@ -250,59 +249,78 @@ em {
           <h2>Examples</h2>
           
           <div class="alert alert-warning">
-          <p>In the following, we give several examples of properties that are very useful for
-          styling elements. For pedagogical purposes, we're not providing the code as text
-          that can be easily copied and pasted somewhere else. We believe that by typing the instructions
-          on your own, you will learn the names and values of properties, as well as potential errors that
-          occur when one types. We strongly suggest that you
-          use <a target="_blank" href="http://jsfiddle.net">jsfiddle</a> to
-          try out all these examples. Before entering the code, read our questions and try to predict the answer
-            without running the code. Then check if you were right.
-            To use jsfiddle, enter the HTML code in the HTML box, the CSS code in the CSS box,
-            and then click the button Run. There is no need to write a whole HTML file, only the snippets
-            shown in the examples. Also, to see the effect of styling, the text in HTML elements doesn't have to be
-            meaningful as in our examples.</p>
+
+          <p>In the following, we give several examples of properties that
+              are very useful for styling elements. For pedagogical
+              purposes, we're not providing the code as text that can be
+              easily copied and pasted somewhere else. We believe that by
+              typing the instructions on your own, you will learn the
+              names and values of properties, as well as potential errors
+              that occur when one types. We strongly suggest that you
+              use <a target="_blank"
+              href="http://jsfiddle.net">jsfiddle</a> to try out all these
+              examples. Before entering the code, read our questions and
+              try to predict the answer without running the code. Then
+              check if you were right.  To use jsfiddle, enter the HTML
+              code in the HTML box, the CSS code in the CSS box, and then
+              click the button Run. There is no need to write a whole HTML
+              file, only the snippets shown in the examples. Also, to see
+              the effect of styling, the text in HTML elements doesn't
+              have to be meaningful as in our examples.</p>
           </div>
           
-          <h4>Example 1</h4>
+          <h3>Example 1</h3>
+
           <figure>
-            <img class="img-thumbnail" src="CSS1-files/example1_opacity.png" alt="example for color and opacity">
+            <img class="img-thumbnail"
+                 src="CSS1-files/example1_opacity.png"
+                 alt="example for color and opacity">
             <figcaption>Using color and opacity.</figcaption>
           </figure>
-          <h4>Questions for Example 1</h4>
-          <p>In the rendered result, is the background color blue? Why not? What about the color of the 
-            text nested in <code>&lt;em&gt;</code>? Why it is not white like the rest? What does this tell
-            about the order in which rules are applied?</p>
+
+          <h3>Questions for Example 1</h3>
+
+          <p>In the rendered result, is the background color blue? Why
+            not? What about the color of the text nested
+            in <code>&lt;em&gt;</code>? Why it is not white like the rest?
+            What does this tell about the order in which rules are
+            applied?</p>
         <hr>
-        <h4>Example 2</h4>  
+
+        <h3>Example 2</h3>  
         <figure>
             <img class="img-thumbnail" src="CSS1-files/example2_text.png" alt="example for text and list properties">
             <figcaption>Styling for text and lists.</figcaption>
         </figure>
         
-        <h4>Questions for Example 2</h4>
+        <h3>Questions for Example 2</h3>
         <p>Try first to predict how this code will be rendered. What is the effect of each rule on every element?
           How will the <code>&lt;em&gt;</code> nested in <code>&lt;li&gt;</code> look like? Then, enter this
           code in <em>jsfiddle</em> to see whether you were right in your predictions.</p>
           <hr>
           
 <div style="display: none">
-          <h4>Example 3</h4>
+          <h3>Example 3</h3>
           <figure>
             <img class="img-thumbnail" src="CSS1-files/example3_background.png" alt="example for background and border">
             <figcaption>Styling for background, border, and text.</figcaption>
         </figure>
         
         <p>The URL for the background image was generated with the <a href="http://goo.gl/">Google URL shortener service.</a></p>
-        <h4>Questions for Example 3</h4>
-        <p>What do you see when this code is rendered? What happens when you comment out the rule for 
-          <code>&lt;header&gt;</code>? Can you add styling for the <code>border-bottom</code> property? 
-          What happens when you replace <code>border-top-</code> with <code>border-</code> (keeping the rest unchanged)?
-          What happens when you change the value for <code>text-align</code> from center to right? Finally,
-          add this style <code>border: 3px solid red;</code> to <code>&lt;header&gt;</code> and see what happens. This is
-          an example of combining values for several properties in one style.</p>
-</div>
+        <h3>Questions for Example 3</h3>
 
+          <p>What do you see when this code is rendered? What happens when
+          you comment out the rule for
+          <code>&lt;header&gt;</code>? Can you add styling for
+          the <code>border-bottom</code> property?  What happens when you
+          replace <code>border-top-</code> with <code>border-</code>
+          (keeping the rest unchanged)?  What happens when you change the
+          value for <code>text-align</code> from center to right? Finally,
+          add this style <code>border: 3px solid red;</code>
+          to <code>&lt;header&gt;</code> and see what happens. This is an
+          example of combining values for several properties in one
+          style.</p>
+</div>
             
           <h2 id="cascading">Cascading</h2>
 
@@ -325,15 +343,16 @@ em {
               the <code>&lt;em&gt;</code> element inside
               the <code>&lt;li&gt;</code> element inherits its properties.
             
-            <!--p>If you'd like all the technical details of the cascade, you can check
-            the specifications
-            of <a href="http://www.w3.org/TR/REC-CSS1/#the-cascade">cascade order</a-->
+            <p>If you'd like all the technical details of the cascade, you
+            can check the specifications
+            of <a href="http://www.w3.org/TR/REC-CSS1/#the-cascade">cascade
+            order</a>
             <p>The process of resolving all the conflicting CSS rules is
             called the <em>cascade</em>.  The <em>Head First HTML and
-            CSS</em> book has a detailed description for cascades in pages
+            CSS</em> book has a detailed description for cascades on pages
             457-465. That description is pretty intimidating, though. In
-            practice, the rules are pretty intuitive:  the rule that is
-            closer and more specific wins. 
+            practice, the rules are pretty intuitive: the rule that is
+            closer and more specific wins.
             
             <h2>Which Style Sheet to Use?</h2>
             
@@ -420,12 +439,17 @@ things up</em>.
           
                   
           <div class="bs-callout bs-callout-danger">
-            <h4 id="accessibility">Footnote: Colors and Accessibility</h4>
+            <h2 id="accessibility">Footnote: Colors and Accessibility</h2>
             <p> Since 
             <code>&lt;em&gt;</code> stands for emphasis, what could be better emphasis
             than putting something in red? Unfortunately, using color to convey meaning is, in fact, a
             <em>terrible</em> idea, because some people are color-blind or even
-            completely blind.  We'll talk more about the issue of <a
+            completely blind.  Fortunately, we are (1) still using the EM
+            tag, so screen-reading software will know to emphasize this
+            text, and (2) still using the default italic font-style, so
+            color-blind readers will still have a visual cue. 
+
+            <p>We'll talk more about the issue of <a
             href="http://webaim.org/intro">accessibility</a> as the need arises
             throughout this course.  You should <em>always</em> think about
             accessibility when you are designing a web page, because you want your
@@ -435,4 +459,10 @@ things up</em>.
             href="http://webaim.org/intro#standards">legally required</a> to be
             accessible. However, for the purposes of this lecture's examples,
             let's suppose that using red is a sensible thing to do.</p>
+
+            <p>Note also that red text printed to a black-and-white
+            printer comes out light gray, which <em>de-</em>emphasizes
+            it. To address that, we could use a media query and have a
+            special CSS rule for printing EM elements. We'll learn about
+            media queries later.
           </div>

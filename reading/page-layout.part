@@ -209,7 +209,7 @@ is used when you want to prevent an element from floating. (There is
   <a href="page-layout-files/layout_examples/ex5.html">Hunger Games example</a>. The
   content will be a header and a list with short lines:
 
-<pre class="prettyprint lang-html">&lt;aside&gt;
+<pre class="prettyprint lang-html"><code class="html">&lt;aside&gt;
     &lt;h3&gt;Characters&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;Katniss Everdeen&lt;/li&gt;
@@ -219,18 +219,18 @@ is used when you want to prevent an element from floating. (There is
         &lt;li&gt;Haymitch Abernathy&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/aside&gt;
-</pre>  
+</code></pre>  
 
 <p>Then, we apply some minimal style to this element, in order to float on
   the left side, as shown below, getting
   this <a href="page-layout-files/layout_examples/ex6.html">new version</a>.
 
-  <pre class="prettyprint lang-css">aside {
+  <pre class="prettyprint lang-css"><code class="css">aside {
     float: left;
     border: 1px black solid;
     padding: 5px;
 }
-</pre>
+</code></pre>
 
 <p> <strong>Important Note: </strong> The width and height of every
   <em>floated</em> container element depends on the amount of content
@@ -278,10 +278,10 @@ is used when you want to prevent an element from floating. (There is
   is 185px wide, a margin of 210px should look nice. Therefore, we add the
   following rule:
 
-<pre class="prettyprint lang-css">section {
+<pre class="prettyprint lang-css"><code class="css">section {
     margin-left: 210px;
 }
-</pre>
+</code></pre>
 
   <p>This is how the finished two-column layout
   looks: <a href="page-layout-files/layout_examples/ex7.html">our two-column
@@ -355,9 +355,9 @@ is used when you want to prevent an element from floating. (There is
   means is to move the cleared element <em>down</em>, below any floating
   elements. Like this:</p>
 
-<pre class="prettyprint lang-css">footer {
+<pre class="prettyprint lang-css"><code class="css">footer {
   clear: both;
-}</pre>
+}</code></pre>
             
 <p>After making this change, the footer stays at the 
   <a href="page-layout-files/layout_examples/ex10.html">bottom of the page</a>.</p>
@@ -449,7 +449,7 @@ is used when you want to prevent an element from floating. (There is
   version of the example</a>.
             
   This effect was achieved with this CSS code:
-            <pre>
+            <pre><code class="css">
 figure {
   position: absolute;
   top: 350px;
@@ -457,7 +457,7 @@ figure {
   border: 1px black solid;
   padding: 3px;
 }
-</pre>
+</code></pre>
 
 <p>Notice how the figure lays on top of the text. This is because by becoming
   <em>absolute</em>, the other elements are not aware of it anymore, so
@@ -484,17 +484,16 @@ figure {
 <p>This <a href="page-layout-files/layout_examples/ex16.html">new
  example</a>, creates a caption over the figure with the following code:
             
-  <div style="float: left; width: 50%">
-  <pre>figure {
+  <div class="half">
+  <pre><code class="css">figure {
   <strong>position: relative;</strong>
   border: 1px black solid;
   padding: 3px;
   width: 400px;
 }
-</pre>
+</code></pre>
   </div>
-  <div style="float: left; width: 50%">
-                <pre>figcaption {
+  <div class="half"><pre><code class="css">figcaption {
   <strong>position: absolute;</strong>
   bottom: 15px;
   left: 4px;
@@ -506,7 +505,7 @@ figure {
   font-weight: 200%;
   padding: 5px;
 }
-</pre>
+</code></pre>
   </div>             
           
 <p>So, the <code>bottom</code> and <code>left</code> lengths in
@@ -524,12 +523,12 @@ figure {
     in <a href="page-layout-files/layout_examples/ex17.html">our
     example</a>, with the code below:
 
-            <pre>aside {
+            <pre><code class="css">aside {
   position: fixed;
   top: 80px;
   border: 1px black solid;
   padding: 5px;
   width: 188px; /* this value will make sure the sidebar box will occupy 200px */
 }
-</pre>
+</code></pre>
           

@@ -134,7 +134,7 @@ which make away with the problem of not having fonts installed in your own compu
                 <code>desyrel.ttf</code>. Then, you can create a subfolder <code>fonts</code> in the folder
                 where your HTML and CSS files are stored and then use this font as shown below:</p>
                 
-                <pre>
+                <pre><code class="css">
 @font-face {
        font-family: desyrel;
        src: url("fonts-files/desyrel.ttf") format("truetype");
@@ -146,7 +146,7 @@ p {
        font-family: desyrel, cursive;
        font-size: xx-large;
 }
-                </pre>
+</code></pre>
                 
               <hr>  
                   <p id="desyrel">This sentence was written with the <em>Desyrel</em> font, downloaded from 
@@ -161,7 +161,7 @@ p {
                 <em>WebFont Generator</em>, after you upload the file <code>desyrel.tff</code> (or some other font). 
             Here is how the automatically generated CSS will look like:</p>  
                 
-            <pre>
+            <pre><code class="css">
 @font-face {
     font-family: 'desyrelregular';
     src: url('desyrel-webfont.eot');
@@ -172,7 +172,7 @@ p {
     font-weight: normal;
     font-style: normal;
 }
-            </pre>
+</code></pre>
                 
           <p>Notice that the files are referred directly, and you might need to add the relative path
                 to the folder you'll be storing these files.</p>      
@@ -201,22 +201,22 @@ p {
             <p>Here is an example of the code you need to write to create the shadowed header below:</p>
                 <p>The <code>&lt;link&gt;</code> line goes into the HTML file:</p>
                 
-<pre>
+<pre><code class="html">
   &lt;head&gt;
     ...
     &lt;link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' &gt;
  &lt;/head&gt;
-</pre>
+</code></pre>
                 <p>The <code>font-family</code> style goes in the CSS file (inside the rule for the desired element):</p>
 
-<pre>
+<pre><code class="css">
   h2 {
       font-family: 'Wallpoet', cursive;
       font-size: 200%;
       color: black;
       text-shadow: 4px 4px 4px gray;
 }
-</pre>
+</code></pre>
                 
 <hr>
 <div>
@@ -257,7 +257,7 @@ of stating the CSS information once in the shared external CSS file.
 
 </p><p>In that tab, you'll find code like this (it's the same URL as in the link):
 
-    <pre class="prettyprint">@import url(https://fonts.googleapis.com/css?family=Wallpoet);</pre>
+    <pre class="prettyprint"><code class="css">@import url(https://fonts.googleapis.com/css?family=Wallpoet);</code></pre>
 
 </p><p>Copy/paste that into your shared CSS file, and you'll be able
     to use Wallpoet in any file that uses that CSS file. 
