@@ -53,7 +53,7 @@ function formatAllTalksUndisplayedDiv (talks) {
 
 var global_data;    
 
-$.getJSON('ruhlman-2014.json',
+$.getJSON('https://cs.wellesley.edu/~cs210/cs210pub/experiments/ruhlman-2014.json',
           function(data) {
               global_data = data;
               console.log("loaded "+data.length+" talks");
@@ -69,14 +69,54 @@ $('#overlay').hide();
 var global_target;
 var global_summary;
 
-$("#summaries").click(function (event) {
-    console.log("click!");
-    global_target = event.target;
-    var target = event.target;
-    var summary = $(target).closest('.summary');
-    global_summary = summary;
-    summary.find(".abstract").slideToggle();
-});
+(function () {
+    function getSummary(event) {
+	global_target = event.target;
+	var target = event.target;
+	var summary = $(target).closest('.summary');
+	global_summary = summary;
+	return summary;
+    }
+	
+    function openAbstract (summary) {
+	console.log("open abstract");
+	summary.find(".abstract").slideDown();
+	summary.find("button.close").show();
+	summary.find("button.open").hide();
+    }
+    function closeAbstract (summary) {
+	console.log("close abstract");
+	summary.find(".abstract").slideUp();
+	summary.find("button.close").show();
+	summary.find("button.open").hide();
+    }
+
+    $("#summaries").on("click",
+		       "button.open",
+		       function (event) {
+			   console.log("click on open button");
+			   openAbstract(getSummary(event));
+		       });
+    $("#summaries").on("click",
+		       "button.close",
+		       function (event) {
+			   console.log("click on close button");
+			   closeAbstract(getSummary(event));
+		       });
+    $("#summaries").on("click",
+		       "li.summary",
+		       function (event) {
+			   console.log("click on li.summary");
+			   var summary = event.target;
+			   global_summary = summary;
+			   var abstract = $(summary).find(".abstract");
+			   if( $(abstract).css("display") === "none" ) {
+			       openAbstract($(summary));
+			   } else {
+			       closeAbstract($(summary));
+			   }
+		       });
+})();
 
 $("#summaries").keypress(function (evt) {
     console.log(evt.which);
