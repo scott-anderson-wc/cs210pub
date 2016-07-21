@@ -62,6 +62,21 @@
 }
 
 /* ================================================================ */
+/* Tweaks to general pages */
+
+img { max-width: 100%; }
+
+/* ================================================================ */
+/* classes from bootstrap */
+
+.alert, bs-callout {
+    border: 2px solid #ff6666;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+
+/* ================================================================ */
 /* when printing the reading, use the whole width */
 
 @media print {
@@ -71,10 +86,11 @@
 }
 
 /* ================================================================ */
+/* This might have padding, but presumably pre > code will have some
+padding, thanks to a rule in skeleton.css. */
 
 pre.prettyprinted {
     background-color: #eee;
     border: 2px solid #1EAEDB;
     border-radius: 1rem;
-    padding: 1rem;
 }
