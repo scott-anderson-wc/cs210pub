@@ -10,6 +10,28 @@ function addPrettyPrintClass() {
     });
 }
 
+/* Eventually, we won't need this function, I hope. */
+
+function checkPreElements() {
+    $("pre").each(function () {
+        if( this.childElementCount != 1 ) {
+            alert("PRE with multiple children: "+this.innerHTML);
+        } else if( this.firstChild.nodeName !== "CODE" ) {
+            alert("PRE without CODE: "+this.innerHTML);
+        }
+    });
+}
+    
+
+/* This function should be called *before* any pretty-printing */
+
+function trimPreElements() {
+    $("pre > code").each(function () {
+        $(this).html( $(this).html().trim() );
+    });
+}
+
+
 /* Create additional PRE elements for displaying examples (elts with class
    "eg"). They will also be pretty printed. Each should have an ID
    attribute, say FOO. You can put the result anywhere, just by creating
