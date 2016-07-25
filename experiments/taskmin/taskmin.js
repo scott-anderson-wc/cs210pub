@@ -315,8 +315,8 @@ function resetLocalStorage() {
 }
 
 function initializeAll() {
-    TaskList.readInstances().format();
     TagList.readInstances();
+    TaskList.readInstances().format();
     addTagsToAddTaskForm();
     addTagsToEditForm();
     addSortableBehavior();
