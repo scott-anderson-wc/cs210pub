@@ -25,7 +25,7 @@ function addAuthors(parentElt, authors) {
 
 /* Function to put all the talks in the document, given a list of talks. */
 
-function formatAllTalksUndisplayedDiv (talks) {
+function formatAllTalks (talks) {
     var tmpl = $('#summary-div .summary');
     var dest = $('<ul>');       // lists are a bit more accessible
     talks = talks.slice(0,5);  // subset for debugging
@@ -57,7 +57,7 @@ $.getJSON('https://cs.wellesley.edu/~cs210/cs210pub/experiments/ruhlman-2014.jso
           function(data) {
               global_data = data;
               console.log("loaded "+data.length+" talks");
-              formatAllTalksUndisplayedDiv(data);
+              formatAllTalks(data);
           });
                  
 // Initially, the overlay is hidden and only appears when a summary is
@@ -70,57 +70,72 @@ var global_target;
 var global_summary;
 
 (function () {
+    // Local functions; these don't clutter the namespace, but are used in
+    // the event handlers, below.
+
     function getSummary(event) {
-	global_target = event.target;
-	var target = event.target;
-	var summary = $(target).closest('.summary');
-	global_summary = summary;
-	return summary;
+	    global_target = event.target;
+	    var target = event.target;
+	    var summary = $(target).closest('.summary');
+	    global_summary = summary;
+	    return summary;
     }
 	
+    // Should these put the newly shown button into focus?
+
     function openAbstract (summary) {
-	console.log("open abstract");
-	summary.find(".abstract").slideDown();
-	summary.find("button.close").show();
-	summary.find("button.open").hide();
+	    console.log("open abstract");
+	    summary.find(".abstract").slideDown();
+	    summary.find("button.close").show();
+	    summary.find("button.open").hide();
     }
     function closeAbstract (summary) {
-	console.log("close abstract");
-	summary.find(".abstract").slideUp();
-	summary.find("button.close").show();
-	summary.find("button.open").hide();
+	    console.log("close abstract");
+	    summary.find(".abstract").slideUp();
+	    summary.find("button.close").hide();
+	    summary.find("button.open").show();
     }
 
+    // handlers delegated from the buttons on each LI and the LI itself.
+    
     $("#summaries").on("click",
 		       "button.open",
 		       function (event) {
-			   console.log("click on open button");
-			   openAbstract(getSummary(event));
+			       console.log("click on open button");
+			       openAbstract(getSummary(event));
 		       });
     $("#summaries").on("click",
 		       "button.close",
 		       function (event) {
-			   console.log("click on close button");
-			   closeAbstract(getSummary(event));
+			       console.log("click on close button");
+			       closeAbstract(getSummary(event));
 		       });
+    // fancy toggle when clicking on the entire DIV. Figure out whether
+    // abstract is shown and open/close it as appropriate. Maybe extra
+    // credit?
     $("#summaries").on("click",
 		       "li.summary",
 		       function (event) {
-			   console.log("click on li.summary");
-			   var summary = event.target;
-			   global_summary = summary;
-			   var abstract = $(summary).find(".abstract");
-			   if( $(abstract).css("display") === "none" ) {
-			       openAbstract($(summary));
-			   } else {
-			       closeAbstract($(summary));
-			   }
+			       console.log("click on li.summary");
+			       var summary = event.target;
+			       global_summary = summary;
+			       var abstract = $(summary).find(".abstract");
+			       if( $(abstract).css("display") === "none" ) {
+			           openAbstract($(summary));
+			       } else {
+			           closeAbstract($(summary));
+			       }
 		       });
 })();
 
+// pressing RETURN/ENTER or SPACE is the same as clicking on the element
+// currently in focus.
+
 $("#summaries").keypress(function (evt) {
     console.log(evt.which);
-    if( evt.which == 32 || evt.which == 13 ) {
+    const RET = 13;
+    const SPC = 32;
+    if( evt.which == RET || evt.which == SPC ) {
         $(evt.target).click();
     }
 });
