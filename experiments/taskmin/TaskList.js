@@ -7,7 +7,7 @@ var PersistentList = function (localStorageKey) {
     }
     this.key = localStorageKey;
     var curr = localStorage.getItem(localStorageKey);
-    if( curr != "" ) {
+    if( curr && curr != null && curr !== "" ) {
         // already has saved data, so use that
         this.list = JSON.parse(curr);
     } else {

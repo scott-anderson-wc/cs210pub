@@ -174,27 +174,27 @@ function addTag() {
 function addTagsToAddTaskForm() {
     var template = $("#task-checkbox-template > li").one();
     var dest = $("#task-tag-checkboxes").one();
-    var tagList = $("<ul>");
+    var tagListElt = $("<ul>");
     var tags = TagList.list;
     for( var i in tags ) {
         var tag = tags[i];
         var tagElt = tag.formatCheckbox(template);
-        tagList.append(tagElt);
+        tagListElt.append(tagElt);
     }
-    dest.empty().append(tagList);
+    dest.empty().append(tagListElt);
 }
 
 function addTagsToEditForm() {
     var template = $("#edit-tag-list-template > li").one();
     var dest = $("#edit-tags-list").one();
-    var tagList = $("<ul>");
+    var tagListElt = $("<ul>");
     var tags = TagList.list;
     for( var i in tags ) {
         var tag = tags[i];
         var tagElt = tag.formatListItem(template);
-        tagList.append(tagElt);
+        tagListElt.append(tagElt);
     }
-    dest.empty().append(tagList);
+    dest.empty().append(tagListElt);
 }
 
 $("#done-add-tag").click(function () { addTag(); $("#edittags-area").one().slideUp(); });
