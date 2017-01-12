@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Whiteboard Play</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"></script>
+
+<style>
+    #cal {
+        width: 800px;
+        height: 500px;
+        border: 3px solid seagreen;
+        margin: 1em auto;
+    }
+
+    .box {
+        border: 1px solid black;
+        background-color: yellow;
+    }
+
+</style>
+
+</head>
+<body>
+
+    <header>
+        <h1>Whiteboard Play</h1>
+    </header>
+
+    <noscript>
+        This app requires JavaScript. It won't work at all without
+        JavaScript. Sorry.
+    </noscript>
+
+    <!-- Primary Page Layout
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+
+                <p>Click and drag to create a box.
+                <div id="cal"></div>
+
+
+            </div>
+
+        </div><!-- end of row -->
+        
+    </div><!-- end of container -->
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//code.jquery.com/jquery-3.0.0.js"></script>
+<script src="bounds-plugin.js"></script>
+<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script src="cal.js"></script>
+<script>
+// Defined in cal.js
+initDrawing("#cal");
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jelly Blobs of Doom</title>
+        <link rel='stylesheet' type='text/css' href='jBlobs.css'/>
+        <link href="https://fonts.googleapis.com/css?family=Asap|Ubuntu" rel="stylesheet">
+    </head>
+    
+    <body>
+        <h1>Jelly Blobs of Doom</h1>
+        <p id="intro"><br>
+            Instructions: Use the arrow keys to move (try it right now!) Eat blobs that are smaller than you in order to grow, 
+            avoid bigger blobs than you or else you will shrink. Good luck!</p>
+        <button type="button">Start Game</button>
+        
+        <div id="player" class="circle"></div>  
+        <div class="enemies"></div> 
+        
+        <div id="winOrLose"></div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type='text/javascript' src='player.js'></script>
+        <script type='text/javascript' src='enemy.js'></script>
+        <script type='text/javascript' src='game.js'></script>
+        
+        
+    </body>
+</html>

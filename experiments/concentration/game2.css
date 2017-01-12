@@ -1,0 +1,42 @@
+/* 
+   CSS stylesheet for the CS110 assignment on the game of Concentration
+   Written by the CS110 staff, Fall 2012
+*/
+
+body {
+    font-family: sans-serif;
+    width: 600px;
+    margin: 0 auto;
+}
+
+/* board is wide enough to accommodate 4 images on each row */
+
+#board {
+    width: 575px;
+    padding: 10px 6px 6px 10px;
+    border: 5px solid black;
+}
+
+/* each image has the same display width, border and margins */
+
+img {
+    border: 2px solid black;
+    margin: 0 5px 0 0;
+    width: 130px;
+    max-height: 130px;
+}
+
+/* center the header */
+
+h1 {
+    text-align: center;
+}
+
+/* for the "new game" button */
+
+.newGame {
+    width: 120px;
+    padding: 5px;
+    float: right;
+    border: 6px outset black;
+}

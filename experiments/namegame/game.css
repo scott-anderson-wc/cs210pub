@@ -1,0 +1,24 @@
+#board {
+    overflow: hidden;
+}
+
+#pics, #names {
+    float: left;
+	padding: 5px;
+}
+
+#pics {
+	margin-right: 5%;
+    width: 700px;   /* 140px * 5, so five in each row */
+}
+
+#pics img {
+    display: block;
+    height: 150px;
+    width: 120px;
+    float: left;
+    padding-right: 20px;
+}
+
+#names p {
+}

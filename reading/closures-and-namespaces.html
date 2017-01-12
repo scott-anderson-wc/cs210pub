@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <h1>Closures and Namespaces</h1>
+<p>A closure is a special kind of function, and a namespace is a way that a
+programming language can support separation of code. Consequently, you'll
+learn more about these concepts in CS 250 (Programming Languages), but
+they are important, practical concepts that arise naturally in JavaScript
+code, so we'll learn about them now.</p>
+<h2>What is a Closure?</h2>
+<p>Formally, a closure is a function plus an environment (you can read more
+about them in the <a href="https://en.wikipedia.org/wiki/Closure_(computer_programming)">Wikipedia article on
+Closures</a>,
+so begin getting a handle on them, we start with some observations about
+functions.</p>
+<h2>Functional Programming</h2>
+<p>The following functions <code>f1</code> and <code>f2</code> depend only on their inputs (rather
+than on some global state information), which makes them easier to
+understand than the function <code>g1</code> which depends on some global variable
+<code>glob</code>. (For example, suppose <code>glob</code> is a string: then the value of <code>g1</code>
+is a string, too.)</p>
+<pre><code class="javascript">var f1 = function (x y) { return x + y; };
+var f2 = function (x) { return x + 4; };
+var g1 = function (x) { return x + glob; };
+</code></pre>
+
+<p>When we talk about ''functional programming'' in Computer Science, we are
+thinking about functions like <code>f1</code> and <code>f2</code>, where calling the functions
+with the same inputs always yields the same output. The same can't be said
+of <code>g1</code>. In general, when we say some code is <em>functional</em>, we mean that
+it depends only on its arguments, not on external state (like <code>glob</code>) or
+even internal state (its prior history of executions). We'll return to
+this later.</p>
+<p>Function <code>f1</code> is just the <code>add</code> function; we might call <code>f2</code> the <code>add4</code>
+function. Since functions are first-class objects in JavaScript, we can
+dynamically create them and return them from functions.  So, the following
+function can create functions like <code>add4</code>:</p>
+<pre><code class="javascript">var makeAdder = function (delta) {
+    return function (x) { return x+delta; }
+    };
+var add4 = makeAdder(4);
+alert(add4(3));
+</code></pre>
+
+<p>Now, what kind of function is <code>add4</code>? It's functional, in the sense that
+its value only depends on its arguments, not on any global state
+(certainly none that can change). Yet the code looks nearly the same as
+<code>g1</code>.  What's the difference?  The difference is that the <code>glob</code> that <code>g1</code>
+refers to is <em>global</em> and can change dynamically, while <code>delta</code> is a
+<em>lexical</em> variable in the <em>environment</em> of the anonymous function returned
+by <code>makeAdder</code>. That function includes both the function plus that bit of
+environment, so it is a <em>closure</em>.</p>
+<h2>An Example: A Shopping Example</h2>
+<p>Let's see closures in action in a web page. Suppose we have a page that
+has an item for sale, say apples, and it has an associated button that
+increments a counter, updates a database, updates the web page and maybe
+other things.  So, you write some code like this:</p>
+<script>
+function updateAppleDatabase(n) {
+    console.log("Apple Database updated with "+n);
+}
+</script>
+
+<div class="eg" id="apple-example"><form action="">
+<p><output id="apple-clicks">0</output>
+   Apples
+   <button type="button" id="apple-button">click on Apples</button>
+</p></form>
+</div>
+
+<p>Here's the HTML code:</p>
+<pre id="apple-example_dst"></pre>
+
+<p>And here's the JavaScript code:</p>
+<script class="eg">var appleClicks = 0;
+$("#apple-button").click(function () {
+    appleClicks++;
+    updateAppleDatabase(appleClicks);
+    $("#apple-clicks").html(appleClicks);
+    });
+</script>
+
+<p>The event handler function we've written is not <em>functional</em> (it depends
+on the global variable <code>appleClicks</code>). Nevertheless, the code works fine.</p>
+<p>Next, we decide to add additional buttons for bananas, coconuts, dates,
+eggplants, figs and the rest of the alphabet. Of course, we could
+copy/paste the code above for each of our grocery items, but copy/paste
+usually a bad idea. Duplicate code means that if we change our
+implementation, we have to update all the copies of the original
+implementation.</p>
+<h2>Event Handler Maker</h2>
+<p>But how do we write a <q>generic</q> event handler? We could write a
+function to make one. While we're at it, we'll make the
+<code>updateAppleDatabase</code> function more generic.</p>
+<script>
+function updateDatabase(item,n) {
+    console.log(item+" database updated with "+n);
+}
+</script>
+
+<pre><code class="javascript">function groceryClickHandlerMaker(item,outputId) {
+    var counter = 0;
+    return function () {
+         counter++;
+         updateDatabase(item,counter);
+         $(outputId).html(counter);
+         };
+}
+</code></pre>
+
+<script>
+function groceryClickHandlerMaker(item,outputId) {
+    var counter = 0;
+    return function () {
+         counter++;
+         updateDatabase(item,counter);
+         $(outputId).html(counter);
+         };
+}
+</script>
+
+<p>How do we use the <code>groceryClickHandlerMaker</code>?  Here are two examples, where we
+invoke the <code>groceryClickHandlerMaker</code> function to return a <em>closure</em> that
+we then attach as the click handler.</p>
+<div id="fruit-example">
+<form action="">
+<p><output id="banana-clicks">0</output>
+    Bananas
+    <button type="button" id="bananas-button">click on Bananas</button>
+</form>
+<form action="">
+<p><output id="coconuts-clicks">0</output>
+    Coconuts
+    <button type="button" id="coconuts-button">click on Coconuts</button>
+</form>
+</div>
+
+<script class="eg" id="fruit2">
+$("#bananas-button").click(groceryClickHandlerMaker("bananas","#banana-clicks"));
+$("#coconuts-button").click(groceryClickHandlerMaker("coconuts","#coconuts-clicks"));
+</script>
+
+<p>Here's the JavaScript code. </p>
+<pre id="fruit2_dst"></pre>
+
+<h2>Closure Variables</h2>
+<p>Let's look again at the <code>groceryClickHandlerMaker</code>:</p>
+<pre><code class="javascript">function groceryClickHandlerMaker(item,outputId) {
+    var counter = 0;
+    return function () {
+         counter++;
+         updateDatabase(item,counter);
+         $(outputId).html(counter);
+         };
+}
+</code></pre>
+
+<p>What variables does it close over? It closes over every variable that is
+not defined within the function. Here there are three:</p>
+<ol>
+<li><code>item</code></li>
+<li><code>outputId</code></li>
+<li><code>counter</code></li>
+</ol>
+<p>The first two closure variables won't change ever, so the JavaScript
+engine can really just substitute the values as static constants. The
+counter, however, is interesting, because it's updated by the closure
+invocation, which means that the closure isn't <em>functional</em> in the
+technical sense of its behavior only depending on its arguments. Its
+behavior depends on how many times its been executed before.</p>
+<h2>Namespaces</h2>
+<p>Some very cool properties of the <code>counter</code> variable used by the click
+handlers above are that</p>
+<ol>
+<li>there are several of these variables, one for each handler</li>
+<li>they all have the same name, but</li>
+<li>they are all completely unrelated, and</li>
+<li>they are all completely private</li>
+</ol>
+<p>Think about that last property for a moment: each click handler has its
+own private state variable. (This should remind you of instance variables
+in object-oriented programming.)  Indeed, each closure has its own private
+<em>namespace</em>.</p>
+<p>What's a namespace?  In general, a namespace is a mapping from names
+(symbols) to values. You can think of the names as variables, as we will
+here, since in JavaScript we can assign a function to a
+variable. Namespaces are important in programming because they help us
+avoid name <em>collisions</em>.  For example, many years ago, I was doing some
+graphics programming and I has some variables that stored the hex codes for
+various colors:</p>
+<pre><code>var red = 0xff0000;
+var white = 0xffffff;
+var tan = 0xd2b48c;
+var teal = 0x00ffff;
+...
+</code></pre>
+
+<p>I also needed to compute the tangent of an angle:</p>
+<pre><code class="javascript">var tan_theta = tan(theta);
+</code></pre>
+
+<p>I'm embarrassed to admit that it took me <em>hours</em> to understand why the
+tangent function wasn't working. The problem was a name collision: I had
+only one namespace, so <code>tan</code> could only have one value.</p>
+<p>In JavaScript, the <code>tan</code> function is safely in the <code>Math</code> object and so we
+say <code>Math.tan</code> to use it.  The <code>Math</code> object gives us a kind of namespace.
+We could create one for Colors very easily in JavaScript using objects:</p>
+<pre><code class="javascript">var Colors = {};
+Colors.red = 0xff0000;
+Colors.white = 0xffffff;
+Colors.tan = 0xd2b48c;
+Colors.teal = 0x00ffff;
+</code></pre>
+
+<p>We can put functions in the object as well, like the <code>tan</code> function is in
+<code>Math</code>. Suppose we had a function <code>lighten</code> and we didn't want to clutter
+up the global namespace with it. We could put it in <code>Colors</code>:</p>
+<pre><code class="javascript">Colors.lighten = function (color) { ... };
+</code></pre>
+
+<p>This technique is very common in JavaScript programming.  Another, even
+more common, is to use functions.</p>
+<h2>Functions as Namespaces</h2>
+<p>Let's take a very abstract example so that the details of the code don't
+confuse the issue.  Suppose we want to have a bunch of global variables
+and functions with short, succinct names for brevity.  The functions might
+be mutually recursive, might refer to the globals, and so forth. After all
+those definitions, the thing we actually want to do is compute <code>f(1)</code> and
+insert the result into page . Our code might look like this:</p>
+<pre><code class="javascript">
+var a = 123;
+
+var b = 456;
+
+var f = function (n) { ... g(a*n); ... };
+
+var g = function (x,y) { ... f(b*x)+f(b*y)...; }
+
+$(&quot;#ans&quot;).html(f(1));
+</code></pre>
+
+<p>This code would work, but it would not be good software engineering,
+because of the potential for namespace conflicts. So, we can just make all
+these variables be <em>local</em> variables of a new, anonymous function that we
+will immediately execute.</p>
+<pre><code class="javascript">(function () {
+
+     // code from above
+
+})();
+</code></pre>
+
+<p>Notice that the function expression is wrapped in parentheses: that's
+necessary so that it won't be treated as just a top-level function
+definition. The parenthesized function expression is then followed by a
+pair of empty parentheses which causes the function to be invoked. This is
+called an Immediately Invoked Function Expression or IIFE. Wikipedia has
+more about [Immediately Invoked Function
+Expressions](https://en.wikipedia.org/wiki/immediately-invoked_function_expression].</p>
+<p>Using an IIFE means that <em>no</em> names are added to the global namespace, so
+the code has no footprint at all. (The <q>footprint</q> of code is the set
+of names that are added to the global JavaScript namespace.)</p>
+<h2>Pitfalls of Closures: this and that</h2>
+<p>Earlier, we learned that a closure will capture the values (<q>close
+over</q>) all the names (variables) that aren't defined in its body. For
+example:</p>
+<pre><code>var c1 = (function () {
+    count = 0;
+    return function () { return ++count; }
+}) ();
+</code></pre>
+
+<p>The closure <code>c1</code> closes over <code>count</code>.</p>
+<p>When we learned about object-oriented programming in JavaScript, we
+learned that the special variable <code>this</code> is bound to the object that the
+method is executing on. Here's a reminder:</p>
+<script class="eg">
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.greeting = function () {
+    return "hello, my name is "+this.name;
+}
+
+var alice = new Person("alice");
+console.log(alice.greeting());    // `this` bound to alice
+</script>
+
+<p>Let's add a method that will create a greeting button for a person. Here's
+the button. Try it and you'll see that it doesn't work. </p>
+<div id="alice1"></div>
+
+<script id="greetButton1" class="eg">
+Person.prototype.greetButton1 = function (where) {
+    $("<button>")
+        .text(this.name)
+        .click(function () { alert(this.greeting()); })
+        .appendTo(where);
+}
+
+alice.greetButton1("#alice1");
+</script>
+
+<p>Here's the code to make the button. Can you see why it doesn't work?</p>
+<pre id="greetButton1_dst"></pre>
+
+<p>The click handler is a closure, referring to the special variable <code>this</code>
+but that doesn't work, because when the click handler is invoked, <code>this</code>
+has the value of the button, not the <code>Person</code> object (<code>alice</code>). What this
+illustrates is that you <em>can't close over <code>this</code></em>.</p>
+<p>What to do then?  In some cases, you can just copy the value you want into
+a local variable that you <em>can</em> close over. For example, the following
+works by copying the value to the variable <code>text</code> which we can close over:</p>
+<div id="alice2"></div>
+
+<script id="greetButton2" class="eg">
+Person.prototype.greetButton2 = function (where) {
+    var text = this.greeting();                          
+    $("<button>")
+        .text(this.name)
+        .click(function () { alert(text); })
+        .appendTo(where);
+}
+
+alice.greetButton2("#alice2");
+</script>
+
+<p>If you really need the object itself, the convention in JavaScript is to
+copy the object from <code>this</code> to the variable <code>that</code> which isn't special and
+so we can close over it:</p>
+<div id="alice3"></div>
+
+<script id="greetButton3" class="eg">
+Person.prototype.greetButton3 = function (where) {
+    var that = this;
+    $("<button>")
+        .text(this.name)
+        .click(function () { alert(that.greeting()); })
+        .appendTo(where);
+}
+
+alice.greetButton3("#alice3");
+</script>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
+
+</body>
+</html>

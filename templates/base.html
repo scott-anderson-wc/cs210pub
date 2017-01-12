@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        {% block content %}{% endblock %}
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
+
+</body>
+</html>
