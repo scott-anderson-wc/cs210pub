@@ -24,6 +24,12 @@
   <link rel="stylesheet" href="/css/custom.css">
 
     <style>
+        /* thanks to stackoverflow/questions/9288802/avoid-page-break-inside-row-of-table */
+        table.print-friendly tr th,
+        table.print-friendly tr td {
+            page-break-inside: avoid;
+        }
+
       .label-hwk { background-color: #d9534f; }
 
       .label-lecture { background-color: #428bca; }
@@ -31,13 +37,25 @@
       .label-project { background-color: #5cb85c; }
 
       @media print {
+          /* light blue links look bad in printouts */      
+          a { color: black; }
+
           /* don't print the hyperlink after a URL; it messes up the layout  */
-          a[href]:after { content: "" !important; }
+              a[href]:after { content: "" !important; }
 
           /* this should already be in effect, but it isn't, so try again */
           .navbar { display: none; }
 
           body { padding-top: 0px; }
+
+          .noprint { display: none; }
+
+           table.print-friendly tbody tr td:before,
+           table.print-friendly tbody tr td:after {
+               content : "";
+               height: 4px;
+               display: block; 
+           }
       }
 
       .label a { color:white }
@@ -95,14 +113,13 @@
         <h1>CS 210 Schedule</h1>
 
         <div class="alert alert-warning"><strong>Homework is due at 12:00
-        midnight on the listed due date unless otherwise
-        specified.</strong></div>
+        midnight on the due date unless otherwise specified.</strong></div>
 
         <div>
-                <h2>Legend</h2>
-                <span class="label label-lecture">Lecture</span>
-                <span class="label label-hwk">Homework/Exam</span>
-                <span class="label label-default">No Class</span>
+            <h2>Legend</h2>
+            <span class="label label-lecture">Lecture</span>
+            <span class="label label-hwk">Homework/Exam</span>
+            <span class="label label-default">No Class</span>
 
         </div>
 
@@ -110,7 +127,11 @@
         
         <h2>Schedule as a List</h2>
 
-        <ol>
+        <div>
+            <style scoped>
+                #schedlist li { margin-bottom: 0rem; }
+            </style>
+        <ol id="schedlist">
             <li><a href="../reading/HTML.html">HTML</a>,
                 <a href="../reading/URLs.html">URLs</a>
             </li>
@@ -123,13 +144,45 @@
                 <a href="../reading/chrome-inspector.html">Chrome Inspector</a>
             </li>
             <li><a href="../reading/page-layout.html">Page Layout</a></li>
-            <li><a href="../reading/closures-and-namespaces.html">Closures
-            and Namespaces</a></li>
+            <li><a href="../reading/responsive-and-mobile.html">Mobile-First and Responsive Layouts</a> <em>TBD</em></li>
+            <li><a href="../reading/skeleton-and-forms.html">Skeleton and Forms</a> <em>TBD</em></li>
+            <li>JavaScript Introduction:
+                <ul>
+                    <li><a href="../reading/path.html">path.html</a></li>
+                    <li><a href="../reading/python-vs-js.html">for CS 111</a></li>
+                    <li><a href="../reading/CS115JS.html">for CS 115</a></li>
+                    <li><a href="../reading/practical.html">practical information</a></li>
+                        
+                </ul>
+            <li><a href="../reading/JS-loops.html">JavaScript Loops</a><br>
+            <a href="../reading/cs115-arrays-objects-loops.html">cs115 array objects loops</a>
+               </li>
+            <li><a href="../reading/JS-functions.html">JavaScript Functions</a> <em>TBD</em></li>
+            <li><a href="../reading/JS-objects.html">JavaScript Objects</a></li>
+            <li><a href="../reading/JS-methods.html">JavaScript OOP:
+            methods</a><br>
+            <a href="../reading/OOP.html">OOP</a></li>
+            <li><a href="../reading/JS-classes.html">JavaScript OOP: classes and inheritance</a></li>
+            <li>midterm</li>
+            <li><a href="../reading/DOM-JQ.html">The DOM and jQuery</a> <em>TBD</em></li>
+            <li><a href="../reading/event-handlers.html">Event Handlers</a> <em>TBD</em></li>
+            <li><a href="../reading/closures-and-namespaces.html">Closures and Namespaces</a></li>
+            <li><a href="../reading/forms.html">Forms and .val()</a></li>
+            <li><a href="../reading/ajax.html">Ajax: .post() and .get() and Same Origin Policy</a></li>
+            <li><a href="../reading/galleries-and-drop-downs.html">Galleries
+            and Drop Downs</a><br>Where is Alice's work?</li>
+            <li><a href="../reading/arrays-and-slideshows.html">Slideshows</a></li>
+            <li><a href="../reading/animations.html">Animations and Absolute Positioning</a></li>
+            <li><a href="../reading/jquery-ui.html">jQuery UI</a></li>
+            <li><a href="../reading/games.html">Games</a></li>
+            <li><a href="../reading/games.html">Games</a></li>
             <li><a href="../reading/accessibility.html">Accessibility</a></li>
+            <li><a href="../reading/review.html">Review</a></li>
         </ol>
+        </div>
 
 
-        <table id="schedule">
+        <table id="schedule" class="print-friendly">
         <thead>
           <tr>
             <th>Mon</th>
@@ -191,26 +244,21 @@
 
             <td><p class="label label-lecture">Feb 9; Lecture 5</p>
                 <ol>
-                    <li><a href="../reading/page-layout.html">Page Layout</a></li>
-                    <li><a href="../lectures/L05/05_activities.html">Class Activities</a></li>
+                    <li><a href="../reading/responsive-and-mobile.html">Mobile-First and Responsive Layouts</a> <em>TBD</em>
                 </ol>
             </td>
             <td><p class="label label-default">Feb 10<br></p>
                 <p class="label label-hwk">
                 <a href="../assignments/a01/">
-                Homework 1: A web page to introduce yourself; HTML only
+                Homework 1: self-introduction using HTML and CSS
                 </a>
                 </p>
             </td>
             <td></td>
             <td><p class="label label-lecture">Feb 12; Lecture 6</p>
-                <p>Binary, ASCII
-                    <ol>
-                        <li><a href="../reading/computer-model.html">Computer Model</a></li>
-                        <li><a href="../reading/information-representation.html">Information Representation</a></li>
-                        <li><a href="../lectures/compModel/activities.html">class activities</a></li>
-                    </ol>
-
+                <ol>
+                    <li><a href="../reading/skeleton-and-forms.html">Skeleton and Forms</a> <em>TBD</em></li>
+                </ol>
             </td>
 
 </tr>
@@ -220,29 +268,23 @@
             </td>
 
             <td><p class="label label-lecture">Feb 16; Lecture 7</p>
-                <p>Hex, Colors, Image Formats</p>
                 <ol>
-                    <li><a href="../reading/colors-and-images.html">Colors and Images</a></li>
-                    <li><a href="../lectures/L07/activities.html">class activities</a></li>
+                    <li><a href="../reading/JS-introduction.html">JavaScript Introduction</a></li>
                 </ol>
+                <p class="noprint"><em>Supplemental Reading: <br>Chap 1 &amp; 2 of <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript & jQuery book</a>.</em></p>
             </td>
 
     <td><p class="label label-default">Feb 17<br></p>
         <p class="label label-hwk">
-        <a  href="../assignments/a02/">
-        Homework 2: Introduce yourself, using CSS
-        </a>
+            <a  href="../assignments/a02/"> Homework 2: Mobile-friendly, responsive self-introduction </a>
         </p>
 
     </td>
     <td></td>
             <td><p class="label label-lecture">Feb 19; Lecture 8</p>
-      <p>Intro to JS, Variables, Types, and Values
       <ol>
-        <li><a href="../reading/JSProgramming.html">Intro to Javascript</a></li>
-        <li><a href="../lectures/JSProgramming/activities.html">class activities</a></li>
+          <li><a href="../reading/JS-loops.html">JavaScript Loops</a></li>
       </ol>
-      <p><em>Supplemental Reading: <br>Chap 1 &amp; 2 of <a href="http://shop.oreilly.com/product/0636920015048.do">Javascript & jQuery book</a>.</em></p>
     </td>
 
 </tr>
@@ -251,75 +293,57 @@
 
     <td><p class="label label-lecture">Feb 23; Lecture 9</p>
         <ol>
-          <li><a href="../reading/Conditionals-1.html">Conditionals [part 1]</a></li>
-          <li><a href="../lectures/L09/activities.html">class activities</a></li>
+            <li><a href="../reading/JS-functions.html">JavaScript Functions</a> <em>TBD</em></li>
         </ol>
     </td>
 
     <td><p class="label label-default">Feb 24<br></p>
       <p class="label label-hwk">
-      <a  href="../assignments/a03/">
-      Homework 3: Hagrid's Horribles
-      </a>
+          <a  href="../assignments/a03/"> Homework 3: JS 1 w/conditionals (TBD) </a>
       </p>
     </td>
     <td></td>
             <td><p class="label label-lecture">Feb 26; Lecture 10</p>
                 <ol>
-                    <li><a href="../reading/Conditionals-2.html">Conditionals [part 2]</a></li>
-                    <li><a href="../lectures/L10/activities.html">class activities</a></li>
+                    <li><a href="../reading/JS-objects.html">JavaScript Objects</a></li>
                 </ol>
             </td>
 </tr>
 <tr>
-            <td><p class="label label-default">Feb 29</p><p>Leap Day!</p></td>
+    <td><p class="label label-default">Feb 29</p><p>Leap Day!</p></td>
 
-            <td><p class="label label-lecture">Mar 1; Lecture 11</p>
-                <ol>
-                    <li><a href="../lectures/ResponsiveWebDesign">Responsive Web Design</a></li>
-                    <li><a href="../lectures/ResponsiveWebDesign/activities.html">Class Activities</a></li>
-                </ol>
-            </td>
-            <td><p class="label label-default">Mar 2<br></p>
-                <p class="label label-hwk">
-     <a  href="../assignments/a04/">
-      Homework 4: Basic JavaScript and Image File Size Calculations
-      </a>
-      </p>
-            </td>
+    <td><p class="label label-lecture">Mar 1; Lecture 11</p>
+        <ol>
+            <li><a href="../reading/JS-methods.html">JavaScript OOP: methods</a></li>
+        </ol>
+    </td>
+    <td><p class="label label-default">Mar 2<br></p>
+        <p class="label label-hwk">
+            <a  href="../assignments/a04/">Homework 4: JS 2: loops and functions</a>
+        </p>
+    </td>
     <td></td>
-            <td><p class="label label-lecture">Mar 4; Lecture 12</p>
-                <p class="label label-hwk"><strong>Midterm in Class</strong></p>
-                <p><a href="../midterm-review/review-questions.pdf">review questions</a>
-                <p><a href="../midterm-review/review-answers.pdf">review answers</a>
-            </td>
+    <td><p class="label label-lecture">Mar 4; Lecture 12</p>
+        <ol>
+            <li><a href="../reading/JS-classes.html">JavaScript OOP: classes and inheritance</a></li>
+        </ol>
+    </td>
 </tr>
 <tr>
     <td><p class="label label-default">Mar 7</p></td>
 
     <td><p class="label label-lecture">Mar 8; Lecture 13</p>
-        <ol>
-          <li><a href="../reading/date-objects.html">Date Objects</a>
-          <li><a href="../lectures/L15/activities.html">class activities</a></li>
-        </ol>
+        <p class="label label-hwk"><strong>Midterm in Class</strong></p>
     </td>
 
     <td><p class="label label-default">Mar 9<br></p>
         <p class="label label-hwk">
-      <a  href="../assignments/a05/">
-      Homework 5: Conditionals in JavaScript 
-      </a>
-      </p>
+        </p>
     </td>
     <td></td>
     <td><p class="label label-lecture">Mar 11; Lecture 14</p>
     <ol>
-      <li><a href="../reading/JS-functions.html">Functions</a>
-      <li><a href="../lectures/L16/">more on functions</a></li>
-      <li><p><strong>Textbook
-            Reading: <a href="/~cs110/LocalOnly/chap4_html5.pdf">Functions, just
-              pp 113-130</a></strong></p>
-      <li><a href="../lectures/L16/L16.html">Class Activities</a></li>
+        <li><a href="../reading/DOM-JQ.html">The DOM and JQuery</a></li>
     </ol>
     </td>
 </tr>
@@ -328,18 +352,19 @@
 
     <td><p class="label label-lecture">Mar 15; Lecture 15</p>
     <ol>
-      <li><a href="../reading/DOM-JQ.html">The DOM and JQuery</a></li>
-      <li><a href="http://cs.wellesley.edu/~cs110/lectures/L18/activities.html">Class Activities</a></li>
+        <li><a href="../reading/event-handlers.html">Event Handlers</a> <em>TBD</em></li>
     </ol>
     </td>
 
-  <td><p class="label label-default">Mar 16</p>
-  </td>
+    <td><p class="label label-default">Mar 16</p>
+        <p>
+            <a  href="../assignments/a05/"> Homework 5:  ???</a>
+        </p>
+    </td>
     <td></td>
-  <td><p class="label label-lecture">Mar 18; Lecture 16</p>
+    <td><p class="label label-lecture">Mar 18; Lecture 16</p>
         <ol>
-            <li><a href="../reading/modularity.html">Modularity</a></li>
-            <li><a href="../lectures/L22/activities.html">Class Activities</a></li>
+            <li><a href="../reading/closures-and-namespaces.html">Closures and Namespaces</a></li>
         </ol>
   </td>
 </tr>
@@ -353,24 +378,19 @@
 <tr>
     <td><p class="label label-default">Mar 28</p></td>
     <td><p class="label label-lecture">Mar 29; Lecture 17</p>
-    <ol>
-        <li><a href="../reading/forms.html">Forms</a></li>
-        <li><a href="../reading/events.html">Events</a></li>
-        <li><a href="../lectures/L16a/L16a.html">Class Activities</a></li>
-    </ol>
+        <ol>
+            <li><a href="../reading/forms.html">Forms and .val()</a></li>
+        </ol>
     </td>
     <td><p class="label label-default">Mar 30<br></p>
-    <p class="label label-hwk">
-      <a  href="../assignments/a06/">
-      Homework 6: What's Cooking?
-      </a>
+        <p class="label label-hwk">
+            <a href="../assignments/a06/"> Homework 6: jQ 1 (TBD) </a>
       </p>
     </td>
     <td></td>
-  <td><p class="label label-lecture">Apr 1; Lecture 18</p>
+    <td><p class="label label-lecture">Apr 1; Lecture 18</p>
         <ol>
-            <li><a href="../reading/galleries-and-drop-downs.html">Galleries and Drop-Down Menus</a></li>
-            <li><a href="../lectures/L17a/">Class Activities</a></li>
+            <li><a href="../reading/ajax.html">Ajax: .post() and .get() and Same Origin Policy</a></li>
         </ol>
   </td>
 
@@ -380,47 +400,38 @@
 
     <td><p class="label label-lecture">Apr 5; Lecture 19</p>
       <ol>
-          <li><a href="../reading/arrays-and-slideshows.html">Arrays and Slideshows</a></li>
-          <li><a href="../lectures/L18a/">Class Activities</a></li>
+          <li><a href="../reading/galleries-and-drop-downs.html">Galleries and Drop Downs</a></li>
       </ol>
     </td>
     <td><p class="label label-default">Apr 6<br></p>
-    <p class="label label-hwk">
-      <a  href="../assignments/a07/">
-      Homework 7: Madlibs and Tom Thumb
-      </a>
-      </p>
+        <p class="label label-hwk">
+            <a  href="../assignments/a07/"> Homework 7: Ruhlman talks? </a>
+        </p>
     </td>
     <td></td>
-  <td><p class="label label-lecture">Apr 8; Lecture 20</p>
+    <td><p class="label label-lecture">Apr 8; Lecture 20</p>
         <ol>
-            <li><a href="../reading/animations.html">Animations and JS Literals</a></li>
-            <li><a href="../lectures/L19/">Class Activities</a></li>
+            <li><a href="../reading/arrays-and-slideshows.html">Slideshows</a></li>
         </ol>
   </td>
 </tr>
 <tr>
     <td><p class="label label-default">Apr 11</p></td>
     <td><p class="label label-lecture">Apr 12; Lecture 21</p>
-      <ol>
-          <li><a href="../reading/ajax.html">Submitting Forms and Ajax</a></li>
-          <li><a href="../lectures/L21/activities.html">Class Activities</a></li>
-      </ol>
+        <ol>
+            <li><a href="../reading/animations.html">Animations</a></li>
+        </ol>
     </td>
     <td><p class="label label-default">Apr 13<br></p>
-      <p class="label label-hwk">
-      <a  href="../assignments/a08/">
-      Homework 8: Rock, Paper, Scissors 
-      </a>
-      </p>
+        <p class="label label-hwk">
+            <a href="../assignments/a08/"> Homework 8: Rock, Paper, Scissors </a>
+        </p>
     </td>
     <td></td>
     <td><p class="label label-lecture">Apr 15; Lecture 22</p>
-        <p>Copyright; Catchup and Review
-            <ol>
-                <li><a href="../reading/copyright.html">Copyright</a></li>
-            <li><a href="../lectures/L21-copyright/activities.html">Class Activities</a></li>
-            </ol>
+        <ol>
+            <li><a href="../reading/jquery-ui.html">jQuery UI</a></li>
+        </ol>
     </td>
 </tr>
 <tr>
@@ -431,57 +442,53 @@
     </td>
     <td><p class="label label-default">Apr 20<br></p>
         <p class="label label-hwk">
-      <a  href="../assignments/a09/">
-      Homework 9: Emailed forms
-      </a></p>
+            <a href="../assignments/a09/"> Homework 9: TaskMin v1 </a>
+        </p>
     </td>
     <td></td>
     <td><p class="label label-lecture">Apr 22; Lecture 23</p>
         <ol>
-            <li><a href="../reading/sound.html">Sound Representation</a></li>
-            <li><a href="../lectures/L23/activities.html">Class Activities</a></li>
+            <li><a href="../reading/games.html">Games</a></li>
         </ol>
-        <p><a href="http://www.bitsbook.com/wp-content/uploads/2008/12/chapter8.pdf">Supplement Reading: Bits in the Air</a></p>
     </td>
 </tr>
 <tr>
     <td><p class="label label-default">Apr 25</p>
     </td>
     <td><p class="label label-lecture">Apr 26; Lecture 24</p>
-          <ol>
-            <li><a href="../reading/cryptography.html">Cryptography</a></li>
-            <li><a href="../lectures/L24/activities.html">activities</a></li>
-          </ol>
+        <ol>
+            <li><a href="../reading/games.html">Games</a></li>
+        </ol>
     </td>
     <td class="noclass"><p class="label label-default">Apr 27</p>
         <p>Ruhlman</p>
+        <p class="label label-hwk">
+            <a href="../assignments/a10/"> Homework 10: Blobs of Doom</a>
+        </p>
+
     </td>
     <td></td>
     <td><p class="label label-lecture">Apr 29; Lecture 25</p>
-      <p>Digital Signatures
-          <ol>
-            <li><a href="../reading/cryptography.html">Cryptography</a></li>
-            <li><a href="https://cs.wellesley.edu/~cs110/lectures/L24/activities-part2.html">activities</a></li>
-          </ol>
+        <ol>
+            <li><a href="../reading/accessibility.html">Accessibility</a></li>
+        </ol>
     </td>
 </tr>
 <tr>
     <td><p class="label label-default">May 2</p></td>
     <td><p class="label label-lecture">May 3; Lecture 26</p>
         <ol>
-            <li><a href="/~cs110s15/lectures/BigIdeas/">Big Ideas</a>
-            <li><a href="../lectures/L26/activities.html">Jeopardy Game</a></li>
+            <li><a href="../reading/review.html">Review</a></li>
         </ol>
   </td>
   <td><p class="label label-default">May 4</p>
       <p>Last day of classes</p>
+        <p class="label label-hwk">
+            <a href="../assignments/a11/"> Homework 11: TaskMin v2</a>
+        </p>
   </td>
   <td class="noclass"><p class="label label-default">May 5</p>
       <ul>
-          <li><a href="../final-review/CS110ReviewQuestionsforFinalExam.pdf">Final
-          Exam Review</a>
-          <li><a href="../final-review/SOLUTIONS-CS110ReviewQuestionsforFinalExam.pdf">Final
-          Exam Review Solutions</a>
       </ul>
   </td>
   <td class="noclass"><p class="label label-default">May 6</p>
@@ -490,9 +497,9 @@
 </tbody>
 </table>
 
-    </div><!-- end of row -->
+</div><!-- end of row -->
 
-  </div><!-- end of container -->
+</div><!-- end of container -->
  
 
 <!-- End Document
