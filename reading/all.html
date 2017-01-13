@@ -13,19 +13,20 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
+  <!-- CSS; should concatenate these into one file
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
   <link rel="stylesheet" href="/css/custom.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
 <body>
@@ -49,12 +50,10 @@
         
 
 <nav id="TOC" class="three columns">
-    Not yet implemented
+    TOC not yet implemented
 </nav>
 
 <article id="main" class="nine columns">
-
-    <h1>Unknown</h1>
 
     <div class="alert alert-info">
 <p>(Reading: We strongly suggest you read chapters 1, 3, and 6
@@ -1327,6 +1326,261 @@ also use some newer tags that are intended to reduce the over-use of DIV.
    <LI><A HREF="https://jsfiddle.net/bjdp9zz1/">Exercise 5, debugging with jsfiddle</A>
 
 </UL>
+          <h2 id="absolute">Absolute URLs</h2>
+
+          <div>
+            URLs are used to specify the locations of resources in files on
+            any computer in the world, so they can be a little complex.
+            Taking as an example the URL of the page you are reading:
+          </div>
+          <p></p>
+          <blockquote>
+            <table class="table-bordered">
+              <tr>
+                <th>protocol</th>
+                <th>server.domain</th>
+                <th>path</th>
+                <th>filename</th>
+              </tr>
+              <tr>
+                <td><code>https://</code> </td>
+                <td><code>cs210.wellesley.edu</code></td>
+                <td><code>/reading/</code></td>
+                <td><code>URLs.html</code></td>
+              </tr>
+            </table>
+          </blockquote>
+
+          <p>let's break it down in its components:</p>
+
+          <ul>
+            <li><code>http://</code>&nbsp;This is the protocol, which is
+            almost always HTTP, the HyperText Transfer Protocol, or HTTPS,
+            its secure counterpart. You'll occasionally see FTP and
+            others.</li>
+
+            <li><code>cs210.wellesley.edu</code>&nbsp; This is
+             the <em>server</em>: a machine connected to the internet that
+             hands out files to anyone who asks. <code>cs210</code> is the
+             name of the machine;
+             <code>wellesley.edu</code> is the domain. The name of the
+             server combined with the domain must be <em>unique</em> in
+             the <em>world</em>. In fact, the domain must be unique in the
+             world, and the server name must be unique within the
+             domain.</li>
+
+            <li><code>/reading/</code>&nbsp;This is the
+             <em>path</em>: a sequence of directories (AKA folders),
+             separated by slashes, that indicates where on the server the
+             file is located. Here there is only one folder, but there
+             could be several.</li>
+
+            <li><code>URLs.html</code>&nbsp;This is the file that is being
+            requested.</li>
+          </ul>
+
+          <p>Because URLs can specify files on many different kinds of
+            computers, you should stick to a lowest common denominator when
+            naming your directories and files, to avoid confusing machines and
+            browsers. The lowest common denominator means:
+
+          <ul>
+            <li>use letters and digits, but no special characters like /, *,
+            #, &amp;, and so forth</li>
+            <li><strong>no spaces</strong> (this is the most common error for Mac and PC
+            users). For example, if you want to have a web page named
+            <code>cats and dogs.html</code> you're much safer
+            with <code>cats-and-dogs.html</code> or
+            <code>cats_and_dogs.html</code></li>
+
+          </ul>
+
+          <p>Furthermore, be careful with upper and lower case. To your eyes,
+          <CODE>cats.html</CODE> and <CODE>Cats.html</CODE> may seem like the
+          same filename, but to a computer, they're as different as
+          <CODE>cats.html</CODE> and <CODE>dogs.html</CODE>. The same rule is true
+          of directory names: they are case-sensitive. Many people like to stick to
+          all lower-case, just so they don't have to remember. </p>
+
+          <p>Certain parts of the end of an absolute URL can be omitted.
+          For example, the filename can be omitted and (usually) defaults
+          to a file named <code>index.html</code> in the specified
+          directory (for an example, see
+          our <a href="http://cs210.wellesley.edu/">course
+          homepage</a>). Similarly, the path can be omitted, in which case
+          the page is in the <q>top</q> directory of the web server.
+          However, <em>the protocol and server must be specified</em>. You
+          can't omit those.  If a URL has a protocol, it's an
+          <strong>absolute URL</strong>, otherwise it'll be treated as a 
+          <strong>relative URL</strong>.</p>
+
+
+          <h2 id="trees">Tree Structured Directories</h2>
+
+          <p>As you know, most operating systems (including Mac, Windows, Unix, iOS, Android, etc.),
+            organize the contents of a computer's hard drive into 
+            <em>folders</em>, also called <em>directories</em>. Folders and files form
+            a <q>tree</q> structure, because of the ability of directories to contain
+            other directories.
+
+            <p>Here's an example:
+              <blockquote>
+                For a website about <a href="http://en.wikipedia.org/wiki/Joss_Whedon">Joss Whedon</a>, 
+                we might have a folder about his
+                Buffy the Vampire Slayer TV show, another about the TV show Angel, and
+                a document about his comics.  These might all be in a top-level folder
+                called <q>Joss</q>.  (The top-level folder is also called
+                the <em>root</em> folder.) The folders about the TV shows might each have a
+                sub-folder called <q>cast</q>.  And so on.
+              </blockquote>
+
+            <p>While it's easy to conceptualize a tree of folders and files, also
+              called a <em>directory tree</em>, there are many different ways to draw
+              it.  Here are several ways of depicting the <a href="Joss/">Joss directory tree</a>
+              described above that you will see in this course:
+
+            <figure>
+              <img src="URLs-files/images/Joss-dirtree-hand-new.png" alt="Joss directory tree drawn by hand" 
+                   class="img-thumbnail center-block">
+              <figcaption>A hand drawing for the Joss Whedon website.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="URLs-files/images/Joss-dirtree-mac.png" alt="Joss directory tree on a Mac"
+                   class="img-thumbnail center-block">
+              <figcaption>The folder structure as displayed in Mac by <strong>Finder</strong>.</figcaption>
+            </figure>
+
+            <figure>
+              <img src="URLs-files/images/Joss-dirtree-win.png" alt="Joss directory tree on Windows"
+                    class="img-thumbnail center-block">
+              <figcaption>The folder structure as displayed in Windows by <strong>Windows Explorer</strong>.</figcaption>
+            </figure>
+
+            <p>For example, we can see that <code>buffy.html</code> and <code>willow.html</code> are both
+            files in the same directory, the one called <code>cast</code>, which is, in turn, one
+            of three things in the directory called <code>Buffy</code>, which is in the directory
+            called <code>Joss</code>. Joss contains two directories (Buffy and Angel) and a file
+            called <code>comics.html</code> and so on. Take a minute to be sure you understand
+            the relationships among the directories and files.  Notice that there
+            are <em>two</em> files named <code>angel.html</code>; this is okay, because they
+            are in different directories.</p>
+
+          <H2 id="relative">Relative URLs</H2>
+
+          <p>We can use these relationships to form a shorthand way of
+          specifying a URL. This is called a <EM>relative</EM> URL, because we
+          specify the location of a file relative to a known file. Here are the
+          basic rules:
+
+          <ol>
+             <li>Relative URLs are only for files on the same server.
+             Therefore, we can leave off the protocol and server name.
+
+             <li>If a file is in the same directory as the HTML file containing
+             the link, we just give its name.  If
+             we want to put a link <EM>in</EM> the file <CODE>buffy.html</CODE>
+             linking it to <code>willow.html</code>, we can say:
+
+            <pre class="prettyprint">
+              <code>&lt;a href="willow.html"&gt;her best friend Willow&lt;/a&gt;</code>
+            </pre>
+
+               <li>If a file is in a sibling subdirectory, we can just give the
+               path starting from the sibling. So, if we are in the file called
+               <code>mythology.html</code> and we want to give a link to the file
+               <code>angel.html</code>, we can say:
+
+            <pre class="prettyprint">
+              <code>&lt;a href="cast/angel.html"&gt;Angel, the vampire with a soul&lt;/a&gt;</code>
+            </pre>
+
+               <li>If the file is in a directory that contains a subdirectory that 
+               contains the HTML file with the link,
+               we have to go <q>up</q> the tree. To go up, we
+               write <code>../</code>. That's <q>dot, dot, slash.</q> For example, if we
+               are in the file <code>host.html</code> and we want to make a link to
+               <code>season3.html,</code> we can say:
+
+            <pre class="prettyprint">
+              <code>&lt;a href="../season3.html"&gt;the Host returned in season 3&lt;/a&gt;</code>
+            </pre>
+
+               That last step, with the <code>..</code> is tricky: to go up, we write
+               <code>..</code>; while to go down we have to indicate which subdirectory
+               we mean. In either case, we separate these up/down steps with a
+               slash. Here's another example: suppose we want to put a link
+               from <code>buffy.html</code> to <code>comics.html</code>. In this case,
+               we can write:
+
+            <pre class="prettyprint">
+            <code>&lt;a href="../../comics.html"&gt;another layer in the comics&lt;/a&gt;</code>
+            </pre>
+
+          </ol>
+
+          <h2 id="fragments">Fragments</h2>
+
+          <p>The model above establishes a one-to-one correspondence
+            between a URL and a file (web page) somewhere in the vast web.
+            Sometimes, however, you want to address (point to) a
+            particular location <em>within</em> a page. Such locations are
+            called <em>fragments</em>.  Here is a link
+            to <a href="#fragments">this section of this page</a>
+            (actually the header of the section). Try it!</p>
+
+          <p>While fragments can be used in many ways, one common use is to have
+            a <q>table of contents</q> at the top of a page, allowing readers to skip
+            down to the particular section they are interested in.  An example of
+            such a table of contents is at the left side of these notes.</p>
+
+          <p>Fragments are addressed by extending the URL by adding
+            a <code>#</code> character and
+            the <a href="http://www.w3schools.com/tags/att_global_id.asp">id</a>
+            attribute of the fragment (the HTML element that we are
+            referring to).  Thus, we have:</p>
+
+          <p>
+          <blockquote>
+            <table class="table-bordered">
+                <tr>
+                   <th>protocol</th>
+                   <th>server.domain</th>
+                   <th>path</th>
+                   <th>filename</th>
+                   <th>fragment id</th>
+                </tr>
+                <tr>
+                   <td><code>https://</code> </td>
+                   <td><code>cs210.wellesley.edu</code></td>
+                   <td><code>/reading</code></td>
+                   <td><code>URLs.html</code></td>
+                   <td><code>#relative</code></td>
+                </tr>
+            </table>
+          </blockquote>
+
+          <p>One key step is marking the <em>destination</em> of the URL,
+            by <em>naming</em> the fragment, just as we name a file or folder. This
+            is done with the <code>id</code> attribute, which can be applied to
+            every HTML tag.  We typically add it to the header tag (such
+            as <code>h2</code>) of the section we want to skip to.  For example:
+
+            <pre class="prettyprint">
+            <code>&lt;h2 id="relative"&gt;Relative URLs&lt;/h2&gt;</code>
+          </pre>
+
+          <p>Given the code above, we can then point to that section from any web
+            page anywhere, using an absolute URL, like the one in the table above.
+            We can also use fragments with relative URLs.  For example, to point to
+            that section from another file in the same directory, we can just give
+            the filename and the fragment name: <code>URLs.html#relative</code>. In
+            fact, if we want to point to it from within the same file, we can omit
+            the filename and the relative URL becomes just <code>#relative</code>.
+            You can see examples of that kind of URL in the table of contents on the 
+            sidebar.
+
+
 <!-- This lecture assumes they've learned about colors, but it doesn't
      depend strongly on that.  It doesn't assume they've learned about
      fonts. --> 
@@ -1354,6 +1608,8 @@ also use some newer tags that are intended to reduce the over-use of DIV.
      in a separate file, added examples that students should try out on the jsfiddle website.-->
 
 <!-- Scott, Summer 2015: Commented out example 3 because it dealt too much with the box model, which they haven't learned yet. -->
+
+<!-- Scott, Summer 2016: recycled this for CS 210 -->
 
       <div class="alert alert-info">
         Reading: We strongly suggest you read chapter 7
@@ -1414,13 +1670,14 @@ also use some newer tags that are intended to reduce the over-use of DIV.
 
       &lt;/li&gt;&lt;li&gt;&lt;em&gt;External Style Sheets.&lt;/em&gt; These are specified in a
       separate CSS file that is connected to the HTML file by the
-      &lt;code&gt;&amp;lt;link&amp;gt;&lt;/code&gt; tag.  We discussed this link in the 
-        &lt;a href="../L01-html/HTML.html#link"&gt;HTML lecture&lt;/a&gt;.
+      &lt;code&gt;&amp;lt;link&amp;gt;&lt;/code&gt; tag.  We discussed this link in the
+        &lt;a href="HTML.html#link"&gt;HTML reading&lt;/a&gt;.
       &lt;/li&gt;&lt;/ol&gt;
       &lt;/div&gt;
 
-      &lt;p&gt;Suppose that we always want &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; to be red. 
-        (Be aware of &lt;a href="#accessibility"&gt;accessibility&lt;/a&gt;.)&lt;/p&gt;
+      &lt;p&gt;Suppose that we always want &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; to be red
+        in addition to being in italics.  (Be aware
+        of &lt;a href="#accessibility"&gt;accessibility&lt;/a&gt;.)&lt;/p&gt;
 
       &lt;ol&gt;
 
@@ -1435,9 +1692,9 @@ also use some newer tags that are intended to reduce the over-use of DIV.
       case the user's browser has specified a background color that
       matches your foreground color.  Here's the example:
 </code></pre>
-<pre>
+<pre><code class="html">
 this is an <code class="html"><span class="nt">&lt;em</span> <span class="na">style=</span><span class="s">&quot;color: red; background-color: white&quot;</span>&gt;important<span class="nt">&lt;/em&gt;</span></code> word
-</pre>
+</code></pre>
 
 <pre><code>which results in:&lt;br&gt;
 
@@ -1451,13 +1708,13 @@ this is an <code class="html"><span class="nt">&lt;em</span> <span class="na">st
 document to specify the style for the &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; tag once and
 for all:
 </code></pre>
-<pre>&lt;style&gt;
+<pre><code class="css">&lt;style&gt;
    em { 
       color: red; 
       background-color: white;
    }
 &lt;/style&gt;
-</pre>
+</code></pre>
 
 <pre><code>&lt;p&gt;In your document (that is, in the tags enclosed by &amp;lt;&lt;code&gt;body&amp;gt;&lt;/code&gt;), 
   you just use the &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; tag normally, and it will be rendered as red.
@@ -1472,18 +1729,14 @@ for all:
     <code>&lt;head&gt;</code>, the same place you would use the
     <code>&lt;style&gt;</code> tag.  Suppose we create a file called
     <code>my-style.css</code> that contains the following:</p>
-<pre class="sh_css">em { 
+<pre><code class="css">em { 
    color: red; 
    background: white;
-}</pre>
+}</code></pre>
 
 <pre><code>&lt;p&gt;and we reference it in the &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; like this:
 </code></pre>
-<!-- </p><pre>&lt;link rel="stylesheet" type="text/css" href="my-style.css"&gt; -->
-
-<p></p><pre class="sh_html">&lt;link rel="stylesheet" href="my-style.css"&gt;</p>
-</pre>
-
+<p></p><pre><code class="html">&lt;link rel="stylesheet" href="my-style.css"&gt;</code></pre></p>
 <pre><code>&lt;p&gt;As with document-level style sheets, we can just use the &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; tag
 normally from then on.
 
@@ -1546,15 +1799,15 @@ normally from then on.
       begin and &lt;code&gt;*/&lt;/code&gt; to end.  Thus, for an external style
       sheet, you might have:
 
-  &lt;pre class="sh_css"&gt;
+  &lt;pre&gt;&lt;code class="css"&gt;
 </code></pre>
-<p>/<em> Written by the CS110 Faculty
-   Specifies a CSS Rule for the element <code>&lt;em&gt;</code> 
+<p>/<em> Written by the CS210 Faculty
+   Decided on 7/19/2016 to make EM magenta
 </em>/</p>
 <p>em {
    color: magenta; 
    background-color: white;
-} </pre>    </p>
+} </code></pre>    </p>
 <pre><code>  &lt;/li&gt;&lt;/ul&gt;
 
       &lt;h2 id="moreproperties"&gt;Some CSS Properties&lt;/h2&gt;
@@ -1577,57 +1830,77 @@ normally from then on.
       &lt;h2&gt;Examples&lt;/h2&gt;
 
       &lt;div class="alert alert-warning"&gt;
-      &lt;p&gt;In the following, we give several examples of properties that are very useful for
-      styling elements. For pedagogical purposes, we're not providing the code as text
-      that can be easily copied and pasted somewhere else. We believe that by typing the instructions
-      on your own, you will learn the names and values of properties, as well as potential errors that
-      occur when one types. We strongly suggest that you
-      use &lt;a target="_blank" href="http://jsfiddle.net"&gt;jsfiddle&lt;/a&gt; to
-      try out all these examples. Before entering the code, read our questions and try to predict the answer
-        without running the code. Then check if you were right.
-        To use jsfiddle, enter the HTML code in the HTML box, the CSS code in the CSS box,
-        and then click the button Run. There is no need to write a whole HTML file, only the snippets
-        shown in the examples. Also, to see the effect of styling, the text in HTML elements doesn't have to be
-        meaningful as in our examples.&lt;/p&gt;
+
+      &lt;p&gt;In the following, we give several examples of properties that
+          are very useful for styling elements. For pedagogical
+          purposes, we're not providing the code as text that can be
+          easily copied and pasted somewhere else. We believe that by
+          typing the instructions on your own, you will learn the
+          names and values of properties, as well as potential errors
+          that occur when one types. We strongly suggest that you
+          use &lt;a target="_blank"
+          href="http://jsfiddle.net"&gt;jsfiddle&lt;/a&gt; to try out all these
+          examples. Before entering the code, read our questions and
+          try to predict the answer without running the code. Then
+          check if you were right.  To use jsfiddle, enter the HTML
+          code in the HTML box, the CSS code in the CSS box, and then
+          click the button Run. There is no need to write a whole HTML
+          file, only the snippets shown in the examples. Also, to see
+          the effect of styling, the text in HTML elements doesn't
+          have to be meaningful as in our examples.&lt;/p&gt;
       &lt;/div&gt;
 
-      &lt;h4&gt;Example 1&lt;/h4&gt;
+      &lt;h3&gt;Example 1&lt;/h3&gt;
+
       &lt;figure&gt;
-        &lt;img class="img-thumbnail" src="CSS1-files/example1_opacity.png" alt="example for color and opacity"&gt;
+        &lt;img class="img-thumbnail"
+             src="CSS1-files/example1_opacity.png"
+             alt="example for color and opacity"&gt;
         &lt;figcaption&gt;Using color and opacity.&lt;/figcaption&gt;
       &lt;/figure&gt;
-      &lt;h4&gt;Questions for Example 1&lt;/h4&gt;
-      &lt;p&gt;In the rendered result, is the background color blue? Why not? What about the color of the 
-        text nested in &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;? Why it is not white like the rest? What does this tell
-        about the order in which rules are applied?&lt;/p&gt;
+
+      &lt;h3&gt;Questions for Example 1&lt;/h3&gt;
+
+      &lt;p&gt;In the rendered result, is the background color blue? Why
+        not? What about the color of the text nested
+        in &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;? Why it is not white like the rest?
+        What does this tell about the order in which rules are
+        applied?&lt;/p&gt;
     &lt;hr&gt;
-    &lt;h4&gt;Example 2&lt;/h4&gt;  
+
+    &lt;h3&gt;Example 2&lt;/h3&gt;  
     &lt;figure&gt;
         &lt;img class="img-thumbnail" src="CSS1-files/example2_text.png" alt="example for text and list properties"&gt;
         &lt;figcaption&gt;Styling for text and lists.&lt;/figcaption&gt;
     &lt;/figure&gt;
 
-    &lt;h4&gt;Questions for Example 2&lt;/h4&gt;
+    &lt;h3&gt;Questions for Example 2&lt;/h3&gt;
     &lt;p&gt;Try first to predict how this code will be rendered. What is the effect of each rule on every element?
       How will the &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; nested in &lt;code&gt;&amp;lt;li&amp;gt;&lt;/code&gt; look like? Then, enter this
       code in &lt;em&gt;jsfiddle&lt;/em&gt; to see whether you were right in your predictions.&lt;/p&gt;
       &lt;hr&gt;
 </code></pre>
 <div style="display: none">
-          <h4>Example 3</h4>
+          <h3>Example 3</h3>
           <figure>
             <img class="img-thumbnail" src="CSS1-files/example3_background.png" alt="example for background and border">
             <figcaption>Styling for background, border, and text.</figcaption>
         </figure>
 
         <p>The URL for the background image was generated with the <a href="http://goo.gl/">Google URL shortener service.</a></p>
-        <h4>Questions for Example 3</h4>
-        <p>What do you see when this code is rendered? What happens when you comment out the rule for 
-          <code>&lt;header&gt;</code>? Can you add styling for the <code>border-bottom</code> property? 
-          What happens when you replace <code>border-top-</code> with <code>border-</code> (keeping the rest unchanged)?
-          What happens when you change the value for <code>text-align</code> from center to right? Finally,
-          add this style <code>border: 3px solid red;</code> to <code>&lt;header&gt;</code> and see what happens. This is
-          an example of combining values for several properties in one style.</p>
+        <h3>Questions for Example 3</h3>
+
+          <p>What do you see when this code is rendered? What happens when
+          you comment out the rule for
+          <code>&lt;header&gt;</code>? Can you add styling for
+          the <code>border-bottom</code> property?  What happens when you
+          replace <code>border-top-</code> with <code>border-</code>
+          (keeping the rest unchanged)?  What happens when you change the
+          value for <code>text-align</code> from center to right? Finally,
+          add this style <code>border: 3px solid red;</code>
+          to <code>&lt;header&gt;</code> and see what happens. This is an
+          example of combining values for several properties in one
+          style.</p>
 </div>
 
 <pre><code>      &lt;h2 id="cascading"&gt;Cascading&lt;/h2&gt;
@@ -1651,14 +1924,15 @@ normally from then on.
           the &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; element inside
           the &lt;code&gt;&amp;lt;li&amp;gt;&lt;/code&gt; element inherits its properties.
 
-        &lt;!--p&gt;If you'd like all the technical details of the cascade, you can check
-        the specifications
-        of &lt;a href="http://www.w3.org/TR/REC-CSS1/#the-cascade"&gt;cascade order&lt;/a--&gt;
+        &lt;p&gt;If you'd like all the technical details of the cascade, you
+        can check the specifications
+        of &lt;a href="http://www.w3.org/TR/REC-CSS1/#the-cascade"&gt;cascade
+        order&lt;/a&gt;
         &lt;p&gt;The process of resolving all the conflicting CSS rules is
         called the &lt;em&gt;cascade&lt;/em&gt;.  The &lt;em&gt;Head First HTML and
-        CSS&lt;/em&gt; book has a detailed description for cascades in pages
+        CSS&lt;/em&gt; book has a detailed description for cascades on pages
         457-465. That description is pretty intimidating, though. In
-        practice, the rules are pretty intuitive:  the rule that is
+        practice, the rules are pretty intuitive: the rule that is
         closer and more specific wins.
 
         &lt;h2&gt;Which Style Sheet to Use?&lt;/h2&gt;
@@ -1746,12 +2020,17 @@ things up</em>.
 
 
           <div class="bs-callout bs-callout-danger">
-            <h4 id="accessibility">Footnote: Colors and Accessibility</h4>
+            <h2 id="accessibility">Footnote: Colors and Accessibility</h2>
             <p> Since 
             <code>&lt;em&gt;</code> stands for emphasis, what could be better emphasis
             than putting something in red? Unfortunately, using color to convey meaning is, in fact, a
             <em>terrible</em> idea, because some people are color-blind or even
-            completely blind.  We'll talk more about the issue of <a
+            completely blind.  Fortunately, we are (1) still using the EM
+            tag, so screen-reading software will know to emphasize this
+            text, and (2) still using the default italic font-style, so
+            color-blind readers will still have a visual cue. 
+
+            <p>We'll talk more about the issue of <a
             href="http://webaim.org/intro">accessibility</a> as the need arises
             throughout this course.  You should <em>always</em> think about
             accessibility when you are designing a web page, because you want your
@@ -1761,48 +2040,355 @@ things up</em>.
             href="http://webaim.org/intro#standards">legally required</a> to be
             accessible. However, for the purposes of this lecture's examples,
             let's suppose that using red is a sensible thing to do.</p>
-          </div>
-# Accessibility
 
-A website is *accessible* if it can be used effectively by people who have
+            <p>Note also that red text printed to a black-and-white
+            printer comes out light gray, which <em>de-</em>emphasizes
+            it. To address that, we could use a media query and have a
+            special CSS rule for printing EM elements. We'll learn about
+            media queries later.
+          </div>
+
+<!-- Feb 2014: Eni made significant changes to introduce the new web fonts
+which make away with the problem of not having fonts installed in your own computer.-->
+
+      <div class="alert alert-info">
+        Reading: We strongly suggest you read chapter 8
+        of <em><a href="http://shop.oreilly.com/product/9780596159924.do">Head
+        First HTML and CSS</a></em> with these notes. 
+      </div>
+
+          <h2 id="fonts">Traditional Fonts</h2>
+          <p>One of the most important aspect of a page that can be controlled with CSS
+          is the <em>font</em>.    
+            A font is a
+            collection of <em>pictures of letters</em>. A <q>letter</q> is some
+            kind of Platonic ideal, like perfect circles or archetypal chairs.  It's
+            also a unit of <em>information</em>.  Any particular letter is drawn by
+            some person.  Some are simple block letters, others are works of art 
+            (like medieval illuminated manuscripts).  A font is a
+            collection of these pictures, one for each character in the character set.
+        </p>
+
+          <p>Fonts are studied in the field of <em>typography</em>, and their study is
+          outside the scope of this course. If you are interested in their history and technique
+          you should take the <em>ART 222: Introductory Print Methods</em> course offered
+          by the <a href="http://www.wellesley.edu/lts/collections/bookarts">Book Arts program</a>.
+
+          </p>
+
+<pre><code>      &lt;p&gt;For many years, fonts in web pages were restricted by the fonts that came 
+        already pre-installed in a computer. This didn't allow for a lot of variety in styling. 
+        This changed with CSS3 and the introduction of &lt;em&gt;web fonts&lt;/em&gt;, which don't need to 
+        be installed in one's computer. Furthermore, with the use of the Google Fonts API it is 
+        very easy to incorporate such fonts in a website, as we will demonstrate in these notes.&lt;/p&gt;
+
+      &lt;p&gt;Read the suggested chapter 8 in &lt;em&gt;Head First HTML and CSS&lt;/em&gt; for a more detailed 
+        account on styling fonts. In the following, we give a very concise summary.&lt;/p&gt;
+
+      &lt;h2&gt;Font Properties&lt;/h2&gt;
+
+      &lt;p&gt;There are systematic ways in which fonts can be characterized:&lt;/p&gt;
+
+      &lt;ul&gt;
+
+          &lt;li&gt;Font-families: serif, sans-serif, monospace, etc.  
+          Serifs are the little marks at the end of
+          the strokes of a letter. Along the baseline, they are horizontal, and
+          can help guide your eye along the line.  Some fonts have them, some
+          don't.  ("sans" is French for "without.")  Times is a serif font;
+          Arial is sans-serif.
+
+          &lt;li&gt;Font names: Verdana, Arial and Geneva are all sans-serif fonts, yet
+          they look different: they are different &lt;em&gt;fonts&lt;/em&gt;.  Each
+          font is the creative product of some artist or foundry.
+
+          &lt;li&gt;Style: some fonts are upright or &lt;em&gt;normal&lt;/em&gt;, others are
+          slanted with a little extra curliness that we call &lt;em&gt;italic&lt;/em&gt;.
+          Some font artists define several styles for their font families.
+
+          &lt;li&gt;Size: fonts might be 10 point, 12 point, or many other &lt;a
+          href="http://www.w3.org/TR/REC-CSS2/fonts.html#font-size-props"&gt;font
+          sizes&lt;/a&gt;.  (A point is 1/72nd of an inch.)  Some fonts simply scale
+          the "design size," so, for example, 12 point is simply 20 percent
+          larger than 10 point.  Other fonts modify the scaling for artistic
+          beauty.  You can also use seven abstract "absolute" sizes (they
+          specify elements of a table of font sizes kept by the browser) named:
+
+            &lt;ul&gt;
+              &lt;li style="font-size: xx-small"&gt;xx-small
+              &lt;li style="font-size: x-small"&gt;x-small
+              &lt;li style="font-size: small"&gt;small
+              &lt;li style="font-size: medium"&gt;medium
+              &lt;li style="font-size: large"&gt;large
+              &lt;li style="font-size: x-large"&gt;x-large
+              &lt;li style="font-size: xx-large"&gt;xx-large
+              &lt;li&gt;
+            &lt;/ul&gt;
+
+          &lt;p&gt;You can also use abstract &lt;q&gt;relative&lt;/q&gt; sizes named &lt;q&gt;larger&lt;/q&gt; and
+          &lt;q&gt;smaller,&lt;/q&gt; that are relative to the surrounding font.
+
+          &lt;li&gt;Weight: The designer may produce variant fonts with thicker or
+          thinner lines. Fonts with thicker lines are often called &lt;em&gt;bold&lt;/em&gt;.
+
+      &lt;/ul&gt;
+
+      &lt;h2&gt;Examples&lt;/h2&gt;
+      &lt;p&gt;In the following we show two examples of using different font families for 
+            the elements &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;. Notice
+            how the text changes when the second rule is added.&lt;/p&gt;
+
+      &lt;h3&gt;Example 1&lt;/h3&gt;
+      &lt;figure class="text-center"&gt;
+          &lt;img class="img-thumbnail" src="fonts-files/font1.png" alt="code to show font styling"&gt;            
+          &lt;img class="img-thumbnail" src="fonts-files/result1.png" alt="result of applying font styling"&gt;
+        &lt;figcaption&gt;Applying a font to the element &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt;.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+      &lt;hr&gt;
+      &lt;h3&gt;Example 2&lt;/h3&gt;      
+      &lt;figure class="text-center"&gt;
+          &lt;img class="img-thumbnail" src="fonts-files/font2.png" alt="code to show font styling"&gt;
+          &lt;p&gt;
+          &lt;img class="img-thumbnail" src="fonts-files/result2.png" alt="result of applying font styling"&gt;
+        &lt;figcaption&gt;Adding a font for the element &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;.&lt;/figcaption&gt;
+      &lt;/figure&gt;
+
+      &lt;h2 class="the_line"&gt;Optional Reading&lt;/h2&gt;
+
+      &lt;p&gt;Beyond here is optional reading for the interested
+      student. The material is well within your abilities, and you're
+      encouraged to read it, but it is not required.
+
+      &lt;h2 id="webfonts"&gt;Web Fonts&lt;/h2&gt;
+      &lt;p&gt;As we mentioned, with traditional fonts that come pre-installed in our machines, we have
+         only a limited number of choices (since the fonts need to be installed in the machine of the 
+        viewers of the page too, not only your own). 
+        However, with web fonts (supported by all modern browsers) there are new ways to deliver fonts
+        (either by having your files as part of your website, or by linking to other web servers)
+        so that everyone can see the pages with the font we intended. &lt;/p&gt;
+
+      &lt;p&gt;Be aware that not all fonts on the Web are free. For some of them you need to pay.
+        Thus, it is better to start your search with one of the services that aggregate fonts that are
+        free for use. Such a website is &lt;a href="http://www.fontsquirrel.com/"&gt;Font Squirrel&lt;/a&gt;,
+        from which you can download the fonts you like. Suppose after browsing the available fonts,
+        you decided to use the handdrawn font &lt;a href="http://www.fontsquirrel.com/fonts/Desyrel"&gt;Desyrel&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;figure class="text-center"&gt;
+          &lt;img class="img-thumbnail" src="fonts-files/desyrel.png" alt="screenshot from Font Squirrel site"&gt; 
+          &lt;figcaption&gt;A screenshot from the FontSquirrel website showing the page for the Desyrel font.&lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+        &lt;p&gt;Clicking on the &lt;q&gt;Download TTF&lt;/q&gt; button, you can get the file with the font (after unzipping),
+            &lt;code&gt;desyrel.ttf&lt;/code&gt;. Then, you can create a subfolder &lt;code&gt;fonts&lt;/code&gt; in the folder
+            where your HTML and CSS files are stored and then use this font as shown below:&lt;/p&gt;
+
+            &lt;pre&gt;&lt;code class="css"&gt;
+</code></pre>
+<p>@font-face {
+       font-family: desyrel;
+       src: url("fonts-files/desyrel.ttf") format("truetype");
+       font-weight: normal;
+       font-style: normal;
+}</p>
+<p>p {
+       font-family: desyrel, cursive;
+       font-size: xx-large;
+}
+</code></pre></p>
+<pre><code>          &lt;hr&gt;  
+              &lt;p id="desyrel"&gt;This sentence was written with the &lt;em&gt;Desyrel&lt;/em&gt; font, downloaded from 
+              FontSquirrel.&lt;/p&gt;
+          &lt;hr&gt;
+      &lt;p&gt;Unfortunately, things are not so simple. Because there are so many browsers and platforms, to make
+            sure that all of them will display the desired font, we will need to provide the font in many
+            different formats (Chapter 8 in your book explains these formats). Thus, the rule for 
+            &lt;code&gt;@font-face&lt;/code&gt; will look a bit more complicated. The good news is that this 
+            code and all the files can be automatically created for you by 
+            &lt;a href="http://www.fontsquirrel.com/"&gt;Font Squirrel&lt;/a&gt;, using its menu for 
+            &lt;em&gt;WebFont Generator&lt;/em&gt;, after you upload the file &lt;code&gt;desyrel.tff&lt;/code&gt; (or some other font). 
+        Here is how the automatically generated CSS will look like:&lt;/p&gt;
+
+        &lt;pre&gt;&lt;code class="css"&gt;
+</code></pre>
+<p>@font-face {
+    font-family: 'desyrelregular';
+    src: url('desyrel-webfont.eot');
+    src: url('desyrel-webfont.eot?#iefix') format('embedded-opentype'),
+         url('desyrel-webfont.woff') format('woff'),
+         url('desyrel-webfont.ttf') format('truetype'),
+         url('desyrel-webfont.svg#desyrelregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+</code></pre></p>
+<pre><code>      &lt;p&gt;Notice that the files are referred directly, and you might need to add the relative path
+            to the folder you'll be storing these files.&lt;/p&gt;
+
+      &lt;p&gt;If this looks like a lot of work, there is an easier way, that doesn't involve having
+            to keep the font files on our own server, we explain this method in the next section.&lt;/p&gt;
+
+      &lt;h2 id="googlefonts"&gt;Google Fonts API&lt;/h2&gt;
+      &lt;p&gt;The easiest way to incorporate fancy fonts in your pages is to use the free service provided
+            by &lt;a href="https://developers.google.com/fonts/docs/getting_started"&gt;Google Fonts API&lt;/a&gt;. API stands for Application Programming Interface. With
+            this method, you only need to perform a few simple steps:&lt;/p&gt;
+
+            &lt;ul&gt;
+              &lt;li&gt;Find fonts that you like from the list of &lt;a href="http://www.google.com/fonts"&gt;Google Fonts&lt;/a&gt;
+                , and click the button &lt;q&gt;Add to Collection&lt;/q&gt;.&lt;/li&gt;
+              &lt;li&gt;On the bottom part of the browser, in the Collection tab, click on the button &lt;q&gt;Use&lt;/q&gt; and
+              verify your choices.&lt;/li&gt;
+              &lt;li&gt;Copy the provided &lt;code&gt;&amp;lt;link&amp;gt;&lt;/code&gt; code from &lt;q&gt;Step 3&lt;/q&gt; to your HTML file (it goes
+              in the &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; section).&lt;/li&gt;
+              &lt;li&gt;Add the CSS code from &lt;q&gt;Step 4&lt;/q&gt; to the CSS rules you want.&lt;/li&gt;
+            &lt;/ul&gt;
+
+        &lt;p&gt;You're done. Google takes care of providing all needed format files, you don't have to
+            provide such formats as part of your website.&lt;/p&gt;
+
+        &lt;p&gt;Here is an example of the code you need to write to create the shadowed header below:&lt;/p&gt;
+            &lt;p&gt;The &lt;code&gt;&amp;lt;link&amp;gt;&lt;/code&gt; line goes into the HTML file:&lt;/p&gt;
+</code></pre>
+<pre><code class="html">
+  &lt;head&gt;
+    ...
+    &lt;link href='http://fonts.googleapis.com/css?family=Wallpoet' rel='stylesheet' &gt;
+ &lt;/head&gt;
+</code></pre>
+
+<pre><code>            &lt;p&gt;The &lt;code&gt;font-family&lt;/code&gt; style goes in the CSS file (inside the rule for the desired element):&lt;/p&gt;
+</code></pre>
+<pre><code class="css">
+  h2 {
+      font-family: 'Wallpoet', cursive;
+      font-size: 200%;
+      color: black;
+      text-shadow: 4px 4px 4px gray;
+}
+</code></pre>
+
+<p><hr>
+<div>
+<style scoped>
+      @import url(https://fonts.googleapis.com/css?family=Wallpoet);</p>
+<pre><code>   #wallpoet {
+  font-family: 'Wallpoet', cursive;
+  font-size: 200%;
+  color: black;
+  text-shadow: 4px 4px 4px gray;
+  }
+</code></pre>
+<p></style>
+<h2 id="wallpoet">This header uses Wallpoet from Google Fonts</h2>
+</div></p>
+<p>The font was created
+    by <a href="https://profiles.google.com/punktlars/about">Lars Berggren</a>.</p>
+
+<hr>
+
+<h2 id="at-import">Putting fonts into your CSS File</h2>
+
+<p>The previous code works fine, but if you have a dozen pages in your
+site, and you want to use Wallpoet in all of them, every one of those
+pages would have to have the <code>link</code> tag in the
+<code>head</code>. That is a lot of redundancy and is contrary to our goal
+of stating the CSS information once in the shared external CSS file.
+
+</p>
+
+<p>What we can do instead is, in the Google Fonts browser, instead
+      of using the default <code>link</code> code, switch to the <em>@import</em> tab.
+
+<!--
+        <figure>
+          <img src="fonts-files/at-import2.png" alt="the CSS tab in Google Fonts">
+          <figcaption>the CSS tab in Google Fonts</figcaption>
+        </figure>
+-->
+
+</p>
+
+<p>In that tab, you'll find code like this (it's the same URL as in the link):
+
+    <pre class="prettyprint"><code class="css">@import url(https://fonts.googleapis.com/css?family=Wallpoet);</code></pre>
+
+</p>
+
+<p>Copy/paste that into your shared CSS file, and you'll be able
+    to use Wallpoet in any file that uses that CSS file.
+
+</p>
+
+<h2>Google Fonts can break HTML Validation</h2>
+
+<p>When you use several Google Fonts for a page, the URL generated by
+Google contains the operator <code>|</code> to separate the different
+fonts. HTML doesn't like such special characters, thus, your page will not
+deemed valid by the W3 validator.  To fix this issue, you should replace
+the character <code>|</code> with <code>%7C</code>.
+
+</p>
+
+<p><h2 id="choosing">Choosing a method</h2>   </p>
+<p>We showed here three different ways of styling fonts and that can be confusing at first. 
+    Here are some tips for you to decide what to use:
+
+</p>
+
+<ul>
+
+    <li>If the website you are building is simple and you feel overwhelmed by the choices 
+            we provided, stay with traditional fonts.
+
+    <li>If you want a more sophisticated look for your website (maybe for a book or music band), get
+        familiar with how to use Google Fonts API.</li>
+
+    <li>If your website needs a particular kind of font that Google dosn't provide, learn how to 
+        incorporate Web Fonts by using the services provided by the FontSquirrel website. 
+        Chapter 8 of your book is required reading in this case.</li>          
+</ul>
+
+<div class="alert alert-warning">
+<p>Keep in mind that your choice must be informed by the needs of the
+ website you're building. Is the font important to convey something
+ particular about the nature of the website? If the answer is yes, then
+ you should make all the efforts to learn the advanced techniques we
+ described.</p></div>
+
+<h1>Accessibility</h1>
+<p>A website is <em>accessible</em> if it can be used effectively by people who have
 disabilities, such as blindness, deafness, or paraplegia.  We've mentioned
 accessibility many times in this course, and we've made it an important
 part of the way we build web sites. This reading will cover a lot of what
 we haven't yet covered, though we won't be able to cover everything we
-would like to.
-
-## Motivation
-
-Overall, the web has been good for accessibility. Because the text is
+would like to.</p>
+<h2>Motivation</h2>
+<p>Overall, the web has been good for accessibility. Because the text is
 already in computer form, it can be easily processed by a screen reader
 for the blind (as opposed to print, which would first require optical
 character recognition). Nevertheless, many modern websites can be
-frustratingly difficult for people with disabilities.
-
-We can assume that the designers who made the inaccessible websites didn't
+frustratingly difficult for people with disabilities.</p>
+<p>We can assume that the designers who made the inaccessible websites didn't
 set out to do so. Most of us see the need and responsibility for building
 designers to allow for wheelchair ramps and curb cutouts to allow access
 to public buildings, along with braille signs in elevators and many other
-accommodations. Furthermore, the [Americans with Disabilities Act or
-ADA](https://www.ada.gov) requires that many websites be accessible in the
-same way that public buildings must be accessible.  See the website [Web
-Accessibility in Mind](http://webaim.org/) for much more
+accommodations. Furthermore, the <a href="https://www.ada.gov">Americans with Disabilities Act or
+ADA</a> requires that many websites be accessible in the
+same way that public buildings must be accessible.  See the website <a href="http://webaim.org/">Web
+Accessibility in Mind</a> for much more
 information. Much of what is covered in this reading is drawn from that
 resource. Their materials are copyright &copy; 1999-2016 WebAIM (Web
-Accessibility in Mind).
-
-## The POUR Principles
-
-Having decided to build an accessible website, we have to figure out what
-that means. First, consider different kinds of disabilities:
-
-* Visual: people can be blind, have low-vision, be color-blind, and more
-* Auditory: people can be deaf or hard of hearing
-* Motor: people can be unable to use a mouse, be slow or lack fine motor control
-* Cognitive: people can have learning disabilities or poor ability to focus
-
-To make a website accessible, we want to keep four guidelines in mind:
-
+Accessibility in Mind).</p>
+<h2>The POUR Principles</h2>
+<p>Having decided to build an accessible website, we have to figure out what
+that means. First, consider different kinds of disabilities:</p>
+<ul>
+<li>Visual: people can be blind, have low-vision, be color-blind, and more</li>
+<li>Auditory: people can be deaf or hard of hearing</li>
+<li>Motor: people can be unable to use a mouse, be slow or lack fine motor control</li>
+<li>Cognitive: people can have learning disabilities or poor ability to focus</li>
+</ul>
+<p>To make a website accessible, we want to keep four guidelines in mind:</p>
 <dl>
 <dt>Perceiveable</dt>
 <dd>The information should be accessible by the visitor's working senses, so, for example, information should not be presented solely by sound (a video with narration but no captioning).</dd>
@@ -1817,16 +2403,13 @@ To make a website accessible, we want to keep four guidelines in mind:
 <dd>The website should be accessible to a wide range of assistive technologies</dd>
 </dl>
 
-These make the acronym POUR.
-
-## Checklist Dozen
-
-These are wonderful principles, but our task in this reading is to see how
+<p>These make the acronym POUR.</p>
+<h2>Checklist Dozen</h2>
+<p>These are wonderful principles, but our task in this reading is to see how
 to achieve them.  Let's start with a list of the dozen most important
 principles. I've copied this list from the WebAIM website, and I've
 included links to their elaboration on each principle. You're encouraged
-to go to their site to learn more.
-
+to go to their site to learn more.</p>
 <dl>
         <dt><a href="http://webaim.org/techniques/alttext/">Provide appropriate alternative text</a></dt>
         <dd>Alternative text provides a textual alternative to non-text content in web pages. It is especially helpful for people who are blind and rely on a screen reader to have the content of the website read to them.</dd>
@@ -1857,13 +2440,11 @@ to go to their site to learn more.
 
 <p>This list does not present all accessibility issues, but by addressing these basic principles, you will ensure greater accessibility of your web content to everyone. You can learn more about accessibility by browsing our <a href="http://webaim.org/articles/">articles</a> and <a href="http://webaim.org/resources/">resources</a>. </p>
 
-## Images
-
-There are generally two kinds of pictures on a website: informative and
-decorative. If a picture is informative, you *must* provide some way for a
+<h2>Images</h2>
+<p>There are generally two kinds of pictures on a website: informative and
+decorative. If a picture is informative, you <em>must</em> provide some way for a
 blind user to get equivalent information in a textual form.  The usual way
-to do this is to provide an ALT attribute on the image:
-
+to do this is to provide an ALT attribute on the image:</p>
 <div>
 <div class="example">
     <img src="/images/harry-potter-thumb.jpeg"
@@ -1875,16 +2456,14 @@ to do this is to provide an ALT attribute on the image:
 </pre>
 </div>
 
-Note that this ALT is often incorrectly called an "alt tag" but of course
+<p>Note that this ALT is often incorrectly called an "alt tag" but of course
 it's an attribute not a tag. The general concept of providing a textual
 alternative is called "alt text," so that's probably the easiest and best
 way to describe this.  Also, the alt text doesn't say "picture of ..."
-because that will be clear from the screen reader.
-
-However, sighted people won't (typically) read this alt text. Maybe the
+because that will be clear from the screen reader.</p>
+<p>However, sighted people won't (typically) read this alt text. Maybe the
 text preceding this image says that Daniel Radcliffe plays Harry Potter,
-but a better way to do this would be to use a FIGURE and a CAPTION:
-
+but a better way to do this would be to use a FIGURE and a CAPTION:</p>
 <div>
 <div class="example">
     <figure>
@@ -1900,28 +2479,24 @@ but a better way to do this would be to use a FIGURE and a CAPTION:
 </pre>
 </div>
 
-In this case, the screen reader software can use the caption as the ALT
+<p>In this case, the screen reader software can use the caption as the ALT
 text, so we explicitly leave the ALT attribute empty, so that the blind
-visitor isn't read the same text twice.
-
-This figure with a caption is now better for both blind and sighted
+visitor isn't read the same text twice.</p>
+<p>This figure with a caption is now better for both blind and sighted
 visitors, an example of where accessibility can improve the experience for
-everyone.
-
-What about other uses of images, say with slideshows and galleries?  In
+everyone.</p>
+<p>What about other uses of images, say with slideshows and galleries?  In
 most cases, a similar approach will work: if the sighted visitor is
 expected to get some information from the picture, you should provide that
 same information in textual form. A gallery of pictures showing the
 executive board of your club, should have each person described with a
 caption. If the pictures are somewhat generic, it's reasonable to give a
 common caption ("picture from our annual soccer game") that will apply to
-all the pictures in the slideshow.
-
-If a picture is purely decorative (a picture of a soccer ball on the page
+all the pictures in the slideshow.</p>
+<p>If a picture is purely decorative (a picture of a soccer ball on the page
 describing the annual soccer game), the ALT text can be explicitly set to
 the empty string.  Alternatively, you can make the image be a background
-image using CSS:
-
+image using CSS:</p>
 <div>
    <style scoped>
    #soccerball {
@@ -1942,90 +2517,69 @@ image using CSS:
    &lt;div id="soccerball"&gt;&lt;/div&gt;
 </div>
 
-The advantage of a background image is that, using media queries, you can
-easily omit these decorative images when the screen size is small.
-
-## Videos and Audios
-
-Video and audio elements pose the same issues as still images. Blind
+<p>The advantage of a background image is that, using media queries, you can
+easily omit these decorative images when the screen size is small.</p>
+<h2>Videos and Audios</h2>
+<p>Video and audio elements pose the same issues as still images. Blind
 visitors won't be able to see your video, so it should have a textual
 transcript. Deaf visitors won't be able to hear the narration or speakers,
 so the video should have captioning.  This is not always easy or
 inexpensive. However, there is a benefit that search engines will be able
 to do a better job with indexing this content if the textual equivalent
-exists.
-
-## Hyperlinks
-
-We already know that hyperlinks shouldn't have "here" or "more" as the
+exists.</p>
+<h2>Hyperlinks</h2>
+<p>We already know that hyperlinks shouldn't have "here" or "more" as the
 click text. Screen readers often read links out of context, so the link
 text should stand on its own. However, there's a lot more to know about
-hyperlinks. Here are just a few items:
-
-* People expect that links are underlined. Unless the context makes the
+hyperlinks. Here are just a few items:</p>
+<ul>
+<li>
+<p>People expect that links are underlined. Unless the context makes the
   link obvious (a navigation bar), don't use CSS to remove the default
-  underline
-
-* An image that is a hyperlink will use the ALT text as the description of the hyperlink.
-
-* Don't say "link to X" or "go to Y"; the screen reader will indicate that the element is a hyperlink
-
-* 
-
-
-
-If you want to learn even more, I suggest [Making Accessible Links: 15
+  underline</p>
+</li>
+<li>
+<p>An image that is a hyperlink will use the ALT text as the description of the hyperlink.</p>
+</li>
+<li>
+<p>Don't say "link to X" or "go to Y"; the screen reader will indicate that the element is a hyperlink</p>
+</li>
+<li></li>
+</ul>
+<p>If you want to learn even more, I suggest [Making Accessible Links: 15
 Golden Rules for
-Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.
-
-## Labels for Form Controls
-
-Each form control (input element, such as a text input or a menu)
+Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.</p>
+<h2>Labels for Form Controls</h2>
+<p>Each form control (input element, such as a text input or a menu)
 needs to have a label. It can be tempting to omit the labels when you
-have placeholders and such, but labels are necessary.
-
-## Avoid Color
-
-
-
-## Non-HTML Content
-
-## Skip Links
-
-## Standards
-
-## Accessible JavaScript
-
-* don't use mouseover, mouseout and hover, since those are mouse-only
-* use :focus for links that are in focus
-
-## Accessible jQuery
-
-Many jQuery methods, such as `.hide()` and `.slideUp()` use the CSS
-setting `display:none` to achieve the hiding. That method means the
+have placeholders and such, but labels are necessary.</p>
+<h2>Avoid Color</h2>
+<h2>Non-HTML Content</h2>
+<h2>Skip Links</h2>
+<h2>Standards</h2>
+<h2>Accessible JavaScript</h2>
+<ul>
+<li>don't use mouseover, mouseout and hover, since those are mouse-only</li>
+<li>use :focus for links that are in focus</li>
+</ul>
+<h2>Accessible jQuery</h2>
+<p>Many jQuery methods, such as <code>.hide()</code> and <code>.slideUp()</code> use the CSS
+setting <code>display:none</code> to achieve the hiding. That method means the
 resulting content is inaccessible to a screen reader.  If you don't
 want that, a better idea is to add an after-event handler to the
 jQuery code to display the content but offscreen (or using one of the
-other techniques for hiding content).
-
-
-## Accessible Drop-down Menus
-
-## Accessible Slideshows
-
-
-
-
-## Conclusion
-
-Assistive software and hardware are always evolving, as are the CSS
+other techniques for hiding content).</p>
+<h2>Accessible Drop-down Menus</h2>
+<h2>Accessible Slideshows</h2>
+<h2>Conclusion</h2>
+<p>Assistive software and hardware are always evolving, as are the CSS
 techniques that attempt to help them while not hindering other
 visitors. The main thing is to consider accessibility when you are
 considering coding some fancy new interface: will it work if the user only
 has a keyboard? will it work if the user is blind? Will it work if the
 user has limited motor control? Sometimes, this will mean foregoing that
 fancy feature, but the goal of making our website for all instead of the
-lucky few is worth the price.
+lucky few is worth the price.</p>
 
 </article>
 
@@ -2037,7 +2591,19 @@ lucky few is worth the price.
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
 <script>
 $(".example-with-code").each(function (index,elt) {
    var src = $(elt).find(".example").html();

@@ -1,47 +1,65 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs -->
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210</title>
-  
-  <!-- Mobile Specific Metas -->
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Fonts -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
-
 <body>
-  <!-- Navigation Bar -->
-  <header>
-      <nav>
-        <div class="navitem"><a href="index.html">Home</a></div>
-        <div class="navitem"><a href="info.html">Class Info</a></div>
-        <div class="navitem"><a href="schedule.html">Schedule</a></div>
-        <div class="navitem"><a href="reference.html">Reference</a></div>
-      </nav> 
-  </header>
 
-  <!-- Start primary page content -->
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <div class="lecture">
-      
-<h3>Arrays, Objects, and Loops</h3>
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <h1>Arrays, Objects, and Loops</h1>
 
 <p>We will now continue to approach more concepts in JavaScript using comparisons from Python.</p>
       
-<hr>
-<h3>Arrays</h3>
+<h2>Arrays</h2>
 
 <p> Arrays are very useful to store collections of values together under one name. JavaScript arrays are equivalent to Python lists.</p>
 
@@ -90,8 +108,7 @@ animals.push("panda");
 </table>
 
 
-<hr>
-<h3>Objects</h3>
+<h2>Objects</h2>
 
 <p>An object is similar to an array, but instead of numbers as indices, you have strings as indices.</p>
 <p>JavaScript objects are very similar to Python dictionaries.</p>
@@ -134,9 +151,7 @@ zoo.bears = 25;
 
 <p>We will learn more about JavaScript objects as the course continues, as they play a huge role in the language.</p>
 
-<hr>
-
-<h3>Loops</h3>
+<h2>Loops</h2>
 
 <p>Here is the usual Python for-loop:</p>
 
@@ -153,7 +168,7 @@ for animal in animals:
 for (var animal of animals) {
   console.log(animal);
 }
-</pre></code> <hr>
+</pre></code>
         
 <p>Here is another type of loop in JavaScript that is quite common:</p>
 
@@ -174,7 +189,7 @@ for (var i = 0; i < animals.length; i++) {
   <li>Increment <code>i</code> by one. 
 </ol>
 
-<p>The loop stops when step number 2 no longer holds true, and animals.length > i.</p>  <hr>
+<p>The loop stops when step number 2 no longer holds true, and animals.length > i.</p>  
 
 <p>Finally, note that if you want to iterate over an objects keys and values, you would have to
 use the for-of loop:</p>
@@ -190,10 +205,36 @@ for (var animal in zoo) {
 // "zoo.dog = 25"
 // "zoo.wallaby = 3"</code></pre>
 
+</article>
 
 
+    </div><!-- end of row -->
 
-<hr>
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
 
 </body>
 </html>

@@ -2,38 +2,60 @@
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs -->
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210</title>
-  
-  <!-- Mobile Specific Metas -->
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Fonts -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
-
 <body>
-  <!-- Navigation Bar -->
-  <header>
-      <nav>
-        <div class="navitem"><a href="index.html">Home</a></div>
-        <div class="navitem"><a href="info.html">Class Info</a></div>
-        <div class="navitem"><a href="schedule.html">Schedule</a></div>
-        <div class="navitem"><a href="reference.html">Reference</a></div>
-      </nav> 
-  </header>
 
-  <!-- Start primary page content -->
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <div class="lecture">
-    <h3>How to Run JavaScript</h3>
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <h1>How to Run JavaScript</h1>
     
     <p>There are two main ways you will be integrating JavaScript into your HTML code:</p>
     <ol>
@@ -43,17 +65,15 @@
     
     <p>This is very similar to CSS, as you can use the <code>&ltstyle&gt</code> tag</li> or link an external CSS file. </p>
 
-<hr>
     <p>Below is how you would integrate JavaScript into HTML using the <code>&ltscript&gt</code> tag. 
     The JavaScript code is between the <code>&ltscript&gt</code> tags.
     Examine the code below, then switch to the results tab to see it run in action.</p>
-<iframe width="100%" height="300" src="//jsfiddle.net/ffbk7Lr4/8/embedded/html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe><hr>
+<iframe width="100%" height="300" src="//jsfiddle.net/ffbk7Lr4/8/embedded/html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
     <p>Showing another way, below is how you would use an external JavaScript file. 
     Examine the JavaScript and HTML files, then switch to the results tab to see it run in action.
     In CS 210, we will mostly be using external JavaScript files.</p>
     <iframe width="100%" height="300" src="//jsfiddle.net/ffbk7Lr4/7/embedded/js,html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-<hr>
 
 <p>If you took CS 111, you used Canopy as your editor. Canopy had a file editor area and a <b>console</b> (also known as a <b>shell</b>) 
 In CS 210, we are using cloud 9 as the editor and the <b>chrome browser</b> for its console, where you can evaluate single JavaScript expressions and test your code for outputs.</p>
@@ -65,11 +85,41 @@ In CS 210, we are using cloud 9 as the editor and the <b>chrome browser</b> for 
 </ol>
 
 
-<img alt="JavaScript console" src="images/console1.png" style="width:100%"><hr>
+<img alt="JavaScript console" src="images/console1.png" style="width:100%">
 <p>If you type any Javascript expressions into the console, it will works as well:</p>
 <img alt="JavaScript console" src="images/console3.png" style="width:100%">
 
-<p></p>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
 
 </body>
 </html>

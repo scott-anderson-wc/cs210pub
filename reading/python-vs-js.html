@@ -1,46 +1,69 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs -->
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210</title>
-  
-  <!-- Mobile Specific Metas -->
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Fonts -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
-
 <body>
-  <!-- Navigation Bar -->
-  <header>
-      <nav>
-        <div class="navitem"><a href="index.html">Home</a></div>
-        <div class="navitem"><a href="info.html">Class Info</a></div>
-        <div class="navitem"><a href="schedule.html">Schedule</a></div>
-        <div class="navitem"><a href="reference.html">Reference</a></div>
-      </nav> 
-  </header>
 
-  <!-- Start primary page content -->
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <div class="lecture">
-    <h3>Introduction to JavaScript for Python Users</h3>
-    <p>Python and JavaScript are actually quite similar languages. 
-    One major similarity is that they are both <b>interpreted</b> languages, in that when the code is run, 
-    each statement is checked statement-by-statement and executed in this fashion.
-    This is different from a <b>compiled</b> language, where the code 
-    is checked all at once by the compiler machine before it is run. CS 230 teaches Java, which is a compiled language. 
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <h1>Introduction to JavaScript for Python Users</h1>
+
+<p>Python and JavaScript are actually quite similar languages.  One major
+    similarity is that they are both <b>interpreted</b> languages, in that
+    when the code is run, each statement is checked statement-by-statement
+    and executed in this fashion.  This is different from
+    a <b>compiled</b> language, where the code is checked all at once by
+    the compiler machine before it is run. CS 230 teaches Java, which is a
+    compiled language.
    </p>
     
     
@@ -57,9 +80,8 @@
     
     <p>In this reading, we'll be highlighting some important differences between JavaScript and Python.</p>
     
-    <hr>
     
-    <h3>Syntactic Differences</h3>
+    <h2>Syntactic Differences</h2>
     
     <p>Python:</p>
     
@@ -88,9 +110,8 @@
     <p>In fact, sometimes JavaScript is <b>minified</b>, where all unnecessary characters are removed for faster performance. 
     But for readability, (as there will be humans reading your code, not just machines!) it's important to indent properly.</p>
     
-    <hr>
     
-    <h3>Type</h3>
+    <h2>Type</h2>
     
     <p>The type of values in JavaScript look like:</p>
     
@@ -113,8 +134,7 @@
 <p>We will be discussing more of these types as the course continues. For now, the links above take you to MDN's JavaScript documentation if you're interested. An interesting fact to note
 is that while Python has several numerical types (float, int, complex, etc.), JavaScript has only one, <code>Number</code>.</p>
  
-<hr>
-    <h3>Variable Declaration</h3>
+    <h2>Variable Declaration</h2>
     
     <p>Python:</p>
     <pre><code>animal = "cat"</code></pre>
@@ -165,9 +185,8 @@ wallaby
 <p>When you use <code>var</code>, you are declaring a new variable. Without <code>var</code>, you are referencing a previous variable.</p>
 <p>In general, JavaScript variables act quite similarly to Python variables. </p>
 
-    <hr>
     
-    <h3>Conditionals</h3>
+    <h2>Conditionals</h2>
     <p>Python:</p>
     
 <pre><code># Python conditionals
@@ -239,9 +258,8 @@ else {
   </tr>
 </table>
 
-<hr>
 
-<h3>Functions</h3>
+<h2>Functions</h2>
 
 <p>As you've seen earlier, JavaScript functions differ as it uses the key word <code>function</code> instead of <code>def</code>.
 </p>
@@ -270,8 +288,7 @@ var x = multiply(4,5)
 
 <p>We'll see how anonymous functions can be used in more practical applications later.</p>
 
-<hr>
-<h3>Built-in Functions</h3>
+<h2>Built-in Functions</h2>
 
 <p>Here are some useful built in functions and their JavaScript equivalent:</p>
 
@@ -316,8 +333,8 @@ var x = multiply(4,5)
     You need to import the random library for Python, while JavaScript's Math object is already built-in.</td>
   </tr>
 </table>
-    <hr>
-    <h3>Gotchas!</h3>
+
+    <h2>Gotchas!</h2>
     
     <p>An important fact is that you can add numbers and strings together in JavaScript, which is 
     unlike Python. Javascript turns the number into a string, concatenates the two together, and returns the resulting string.</p>
@@ -331,5 +348,37 @@ var piString = 3.14 + "1519" // Gets "3.141519"</code></pre>
 pi = parseFloat("3.14") // Gets 3.14
 </code></pre>
     
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
+
 </body>
 </html>

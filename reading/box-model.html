@@ -1,80 +1,686 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">        
-    <meta name="author" content="Scott D. Anderson and the CS110 Staff">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS110: Box Model</title>
-    <!-- use relative pathnames in #include so when this site is archived,
-         say as cs110f15, the include refers to the same file -->
-    <!--#set var="reltop" value="../" -->
-    <!--#include virtual="../modularity/bs-head-rel.part" -->
-<style>
-  .eg_box {
-          width: 50%;
-          margin: 10px;
-          border: 1px solid black;
-          padding: 10px;
-      }
+<head>
 
-  .tolkien_quote {
-          width: 480px;
-          font: 15px arial;
-   }
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
 
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <!-- 
+    Fall 2007: Lightly edited by Mark.  Some text tightening, remove
+    unnecessary quotation marks from English text, insert appropriate
+    quotation marks in sample HTML code :-)
+
+   January 2009, Scott:  Major revision to talk about the box model and such. 
+
+   Minor changes by Ellen for Fall '10
+
+   Sept 2011, Scott:  Added a lot more information about centering.
+  
+   Sep 2014, Eni: Moved content into new format.
+-->
+
+         <p>Page layout involves placing page elements (such as text and graphics)
+where you choose on a page.  In the past, page layout was done with
+special HTML tags, including tables. The modern approach is to separate
+the page layout from the page contents by using CSS.  This has the
+advantage that you can have different layouts for different media
+(screens, printouts, cellphones) as well as keeping the HTML clean and
+uncluttered for those users who don't use the CSS, such as a blind person
+who uses screen reading software.</p>
+  
+          <h2 id="boxes">Boxes</h2>
+          
+          <p>To understand page layout, you first have to understand that, to a web
+  browser, a web page is a series
+  of <a href="http://www.w3.org/TR/CSS2/box.html" title="the box
+  model">boxes</a>.  The boxes have a width and height, and they get
+  assembled (laid out) on the page, much the way Ben Franklin might have
+  laid out the text and pictures in his newpaper.
+
+</p><p>Boxes come in two kinds: <em>blocks</em> and <em>inline</em>.
+
+</p><p>A <em>block</em> is something big like a paragraph or
+a <code>&lt;div&gt;</code>.  Blocks are preceded and followed by line
+breaks, so Ben Franklin or the layout engine stacks them vertically on the
+page.  (Normally, a block doesn't have anything to the left or right,
+though we will see some exceptions later.)</p>
+
+<p>An <em>inline</em> element (box) is something like a word, where Ben
+Franklin or the layout engine fills up a line with as many as it can, then
+goes on to the next line, and so forth.  You may be surprised to learn
+that <code>&lt;img&gt;</code> elements are inline, so that a line is
+filled with as many images as will fit before starting the next line.
+(That's why centering an image is tricky; we'll look at that a bit later.)
+</p>
+
+<h2>DIV and SPAN</h2>
+
+<p>The <code>&lt;div&gt;</code> element is the generic <em>block</em> element. A
+  DIV can contain any other element, including other DIVs. You can nest
+  DIVs as deep as you want. It has no semantics, but we can style it by
+  using CSS (often adding an ID or a class to the element, to distinguish
+  it from other DIVs).  Because DIV is a generic container, we will often
+  use it to structure our pages. It will feature in many of the examples below.
+
+<p>The <code>&lt;span&gt;</code> element is the generic <em>inline</em>
+  element. As with DIV, span has no semantics, but we can style it using
+  CSS, and, of course, we can add ID and class if we want.
+
+<p>A span can contain other inline elements, including other spans, but no
+  inline element can contain a block element.  That means you can put EM
+  inside a P, but not vice versa. The browser may let you get away with
+  it, but the validator won't.
+
+<h2 id="mbp">Margins, Borders and Padding</h2>
+
+<p>The contents of a box can optionally be surrounded by a
+  border.  For example, the following CSS
+
+</p><pre><code class="css">p {
+    border: 2px dashed red;
+}
+</code></pre>
+
+<p>will put a 2 pixel dashed red line around the contents of each
+paragraph.
+
+</p><p><em>Padding</em> is the distance between the contents of the box and
+  the border.  By default, it's zero, but if you'd like a little more room
+  between your text and the border, you can increase it.  Even if you
+  don't have a border, padding can be used to increase the distance
+  between the contents of your box and the contents of any neighboring
+  boxes.
+
+  </p><p><em>Margins</em> are the distance between the borders and the
+  next element.  However, it's not quite as simple as that, because 
+  the margins for vertical elements
+  sometimes <a href="http://www.w3.org/TR/CSS2/box.html#collapsing-margins">collapse</a>.
+  Margin collapse means that if a box A has a bottom margin of X and is
+  followed by box B with a top margin of Y, the two
+  are <code>max(X,Y)</code> apart, not <code>X+Y</code>.  That sounds
+  weird, but it's usually what you want. If you specify that both have a
+  margin of <code>Z</code>, they will be <code>Z</code> apart rather
+  than <code>2*Z</code>.
+
+<h3>Example</h3>
+
+<p>Here's an example that does uses all these measures:
+<div class="eg_box">
+  <p>Now is the winter of our discontent, turned glorious summer by this
+  sun of York.
+  <p>Now is the time for all good men to come to the aid of their country.
+</div>
+
+<p>Here's the CSS. Notice we use a descendant selector, so as not to
+  modify every paragraph on the page.
+
+<pre class="prettyprint lang-css"><code class="css">
 .eg_box p {
-  border: 1px solid orange;
-  background-color: yellow;
-  padding: 5px 2em;
-  margin: 10px;
-  }
+   border: 1px solid orange;
+   background-color: yellow;
+   padding: 5px 2em;
+   margin: 10px;
+}
+</code></pre>
 
-  #bgimage {
-     background-image: url('box-model-files/wood-texture.jpeg');
-  }
+<p>Again, we've used short-hand properties. With padding and margins, if
+  you give one number, as we did with the margin, you get 10px on all four
+  sides. If you give two numbers, as we did with the padding, the first
+  one is the top and bottom, and the second is the left and right. If you
+  give <em>four</em> numbers, you can specify all four sides, in the order
+  top, right, bottom and left (clockwise from the top). So the following
+  is equivalent:
+  
+<pre class="prettyprint lang-css"><code class="css">
+.eg_box p {
+   border: 1px solid orange;
+   background-color: yellow;
+   padding: 5px 2em 5px 2em;
+   margin: 10px 10px 10px 10px;
+}
+</code></pre>
 
-#background_images {
-    background: url('box-model-files/cs110.png') no-repeat;
-    padding-left: 35px;
+<p>Note that margin-collapse means that the two paragraphs are 10px apart,
+  which is reasonable and easy to specify.  So margin-collapse is usually
+  a help rather than a hindrance.
+
+<p>You are probably wondering how to set all these distances.  There
+are CSS properties to control the thickness of each side of the box
+(margin, border, and padding) as well as the style of the border if
+there is a border.  There are also shorthand forms that let you define
+things more compactly.  Consult a
+good <a href="http://www.w3schools.com/css/css_reference.asp"
+title="CSS properties">reference on CSS properties</a>
+
+<h2 id="units">Lengths and Units</h2>
+
+<p style="text-indent: 0.5in;">Now that you've seen some CSS properties
+whose values are <em>lengths</em>, you'll want to know what values they
+can have.  For example, we indented this paragraph by half an inch.  It's
+the only indented paragraph in the site.  We did it using the following
+code:
+</p>
+          
+<pre<code class="html">>&lt;p style="text-indent: 0.5in"&gt;Now that you've seen some CSS properties ...
+</code></pre>
+
+<p>You might guess that <code>in</code> means <q>inches.</q> To
+specify lengths effectively, you need to know the <em>units</em> that
+CSS uses.  They come in several categories:
+
+</p><ul>
+
+<li><em>Ruler measures.</em> Inches (<code>in</code>), centimeters
+(<code>cm</code>), and millimeters (<code>mm</code>).
+
+</li><li><em>Pixels.</em> These measures are in pixels, so they're less
+flexible if the web page will be printed out onto paper, but they're
+useful on the web.  This unit is specified using <code>px</code>.
+
+</li><li><em>Printer units.</em> You probably know that font sizes are
+measured in <em>points,</em> as in a <q>12 point font.</q>
+One <em>point</em> is equal to 1/72 of an inch, and is specified by using
+<code>pt</code>.  
+
+</li><li><em>Font-relative units.</em> These measures are proportional to
+the size of the font, so they are bigger if the font is bigger, 
+and smaller if it's smaller.  This is great because visually impaired people
+may increase the font size to much greater than you'd ever expect, and
+you'd like the web page lengths to scale appropriately.  These are
+appropriate measures for, say, the distance between lines (called the
+<em>leading,</em> from strips of lead that were put between the rows of
+type back in the olden days of actual lead type).  The two font-relative
+sizes are <code>em</code> and <code>ex</code>.  The <code>em</code>
+measure is named for the width of the letter <q>M</q> in the current font,
+and in CSS is defined to be equal to the size of the font.  The
+<code>ex</code> measure is named for the height of the letter <q>x</q> in
+the current font, and in CSS is usually about half the size of the font.
+
+</li><li><em>Alternative Font-relative units.</em> The <code>EM</code> is
+        a good unit, but because it's inherited, and can be changed by
+        different ancestor elements, it can be constantly changing based
+        on its context.  Enter <q>Root EM</q> or <code>REM</code>
+        unit. It's always equal to the font-size specified on
+        the <code>HTML</code> element, which typically defaults to 16px on
+        most browsers. Thus, you can use 1rem as an equivalent to 16px,
+        but with the benefit that if the you or the user has changed the
+        default font size, your REM units will scale appropriately. Here
+        is a discussion of <a href="http://zellsk.com/blog/rem-vs-em/">REM
+        versus EM</a>, which suggests a set of simple rules and shows how
+        they play out.
+        <ol>
+            <li>Size in <code>em</code> if the property scales according
+            to its <code>font-size</code>
+                
+            <li>Size everything else in <code>rem</code>.
+        </ol>
+
+</li><li><em>Percentages.</em> These are best for elements whose size you 
+want to specify relative to the size of the enclosing element or the window.  
+
+<p>If you want a paragraph to be three-fourths the width of
+the enclosing <code>&lt;div&gt;</code>, you can use code like the
+following:
+
+<pre><code class="css">
+#content {
+   width: 800px;
+   margin-left: 100px;
 }
 
-#outer_box_example {  width: 400px; border: 3px solid blue; }
-#inner_box_example {  width: 250px; border: 2px solid red; margin: 0 auto; }
+#note {
+   width: 75%;
+   margin-left: 25%;
+}
+
+&lt;div id="content"&gt;
+   &lt;p&gt;Here's the usual contents of the page ...&lt;/p&gt;
+   ...
+   &lt;p id="note"&gt;And here is a narrow note on the right side.&lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>Look at the <a href="box-model-files/percentage.html" title="an example of setting paragraph widths using percentages">percentage example in action</a>.
+
+</ul>
+
+<h2 id="inline_images">Images are Inline Elements</h2>
+
+<p>Pictures (image elements, produced by the <code>&lt;img&gt;</code> tag)
+  are <em>inline</em> elements.  This may seem odd, since images look so
+  much like big box-like things, and therefore ought to be <em>block</em>
+  elements, but they are (by default), inline elements.  So, the browser
+  treats them like big words.  Here's an example:
+
+<div class="eg_box">
+  <p>Bonnie and Chester were enjoying a picnic on the
+  <img src="box-model-files/icons/grass.png" alt="grass">.  Suddenly the sky filled with dark
+  <img src="box-model-files/icons/ic_menu_cloud.png" alt="clouds">.  Soon, it began to
+  <img src="box-model-files/icons/weather-rain.png" alt="rain">.  When the
+  <img src="box-model-files/icons/Lightning.png" alt="lightning"> began, they decided to
+  head for
+  <img src="box-model-files/icons/home.png" alt="home">.
+</div>
 
 
-</style>
+<h2 id="centering">Centering Content</h2>
 
- </head>
-  <body>
-    <!--#include virtual="../modularity/navbar-rel.part" -->
-    
-    <div class="container">
-      <h1>Box Model <small>how elements are rendered on the page</small></h1>
-    </div>
-    
-    <div class="container">
-      <div class="row">
+<p>Before we get to more complex stuff, let's look at centering content,
+particularly images, since that's a common desire among CS110 students.
+  Let's start, though, with centering lines of text within a block.
+  Here's an eye chart:
+
+<div class="verbatim example">
+<div class="eg_box" style="text-align: center">
+  <span style="font-size: 60px">E</span><br>
+  <span style="font-size: 40px">F P</span><br>
+  <span style="font-size: 30px">T O Z</span><br>
+  <span style="font-size: 20px">L P E D</span><br>
+  <span style="font-size: 15px">P E C F D</span><br>
+  <span style="font-size: 12px">E F D C Z P</span><br>
+  <span style="font-size: 10px">F E L O P Z D</span><br>
+</div>
+</div>
+
+<p>All we had to do was to use the CSS property <code>text-align:
+    center</code>.  (Note that we used an inline style sheet in the
+    example code, just for brevity.  In practice, we would probably add a
+    class to this div and define it in an external style sheet).
+
+<p>Since images are just like big letters, the same trick will work with
+  images:
+  
+<div class="verbatim example">
+<div class="eg_box" style="text-align: center">
+  <img src="box-model-files/icons/grass.png" alt="grass"><br>
+  <img src="box-model-files/icons/ic_menu_cloud.png" alt="clouds">
+  <img src="box-model-files/icons/weather-rain.png" alt="rain">
+  <img src="box-model-files/icons/Lightning.png" alt="lightning"><br>
+  <img src="box-model-files/icons/home.png" alt="home">
+</div>
+</div>
+
+<h2 id="center_text">Centering Text</h2>
+
+<p>You should almost never center lines of text in a paragraph (unless
+you're making lots of eye charts).  You get ragged edges left and right,
+which looks ugly.  Also, depending on the font, amount of text and the
+width of the region, the last line may be weirdly short (and centered).
+Here's a <a href="http://www.quotationspage.com/quote/27745.html">Tolkien
+quote</a>:
+
+<div class="eg_box tolkien_quote" style="text-align: center;">
+  Do not meddle in the affairs of wizards, for they are subtle and quick
+  to anger.
+</div>
+
+<p>You probably don't want that single word centered on the second
+  line.  But that can happen (and all-too-often does) when you center text
+  and don't have complete control over browser-width, font-size, and the
+  like.
+
+<p>Instead, what you probably want is to have normal, left-aligned text in
+  a box that is itself centered.  Let's see how to center boxes.
+
+<h2 id="center_block">Centering a Block</h2>
+
+<p>To center a block, you have to give it a width that is smaller than
+  its parent (which might be the <code>&lt;body&gt;</code>), and setting its
+left and right margins to be <code>auto</code>.  <q>Auto</q> means to take
+the leftover space on the line and distribute it equally among the
+<q>auto</q> elements.  If both margins are <code>auto</code>, the element
+is centered.  Thus:
+
+<div id="outer_box_example">
+<p id="inner_box_example">
+  Do not meddle in the affairs of wizards, for they are subtle and quick
+  to anger.
+</p>
+</div>
+
+<p>Here's the code that accomplishes that:
+<pre class="prettyprint lang-css"><code class="css">
+#outer_box_example {  width: 80%; border: 3px solid blue; }
+#inner_box_example {  width: 70%; border: 2px solid red; margin: 0 auto; }
+</code></pre>  
+
+<p>This makes the browser calculate the necessary margin for centering,
+  and works even when the widths are in percentages. When the width is a
+  percentage, it is calculated as a percent of its <em>parent</em>, not
+  the whole window.  So in this case, the inner box is 70 percent of the
+  outer box, and the outer box is 80 percent of the area where this
+  paragraph is. You'll notice that the outer one is not centered, though. 
+
+<h2 id="center_image">Centering Images</h2>
+
+<p>An alternative technique for centering images is to use the same margin
+  trick that works for centering other block elements, such as the
+  paragraph above.  The difference is that <code>&lt;p&gt;</code> is
+  already a block element, while
+<code>&lt;img&gt;</code> is inline.  However, we can change an
+<code>&lt;img&gt;</code> element to be a block by using the
+<code>display: block</code> style.  That is, to make an image that
+is centered, use a style sheet that makes the image <a
+href="http://www.htmlhelp.com/reference/css/classification/display.html"><code>display</code></a>
+as a <code>block</code>, and sets the <a
+href="http://www.htmlhelp.com/reference/css/box/margin-left.html"><code>margin-left</code></a>
+and <a
+href="http://www.htmlhelp.com/reference/css/box/margin-right.html"><code>margin-right</code></a>
+to <code>auto</code>.
+
+<div class="verbatim example">
+<p>
+  <img src="box-model-files/buffypics/buffy.gif" style="display: block; margin-left: auto; margin-right: auto;" alt="Buffy Summers">
+  <img src="box-model-files/buffypics/angel.gif" style="display: block; margin-left: auto; margin-right: auto;" alt="Angel">
+</div>
+
+<p>Note that by making the <code>&lt;img&gt;</code> be <code>block</code>,
+they stack vertically, even without the <code>&lt;br&gt;</code> tags.  If
+we had tried to use the <code>text-align: center</code> technique, the two
+pictures would have appeared next to each other on the line. (Of course,
+that may be what you <em>want</em>, in certain circumstances.)
+
+<p>You should consult this web reference on <a
+href="http://www.w3.org/Style/Examples/007/center.html">Centering
+Things in CSS</a>.</p>
+
+<h2 id="width">Box Widths</h2>
+
+<p>Consider the following example of <a href="box-model-files/overfull-box.html">an
+overfull box</a>.  Look at the CSS for it.  Why does the browser have a
+horizontal scroll bar?  The box is 100% of the container, not 110%.</p>
+
+<p>The solution to this mystery is that the width of a box is defined to
+be the width of its <em>contents</em>, not the width of the box.  (If you
+think this is a stupid definition, you would find many who agree with you,
+but we're stuck with this definition.)  Thus, if you define a box to be
+100%, it had better not have any margin, border, or padding, or it will
+be <q>overfull</q>.</p>
+
+<p>One way to avoid the creation of overfull boxes is to nest two boxes, 
+set the width of the outer one, and
+then use the inner one to set the margins, border and padding.  By
+default, the dimensions of the inner box will be determined by the outer
+one, which is just what you want.  Here is an example of
+a <a href="box-model-files/full-box.html">full, not overfull box</a> created with this idea.
+          
+<!-- This material is taken from a new lecture written from scratch on Feb
+2014.-->
+
+<h2 id="background_images">Background Images</h2>
+
+<p id="bgimage">You have already seen the
+ property <code>background-image</code> in a few examples. The
+ background-image property will cover the screen area corresponding to
+ that element. If the image is smaller than the element, the image will be
+ repeated horizontally and vertically (like tiles on a floor), unless you
+ say it shouldn't be repeated.  This paragraph is put on a wooden
+ background image by using the following CSS:
+
+  <pre class="prettyprint lang-css"><code class="css">
+#bgimage {
+    background: url("wood-texture.jpeg");
+}
+</code></pre>
+
+<p>The header for this section also uses a background image. We make the
+  image not-repeat and slide the text over by using some padding (not
+  margin), like this:
+  
+  <pre class="prettyprint lang-css"><code class="css">
+#background_images {
+    background: url("cs110.png") no-repeat;
+    padding-left: 35px;
+}
+</code></pre>
+
+<p>You can learn more and try it out at this
+  page: <a href="http://www.w3schools.com/cssref/pr_background-image.asp">W3
+  Schools background image</a>.
+
+<h2 id="rounded_corners">Rounded Corners</h2>  
+
+<p>CSS3 introduces a way to round the corners of your elements using CSS
+  alone.  Each corner is treated as a quarter ellipse, which is defined by
+  a curve that is drawn between a point on the x-axis and a point on the
+  y-axis, as shown in the left graph below. A quarter ellipse can be
+  regular, which means the length along both axes is the same, or
+  irregular, which means the length along each axis is different (see
+  graph on the right).
+          
+          <div class="row">
+              <div class="col-md-6">
+                <figure class="text-center">
+                  <img src="box-model-files/quarter.png" alt="quarter ellipse"
+                 class="img-thumbnail">
+                  <figcaption>A quarter ellipse made by the curve between lengths on the x and y axes.</figcaption>
+                  </figure>
+              </div>
             
-         <!-- Three columns of the grid are reserved for the sidebar-->
-        <div class="col-md-3">
-          <div class="bs-sidebar hidden-print affix">
-            <nav id="insert_TOC_here" class="nav bs-sidenav">
-            </nav>
-          </div>
-        </div><!--end of "col-md-3" div-->
-                                        
-        <div class="col-md-9">      
-          <!--#include virtual="box-model-files/box-model.part" -->
-          <!--#include virtual="../modularity/footer.part" -->
+            <div class="col-md-6">
+                <figure class="text-center">
+                  <img src="box-model-files/rounded.png" alt="example of rounded corners"
+                 class="img-thumbnail">
+                  <figcaption>A regular curve (left) has identical values on both axes; 
+                    an irregular curve has different values on each axis.
+                  </figcaption>
+                  </figure>
+              </div>
+           </div>
 
-        </div><!--end of column -->
+<p>CSS3 introduced the <code>border-radius</code> property to implement
+  the rounded corners. Similar to the <code>border</code> property that
+  can be specified by
+  <code>-top</code>, <code>-right</code>, <code>-bottom</code>, and <code>-left</code>,
+  we can specifiy the x and y values for each corner separately. Below is a concrete
+  example:</p>
             
-      </div><!--end of "row"-->
+<pre class="prettyprint lang-css"><code class="css">
+div {
+    border-top-left-radius: 20px; 
+    border-top-right-radius: 20px; 
+    border-bottom-right-radius: 20px; 
+    border-bottom-left-radius: 20px;
+}
+</code></pre>
+
+<p>If only one value has been specified, that means that both x and y are
+  using the same radius. Otherwise, we will specify two values in every
+  line.  Clearly, if the radius is the same for all corners, we can simply
+  write the rule as: <code>{border-radius: 20px; }</code>. Additionally,
+  we can use the shorthand syntax to specify different values for x and y
+  using this syntax: <code>border-radius: { horizontal-radius /
+  vertical-radius; }</code>, where each side of the slash can contain
+  between one and four values, as with the shorthand for regular curves.
+</p>
+            
+<p>We have grouped different uses of this rule in one single page of 
+  <a href="box-model-files/css3_examples/ex4.html">rounded corner
+    examples</a>. Use the "View Source" on the browser (or Inspect Element) to
+  look at the syntax for every rule and what it achieves on the page.</p>
+
+
+<h2 class="line">Even more CSS</h2>
+
+<p>You can stop here; the following material is optional. There are some
+  fun, eye-candy effects that you can do with CSS3, but none of it is
+  necessary for a functional, nice-looking website.
+  
+<h2>Multiple Background Images</h2>
+
+<p>Here is the <a href="box-model-files/css3_examples/ex1.html">example of a page with one 
+    background image</a>, which was generated with this CSS rule:</p>
+
+<pre class="prettyprint lang-css"><code class="css">
+header {
+  height: 640px;
+  background: url('images/blue-sky.jpg') no-repeat;
+}
+</code></pre>
+          
+<p> To make things more interesting we can add other images on top of an
+existing background image, again, only using CSS3.
+
+<p>Here is a new page created by <a href="box-model-files/css3_examples/ex2.html">adding
+    the bird on the blue sky</a> from the previous example.</p>
+            
+          <p>This is the CSS rule we used:</p>
+<pre class="prettyprint lang-css"><code class="css">
+header {
+  height: 640px;
+  background: url('images/bird.png') no-repeat,
+              url('images/blue-sky.jpg') no-repeat; 
+}
+</code></pre>            
+
+        <p>Notice that we use a <code>,</code> to list all images that we want to appear
+            in the background. The order in which the images appear in this list is
+            very important. The image that needs to be behind everything else should be
+            last in this list as well. 
+          
+        <p>However, in order for the effect to look nice,
+            the foreground images need to have <em>transparent</em> background themselves.
+            Here is how our bird image looks like if you open it with a image processing
+            tool:</p>
+            <figure class="text-center">
+              <img src="box-model-files/bird_transparent.png" alt="image of a bird"
+                   class="img-thumbnail">
+            </figure>
  
-    </div> <!--end of container -->
-        
-    <!--#include virtual="../modularity/bs-footer-rel.part" -->
-  </body>
+        <p>The <code>background</code> property has multipe subproperties that 
+          are useful to create more interesting effects. For example, using
+          <code>background-position</code> we can place our bird in any 
+          location over the blue sky. Here is the <a href="box-model-files/css3_examples/ex2-1.html">
+          center bottom example</a>.
+          </p>
+          <p>We needed to add one line to our CSS rule:</p>
+<pre class="prettyprint lang-css"><code class="css">
+header {
+  height: 640px;
+  background: url('images/bird.png') no-repeat, 
+              url('images/blue-sky.jpg') no-repeat; 
+  <strong>background-position: center bottom, 0% 0%;</strong>
+}
+</code></pre>
+          <p>Because there are two images, we specify the position for both of them. This
+          property takes several values and you can play with them in this 
+          <a href="http://www.w3schools.com/cssref/playit.asp?filename=playcss_background-position">
+          interactive example from the W3Schools</a>.
+          </p>
+          
+          <p>Additionally, by using another property, <code>background-size</code>, we
+          can compose scenes with multiple images, as shown in this 
+            <a href="box-model-files/css3_examples/ex2-2.html">example with many 
+          flying birds</a>.</p>
+          
+<pre class="prettyprint lang-css"><code class="css">
+header {
+  height: 640px;
+  background: url('images/bird.png') no-repeat 5% 105%, 
+              url('images/bird.png') no-repeat 20% 60%, 
+              url('images/bird.png') no-repeat 40% 80%, 
+              url('images/bird.png') no-repeat 60% 40%, 
+              url('images/bird.png') no-repeat 70% 45%, 
+              url('images/bird.png') no-repeat 60% 50%, 
+              url('images/blue-sky.jpg') no-repeat 50% 50%; 
+  background-size: auto, 10%, 10%, 5%, 5%, 5%,  auto;
+}
+</code></pre>
+          
+          <p>The <code>background-size</code> property can also 
+            <a href="http://www.w3schools.com/cssref/css3_pr_background-size.asp">
+              take values of different kinds</a>. The values in % shown in our
+          example, refer to the size of the parent element of the background, in this case
+          <code>&lt;header&gt;</code>. Since its size is 960x650 pixels, a 10% image will show as
+          96x65 pixels. Finally, notice that in this example, we have added the 
+          <code>background-position</code> values to each image (after <code>no-repeat</code>).
+            Each of the pairs shows the left and top coordinate for where the image
+            is placed.
+          </p>
+          
 
+
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
+
+</body>
 </html>

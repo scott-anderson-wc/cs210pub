@@ -1,48 +1,67 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
-  <!-- Basic Page Needs -->
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210</title>
-  
-  <!-- Mobile Specific Metas -->
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Fonts -->
-  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
-
 <body>
-  <!-- Navigation Bar -->
-  <header>
-      <nav>
-        <div class="navitem"><a href="index.html">Home</a></div>
-        <div class="navitem"><a href="info.html">Class Info</a></div>
-        <div class="navitem"><a href="schedule.html">Schedule</a></div>
-        <div class="navitem"><a href="reference.html">Reference</a></div>
-      </nav> 
-  </header>
 
-  <!-- Start primary page content -->
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container">
-    <div class="lecture">
-      
-      
-      <h3>Reintroduction to JavaScript</h3>
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+    <h1>Reintroduction to JavaScript</h1>
+
       <p>You have seen JavaScript already in CS 115, but here's a review for CS 210. In JavaScript, 
       values have certain <b>types</b>, including (but certainly not limited to) numbers,
       strings, and booleans. We will first review those.</p>
       
-      <hr>
-      <h3>Numbers</h3>
+      <h2>Numbers</h2>
       
       <p><b>Numbers</b> are what you'd expect. For instance, the values below are of type <code>number</code>.</p>
       
@@ -68,8 +87,7 @@
       <p>The percent sign in the last example is a <b>modulo</b>, which means it taking the remainder. 10/3 is
       3, with a remainder of 1. So 10 modulo 3 is 1.</p>
       
-      <hr>
-      <h3>Strings</h3>
+      <h2>Strings</h2>
       
       <p>Strings are a sequences of characters. A string is indicated by its quotation marks.
       The values below are of type string.</p>
@@ -99,9 +117,8 @@
 // "CS 210 rocks!"
 // "Hello World!"</code></pre>
 
-<hr>
 
-<h3>Adding Numbers and Strings: Gotcha!</h3>
+<h2>Adding Numbers and Strings: Gotcha!</h2>
 
 <p>So what happens when you add number and strings together? JavaScript has something called
 <b>type coercion</b>. When you add a number and string together, the number is automatically 
@@ -119,9 +136,8 @@ converted to a string, and the two strings are added together. For example:</p>
 <p>This is something to be careful of. Make sure your types are correct when adding values together, 
 as you might get some unintended results if you add a number and a string.</p>
 
-<hr>
       
-      <h3>Variables</h3>
+      <h2>Variables</h2>
       
       <p>In programming languages, there are entities called <b>variables</b>. Think of variables as storage
       units that reference some value. A variable is written like so:</p>
@@ -133,9 +149,8 @@ as you might get some unintended results if you add a number and a string.</p>
       <p>Note that new variables always start with the key word <code>var</code>. If you want to reference
       an old variable, use the variable name (in this case, cat) without using var.</p>
       
-<hr>
 
-<h3>Booleans</h3>
+<h2>Booleans</h2>
 <p>Booleans are the values <code>true</code> and <code>false</code>.</p>
 
 <p>For instance,</p>
@@ -155,9 +170,8 @@ as you might get some unintended results if you add a number and a string.</p>
 
 <p><code>==</code> means equals, while <code>!=</code> means not equals. They are called <b>equality operators</b>.</p>
 
-<hr>
 
-<h3>Logical Operators</h3>
+<h2>Logical Operators</h2>
 
 <p>Boolean values can be tranformed and combined via three <b>logical operators.</b></p>
 
@@ -185,9 +199,8 @@ as you might get some unintended results if you add a number and a string.</p>
 // false
 </code></pre>
 
-<hr>
 
-<h3>Conditionals</h3>
+<h2>Conditionals</h2>
 
 <p>In JavaScript, there are conditional statements that decide what action to execute. For instance,</p>
 
@@ -232,9 +245,8 @@ else {
   letterGrade = "A";
 } </code></pre>
 
-<hr>
 
-<h3>Equals vs Gets: Gotcha!</h3>
+<h2>Equals vs Gets: Gotcha!</h2>
 
 <p>What's wrong with this code?</p>
 
@@ -248,9 +260,8 @@ indicates that its an equality operater that should be used for testing if two v
 A single equals sign is for varible declaration, such as <code>var grade = 100;</code>.
 </p>
 
-<hr>
 
-<h3>Functions</h3>
+<h2>Functions</h2>
 
 <p>A programming function is akin to a mathematical function in that you give an inputted value,
 and you receive an output.</p>
@@ -266,7 +277,7 @@ y value becomes 5. Here is the code equivalent:</p>
 addTwo(3);
 </code></pre>
 
-<p>The name of the JavaScript function is <code>addTwo</code>. You can give the function some value <code>x</code>, as indicated by the two parenthesis surrounding it. <code>x</code> is
+<p>The name of the JavaScript function is <code>addTwo</code>. You can give the function some value <code>x</code>, as indicated by the two parentheses surrounding it. <code>x</code> is
 called a <b>parameter</b>, because x can become any value that you input (3, 7, 8, etc.) That 
 <code>x</code> value is then added to 2, and stored in a variable called <code>y</code>. <code>y</code> is then <b>returned</b> from the function as
 the final result. The last line, <code>addTwo(3)</code> <b>invokes</b> the function, meaning that you 
@@ -286,51 +297,37 @@ returned (or sometimes not, depending on what you want. This is just capturing a
 layout.).
 </p>
 
-<!--
-<hr>
 
-<h4>Exercise: Rock, Paper, Scissors</h4>
+</article>
 
-In the two-player game, each player secretly
-chooses one of three values
-(rock, paper, scissors)
-and both players announce their choices at the same time. 
-The rules are: <br><br>
 
-<ul>
+    </div><!-- end of row -->
 
-<li><b>rock</b> beats <b>scissors</b>;
+  </div><!-- end of container -->
+ 
 
-<li><b>scissors</b> beats <b>paper</b>;
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<li><b>paper</b> beats <b>rock</b>;
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
 
-<li>a tie is declared if both players choose the same value. 
 
-</ul>
-
-<ol>
-
-<li>In the following program skeleton, assume that the variables <b>p1</b> and 
-<b>p2</b> each hold one of the three strings
-"rock", 
-"paper", 
-or "scissors"
-for player 1 and player 2, respectively. 
-Flesh out the program so that it pops up an alert box displaying 
-
-  <ul> 
-
-  <li> <b>players tie</b> if the players tie. 
-
-  <li> <b>player 1 wins</b> if player 1 wins
-
-  <li> <b>player 2 wins</b> if player 2 wins
-
-  </ul>
-  
-<iframe width="100%" height="300" src="//jsfiddle.net/2x604o5q/embedded/js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
--->
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
 
 </body>
 </html>

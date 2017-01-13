@@ -1,50 +1,346 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Discussion of URLs, both absolute and relative">
-    <meta name="author" content="Scott D. Anderson and the CS110 Staff">
-        
-    <title>CS110: URLs</title>
-    <!-- use relative pathnames in #include so when this site is archived,
-         say as cs110f15, the include refers to the same file -->
-    <!--#set var="reltop" value="../" -->
-    <!--#include virtual="../modularity/bs-head-rel.part" -->
- </head>
-  <body>
-    <!--#include virtual="../modularity/navbar-rel.part" -->
-    
-    <div class="container">
-      <h1>URLs &nbsp; <small>Uniform Resource Locators</small></h1>
-      <hr>
-      <div class="alert alert-info">
-        Reading: We strongly suggest you read chapters 2 and 4
-        of <em><a href="http://shop.oreilly.com/product/9780596159924.do">Head
-        First HTML and CSS</a></em> with these notes.
-      </div>
-    </div>
-        
-    <div class="container">
-      <div class="row">
-            
-         <!-- Three columns of the grid are reserved for the sidebar-->
-        <div class="col-md-3">
-          <div class="bs-sidebar hidden-print affix">
-            <nav id="insert_TOC_here" class="nav bs-sidenav">
-            </nav>
-          </div>
-        </div><!--end of "col-md-3" div-->
-                                        
-        <div class="col-md-9">
-          <!--#include virtual="URLs-files/URLs.part"-->
-          <!--#include virtual="../modularity/footer.part" -->
-        </div><!--end of "col-md-9"-->
-            
-      </div><!--end of "row"-->
-    
-    </div> <!--end of container -->
-        
-    <!--#include virtual="../modularity/bs-footer-rel.part" -->
-  </body>
+<head>
 
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/index.html">Home</a></li>
+                <li id="about"><a href="/about.html">About</a></li>
+                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
+                <li id="reference"><a href="/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<nav id="TOC" class="three columns">
+    TOC not yet implemented
+</nav>
+
+<article id="main" class="nine columns">
+
+              <h2 id="absolute">Absolute URLs</h2>
+          
+          <div>
+            URLs are used to specify the locations of resources in files on
+            any computer in the world, so they can be a little complex.
+            Taking as an example the URL of the page you are reading:
+          </div>
+          <p></p>
+          <blockquote>
+            <table class="table-bordered">
+              <tr>
+                <th>protocol</th>
+                <th>server.domain</th>
+                <th>path</th>
+                <th>filename</th>
+              </tr>
+              <tr>
+                <td><code>https://</code> </td>
+                <td><code>cs210.wellesley.edu</code></td>
+                <td><code>/reading/</code></td>
+                <td><code>URLs.html</code></td>
+              </tr>
+            </table>
+          </blockquote>
+          
+          <p>let's break it down in its components:</p>
+          
+          <ul>
+            <li><code>http://</code>&nbsp;This is the protocol, which is
+            almost always HTTP, the HyperText Transfer Protocol, or HTTPS,
+            its secure counterpart. You'll occasionally see FTP and
+            others.</li>
+            
+            <li><code>cs210.wellesley.edu</code>&nbsp; This is
+             the <em>server</em>: a machine connected to the internet that
+             hands out files to anyone who asks. <code>cs210</code> is the
+             name of the machine;
+             <code>wellesley.edu</code> is the domain. The name of the
+             server combined with the domain must be <em>unique</em> in
+             the <em>world</em>. In fact, the domain must be unique in the
+             world, and the server name must be unique within the
+             domain.</li>
+            
+            <li><code>/reading/</code>&nbsp;This is the
+             <em>path</em>: a sequence of directories (AKA folders),
+             separated by slashes, that indicates where on the server the
+             file is located. Here there is only one folder, but there
+             could be several.</li>
+          
+            <li><code>URLs.html</code>&nbsp;This is the file that is being
+            requested.</li>
+          </ul>
+          
+          <p>Because URLs can specify files on many different kinds of
+            computers, you should stick to a lowest common denominator when
+            naming your directories and files, to avoid confusing machines and
+            browsers. The lowest common denominator means:
+            
+          <ul>
+            <li>use letters and digits, but no special characters like /, *,
+            #, &amp;, and so forth</li>
+            <li><strong>no spaces</strong> (this is the most common error for Mac and PC
+            users). For example, if you want to have a web page named
+            <code>cats and dogs.html</code> you're much safer
+            with <code>cats-and-dogs.html</code> or
+            <code>cats_and_dogs.html</code></li>
+          
+          </ul>
+          
+          <p>Furthermore, be careful with upper and lower case. To your eyes,
+          <CODE>cats.html</CODE> and <CODE>Cats.html</CODE> may seem like the
+          same filename, but to a computer, they're as different as
+          <CODE>cats.html</CODE> and <CODE>dogs.html</CODE>. The same rule is true
+          of directory names: they are case-sensitive. Many people like to stick to
+          all lower-case, just so they don't have to remember. </p>
+          
+          <p>Certain parts of the end of an absolute URL can be omitted.
+          For example, the filename can be omitted and (usually) defaults
+          to a file named <code>index.html</code> in the specified
+          directory (for an example, see
+          our <a href="http://cs210.wellesley.edu/">course
+          homepage</a>). Similarly, the path can be omitted, in which case
+          the page is in the <q>top</q> directory of the web server.
+          However, <em>the protocol and server must be specified</em>. You
+          can't omit those.  If a URL has a protocol, it's an
+          <strong>absolute URL</strong>, otherwise it'll be treated as a 
+          <strong>relative URL</strong>.</p>
+            
+            
+          <h2 id="trees">Tree Structured Directories</h2>
+          
+          <p>As you know, most operating systems (including Mac, Windows, Unix, iOS, Android, etc.),
+            organize the contents of a computer's hard drive into 
+            <em>folders</em>, also called <em>directories</em>. Folders and files form
+            a <q>tree</q> structure, because of the ability of directories to contain
+            other directories.
+            
+            <p>Here's an example:
+              <blockquote>
+                For a website about <a href="http://en.wikipedia.org/wiki/Joss_Whedon">Joss Whedon</a>, 
+                we might have a folder about his
+                Buffy the Vampire Slayer TV show, another about the TV show Angel, and
+                a document about his comics.  These might all be in a top-level folder
+                called <q>Joss</q>.  (The top-level folder is also called
+                the <em>root</em> folder.) The folders about the TV shows might each have a
+                sub-folder called <q>cast</q>.  And so on.
+              </blockquote>
+            
+            <p>While it's easy to conceptualize a tree of folders and files, also
+              called a <em>directory tree</em>, there are many different ways to draw
+              it.  Here are several ways of depicting the <a href="Joss/">Joss directory tree</a>
+              described above that you will see in this course:
+              
+            <figure>
+              <img src="URLs-files/images/Joss-dirtree-hand-new.png" alt="Joss directory tree drawn by hand" 
+                   class="img-thumbnail center-block">
+              <figcaption>A hand drawing for the Joss Whedon website.</figcaption>
+            </figure>
+              
+            <figure>
+              <img src="URLs-files/images/Joss-dirtree-mac.png" alt="Joss directory tree on a Mac"
+                   class="img-thumbnail center-block">
+              <figcaption>The folder structure as displayed in Mac by <strong>Finder</strong>.</figcaption>
+            </figure>
+              
+            <figure>
+              <img src="URLs-files/images/Joss-dirtree-win.png" alt="Joss directory tree on Windows"
+                    class="img-thumbnail center-block">
+              <figcaption>The folder structure as displayed in Windows by <strong>Windows Explorer</strong>.</figcaption>
+            </figure>
+              
+            <p>For example, we can see that <code>buffy.html</code> and <code>willow.html</code> are both
+            files in the same directory, the one called <code>cast</code>, which is, in turn, one
+            of three things in the directory called <code>Buffy</code>, which is in the directory
+            called <code>Joss</code>. Joss contains two directories (Buffy and Angel) and a file
+            called <code>comics.html</code> and so on. Take a minute to be sure you understand
+            the relationships among the directories and files.  Notice that there
+            are <em>two</em> files named <code>angel.html</code>; this is okay, because they
+            are in different directories.</p>
+          
+          <H2 id="relative">Relative URLs</H2>
+
+          <p>We can use these relationships to form a shorthand way of
+          specifying a URL. This is called a <EM>relative</EM> URL, because we
+          specify the location of a file relative to a known file. Here are the
+          basic rules:
+          
+          <ol>
+             <li>Relative URLs are only for files on the same server.
+             Therefore, we can leave off the protocol and server name.
+             
+             <li>If a file is in the same directory as the HTML file containing
+             the link, we just give its name.  If
+             we want to put a link <EM>in</EM> the file <CODE>buffy.html</CODE>
+             linking it to <code>willow.html</code>, we can say:
+             
+            <pre class="prettyprint">
+              <code>&lt;a href="willow.html"&gt;her best friend Willow&lt;/a&gt;</code>
+            </pre>
+               
+               <li>If a file is in a sibling subdirectory, we can just give the
+               path starting from the sibling. So, if we are in the file called
+               <code>mythology.html</code> and we want to give a link to the file
+               <code>angel.html</code>, we can say:
+               
+            <pre class="prettyprint">
+              <code>&lt;a href="cast/angel.html"&gt;Angel, the vampire with a soul&lt;/a&gt;</code>
+            </pre>
+               
+               <li>If the file is in a directory that contains a subdirectory that 
+               contains the HTML file with the link,
+               we have to go <q>up</q> the tree. To go up, we
+               write <code>../</code>. That's <q>dot, dot, slash.</q> For example, if we
+               are in the file <code>host.html</code> and we want to make a link to
+               <code>season3.html,</code> we can say:
+               
+            <pre class="prettyprint">
+              <code>&lt;a href="../season3.html"&gt;the Host returned in season 3&lt;/a&gt;</code>
+            </pre>
+               
+               That last step, with the <code>..</code> is tricky: to go up, we write
+               <code>..</code>; while to go down we have to indicate which subdirectory
+               we mean. In either case, we separate these up/down steps with a
+               slash. Here's another example: suppose we want to put a link
+               from <code>buffy.html</code> to <code>comics.html</code>. In this case,
+               we can write:
+            
+            <pre class="prettyprint">
+            <code>&lt;a href="../../comics.html"&gt;another layer in the comics&lt;/a&gt;</code>
+            </pre>
+               
+          </ol>
+          
+          <h2 id="fragments">Fragments</h2>
+          
+          <p>The model above establishes a one-to-one correspondence
+            between a URL and a file (web page) somewhere in the vast web.
+            Sometimes, however, you want to address (point to) a
+            particular location <em>within</em> a page. Such locations are
+            called <em>fragments</em>.  Here is a link
+            to <a href="#fragments">this section of this page</a>
+            (actually the header of the section). Try it!</p>
+          
+          <p>While fragments can be used in many ways, one common use is to have
+            a <q>table of contents</q> at the top of a page, allowing readers to skip
+            down to the particular section they are interested in.  An example of
+            such a table of contents is at the left side of these notes.</p>
+          
+          <p>Fragments are addressed by extending the URL by adding
+            a <code>#</code> character and
+            the <a href="http://www.w3schools.com/tags/att_global_id.asp">id</a>
+            attribute of the fragment (the HTML element that we are
+            referring to).  Thus, we have:</p>
+          
+          <p>
+          <blockquote>
+            <table class="table-bordered">
+                <tr>
+                   <th>protocol</th>
+                   <th>server.domain</th>
+                   <th>path</th>
+                   <th>filename</th>
+                   <th>fragment id</th>
+                </tr>
+                <tr>
+                   <td><code>https://</code> </td>
+                   <td><code>cs210.wellesley.edu</code></td>
+                   <td><code>/reading</code></td>
+                   <td><code>URLs.html</code></td>
+                   <td><code>#relative</code></td>
+                </tr>
+            </table>
+          </blockquote>
+          
+          <p>One key step is marking the <em>destination</em> of the URL,
+            by <em>naming</em> the fragment, just as we name a file or folder. This
+            is done with the <code>id</code> attribute, which can be applied to
+            every HTML tag.  We typically add it to the header tag (such
+            as <code>h2</code>) of the section we want to skip to.  For example:
+          
+            <pre class="prettyprint">
+            <code>&lt;h2 id="relative"&gt;Relative URLs&lt;/h2&gt;</code>
+          </pre>
+          
+          <p>Given the code above, we can then point to that section from any web
+            page anywhere, using an absolute URL, like the one in the table above.
+            We can also use fragments with relative URLs.  For example, to point to
+            that section from another file in the same directory, we can just give
+            the filename and the fragment name: <code>URLs.html#relative</code>. In
+            fact, if we want to point to it from within the same file, we can omit
+            the filename and the relative URL becomes just <code>#relative</code>.
+            You can see examples of that kind of URL in the table of contents on the 
+            sidebar.
+
+       
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+</script>
+
+</body>
 </html>

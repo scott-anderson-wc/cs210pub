@@ -13,19 +13,20 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
+  <!-- CSS; should concatenate these into one file
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
   <link rel="stylesheet" href="/css/custom.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
 
 </head>
 <body>
@@ -49,12 +50,10 @@
         
 
 <nav id="TOC" class="three columns">
-    Not yet implemented
+    TOC not yet implemented
 </nav>
 
 <article id="main" class="nine columns">
-
-    <h1>Unknown</h1>
 
     <div class="alert alert-info">
 <p>(Reading: We strongly suggest you read chapters 1, 3, and 6
@@ -1338,7 +1337,19 @@ also use some newer tags that are intended to reduce the over-use of DIV.
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+<script src="/js/google-code-prettify/prettify.js"></script>
+<link rel="stylesheet" href="/css/desert.css">
+<script src="/js/custom.js"></script>
+<script>
+checkPreElements();
+trimPreElements();
+addPrettyPrintClass();
+addPreExamples();
+prettyPrint();
+</script>
+
+
 <script>
 $(".example-with-code").each(function (index,elt) {
    var src = $(elt).find(".example").html();
