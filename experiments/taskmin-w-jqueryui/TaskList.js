@@ -125,7 +125,9 @@ TaskList.readInstances = function () {
     return this;
 }
 
-// Putting them on the page.
+// Putting them on the page. This is also used for re-display when the
+// order changes, so we reset each one's taskId instance variable, so each
+// knows where it is in the list.
 
 TaskList.format = function () {
     var list = this.list;
@@ -134,6 +136,7 @@ TaskList.format = function () {
     var listElt = $("<ul>");
     for( var i in list ) {
         var task = list[i];
+        task.taskId = i;
         var elt = task.format(template);
         if (task.done) $(elt).addClass("done");
         listElt.append(elt);

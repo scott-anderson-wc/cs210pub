@@ -12,7 +12,22 @@ var example_task_list =
         {text: "Help Mom with her taxes",
          priority: "medium",
          duedate: "August 8, 2016 23:59",
+         tags: ["Mom"]
+        },
+        {text: "Ask about Norma",
+         priority: "high",
+         duedate: "Friday July 15, 2016 23:59",
+         tags: ["Mom"]
+        },
+        {text: "Connie's expenses",
+         priority: "low",
+         duedate: "Monday July 18, 2016 23:59",
          tags: ["personal"]
+        },
+        {text: "Try Alice's game",
+         priority: "high",
+         duedate: "July 26, 2016 23:59",
+         tags: ["work"]
         }
     ];
 

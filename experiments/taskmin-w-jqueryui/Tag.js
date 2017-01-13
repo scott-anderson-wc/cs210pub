@@ -15,7 +15,13 @@ var example_tag_list =
          color: "#2BFF9C"},
         {text: "work",
          abbr: "W",
-         color: "#FF2b9d"}
+         color: "#FF2b9d"},
+        {text: "Mom",
+         abbr: "M",
+         color: "#FFFA90"},
+        {text: "Alice",
+         abbr: "A",
+         color: "#6AB7FF"}
     ];
 
 // ================================================================
