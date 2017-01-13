@@ -23,6 +23,7 @@ if [ ! -x "bin/makepage.py" ]; then
     exit
 fi
 
+bin/makepage.py $force index.md 
 bin/makepage.py $force reading/*.md reading/*.part
 # special for the combined reading
 cd reading

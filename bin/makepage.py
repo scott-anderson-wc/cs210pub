@@ -91,8 +91,7 @@ if __name__ == '__main__':
                     content_lines.append(line)
             # all done
             content = os.linesep.join(content_lines)
-            render_args = {'TOC': 'Not yet implemented',
-                           'title': 'Unknown',
+            render_args = {'TOC': 'TOC not yet implemented',
                            'article': content}
         elif ext == 'md':
             # new Markdown file like Susan uses
@@ -105,10 +104,10 @@ if __name__ == '__main__':
                         ])
                 content = html
                 if src == 'index.md':
-                    render_args = {'content': content}
+                    print 'special for index.md'
+                    render_args = { 'article': content}
                 else:
-                    render_args = {'TOC': 'Not yet implemented',
-                                   'title': 'Unknown',
+                    render_args = {'TOC': 'TOC not yet implemented',
                                    'article': content}
         else:
             print 'Unknown file type', ext
