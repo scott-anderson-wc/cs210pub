@@ -24,7 +24,7 @@ var example_tag_list =
 // persistent TagList.
 
 var TagList = new PersistentList("TASKMIN-taglist");
-console.log("1. TagList is length "+TagList.list.length);
+console.log("1. TagList is length "+ TagList.list ? TagList.list.length : "empty");
 
 var Tag = function(inits) {
     if( this === window ) {

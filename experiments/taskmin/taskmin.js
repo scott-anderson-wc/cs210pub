@@ -252,16 +252,6 @@ $("#tasklist").on("click",
                       task.remove(taskElt);
                   });
 
-$("#tasklist").on("click",
-                  "button.more",
-                  function () {
-                      var taskElt = getTaskElt(this);
-                      var taskId = getTaskId(taskElt);
-                      gtarget = this; gtaskElt = taskElt; gtaskId = taskId;
-                      var task = TaskList.get(taskId);
-                      task.nyi(taskElt);
-                  });
-
 // ================================================================
 // Utility functions for working with the DOM task elements.
 
