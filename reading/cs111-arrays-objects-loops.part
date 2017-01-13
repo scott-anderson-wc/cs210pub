@@ -115,7 +115,7 @@ for (var animal of animals) {
         
 <p>Here is another type of loop in JavaScript that is quite common:</p>
 
-<img alt ="for-loop" src="images/forloop.png"> <br> <br>
+<img alt ="for-loop" src="../images/forloop.png"> <br> <br>
 
 <pre><code>var animals = ["cat", "dog", "wallaby"];
 
