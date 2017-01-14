@@ -68,6 +68,8 @@ if __name__ == '__main__':
             template = env.get_template('main.html')
         elif pathname_parts[0] == 'reading':
             template = env.get_template('reading.html')
+        elif pathname_parts[0] == 'lectures':
+            template = env.get_template('lectures.html')
         else:
             print "Don't know what module to use for this: ",src
             continue
