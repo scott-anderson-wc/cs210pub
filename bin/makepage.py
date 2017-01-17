@@ -102,7 +102,10 @@ if __name__ == '__main__':
                 # still need to recognize H2 (##) elements and built the TOC
                 html = markdown.markdown(text,
                                          extensions=[
-                        'markdown.extensions.fenced_code'
+                        'markdown.extensions.fenced_code',
+                        'markdown.extensions.toc',
+                        'markdown.extensions.sane_lists',
+                        'markdown.extensions.codehilite'
                         ])
                 content = html
                 if src == 'index.md':
