@@ -36,6 +36,7 @@ cal.add_info( "03Feb"
               ,makeLink("CSS: floats, flex layouts","reading/tbd.html")
               ,makeLink("activities","lectures/L04/")
              ,"BNR chapter 4"
+,"chapter 4 includes relative and absolute positioning, which may mean we don't need the lecture on 07Apr. Either that, or skip that part of chapter 4."
 );
 
 // day 5
@@ -74,6 +75,7 @@ cal.add_info("24Feb"
 cal.add_info( "28Feb"
               ,makeLink("Visual Effects with CSS", "reading/tbd.html")
               ,"BNR chapter 7"
+              ,"is this obviated by much of the JQ animations?"
               ,makeLink("activities","lectures/L10/")
 );
 
@@ -133,6 +135,7 @@ cal.add_info("04Apr"
 cal.add_info( "07Apr"
               ,makeLink("Animations and Absolute Positioning", "reading/tbd.html")
               ,makeLink("activities","lectures/L19/")
+,"might need to drop this; replace with what??"
 );
 
 // day 20
@@ -177,83 +180,68 @@ cal.add_info( "02May"
 // due dates
 
 cal.add_info(
-    "08Feb",
-    makeLink("H1:  MySQL", "homeworks/h1-MySQL.html", "due"));
+    "09Feb",
+    makeLink("A1:  personal web page", "assignments/web-page.html", "due")
+    ,"would have HTML, CSS no JS. Have sections to prepare for A2."
+);
 
 cal.add_info(
-    "15Feb",
-    makeLink("H2:  ER Diagrams", "homeworks/ER.html", "due"));
+    "16Feb",
+    makeLink("A2:  mobile web page", "assignments/mobile-page.html", "due")
+,"different layouts for different size devices, vertical for narrow, and horizontal for wide. Also should have a JS component, maybe not part of the web page, but a separate JS assignment like computing rock-paper-scissors winner");
 
 cal.add_info(
-    "01Mar",
-    makeLink("H3: Ajax", "homeworks/Ajax.html", "due"));
+    "23Feb",
+    makeLink("A3: conditional page content/styling", "assignments/dynamic-page.html", "due")
+,"Use Date object to have conditional content and styling. Have a single function, adjustPage(), that takes a date object and does everything. Page uses current date, but can be tested by supplying different values. They need to write a tester function, testAll(), as well. It should use confirm() to allow tester to continue or stop."
+);
 
 cal.add_info(
-    "07Mar",
-    makeLink("H4:  PHP", "homeworks/h4-PHP.html", "due"));
+    "02Mar",
+    makeLink("A4: page w/ event handlers", "assignments/event-handling.html", "due")
+    ,"Page with style selector buttons, like accessibility, but choosing light/dark, font-size and so forth. Extra credit to save selections to LocalStorage?"
+);
 
-cal.add_info("15Mar"
-    ,makeLink("H4 code review", "homeworks/h4-review.html", "due")
+cal.add_info(
+    "09Mar"
+    ,makeLink("A5: page w/ JQ animations", "assignments/animations.html", "due")
+    ,"Uses the visual effects transitions? Maybe something with closures instead? "
 );
         
 cal.add_info(
-    "22Mar"
-    ,makeLink("H5:  Python/Flask 1", "homeworks/h5-Python.html", "due")
+    "16Mar"
+    ,makeLink("A6:  Concentration/Names", "assignments/concentration.html", "due")
+    ,"I have a draft of this, based on an original by Ellen. Should be a fun game."
  );
 
-/*
 cal.add_info(
-    "09Nov",
-    makeLink("H5 code review", "homeworks/h5-review.html", "due"));
-*/
-
-cal.add_info("12Apr" ,makeLink("H6: Flask", "homeworks/hwk6-Flask.html", "due"));
+    "23Mar"
+    ,makeLink("A7:  Form Processing: Quizzes", "assignments/quizzes.html", "due")
+    ,"Allow the author to create a quiz for others to take. JQ array of questions, where each question is an object with a question, an array of possible multiple-choice answers and a solution"
+ );
 
 cal.add_info(
-    "19Apr",
-    "exam distributed","");
+    "06Apr" 
+    ,makeLink("A8: Twenty Questions", "assignments/expandable-forms.html", "due")
+    ,"I have a draft of this: build a 20-questions game that allows learning, where when the game loses, it asks for a distinguishing yes/no question and builds its tree."
+);
 
 cal.add_info(
-    "25Apr",
-    fakeLink("exam due","","due"));
+    "13Apr" 
+    ,makeLink("A9: Ajax; Ruhlman Data", "assignments/ruhlman-data.html", "due")
+    ,"I've used this in CS 304; I think we can create something pretty good here"
+);
 
-// ================================================================
-// project
-        
 cal.add_info(
-      "22Feb", makeLink("P0: Ideas", "project/proposals.html#ideas", "project"));
-                        
-   cal.add_info(
-       "10Mar", makeLink("P1: Proposal", "project/proposals.html#proposal", "project"));
-                        
-   cal.add_info(
-       "05Apr", makeLink("P2: Design and Plan", "project/p2-design-and-plan.html", "project"));
-                        
-   cal.add_info(
-      "19Apr", makeLink("P3: Draft Version", "project/p3-draft.html", "project"));
-                        
-   cal.add_info(
-      "05May", makeLink("P4: Alpha Version", "project/p4-alpha.html","project"));
+    "20Apr" 
+    ,makeLink("A10: Taskmin", "assignments/taskmin.html", "due")
+    ,"Needs some debugging, but I think this will make a good assignment"
+);
 
-   cal.add_info(
-       "12May",
-       makeLink("P5: Beta Version","project/p5-beta.html","project"),
-       makeLink("P6: Final Paper","project/p6-paper.html","project")
-   );
-
-// ================================================================
-// extras        
 cal.add_info(
-        "19May"
-        ,makeLink("Java Database Connection (JDBC)", "lectures/11-JDBC/")
-        ,makeLink("Java Servlets", "lectures/12-Java-Servlets/")
-     ,makeLink("CAS", "lectures/CAS/")
-     ,makeLink("XML", "lectures/19-XML/19.shtml")
-     ,makeLink("Procedures and Triggers", "lectures/23-Procedures-and-Triggers/")
-//     ,makeLink("OpenID", "lectures/OpenID/")
-     ,"<p>and maybe..."
-
-
+    "27Apr" 
+    ,makeLink("A11: Jelly Blobs of Doom", "assignments/jelly-blobs.html", "due")
+    ,"This is just about ready"
 );
 
 add_wellesley_semester_admin(cal); /* add admin dates */
