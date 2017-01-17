@@ -1,0 +1,66 @@
+/* thanks to stackoverflow/questions/9288802/avoid-page-break-inside-row-of-table */
+
+table.print-friendly tr th,
+table.print-friendly tr td {
+    page-break-inside: avoid;
+}
+
+.label-hwk { background-color: #d9534f; }
+
+.label-lecture { background-color: #428bca; }
+
+.label-project { background-color: #5cb85c; }
+
+.holiday { background-color: deepskyblue; }
+
+@media print {
+    /* light blue links look bad in printouts */      
+    a { color: black; }
+
+    /* don't print the hyperlink after a URL; it messes up the layout  */
+    a[href]:after { content: "" !important; }
+
+    /* this should already be in effect, but it isn't, so try again */
+    .navbar { display: none; }
+
+    body { padding-top: 0px; }
+
+    .noprint { display: none; }
+
+    table.print-friendly tbody tr td:before,
+    table.print-friendly tbody tr td:after {
+        content : "";
+        height: 4px;
+        display: block; 
+    }
+} /* end of media print */
+
+.label a { color:white }
+
+/* without the following, the hyperlinks don't wrap and the boxes
+   stretch to fit them, but then the table is too wide. */
+.label { white-space: normal; }
+
+/* table-cell is the default, but we override it for narrow devices */
+
+td, th {
+    display: table-cell;
+    table-layout: fixed;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+/* wide days are Tuesday, Wednesday and Friday */
+
+.calendar th:nth-of-type(1) { width: 5%; }
+.calendar th:nth-of-type(2) { width: 30%; }
+.calendar th:nth-of-type(3) { width: 30%; }
+.calendar th:nth-of-type(4) { width: 5%; }
+.calendar th:nth-of-type(5) { width: 30%; }
+
+@media (max-width: 30em) {
+    td, th { width: 100%; display: block; }
+    tr { width: 100%; display: block; }
+}
+
+
