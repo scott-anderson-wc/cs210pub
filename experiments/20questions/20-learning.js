@@ -1,9 +1,41 @@
 var twenty = {};
+twenty.url = 'tree2.text';       // the url for the default tree
 
-var tree = null;
+var tree = null;                // the tree of question nodes
+var curr = null;                // the current node
+
+/* function to add buttons to play the game or show the tree once the tree is loaded. */
+function addButtons() {
+    $("<button>")
+        .text("New Game")
+        .click(function () { twenty.play('#questions'); })
+        .appendTo("#controller_buttons");
+    $("<button>")
+        .text("Show Tree")
+        .click(function () { twenty.showTree("#treedisplay"); })
+        .appendTo("#controller_buttons");
+}
 
 function init () {
     tree = null;
+    $("#savedTree").click(function () {
+        twenty.getTree();
+        addButtons();
+        $(this).remove();
+    });
+    $("#defaultTree").click(function () {
+        twenty.readTree();
+        addButtons();
+        $(this).remove();
+    });
+    $('#questions').on('click','[data-ans]',
+                       function (event) {
+                           var ans = $(this).attr("data-ans");
+                           console.log("answer was "+ans);
+                           // remove this button and its twin
+                           $('#questions [data-ans]').remove();
+                           $('#questions').append(curr.nextQuestionDOM(ans));
+                       });
 };
 
 function parseTree(text) {
@@ -59,11 +91,11 @@ function showTree(selector) {
     $(selector).append(root);
 }
 
-function readTree(url, selector) {
+function readTree(selector) {
     if( !selector ) {
-        $.get(url, parseTree);
+        $.get(this.url, parseTree);
     } else {
-        $.get(url, function (text) { parseTree(text); showTree(selector); });
+        $.get(this.url, function (text) { parseTree(text); showTree(selector); });
     }
 }
 
@@ -172,3 +204,83 @@ twenty.play = play;
 twenty.saveTree = saveTree;
 twenty.getTree = getTree;
 twenty.showTree = showTree;
+
+// ================================================================
+
+function QuestionNode(question, yeschild, nochild) {
+    this.Q = question;
+    console.assert(yeschild instanceof QuestionNode || yeschild instanceof String)
+    console.assert(nochild instanceof QuestionNode || nochild instanceof String)
+    this.Y = yeschild;
+    this.N = nochild;
+}
+
+QuestionNode.prototype.askDOM = function () {
+    var elt = $('#questionTemplate > .question').clone();
+    elt.find('.subj').text(this.Q);
+    return elt;
+};
+
+function guessDOM(guess) {
+    var elt = $('#guessTemplate > .question').clone();
+    elt.find('.subj').text(guess);
+    return elt;
+}
+
+QuestionNode.prototype.nextQuestionDOM = function (ans) {
+    console.assert(ans == 'yes' || ans == 'no');
+    function nextQuestionDOM(child) {
+        if( child instanceof QuestionNode ) {
+            // ask another question
+            return child.askDOM();
+        } else {
+            // has to be a string
+            return guessDOM(child);
+        }
+    }
+    if( ans == 'yes' ) {
+        nextQuestionDOM(this.Y);
+    } else {
+        nextQuestionDOM(this.N);
+    }
+};
+            
+        
+function parseTreeNodes(text) {
+    text = text.trim();
+    gtext = text;
+    var lines = text.split("\n");
+    glines = lines;
+    function readNode() {
+        if( lines.length == 0 ) {
+            throw "error: out of lines";
+        }
+        var line = lines.shift();
+        gline = line;
+        var parts = line.trim().split(":");
+        var nodeType = parts[0];
+        console.log('nodetype: ',nodeType);
+        if( ['Q', 'YQ', 'NQ' ].indexOf(nodeType) != -1 ) {
+            // two children
+            var ychild = readNode();
+            var nchild = readNode();
+            var node = new QuestionNode(parts[1], ychild, nchild);
+            return node;
+        } else if ( ['YG', 'NG'].indexOf(nodeType) != -1 ) {
+            // leaf
+            console.log('Found leaf: ',line);
+            return parts[1];
+        } else {
+            throw 'Wrong node type: '+nodeType;
+        }
+    }
+    tree = readNode();
+};
+
+function readTreeNodes(selector) {
+    if( !selector ) {
+        $.get(this.url, parseTreeNodes);
+    } else {
+        $.get(this.url, function (text) { parseTreeNodes(text); showTree(selector); });
+    }
+}

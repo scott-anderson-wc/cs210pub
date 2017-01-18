@@ -51,7 +51,10 @@
                 <div id="treedisplay"></div>
 
 
-                <p><button id="newGame">New Game</button>
+                <p id="controller_buttons">
+                    <button id="savedTree">Use Saved Tree</button>
+                    <button id="defaultTree">Use Default Tree</button>
+                </p>
                 <div id="questions"></div>
 
 
@@ -67,12 +70,6 @@
 <script src="20-learning.js"></script>
 <script>
 twenty.init();
-if( confirm("use saved tree?") ) {
-    twenty.getTree();
-} else {
-    twenty.readTree("tree2.text", "#treedisplay"); // display afterwards
-}
-$("#newGame").click(function () { twenty.play('#questions'); });
 </script>
 
 
