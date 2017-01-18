@@ -182,24 +182,24 @@ cal.add_info( "02May"
 cal.add_info(
     "09Feb",
     makeLink("A1:  personal web page", "assignments/web-page.html", "due")
-    ,"would have HTML, CSS no JS. Have sections to prepare for A2."
+    ,"would have HTML, CSS no JS. Have sections to prepare for A2. Uses material from book chapters 2-3."
 );
 
 cal.add_info(
     "16Feb",
     makeLink("A2:  mobile web page", "assignments/mobile-page.html", "due")
-,"different layouts for different size devices, vertical for narrow, and horizontal for wide. Also should have a JS component, maybe not part of the web page, but a separate JS assignment like computing rock-paper-scissors winner");
+,"different layouts for different size devices, vertical for narrow, and horizontal for wide. Based on book chapters 4-5. Also should have a JS component, maybe not part of the web page, but a separate JS assignment like computing rock-paper-scissors winner");
 
 cal.add_info(
     "23Feb",
     makeLink("A3: conditional page content/styling", "assignments/dynamic-page.html", "due")
-,"Use Date object to have conditional content and styling. Have a single function, adjustPage(), that takes a date object and does everything. Page uses current date, but can be tested by supplying different values. They need to write a tester function, testAll(), as well. It should use confirm() to allow tester to continue or stop."
+,"Use Date object to have conditional content and styling. Have a single function, adjustPage(), that takes a date object and does everything. Page uses current date, but can be tested by supplying different values. They need to write a tester function, testAll(), as well. It should use confirm() to allow tester to continue or stop. Could also implement Rock-Paper-Scissors, using the code they wrote last time, plus some button-handler code we give them."
 );
 
 cal.add_info(
     "02Mar",
     makeLink("A4: page w/ event handlers", "assignments/event-handling.html", "due")
-    ,"Page with style selector buttons, like accessibility, but choosing light/dark, font-size and so forth. Extra credit to save selections to LocalStorage?"
+    ,"Page with style selector buttons, like accessibility, but choosing light/dark, font-size and so forth. Extra credit to save selections to LocalStorage? Or maybe this is the time to play Rock-Paper-Scissors?"
 );
 
 cal.add_info(
