@@ -12,11 +12,14 @@ change log:
 7/18 fixed a bug where content was just 'content' and not the variable value
 '''
 
+verbose = False
+
 import os,sys,re,codecs,markdown,re
 from jinja2 import Environment, FileSystemLoader
 
 def file_contents(filename):
     '''Returns contents of file as a string.'''
+    global verbose
     with codecs.open(filename,mode='rt',encoding='utf-8',errors='strict') as file:
         contents = file.read()
     return contents
@@ -27,8 +30,10 @@ if __name__ == '__main__':
         print "Usage: {cmd} [-force] file{{.md,.part}} ...".format(cmd=sys.argv[0])
         sys.exit(0)
 
+    verbose = '-verbose' in sys.argv
     force = '-force' in sys.argv
-    print 'force is ',force
+    if verbose:
+        print 'force is ',force
     if force:
         sys.argv.remove('-force')
 
@@ -52,7 +57,8 @@ if __name__ == '__main__':
         sys.exit()
 
     for src in sys.argv[1:] :
-        print 'processing ', src
+        if verbose:
+            print 'processing ', src
         
         pathname_parts = src.split('/')
         filename_parts = pathname_parts[-1].split('.')
@@ -66,7 +72,7 @@ if __name__ == '__main__':
         # eventually, analyze the src to determine what template to use
         if src == 'index.md':
             template = env.get_template('main.html')
-        elif pathname_parts[0] == 'reading':
+        elif pathname_parts[0] in ['reading','assignments']:
             template = env.get_template('reading.html')
         elif pathname_parts[0] == 'lectures':
             template = env.get_template('lectures.html')
@@ -79,7 +85,8 @@ if __name__ == '__main__':
             os.path.isfile(outfile) and
             os.stat(outfile).st_mtime > os.stat(src).st_mtime and
             os.stat(outfile).st_mtime > newest_template_time):
-            print "{src} is up-to-date -- skipping".format(src=src)
+            if verbose:
+                print "{src} is up-to-date -- skipping".format(src=src)
             continue
 
         content_lines = []
@@ -121,4 +128,6 @@ if __name__ == '__main__':
         with codecs.open(outfile, mode='wt', encoding='utf-8', errors='xmlcharrefreplace') as fout:
             fout.write( template.render(**render_args))
         print 'rendered to ', outfile
-    print 'all done'
+        os.chmod(outfile,0664)
+    if verbose:
+        print 'all done'

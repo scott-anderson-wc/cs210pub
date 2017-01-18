@@ -26,8 +26,12 @@ fi
 bin/makepage.py $force index.md 
 bin/makepage.py $force reading/*.md reading/*.part
 bin/makepage.py $force lectures/*/*.md 
-# special for the combined reading
+bin/makepage.py $force assignments/*/*.md
+# special for the combined reading. Need to put these in the correct order
 cd reading
-cat HTML.part URLs.part CSS1.part fonts.part accessibility.md > all.md
+cat cloud9.md HTML.part URLs.part CSS1.part fonts.part accessibility.md > all.md
 cd ..
 bin/makepage.py $force reading/all.md
+opendir reading
+opendir lectures
+opendir assignments
