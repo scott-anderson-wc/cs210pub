@@ -1,0 +1,10 @@
+Files in this directory are local caches of files that otherwise come from
+elsewhere on the web.  Having a local copy means that pages can load
+quicker, but we should make some regular effort to make sure they are
+up-to-date.
+
+This can be done by regularly (say, weekly) executing the update-cache.sh
+script in this directory.
+
+Scott D. Anderson
+November 16, 2010
