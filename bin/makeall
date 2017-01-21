@@ -17,10 +17,15 @@ if [ $1 != 'yes' ]; then
 fi
 
 if [ ! -x "bin/makepage.py" ]; then
-    echo "Can't find the bin/makepage.py script"
-    echo "Please run this script in the top git directory"
-    echo "That's the same directory as the .git dir and the .gitignore file"
-    exit
+    # in wrong directory. Try to find the right one
+    if [ -d /home/cs210/cs210pub/ ]; then
+        cd /home/cs210/cs210pub/
+    else
+        echo "Can't find the bin/makepage.py script"
+        echo "Please run this script in the top git directory"
+        echo "That's the same directory as the .git dir and the .gitignore file"
+        exit
+    fi
 fi
 
 bin/makepage.py $force index.md 
