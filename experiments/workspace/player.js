@@ -60,7 +60,4 @@ function Player(color, diameter) {
 
 }
 
-
-
-
 //var play = new Player("skyblue", 34);

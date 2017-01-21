@@ -25,10 +25,14 @@ body {
     font-family: 'Asap', sans-serif;
 }
 
-button {
+#start {
+/*
     position: absolute;
     top: 50%;
     left: 40%;
+*/
+    display: block;
+    margin: 10px auto;
     padding: 15px;
     background-color: tomato;
     border-radius: 10px;
