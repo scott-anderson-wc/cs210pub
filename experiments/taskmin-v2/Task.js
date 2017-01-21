@@ -101,6 +101,7 @@ Task.prototype.nyi = function (taskElt) {
 }
 
 // This method gets invoked when the user clicks on the "done" button
+// When a task is done, it gets the "done" tag added, which grays it out.
 
 Task.prototype.markDone = function (taskElt) {
     var index = this.taskId;

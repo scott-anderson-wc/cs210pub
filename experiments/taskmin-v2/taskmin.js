@@ -141,10 +141,14 @@ function addTask() {
 $("#done-add-task").click(function () { addTask(); $("#addtask-form").slideUp(); });
 $("#cancel-add-task").click(function () { $("#addtask-form").slideUp(); });
 
+$("#about-box").hide();
+$("#about-button").click(function () { $("#about-box").slideToggle(); });
+
 // the form is hidden when page loads; has to be opened explicitly
 $("#addtask-form").hide();
 
 $("#addtask-button").click(function () {
+    $("#addtask-form form")[0].reset(); // clear any old stuff in the form
     $("#addtask-form").slideToggle();
 });
     
@@ -323,8 +327,11 @@ function initializeAll() {
 }
 
 $("#reset-button").click(function () {
-    resetLocalStorage();
-    initializeAll();
+    if( confirm('are you sure you want to reset? '
+                + ' reset will clear all your tasks and replace with an initial list.')) {
+        resetLocalStorage();
+        initializeAll();
+    }
 });
 
 // ================================================================

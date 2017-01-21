@@ -68,7 +68,7 @@ PersistentList.prototype.show = function () {
 // ================================================================
 // List of Tasks
 
-var TaskList = new PersistentList("TASKMIN-tasklist");
+var TaskList = new PersistentList("TASKMIN-tasklist-v2");
 
 TaskList.sortKey = "taskId";    // the default.
 

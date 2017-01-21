@@ -19,8 +19,8 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/~cs210/css/normalize.css">
+  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"></script>
 
   <style>
@@ -62,7 +62,7 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="/~cs210/images/favicon.png">
 
 </head>
 <body>
@@ -81,34 +81,66 @@
     <div class="container">
         <div class="row">
             <div class="twelve columns">
-                <div id="mainButtons"><button type="button" id="addtask-button">Add Task</button>
-                <div id="addtask-form">
-                    <form action="">
-                        <h2>Add Task Form</h2>
-                        <ul>
-                            <li><label for="task-text">Description<br>
-                            <textarea id="task-text" rows="3"
-                            placeholder="task description"></textarea>
-                        </label>
-                        <li><label for="task-priority">Priority
-                            <select id="task-priority">
-                                <option>low</option>
-                                <option selected>medium</option>
-                                <option>high</option>
-                            </select>
-                        </label>
-                        <li><label for="task-due">Due Date
-                            <input type="date" id="task-due" placeholder="due date">
-                        </label>
-                        </ul>
-                        <!-- see
-                        http://uxmovement.com/forms/why-your-checkboxes-need-to-have-label-tags/ -->
-                        <h3>task tags</h3>
-                        <div id="task-tag-checkboxes">
-                            <!-- replaced by tags filled in dynamically -->
+                <div id="mainButtons">
+                    <button type="button" id="about-button">About</button>
+                    <div id="about-box">
+                        <p>This app allows you to administer your
+                        tasks. It should be mobile-friendly, so you can
+                        use it from your phone.
+                        <p>Each task you've entered appears in the list
+                        below. Tasks have a description, a priority and a
+                        due date. They can also have one or more tags so
+                        that you can categorize them, such as "personal",
+                        "work", or whatever.
+                        <p>You can sort the list by task number (order it
+                        was created), the due date, or by the main tag
+                        (the first tag). You can also sort it by dragging
+                        items up or down.
+                        <p>Each tag has three buttons on it. The checkbox
+                        means the task is completed, so Taskmin will add
+                        the "done" tag, which causes it to show as
+                        gray. The x means to delete the task. Both of
+                        these options follow up with an "undo" button. If
+                        you click the undo, the operation
+                        completes. Clicking anywhere else confirms the
+                        options. This avoids some troubles with accidental
+                        clicks. The + sign will bring up a list of other
+                        options, such as editing the task, but those are
+                        not yet implemented.
+                        <p>You can add your own custom tags, and edit the
+                        colors assigned to each one.
+                        <p>The reset button is just for development; it
+                        allows you to replace the current task list with a
+                        demo list that hopefully doesn't break the code.
+                    </div><!-- end of #aboutbox -->
+                    <button type="button" id="addtask-button">Add Task</button>
+                    <div id="addtask-form">
+                        <form action="">
+                            <h2>Add Task Form</h2>
                             <ul>
-                                <li><input type="checkbox" id="tag-personal" value="personal">
-                                    <label for="tag-personal">
+                                <li><label for="task-text">Description<br>
+                                        <textarea id="task-text" rows="3"
+                                                  placeholder="task description"></textarea>
+                                    </label>
+                                <li><label for="task-priority">Priority
+                                        <select id="task-priority">
+                                            <option>low</option>
+                                            <option selected>medium</option>
+                                            <option>high</option>
+                                        </select>
+                                    </label>
+                                <li><label for="task-due">Due Date
+                                        <input type="date" id="task-due" placeholder="due date">
+                                    </label>
+                            </ul>
+                            <!-- see
+                                 http://uxmovement.com/forms/why-your-checkboxes-need-to-have-label-tags/ -->
+                            <h3>task tags</h3>
+                            <div id="task-tag-checkboxes">
+                                <!-- replaced by tags filled in dynamically -->
+                                <ul>
+                                    <li><label for="tag-personal">
+                                            <input type="checkbox" id="tag-personal" value="personal">
                                         <span class="tag-abbr">P</span>
                                         <span class="tag-text">personal</span></label></li>
                             </ul>
@@ -117,8 +149,8 @@
                         <button type="button" id="cancel-add-task">Cancel</button>
                         <ul id="task-checkbox-template" style="display:none">
                             <!-- same as example above-->
-                            <li><input type="checkbox" id="tag-personal" value="personal">
-                                <label for="tag-personal">
+                            <li> <label for="tag-personal">
+                                    <input type="checkbox" id="tag-personal" value="personal">
                                     <span class="tag-abbr">P</span>
                                     <span class="tag-text">personal</span></label></li>
                         </ul>
@@ -190,7 +222,7 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <script src="//code.jquery.com/jquery-3.0.0.js"></script>
-<script src="bounds-plugin.js"></script>
+<script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
 <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <!-- Thanks to http://touchpunch.furf.com/ -->
 <script src="jquery.ui.touch-punch.min.js"></script>
