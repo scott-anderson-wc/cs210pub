@@ -8,5 +8,7 @@ auto-save-list
 .\#*
 # This file is automatically created by bin/makeall
 reading/all.md
+# These files are made from .part or .md files
 reading/*.html
 lectures/*/*.html
+assignments/*/*.html
