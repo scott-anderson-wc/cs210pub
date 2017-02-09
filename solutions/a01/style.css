@@ -1,0 +1,46 @@
+article {
+    margin: 10px 1em;
+}
+
+section {
+    padding: 0px 1em;
+}
+
+section img {
+    display: block;
+    width: 100%;
+}
+
+figure {
+    margin: 10px 2em;
+    border: 2px solid silver;
+    padding: 1em;
+}
+
+figcaption {
+    width: 80%;
+    margin: 5px auto;
+    text-align: center;
+    border: 1px solid black;
+    background-color: rgb(80%, 80%, 80%);
+    background-color: rgba(80%, 80%, 80%, 0.5);
+}
+
+
+.personal {
+    background-color: rgb(255, 200, 200);
+}
+.academic {
+    background-color: rgb(200, 255, 200);
+}
+.family  {
+    background-color: rgb(200, 200, 255);
+}
+
+ul.validation_icons {
+    list-style: none;
+}
+
+.validation_icons li {
+    display: inline;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>Quiz</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/~cs210/css/normalize.css">
+  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
+<!--  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/~cs210/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/~cs210/images/favicon.png">
+  <style>
+      #exam li { border: 1px solid blue; }
+
+      .correct { background-color: rgba(0,255,0,0.5); }
+      .wrong { background-color: rgba(255,0,0,0.5); }
+  </style>
+
+</head>
+<body>
+
+    <header>
+        <h1>Quiz</h1>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+
+        <ol id="exam"></ol>
+
+        <button id="checkall">Check All</button>
+
+    </div><!-- end of row -->
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="https://cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+  <script src="quiz.js"></script>
+  <script src="quiz1.js"></script>
+
+</body>
+</html>

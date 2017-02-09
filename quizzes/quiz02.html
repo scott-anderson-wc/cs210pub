@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/~cs210/css/normalize.css">
+  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
+  <link rel="stylesheet" href="/~cs210/css/glyphicons.css">
+  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css">
+  <link rel="stylesheet" href="/~cs210/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/~cs210/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/~cs210/index.html">Home</a></li>
+                <li id="about"><a href="/~cs210/about.html">About</a></li>
+                <li id="schedule"><a href="/~cs210/schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="/~cs210/syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="/~cs210/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns">
+
+    <ol class="questions">
+
+<li>I don't understand structural selectors
+
+<li>None!
+
+</ol>
+
+<h2 id="suggestions">Suggestions</h2>
+<ul>
+<li><a href="https://www.washington.edu/accesscomputing/webd2/student/unit3/module5/lesson1.html">very clear explanation of ID and class</a></li>
+<li><a href="http://www.w3schools.com/css/css_dimension.asp">CSS dimensions</a></li>
+</ul>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/~cs210/js/custom.js"></script>
+
+<script src="/~cs210/js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+</body>
+</html>

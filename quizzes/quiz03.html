@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS210: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/~cs210/css/normalize.css">
+  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
+  <link rel="stylesheet" href="/~cs210/css/glyphicons.css">
+  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css">
+  <link rel="stylesheet" href="/~cs210/css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/~cs210/images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="/~cs210/index.html">Home</a></li>
+                <li id="about"><a href="/~cs210/about.html">About</a></li>
+                <li id="schedule"><a href="/~cs210/schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="/~cs210/syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="/~cs210/reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns">
+
+    <ol class="questions">
+
+<li>Just a general overview of Flexbox would be nice! :)
+
+<li>Could we talk more about flexbox and its uses?
+
+<li>Could you explain the difference between flex boxes and regular
+containers, and also the meaning of the flex shorthand property (flex: 0 1
+auto)?
+
+<p>That property says "don't grow me, shrink me if needed, automatically
+calculate my size)
+
+<li>How to place items in a coordinate system
+
+<p>We'll definitely go over that. 
+
+<li>How can our formatting help or not help accessibility for different people?
+
+<p>Great question! The last day of class is devoted to accessibility, but
+we should be thinking about it throughout. Generally speaking, pages are
+presented by accessibility aids in source order, so rearranging things
+using CSS can be bad if it hides important stuff.  For example, putting
+the navigation last in the HTML and then using CSS to put it at the top of
+the page:  a blind visitor might have to read the whole page before
+getting to the navigation.  So far, I haven't seen anything they've done
+that impairs accessibility, but let's keep an eye on it.
+
+</ol>
+
+<h2 id="suggestions">Suggestions</h2>
+<ul>
+<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">flexbox</a></li>
+</ul>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="/~cs210/js/custom.js"></script>
+
+<script src="/~cs210/js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+</body>
+</html>

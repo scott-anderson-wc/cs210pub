@@ -1,0 +1,54 @@
+"The reading says that <div> is overused, but do the <section> tags etc have styling that is inherently connected to it? aka is <div> the simplest//most customizable container to divide content?
+
+
+
+Is the <head> not a visible component of the page? Just a directory of sorts to let the server know what it should look for? and then <header> would be the physical division at the top of a page w title etc?"
+
+No questions so far!
+No Answer
+No Answer
+Can we talk more about the terminal commands? 
+I do not currently have any questions, that I can think of. If I do think of something, I will bring them up in class :)
+No Answer
+NA
+No Answer
+What's the best way to place a line of text as a caption right below an image? Would this have to be styled through CSS?
+No Answer
+No Answer
+"When I attempted to validate the Ottergram HTML, it did not work because the link rerouted to a Cloud9 sign-in page. The validator analyzed the sign-in page, not the page I had created with the otter pictures.  I'm not sure if this is because I am working in a private workspace, or if this happens to all Cloud9 documents?
+
+
+
+Also, I could not get the favicon.ico to show up on the tab.  I generated a favicon.ico file, and put it in the same directory as index.html, but it is not showing when I run and click on the link.
+
+
+
+I noticed the HTML template for Cloud9 does not include the line <meta charset=""utf-8"">.  Is this because we are using the same browser for Cloud9 and the generated page? 
+
+
+
+I noticed the reading says that <img> tags are closed tags, but I noticed on Cloud9 when I typed img and hit tab, it automatically generated a close tab </img>. Is the </img> necessary?"
+
+
+================================================================
+
+"I read your companion and the book. 
+
+
+
+for question two on this quiz, is answer b supposed to be DIV divides *the page* into smaller pieces?"
+
+"I was exploring the Cloud9 site and bumped into this. Cool!
+
+https://cloud9-sdk.readme.io/docs/code-formatter"
+No Answer
+No Answer
+No Answer
+No Answer
+No Answer
+NA
+No Answer
+https://www.codecademy.com/learn/learn-html-css 
+No Answer
+No Answer
+When I had questions about HTML syntax/tags, I googled the tags and I found that w3schools.com was very helpful in defining the different tags. Otherwise, I do not have any other relevant resources. 

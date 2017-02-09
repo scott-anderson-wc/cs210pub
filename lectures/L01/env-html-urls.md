@@ -1,3 +1,5 @@
+[TOC]
+
 # Environment, HTML and URLs
 
 This is our first class, so we'll talk about the course, and then get
@@ -5,7 +7,7 @@ started setting up our environment and getting under way.
 
 ## About this Course
 
-The history is told on the [home page](../../index.html). In a nutshell:
+The history is told on the [about page](../../about.html). In a nutshell:
 
 * Like CS 110 (HTML, CSS, JS, JQ), but for those who know some programming
 * Prereqs are *either* CS 111 *or* CS 115
@@ -17,11 +19,12 @@ The history is told on the [home page](../../index.html). In a nutshell:
     * methods
     * arrays and dictionaries (Python) or arrays and objects (JavaScript)
 * I do *not* expect that you know much HTML or CSS. It always helps if you do, of course.
-* The plan is for this course to be renumbered CS 210 and be offered every year, maybe more.
+* The plan is for this course to be renumbered CS 204 and be offered every year, maybe more.
     
 ## Target Audience
 
-Intended to be a class for *beginners* in either CS or MAS, with just one prior course.
+Intended to be a class for *beginners* in either CS or MAS, with just one
+prior course.
 
 Similar to CS 230 rather than CS 304.
 
@@ -34,6 +37,13 @@ So, one difficulty is the range of skill and experience in the class.
 * I hope to avoid it being too boring and too challenging.
 * my aim is to aim for the lower end, so boring is more likely
 * you have been warned. :-)
+
+## What number is it?
+
+* Originally, we planned to number it 210, a souped-up version of 110
+* However, 110 doesn't exist and conceptually, it pairs better with 304, so
+* Now it's numbered 204,
+* But almost everything I've written says "210"; even this account
 
 ## Course Development
 
@@ -62,11 +72,21 @@ We will learn:
 * the DOM, which is how JavaScript controls the page, including HTML, CSS
 and event handling
 
+## Waiting list
+
+* If you're on the waiting list, write your name and year (e.g. '19) down
+* send me email if there are special circumstances that I should know, such as
+    * This could be the *only* CS class you'll have this semester
+    * You'll be abroad all next year
+    * something else
+* I can't promise anything, but I will do my best    
+
 ## Syllabus issues:
 
 * Communication: please read/use email every day. I'm old; it's what I use
 * Sakai for quizzes and for distributing grades
-* 
+* [syllabus](../../syllabus.html)
+* [schedule](../../schedule/schedule.html)
 
 ## Environment
 
@@ -84,45 +104,37 @@ Login now, please!
 
 ## Orientation
 
+We'll look around at the various parts of the C9 interface
+
 ## Workspace Creation
 
 We'll do this in class together, but if you want to do it beforehand,
 that's good too.
 
-* put in a workspace name. Call in cs210
-
+* put in a workspace name. Call it cs204
 * make it *private*
-
 * the default template is okay
-
 * create the workspace by clicking the big green button
 
 ## Looking around Workspace
 
-Here's what the workspace looks like:
-
-
-
+Launch your workspace and we'll look around.
 
 * Menus on the top like a desktop Integrated Development Environment (IDE)
   application. That will all you to create, edit, and save files,
-
 * files and folders on the left hand side
-
 * right hand side has links to share, collaborate, etc
-
 * shell on the bottom, for executing commands. We won't use that a lot.
-
 * A JavaScript REPL is there on the bottom, too. We'll use that a lot.
 
 ## Using a Workspace
 
-* They have some "getting started" info. It's worth doing:
+They have some "getting started" info. It's worth doing:
 
-    1 Open the hello-world.html file by double-clicking
-    2 Click on Preview button to see it live
-    3 Change something, save, and watch the preview
-    4 have fun!
+1. Open the hello-world.html file by double-clicking
+1. Click on Preview button to see it live
+1. Change something, save, and watch the preview
+1. have fun!
 
 ## Stuff to Notice
 
@@ -168,11 +180,8 @@ Save the result and try it. Do both links work?
 
 * Note that you'll have to *run* the application to get the links to work;
 the preview shows structure and style, but isn't quite complete.
-
 * Click on the `Run` menu then look in the console at the bottom.
-
 * Click on the URL shown there
-
 * Click on `open` not `open in preview`
 
 ## Relative URLs
@@ -194,8 +203,7 @@ Now, we'll look at the new location:
 1. open the `hello` folder in the file browser
 1. open the `hello-world.html` file
 1. run it (click on the green circle with the white arrow)
-1. open the file in a new browser tab by clicking on the URL in the lower
-console
+1. open the file in a new browser tab by clicking on the URL in the lower console
 1. notice that the URL now has `/hello/` spliced in
 1. try both the `fred` and `george` links. Which one worked? Why?
 
@@ -208,23 +216,63 @@ together, including
 * links to other web pages
 
 There are two main kinds:
+
 * Absolute URLs work from anywhere
 * Relative URLs work when starting from current page
 
-Examples of Absolute:
-    * `https://www.wellesley.edu/cs/curriculum` includes protocol, domain and path
-    * `//www.wellesley.edu/cs/curriculum` uses default protocol (same as referencing page)
-    * `/cs/curriculum` uses default protocol and domain
+Examples of Absolute URLs:
 
-Examples of Relative:
-    * `curriculum` is a sibling of current page
-    * `cs/curriculum` is a child of a sibling
-    * `../mas` is a sibling of a parent
+* `https://www.wellesley.edu/cs/curriculum` includes protocol, domain and path
+* `//www.wellesley.edu/cs/curriculum` uses default protocol (same as referencing page)
+* `/cs/curriculum` uses default protocol and domain
+
+Examples of Relative URLs:
+
+* `curriculum` is a sibling of current page
+* `cs/curriculum` is a child of a sibling
+* `..` is a parent folder, but you'd never do that in practice
+* `../mas` is a sibling of a parent
 
 The reason that `george.html` worked and `/fred.html` didn't work is that
 the latter is an absolute URL, so that when we moved the files, the
-absolute URL was no longer correct, but the relative one *was*.
+absolute URL was no longer correct, but the relative one was *still correct*.
 
 In general, use relative URLs for related parts of a project.
 
-[Learn more about URLs](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL)
+[Learn more about
+URLs](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL)
+
+## Share your workspaces with me!
+
+Create *two* workspaces, one public and one private:
+
+1.  use the private one for assignments. You can share it with your partner,
+  but no one else will be able to look at it, so your work is secure (you
+  don't want other students cheating off you -- unlikely but possible)
+1. use the public one for work in class and other occasions when your code
+  is not your own
+
+You can create other workspaces if you want, for other projects, but the
+free C9 service limits you to one *private* workspace, so use the private
+one for CS 204 assignments
+
+But, please *share* your workspaces with me and with our tutor. You can
+share it read-write (RW) or read-only (R), but I recommend RW so that, if
+necessary, the tutor and I can modify your files. Please share with these
+two email addresses
+
+* `scott.anderson@wellesley.edu`
+* `ghu@wellesley.edu`
+
+## About our book
+
+* They use Atom and Node for local development and preview. We aren't.
+* You can install them on your own laptop if you want; no support
+* After the first two chapters, it won't make any difference
+* We'll start with chapter 2
+
+## To Do
+
+* send me an introductory email
+* plan to visit me in office hours sometime
+* get a copy of the book. Read chapter 2 and our supplement for Friday
