@@ -28,15 +28,28 @@ if [ ! -x "bin/makepage.py" ]; then
     fi
 fi
 
+# files are sometimes saved as anderson; change them to be owned by cs210
+yes | find . -type f -user anderson -exec claim {} \;
+
 bin/makepage.py $force index.md 
+bin/makepage.py $force about.md 
+bin/makepage.py $force syllabus.md 
+bin/makepage.py $force reference.md 
 bin/makepage.py $force reading/*.md reading/*.part
 bin/makepage.py $force lectures/*/*.md 
 bin/makepage.py $force assignments/*/*.md
+bin/makepage.py $force quizzes/*.md
 # special for the combined reading. Need to put these in the correct order
 cd reading
-cat cloud9.md HTML.part URLs.part CSS1.part fonts.part accessibility.md > all.md
+cat cloud9.md ch02.md ch03.md ch04.md > all.md
 cd ..
 bin/makepage.py $force reading/all.md
+
+# So damn tired of permission issues
+
 opendir reading
 opendir lectures
 opendir assignments
+opendir images
+opendir downloads
+opendir quizzes

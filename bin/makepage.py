@@ -70,11 +70,12 @@ if __name__ == '__main__':
         outfile = '/'.join(pathname_parts)
 
         # eventually, analyze the src to determine what template to use
-        if src == 'index.md':
+        if len(pathname_parts) == 1:
+            # this is for top-level files like index and about
             template = env.get_template('main.html')
         elif pathname_parts[0] in ['reading','assignments']:
             template = env.get_template('reading.html')
-        elif pathname_parts[0] == 'lectures':
+        elif pathname_parts[0] in ['lectures','quizzes']:
             template = env.get_template('lectures.html')
         else:
             print "Don't know what module to use for this: ",src
