@@ -193,7 +193,7 @@ cal.add_info(
 cal.add_info(
     "16Feb",
     makeLink("A2:  mobile web page", "../assignments/a02/a02.html", "due")
-,"different layouts for different size devices, vertical for narrow, and horizontal for wide. Based on book chapters 4-5. Also should have a JS component, maybe not part of the web page, but a separate JS assignment like computing rock-paper-scissors winner");
+// ,"different layouts for different size devices, vertical for narrow, and horizontal for wide. Based on book chapters 4-5. Also should have a JS component, maybe not part of the web page, but a separate JS assignment like computing rock-paper-scissors winner");
 
 cal.add_info(
     "23Feb",
