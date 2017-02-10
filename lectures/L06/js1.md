@@ -107,7 +107,7 @@ I'll invoke `choose_v1(3,4)` in my public workspace and we'll see how it works.
 
 You can then do the same.
 
-l## Local Variables
+## Local Variables
 
 Write a function that takes three arguments: the subtotal of the restaurant bill, the tax rate, and a string describing the service (great or not). It should compute and return the total bill.
 
@@ -129,7 +129,9 @@ function total_bad(subtotal, rate, service) {
 
 ## Arrays
 
- ```
+Arrays are very easy in JS, very similar to Python's lists.
+
+```
 :::JavaScript
 var primes = [ 2, 3, 5, 7 ];
 console.log(primes[0]);
