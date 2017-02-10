@@ -6,7 +6,7 @@ We have a variety of prior experience with JavaScript, so if some of this is too
 
 1. Quiz questions
 1. Exercise 1: math functions
-1. Exercise 2: Curried functions
+1. Exercise 2: Debugging
 1. Exercise 3: Arrays and Loops
 1. Exercise 4: Sorting Arrays
 
@@ -50,43 +50,53 @@ function foo(a,b) {
 
 Write a function named `line` that takes three arguments and implements a linear function like this:
 
-```y = m x + b```
+```
+y = m x + b
+```
 
 Test it with m=2, b=1, x=3.
 
 <div class="hidden_from_student">
+<pre> 
 function line(m, x, b) {
     return m * x + b;
 }
+</pre>
 </div>
 
 Write a function named `parabola` that takes four arguments and implements a quadratic function like this:
 
-```y = a x^2 + b x + c```
+```
+y = a x^2 + b x + c
+```
 
 Test it with a=2, b =3, c=5 and x=-1
 
 <div class="hidden_from_student">
+<pre> 
 function parabola(a, b, c, x) {
      return a * x *x + b * x + c;
 }
+</pre>
 </div>
 
 Write a  recursive function named `choose` that takes two arguments and implements n choose k like this:
 
 ```
 f(n,k) = f(n-1,k)+f(n-1,k-1) if n>1
-if(n,1) = n
+f(n,1) = n
 f(n,0) = 1
 f(n,n) = 1
 ```
 
 <div class="hidden_from_student"> 
+<pre> 
 function choose(n,k) {
     if( k == n || k == 0 ) return 1;
     if( k == 1 ) return n;
     return choose(n-1,k) + choose(n-1,k-1);
 }
+</pre>
 </div>
 
 ## Debugging with breakpoints
@@ -104,6 +114,7 @@ Write a function that takes three arguments: the subtotal of the restaurant bill
 We'll look at my `total_bad` function. Why is it bad?
 
 <div class="hidden_from_student">
+<pre> 
 function total_bad(subtotal, rate, service) {
     tax = subtotal * rate;
     if( service == "great" ) {
@@ -113,6 +124,7 @@ function total_bad(subtotal, rate, service) {
     }
     return subtotal + tax + tip;
 }
+</pre>
 </div>
 
 ## Arrays
@@ -140,6 +152,7 @@ Write a function `range` to create an array from 1 to `n`; just like
 Python's function.
 
 <div class="hidden_from_student">
+<pre> 
 function range(n) {
     var nums = [];
     for( var i = 1; i <= n; i++ ) {
@@ -147,6 +160,7 @@ function range(n) {
     }
     return nums;
 }
+</pre>
 </div>
 
 ## Functions as arguments.
@@ -154,6 +168,7 @@ function range(n) {
 Write a function `computeCurve` to compute a math function on an array of inputs.
 
 <div class="hidden_from_student">
+<pre> 
 function computeCurve(domain, func) {
     var range = [];
     for ( var i = 0; i < domain.length; i++ ) {
@@ -161,15 +176,18 @@ function computeCurve(domain, func) {
     }
     return range;
 }
+</pre>
 </div>
 
 Let's create functions `line23` and `curve234` and use them with this
 function:
 
 <div class="hidden_from_student">
+<pre>
 function line23(x) {  return line(2,x,3); }
 
 function curve234(x) { return parabola(2,3,4,x); }
+</pre>
 </div>
 
 ## Search
