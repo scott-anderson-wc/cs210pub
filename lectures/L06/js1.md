@@ -57,7 +57,7 @@ y = m x + b
 Test it with m=2, b=1, x=3.
 
 <div class="solution">
-<pre> 
+<pre class="codehilite"> 
 function line(m, x, b) {
     return m * x + b;
 }
@@ -73,7 +73,7 @@ y = a x^2 + b x + c
 Test it with a=2, b =3, c=5 and x=-1
 
 <div class="solution">
-<pre> 
+<pre class="codehilite"> 
 function parabola(a, b, c, x) {
      return a * x *x + b * x + c;
 }
@@ -90,7 +90,7 @@ f(n,n) = 1
 ```
 
 <div class="solution"> 
-<pre> 
+<pre class="codehilite"> 
 function choose(n,k) {
     if( k == n || k == 0 ) return 1;
     if( k == 1 ) return n;
@@ -114,7 +114,7 @@ Write a function that takes three arguments: the subtotal of the restaurant bill
 We'll look at my `total_bad` function. Why is it bad?
 
 <div class="solution">
-<pre> 
+<pre class="codehilite"> 
 function total_bad(subtotal, rate, service) {
     tax = subtotal * rate;
     if( service == "great" ) {
@@ -152,7 +152,7 @@ Write a function `range` to create an array from 1 to `n`; just like
 Python's function.
 
 <div class="solution">
-<pre> 
+<pre class="codehilite"> 
 function range(n) {
     var nums = [];
     for( var i = 1; i <= n; i++ ) {
@@ -168,7 +168,7 @@ function range(n) {
 Write a function `computeCurve` to compute a math function on an array of inputs.
 
 <div class="solution">
-<pre> 
+<pre class="codehilite"> 
 function computeCurve(domain, func) {
     var range = [];
     for ( var i = 0; i < domain.length; i++ ) {
@@ -183,7 +183,7 @@ Let's create functions `line23` and `curve234` and use them with this
 function:
 
 <div class="solution">
-<pre>
+<pre class="codehilite">
 function line23(x) {  return line(2,x,3); }
 
 function curve234(x) { return parabola(2,3,4,x); }

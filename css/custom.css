@@ -121,3 +121,15 @@ padding, thanks to a rule in skeleton.css. */
 .questions > li { border-top: 1px solid teal; font-weight: bold; }
 li p { font-weight: normal; }
 li { font-weight: normal; }
+
+/* for hidden solutions */
+
+.hidden {
+    padding: 5px;
+    border: 2px solid orange;
+    border-radius: 5px;
+}
+
+.hidden * {
+    display: none;
+}
