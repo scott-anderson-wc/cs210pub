@@ -19,29 +19,29 @@ cal.add_info( "24Jan"
 
 // day 2
 cal.add_info( "27Jan"
-             ,makeLink("First Project, HTML and some CSS","../reading/tbd.html")
+             ,makeLink("First Project, HTML and some CSS","../reading/ch02.html")
              ,makeLink("activities","../lectures/L02/")
              ,"BNR chapter 2"
 );
 
 // day 3
 cal.add_info( "31Jan"
-              ,makeLink("CSS: box model, inheritance, fonts", "../reading/tbd.html")
+              ,makeLink("CSS: box model, inheritance, fonts", "../reading/ch03.html")
               ,makeLink("activities","../lectures/L03/")
               ,"BNR chapter 3"
 );
 
 // day 4
 cal.add_info( "03Feb"
-              ,makeLink("CSS: floats, flex layouts","../reading/tbd.html")
+              ,makeLink("CSS: floats, flex layouts","../reading/ch04.html")
               ,makeLink("activities","../lectures/L04/")
              ,"BNR chapter 4"
-,"chapter 4 includes relative and absolute positioning, which may mean we don't need the lecture on 07Apr. Either that, or skip that part of chapter 4."
+//,"chapter 4 includes relative and absolute positioning, which may mean we don't need the lecture on 07Apr. Either that, or skip that part of chapter 4."
 );
 
 // day 5
 cal.add_info( "07Feb"
-              ,makeLink("Mobile and Responsive; Media Queries","../reading/tbd.html")
+              ,makeLink("Mobile and Responsive; Media Queries","../reading/ch05.html")
               ,makeLink("activities","../lectures/L05/")
               ,"BNR chapter 5"
 );
@@ -75,7 +75,7 @@ cal.add_info("24Feb"
 cal.add_info( "28Feb"
               ,makeLink("Visual Effects with CSS", "../reading/tbd.html")
               ,"BNR chapter 7"
-              ,"is this obviated by much of the JQ animations?"
+//              ,"is this obviated by much of the JQ animations?"
               ,makeLink("activities","../lectures/L10/")
 );
 
@@ -135,7 +135,7 @@ cal.add_info("04Apr"
 cal.add_info( "07Apr"
               ,makeLink("Animations and Absolute Positioning", "../reading/tbd.html")
               ,makeLink("activities","../lectures/L19/")
-,"might need to drop this; replace with what??"
+//,"might need to drop this; replace with what??"
 );
 
 // day 20
@@ -187,7 +187,7 @@ cal.add_info( "02May"
 cal.add_info(
     "09Feb",
     makeLink("A1:  personal web page", "../assignments/a01/a01.html", "due")
-    ,"would have HTML, CSS no JS. Have sections to prepare for A2. Uses material from book chapters 2-3."
+//    ,"would have HTML, CSS no JS. Have sections to prepare for A2. Uses material from book chapters 2-3."
 );
 
 cal.add_info(
@@ -198,37 +198,49 @@ cal.add_info(
 cal.add_info(
     "23Feb",
     makeLink("A3: conditional page content/styling", "../assignments/dynamic-page.html", "due")
-,"Use Date object to have conditional content and styling. Have a single function, adjustPage(), that takes a date object and does everything. Page uses current date, but can be tested by supplying different values. They need to write a tester function, testAll(), as well. It should use confirm() to allow tester to continue or stop. Could also implement Rock-Paper-Scissors, using the code they wrote last time, plus some button-handler code we give them."
+// ,"Use Date object to have conditional content and styling. Have a single function, adjustPage(), that takes a date object and does everything. Page uses current date, but can be tested by supplying different values. They need to write a tester function, testAll(), as well. It should use confirm() to allow tester to continue or stop. Could also implement Rock-Paper-Scissors, using the code they wrote last time, plus some button-handler code we give them."
 );
 
 cal.add_info(
     "02Mar",
     makeLink("A4: page w/ event handlers", "../assignments/event-handling.html", "due")
-    ,"Page with style selector buttons, like accessibility, but choosing light/dark, font-size and so forth. Extra credit to save selections to LocalStorage? Or maybe this is the time to play Rock-Paper-Scissors?"
+//     ,"Page with style selector buttons, like accessibility, but choosing light/dark, font-size and so forth. Extra credit to save selections to LocalStorage? Or maybe this is the time to play Rock-Paper-Scissors?"
 );
 
 cal.add_info(
     "09Mar"
     ,makeLink("A5: page w/ JQ animations", "../assignments/animations.html", "due")
-    ,"Uses the visual effects transitions? Maybe something with closures instead? "
+//    ,"Uses the visual effects transitions? Maybe something with closures instead? "
 );
         
 cal.add_info(
     "16Mar"
     ,makeLink("A6:  Concentration/Names", "../assignments/concentration.html", "due")
-    ,"I have a draft of this, based on an original by Ellen. Should be a fun game."
+//    ,"I have a draft of this, based on an original by Ellen. Should be a fun game."
  );
 
 cal.add_info(
     "23Mar"
     ,makeLink("A7:  Form Processing: Quizzes", "../assignments/quizzes.html", "due")
-    ,"Allow the author to create a quiz for others to take. JQ array of questions, where each question is an object with a question, an array of possible multiple-choice answers and a solution"
+//    ,"Allow the author to create a quiz for others to take. JQ array of questions, where each question is an object with a question, an array of possible multiple-choice answers and a solution"
  );
 
 cal.add_info(
     "13Apr" 
-    ,makeLink("A8: Twenty Questions", "../assignments/expandable-forms.html", "due")
-    ,"I have a draft of this: build a 20-questions game that allows learning, where when the game loses, it asks for a distinguishing yes/no question and builds its tree."
+    ,makeLink("A8: Jelly Blobs of Doom", "../assignments/jelly-blobs.html", "due")
+    ,"This is just about ready"
+);
+
+cal.add_info(
+    "20Apr" 
+    ,makeLink("A9: Twenty Questions", "../assignments/expandable-forms.html", "due")
+//    ,"I have a draft of this: build a 20-questions game that allows learning, where when the game loses, it asks for a distinguishing yes/no question and builds its tree."
+);
+
+cal.add_info(
+    "27Apr" 
+    ,makeLink("A10: Learning Tree", "../assignments/expandable-forms.html", "due")
+//    ,"I have a draft of this: build a 20-questions game that allows learning, where when the game loses, it asks for a distinguishing yes/no question and builds its tree."
 );
 
 /*
@@ -240,16 +252,11 @@ cal.add_info(
 */
 
 cal.add_info(
-    "20Apr" 
-    ,makeLink("A9: Taskmin", "../assignments/taskmin.html", "due")
-    ,"Needs some debugging, but I think this will make a good assignment"
+    "12May" 
+    ,makeLink("Project: Taskmin", "../assignments/taskmin.html", "due")
+//    ,"Needs some debugging, but I think this will make a good assignment"
 );
 
-cal.add_info(
-    "27Apr" 
-    ,makeLink("A10: Jelly Blobs of Doom", "../assignments/jelly-blobs.html", "due")
-    ,"This is just about ready"
-);
 
 add_wellesley_semester_admin(cal); /* add admin dates */
 
