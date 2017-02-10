@@ -49,7 +49,7 @@ cal.add_info( "07Feb"
 // day 6
 cal.add_info( "10Feb"
               ,makeLink("JS Intro and Review","../reading/path.html")
-              ,makeLink("activities","../lectures/L06/")
+              ,makeLink("activities","../lectures/L06/js1.html")
 );
 
 // day 7

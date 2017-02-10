@@ -47,6 +47,7 @@ bin/makepage.py $force reading/all.md
 
 # So damn tired of permission issues
 
+opendir schedule
 opendir reading
 opendir lectures
 opendir assignments
