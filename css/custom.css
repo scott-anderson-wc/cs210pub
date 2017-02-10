@@ -124,12 +124,16 @@ li { font-weight: normal; }
 
 /* for hidden solutions */
 
-.hidden {
-    padding: 5px;
+.solution {
+    padding: 10px;
     border: 2px solid orange;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .hidden * {
     display: none;
+}
+
+.shown * {
+    display: initial;
 }
