@@ -7,17 +7,25 @@
 	padding: 5px;
 }
 
+/* Ultimately, make this responsive, so that we can play on a small screen */
+
+#left { float: left; width: 80%; }
+#right { float: left; width: 20%; }
+
 #pics {
-	margin-right: 5%;
-    width: 700px;   /* 140px * 5, so five in each row */
+
 }
 
-#pics img {
+#pics figure {
     display: block;
+    width: 20%;
     height: 150px;
-    width: 120px;
     float: left;
     padding-right: 20px;
+}
+
+#pics figure img {
+    width: 100%;
 }
 
 #names p {

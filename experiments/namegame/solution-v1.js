@@ -11,6 +11,9 @@
 // start the game, firstelt is defined so that it can be used to save
 // the id of the first element clicked in a pair of clicks
 
+// All images are loaded but hidden, so that only one is shown at a time,
+// along with the list of names.
+
 var tries = 0;
 var matches = 0;
 var click = 1;
@@ -23,13 +26,14 @@ function newGame() {
     matches = 0;
     updateStatus();
     var objs = shuffleArray(classList);
+    // all images are present but hidden. 
     for( i in objs ) {
         var obj = objs[i];
         var acct = obj.acct;
-        $("<img>")
-            .attr("src","cs307f16/"+acct+".jpg")
-            .attr("data-info",obj)
-            .appendTo("#pics");
+        var img = $("<img>")
+                .attr("src","cs307f16/"+acct+".jpg")
+                .attr("data-index",i);
+        $("<figure>").append(img).appendTo("#pics");
     }
     var objs = shuffleArray(classList);
     for( i in objs ) {
@@ -38,7 +42,7 @@ function newGame() {
         $("<p>")
             .text(name)
             .attr("data-info",obj)
-            .appendTo("names");
+            .appendTo("#names");
     }
 }
   
@@ -122,10 +126,12 @@ function ajaxFail(xhr, ajaxOptions, thrownError) {
 }
 
 function loadClassList() {
-    $.getJSON("cs307f16/cs307-fa16.json",
+    $.getJSON("cs307f16/cs307-fa16-edited.json",
               function (data) { 
+                      /*
                   var discard = data.pop();
                   console.log("discarding "+discard);
+                       */
                   classList = data; 
                   newGame(); }).fail(ajaxFail);
     return;
