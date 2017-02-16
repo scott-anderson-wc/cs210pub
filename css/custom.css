@@ -137,3 +137,26 @@ li { font-weight: normal; }
 .shown > * {
     display: block;
 }
+
+textarea {
+    font-family: monospace;
+    font-size: 10px;
+    height: auto;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+input[value=Execute it] {
+    background-color: #1EAEDB;
+}
+
+table.border {
+    border: 1px solid black;
+}
+
+.exercise {
+    border: 2px solid deepskyblue;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #d3f2f8;
+}
