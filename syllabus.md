@@ -128,6 +128,16 @@ the number of A's, B's, C's etc., and every student will be assigned
 the grade they earn and deserve according to the grading standards of
 the college.
 
+## Lateness Policy
+
+Because it's both important to do the work but also to avoid falling
+behind, I'm establishing the following lateness policy.
+
+Lateness penalties:
+
+* 10% per day for the first five days late, but
+* 50% off maximum
+
 ## How to succeed in the course
 
 * Prepare to spend at least 10 hours every week.
