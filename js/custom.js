@@ -10,10 +10,11 @@ function addPrettyPrintClass() {
     });
 }
 
-/* Eventually, we won't need this function, I hope. */
+/* Eventually, we won't need this function, I hope. No, the PRE elements created by Markdown have multiple children, so we'll just ignore this. */
 
 function checkPreElements() {
     $("pre").each(function () {
+        return;
         if( this.childElementCount != 1 ) {
             alert("PRE with multiple children: "+this.innerHTML);
         } else if( this.firstChild.nodeName !== "CODE" ) {
@@ -57,3 +58,22 @@ function addPreExamples() {
         $(dstElt).text($(this).html().trim());
     });
 }
+
+
+/* ================================================================ */
+// Top margin for fragments
+
+/* If the URL has #id in it, that part of the page will scroll to the top
+ * of the browser window, but because of our damn nav bar at the top,
+ * it'll be hidden behind the nav bar. So, this bit of code adds a
+ * margin-top to the target element (and only the target element), so that
+ * it'll be visible. */
+
+function addMarginTopToFragment() {
+    var hash = document.location.hash;
+    if( hash ) {
+        console.log("adding a margin-top to "+hash);
+        $(hash).css('margin-top','100px');
+    }
+}
+
