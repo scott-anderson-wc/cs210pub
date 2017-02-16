@@ -28,7 +28,7 @@ In CS 210, we are using cloud 9 as the editor and the <b>chrome browser</b> for 
 </ol>
 
 
-<img alt="JavaScript console" src="images/console1.png" style="width:100%">
+<img alt="JavaScript console" src="../images/console1.png" style="width:100%">
 <p>If you type any Javascript expressions into the console, it will works as well:</p>
-<img alt="JavaScript console" src="images/console3.png" style="width:100%">
+<img alt="JavaScript console" src="../images/console3.png" style="width:100%">
 
