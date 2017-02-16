@@ -17,7 +17,8 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="/~cs210/css/normalize.css">
   <link rel="stylesheet" href="/~cs210/css/skeleton.css">
-<!--  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css"> -->
+  <link rel="stylesheet" href="/~cs210/css/glyphicons.css">
+  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css">
   <link rel="stylesheet" href="/~cs210/css/custom.css">
 
   <!-- Favicon
@@ -38,6 +39,7 @@
                 <li id="home"><a href="/~cs210/index.html">Home</a></li>
                 <li id="about"><a href="/~cs210/about.html">About</a></li>
                 <li id="schedule"><a href="/~cs210/schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="/~cs210/syllabus.html">Syllabus</a></li>
                 <li id="reference"><a href="/~cs210/reference.html">Reference</a></li>
             </ul>
         </nav>
@@ -57,18 +59,9 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<script src="/~cs210/js/google-code-prettify/prettify.js"></script>
-<link rel="stylesheet" href="/~cs210/css/desert.css">
 <script src="/~cs210/js/custom.js"></script>
 {% block javascript_trailer %}
 {% endblock %}
-<script>
-checkPreElements();
-trimPreElements();
-addPrettyPrintClass();
-addPreExamples();
-prettyPrint();
-</script>
 
 
 <script>
@@ -77,6 +70,8 @@ $(".example-with-code").each(function (index,elt) {
    console.log("src for "+index+" is "+src);
    $(elt).find("pre").text(src);
 });
+
+addMarginTopToFragment();
 </script>
 
 </body>
