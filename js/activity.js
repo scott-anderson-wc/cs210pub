@@ -29,14 +29,15 @@ $(".executable").each(function (idx, elt) { addExecuteButton(elt); });
 not, sets it to right now. */
 
 var revealTime;
+var dateFormat = "ddd MMM d, yyyy h:mm tt";  // Fri Feb 9, 2017 at 5:00 pm
 
 function checkRevealTime () {
     if( typeof(revealAt) == "undefined" ) {
         console.log("revealAt time not set; assuming now");
         revealTime = new Date();
-        revealAt = revealTime.toLocaleString();
+        revealAt = revealTime.toString(dateFormat);
     } else {
-        revealTime = new Date(revealAt);
+        revealTime = Date.parse(revealAt);
     }
     return revealTime;
 }
@@ -46,8 +47,8 @@ function checkRevealTime () {
 function addRevealLaterMessage () {
     var then = checkRevealTime();
     var now = new Date();
-    if( now < then ) {
-        $("<p>").text("Come back after "+then.toLocaleString()+" to see the solutions")
+    if( now.isBefore(then) ) {
+        $("<p>").text("Come back after "+then.toString(dateFormat)+" to see the solutions")
          .appendTo("body");
     }
 }
@@ -55,7 +56,6 @@ addRevealLaterMessage();
 
 // ================================================================
 
-var magic_word = "dumbledore";
 
 // hides *all* of the elements
 
@@ -66,20 +66,21 @@ function hide_solutions() {
 }
 hide_solutions();
 
-/* returns true if the user knows the magic word or its properly set to a
-cookie. Could also use localStorage for this. */
+/* returns true if the user knows the magic word or it's properly set in local storage. */
 
-function knows_magic_word() {
-    var magic = getCookie("magic210");
-    if( magic == "" ) {
-        magic = prompt("what's the magic word?");
-        if( magic == magic_word ) {
-            // 90 days should take care of the semester
-            setCookie("magic210",magic,100,"/"); 
+var knows_magic_word = (function () {
+    var magic_word = "dumbledore";
+    return function() {
+        var magic = localStorage.getItem("magic210");
+        if( ! magic ) {
+            magic = prompt("what's the magic word?");
+            if( magic == magic_word ) {
+                localStorage.setItem("magic210",magic); 
+            }
         }
+        return magic == magic_word;
     }
-    return magic == magic_word;
-}
+})();
 
 /* This is the main event handler for the hidden elements. It's a toggle:
 click to reveal, click again to hide. Because we sometimes want to click
@@ -94,17 +95,27 @@ function clickToReveal(event) {
         console.log("didn't click on the element itself");
         return;
     }
+    // gtarget = this;
+    console.log("Click on "+this.outerHTML);
     var now = new Date();
     var then = checkRevealTime();
-    if( now > then || knows_magic_word() ) {
-        // console.log("toggle "+event.target);
-        if( $(this).hasClass("hidden") ) {
-            $(this).removeClass("hidden").addClass("shown");
+    function reveal(elt) {
+        if( $(elt).hasClass("hidden") ) {
+            // console.log("removing class hidden");
+            $(elt).removeClass("hidden");
         } else {
-            $(this).removeClass("shown").addClass("hidden");
+            // console.log("adding class hidden");
+            $(elt).addClass("hidden");
         }
-    } else if ( now <= then ) {
-        alert("Come back after "+then.toLocaleString());
+    }
+    if( now.isAfter(then) ) {
+        console.log("revealing because now is after "+then.toString(dateFormat));
+        reveal(this);
+    } else if( knows_magic_word() ) {
+        console.log("revealing because knows magic word");
+        reveal(this);
+    } else if ( now.isBefore(then) ) {
+        alert("Come back after "+then.toString(dateFormat));
     }
 }
 
