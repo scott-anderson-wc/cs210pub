@@ -13,5 +13,10 @@ reading/*.html
 lectures/*/*.html
 assignments/*/*.html
 quizzes/*
+quizzes/*.html
 reference.html
 syllabus.html
+about.html
+experiments/jelly
+schedule/schedule2.html
+

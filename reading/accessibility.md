@@ -249,6 +249,12 @@ other techniques for hiding content).
 
 ## Accessible Slideshows
 
+## Learning More
+
+* [Accessibility Useability For All](https://www.interaction-design.org/literature/article/accessibility-usability-for-all)
+* [Understand the Social Needs for Accessibility](https://www.interaction-design.org/literature/article/understand-the social-needs-for-accessibility-in-ux-design)
+* [Create Accessible Websites with the Principles of Universal Design](https://www.interaction-design.org/literature/article/learn-to-create-accessible-websites-with-the-principles-of-universal-design)
+
 
 
 
