@@ -19,4 +19,5 @@ for acct in `cut -f1 $file`; do
     if [ $? -ne 0 ]; then
         echo "FAILED for $acct"
     fi
+    jpegtopnm $acct.jpg | pamfile 
 done

@@ -1,0 +1,93 @@
+## Pitfalls of Closures: this and that
+
+Earlier, we learned that a closure will capture the values (<q>close
+over</q>) all the names (variables) that aren't defined in its body. For
+example:
+
+```
+var c1 = (function () {
+    count = 0;
+    return function () { return ++count; }
+}) ();
+```
+
+The closure `c1` closes over `count`.
+
+When we learned about object-oriented programming in JavaScript, we
+learned that the special variable `this` is bound to the object that the
+method is executing on. Here's a reminder:
+
+<script class="eg">
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.greeting = function () {
+    return "hello, my name is "+this.name;
+}
+
+var alice = new Person("alice");
+console.log(alice.greeting());    // `this` bound to alice
+</script>
+
+Let's add a method that will create a greeting button for a person. Here's
+the button. Try it and you'll see that it doesn't work. 
+
+<div id="alice1"></div>
+
+<script id="greetButton1" class="eg">
+Person.prototype.greetButton1 = function (where) {
+    $("<button>")
+        .text(this.name)
+        .click(function () { alert(this.greeting()); })
+        .appendTo(where);
+}
+
+alice.greetButton1("#alice1");
+</script>
+
+Here's the code to make the button. Can you see why it doesn't work?
+
+<pre id="greetButton1_dst"></pre>
+
+The click handler is a closure, referring to the special variable `this`
+but that doesn't work, because when the click handler is invoked, `this`
+has the value of the button, not the `Person` object (`alice`). What this
+illustrates is that you *can't close over `this`*.
+
+What to do then?  In some cases, you can just copy the value you want into
+a local variable that you *can* close over. For example, the following
+works by copying the value to the variable `text` which we can close over:
+
+<div id="alice2"></div>
+
+<script id="greetButton2" class="eg">
+Person.prototype.greetButton2 = function (where) {
+    var text = this.greeting();                          
+    $("<button>")
+        .text(this.name)
+        .click(function () { alert(text); })
+        .appendTo(where);
+}
+
+alice.greetButton2("#alice2");
+</script>
+
+If you really need the object itself, the convention in JavaScript is to
+copy the object from `this` to the variable `that` which isn't special and
+so we can close over it:
+
+<div id="alice3"></div>
+
+<script id="greetButton3" class="eg">
+Person.prototype.greetButton3 = function (where) {
+    var that = this;
+    $("<button>")
+        .text(this.name)
+        .click(function () { alert(that.greeting()); })
+        .appendTo(where);
+}
+
+alice.greetButton3("#alice3");
+</script>
+

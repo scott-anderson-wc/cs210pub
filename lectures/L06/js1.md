@@ -12,7 +12,7 @@ We have a variety of prior experience with JavaScript, so if some of this is too
 
 ## Quiz Questions
 
-[your questions](../quizzes/quiz05.html)
+[your questions](../../quizzes/quiz05.html)
 
 ## Quick Review
 
@@ -37,14 +37,17 @@ function foo(a,b) {
 
 ## Running JS
 
-* The "immediate" tab on the lower part of the page is a perfect sandbox. You can make if full-screen
+* The "immediate" tab on the lower part of the page is a perfect sandbox. You can make it full-screen
 * You can also use the console in the Chrome Dev Tools (or equivalent in Firefox)
 * The console is nice for trying functions defined by a web page
 
-1. Open your class workspace and create a folder named `js1`
-1. Create a file stuff.html that has a `script` tag that loads `stuff.js`
+1. Open your public class workspace and create a folder named `js1`
+1. Create a file `stuff.html` that has a `script` tag that loads `stuff.js` Maybe add an `h1`, too.
 1. Create a `stuff.js` file that just contains `console.log("loaded");`
-1. See that this works.
+1. Run the `stuff.html` file
+1. Open the `stuff.html` file in a new tab
+1. Open the JS console in the new tab.
+1. See the `loaded` message
 
 ## Exercise 1
 
@@ -75,7 +78,7 @@ Test it with a=2, b =3, c=5 and x=-1
 <div class="solution">
 <pre class="codehilite"> 
 function parabola(a, b, c, x) {
-     return a * x *x + b * x + c;
+     return a*x*x + b*x + c;
 }
 </pre>
 </div>
@@ -84,7 +87,6 @@ Write a  recursive function named `choose` that takes two arguments and implemen
 
 ```
 f(n,k) = f(n-1,k)+f(n-1,k-1) if n>1
-f(n,1) = n
 f(n,0) = 1
 f(n,n) = 1
 ```
@@ -93,7 +95,6 @@ f(n,n) = 1
 <pre class="codehilite"> 
 function choose(n,k) {
     if( k == n || k == 0 ) return 1;
-    if( k == 1 ) return n;
     return choose(n-1,k) + choose(n-1,k-1);
 }
 </pre>
@@ -105,7 +106,7 @@ I'll take you through debugging the `choose` function using the Chrome debugger 
 
 I'll invoke `choose_v1(3,4)` in my public workspace and we'll see how it works.
 
-You can then do the same.
+You can then do the same.  Or use [mine](https://sample-scottdanderson.c9users.io/js1/stuff.html)
 
 ## Local Variables
 
@@ -136,7 +137,7 @@ Arrays are very easy in JS, very similar to Python's lists.
 var primes = [ 2, 3, 5, 7 ];
 console.log(primes[0]);
 primes[4] = 11;
-tconsole.log(primes.length);
+console.log(primes.length);
 ```
 
 ## Loops
@@ -145,7 +146,7 @@ A lot like loops in C.
 
 ```
 :::JavaScript
-sfor( var i = 0; i < 10; i ++ ) {
+for( var i = 0; i < 10; i ++ ) {
     console.log(i);
 }
 ```
@@ -155,6 +156,7 @@ Python's function.
 
 <div class="solution">
 <pre class="codehilite"> 
+:::javascript
 function range(n) {
     var nums = [];
     for( var i = 1; i <= n; i++ ) {
@@ -166,6 +168,27 @@ function range(n) {
 </div>
 
 ## Functions as arguments.
+
+You can pass a function to another function and the callee can invoke the
+argument:
+
+```
+:::javascript
+function collatz(n) {
+    if (n%2 == 0) {
+        return n/2;
+    } else {
+        return 3*n+1;
+    }
+}
+
+function ask_user(fun) {
+     var input = prompt("what number do you want? ");
+     var x = parseInt(input);
+     var y = fun(x);
+     alert("The answer is "+y);
+}
+```
 
 Write a function `computeCurve` to compute a math function on an array of inputs.
 
@@ -189,8 +212,26 @@ function:
 function line23(x) {  return line(2,x,3); }
 
 function curve234(x) { return parabola(2,3,4,x); }
+
+computeCurve( range(10), line23 );
+computeCurve( range(10), curve234 );
 </pre>
 </div>
+
+Alternatively, use an anonymous function:
+
+<div class="solution">
+<pre class="codehilite">
+var f = function (x) { return line(2,x,3);};
+computeCurve( range(10), f);
+
+// maybe better:
+computeCurve( range(10),
+              function (x) { return line(2,x,3);} );
+</pre>
+</div>
+
+There is, however, the <q>blizzard of punctuation</q> problem.
 
 ## Search
 
@@ -226,5 +267,23 @@ nums2.sort( function (a,b) { return b-a; } );
 nums2.sort( function (a,b) { return a-b; } );
 ```
 
+## Anonymous functions
 
+They can do pretty much anything named functions do. They're convenient
+when you need to create a function for a single purpose and not need to
+refer to it from other places (so it doesn't need a name).  Constrast the
+previous example with:
 
+```
+function diff(a,b) {
+    return b-a;
+}
+
+nums2.sort(diff);
+```
+
+Similarly `line23` and `curve234` could have been anonymous functions.
+
+<script>
+var revealAt = "2/10/2017 5:00 pm";
+</script>

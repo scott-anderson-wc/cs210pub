@@ -111,6 +111,7 @@ if __name__ == '__main__':
                 html = markdown.markdown(text,
                                          extensions=[
                         'markdown.extensions.fenced_code',
+                        'markdown.extensions.tables',
                         'markdown.extensions.toc',
                         'markdown.extensions.sane_lists',
                         'markdown.extensions.codehilite'

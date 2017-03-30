@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 tsv-file-from-banner file.json"
-    echo "writes a JSON file of accounts and names"
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 csv-file file.json"
+    echo "writes a JSON file of two columns: name and accounts"
     exit
 fi
 
@@ -20,11 +20,11 @@ fi
 echo "[" > $dst
 while read line; do
     # echo "line is $line"
-    name=`echo "$line" | cut -f4`
+    name=`echo "$line" | cut -d, -f1`
     if [ "$name" = "Student Name" ]; then
         continue
     fi
-    acct=`echo "$line" | cut  -f5 | cut -d@ -f1`
+    acct=`echo "$line" | cut -d, -f2 | cut -d@ -f1`
     echo "Getting $acct & $name"
     echo "{\"acct\": \"$acct\", \"name\": \"$name\"}," >> $dst
 done <  "$src"

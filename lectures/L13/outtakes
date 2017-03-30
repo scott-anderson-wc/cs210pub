@@ -1,0 +1,98 @@
+
+function Capitals() {
+   this.capitals = {'France': 'Paris',
+                   'United Kingdom': 'London',
+                   'USA': 'Washington D.C.',
+                   'Canada': 'Ottowa'};
+}
+
+Capitals.prototype.lookup = function (country) {
+     return this.capitals[country];
+}
+
+function printSome() {
+    var places = ['France', 'USA'];
+    places.forEach
+
+
+## Binding `this`
+
+Methods *must* have an object, bound to `this`
+
+Unfortunately, `this` is no ordinary varible. It constantly gets rebound,
+anytime there's a function call or a method call.
+
+The following code doesn't work:
+
+```
+:::JavaScript
+Truck.prototype.printOrders_bad = function () {
+    var customerIdArray = Object.keys(this.db.getAll());
+
+    console.log("Truck #" + this.TruckId + " has pending orders:");
+    customerIdArray.forEach( function (id) {
+        console.log(this.db.get(id));
+       });
+}
+
+truck1.printOrders_bad();
+```
+
+<script>
+App.Truck.prototype.printOrders_bad = function () {
+    var customerIdArray = Object.keys(this.db.getAll());
+
+    console.log("Truck #" + this.TruckId + " has pending orders:");
+    customerIdArray.forEach( function (id) {
+        console.log(this.db.get(id));
+       });
+}
+
+</script>
+
+Why not?  Because `this` doesn't mean the same thing in the `forEach` as
+it did outside. Why? Because there's been a function call.
+
+### Solution 1:  use a closure
+
+```
+:::JavaScript
+Truck.prototype.printOrders_closure = function () {
+    var customerIdArray = Object.keys(this.db.getAll());
+
+    console.log("Truck #" + this.TruckId + " has pending orders:");
+    var makeClosure = function (that) {
+          return function (id) { console.log(that.db.get(id)); }
+    }
+          
+    customerIdArray.forEach( makeClosure(this) );
+}
+truck1.printOrders_closure();
+```
+
+<script>
+App.Truck.prototype.printOrders_closure = function () {
+    var customerIdArray = Object.keys(this.db.getAll());
+
+    console.log("Truck #" + this.TruckId + " has pending orders:");
+    var makeClosure = function (that) {
+          return function (id) { console.log(that.db.get(id)); }
+    }
+          
+    customerIdArray.forEach( makeClosure(this) );
+}
+</script>
+
+<script>
+App.Truck.prototype.printOrders_bind = function () {
+    var customerIdArray = Object.keys(this.db.getAll());
+
+    console.log("Truck #" + this.TruckId + " has pending orders:");
+    var closure = function (id) { console.log(this.db.get(id)); }.bind(this);
+          
+    customerIdArray.forEach( closure );
+}
+</script>
+
+
+    

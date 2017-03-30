@@ -143,3 +143,32 @@ function loadExampleFiles() {
 }
 loadExampleFiles();
 
+// ================================================================
+
+$(".questions").on('click','li', function (evt) { 
+    var $this = $(this);
+    var $ans = $this.find(".ans");
+    if( $ans.length == 0 ) {
+        console.log("didn't find .ans, so using p");
+        $ans = $this.find("p");
+    }
+    if( $ans.hasClass('hidden') ) {
+        console.log('hidden, so sliding down');
+        $ans.removeClass('hidden').slideDown();
+    } else {
+        console.log('sliding up');
+        $ans.slideUp().addClass('hidden');
+     }
+});
+
+$(".questions > li").each(function (index,elt) { 
+    var $elt = $(elt);
+    var $ans = $elt.find(".ans");
+    if( $ans.length == 0 ) {
+        console.log("didn't find .ans, so using p");
+        $ans = $elt.find("p");
+    }
+    $ans.addClass('hidden').hide();
+});
+
+
