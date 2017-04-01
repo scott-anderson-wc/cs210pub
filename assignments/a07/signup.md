@@ -159,7 +159,7 @@ could.</figcaption>
 
 ## Feedback
 
-Please fill out this [form](https://docs.google.com/a/wellesley.edu/forms/d/e/1FAIpQLSc1I-ZEY-h3Y-3YZHOZGxSgSuU3tydaDmsx3XwAVbia8D8fvg/viewform)
+Please fill out this [form](https://docs.google.com/a/wellesley.edu/forms/d/e/1FAIpQLSf5ylPVcjiJt_j_IQKIx771rk710xjfh6JaZGFzO5SZM3LTag/viewform?usp=sf_link)
 
 That form will help me improve the course for next time. The form is anonymous; it will not collect your username.
 
