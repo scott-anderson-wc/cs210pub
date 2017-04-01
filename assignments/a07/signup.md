@@ -25,7 +25,7 @@ will be just a few error checks:
 
 1. Check that the username is not one of a handful of prohibited
 values, namely "admin", "root", and "super".  You should keep the
-keep the prohibited values in a global list, so that it's easy to
+prohibited values in a global list, so that it's easy to
 add or change the values without having to modify your code. Your
 code should ignore case, so "Admin" and "ROOT" as also prohibited.
 1. Check that the password is not less than some minimum length, given
@@ -115,6 +115,13 @@ handler will be able to prevent the default or not.
 1. It should not reset the form. Otherwise, a correctly filled out
 form will be submitted as a blank form. (Try it!)
 
+Your own code should also be in its own file. Name the file
+`signup.js`. Name your HTML file `signup.html` and your CSS file
+`signup.css`. Your HTML file will ultimately load three JS files.
+
+Your own code should use an IIFE to reduce its footprint. The "global"
+values that I described above are in fact local to the IIFE.
+
 ## Hints
 
 I suggest you work as follows:
@@ -141,13 +148,13 @@ Here are two screenshots, with and without errors.
 
 <figure>
 <img src="screenshot-with-errors.png">
-<figcaption>A screenshot after I made as many errors as I
+<figcaption>Above is a screenshot after I made as many errors as I
 could.</figcaption>
 </figure>
 
 <figure>
 <img src="screenshot-without-errors.png">
-<figcaption>A screenshot after I submitted a form with no errors.</figcaption>
+<figcaption>Above is a screenshot after I submitted a form with no errors.</figcaption>
 </figure>
 
 ## Feedback
@@ -158,7 +165,9 @@ That form will help me improve the course for next time. The form is anonymous; 
 
 ## How to turn this in
 
-In your C9 workspace, rename your working directory to a finished directory:
+Do all your work in a new folder called `a07-work`.
+
+When you are done, rename your working directory to a finished directory:
 
 `mv a07-work a07-done`
 
