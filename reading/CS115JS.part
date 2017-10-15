@@ -1,6 +1,6 @@
 <h1>Reintroduction to JavaScript</h1>
 
-      <p>You have seen JavaScript already in CS 115, but here's a review for CS 210. In JavaScript, 
+      <p>You have seen JavaScript already in CS 115, but here's a review for CS 204. In JavaScript, 
       values have certain <b>types</b>, including (but certainly not limited to) numbers,
       strings, and booleans. We will first review those.</p>
       
@@ -40,7 +40,7 @@
         <li>'9001'</li>
         <li>'#yikes'</li>
         <li>"Wellesley College!"</li>
-        <li>'CS 210'</li>
+        <li>'CS 204'</li>
       </ul>
       
       <p>Note, you can use either double or single quotation marks, as long as you are consistent
@@ -51,13 +51,13 @@
       
       <pre><code>"3" + "3"; 
 "3.0" + "-123";
-"CS 210 " + "rocks";
+"CS 204 " + "rocks";
 "Hello " + "World!";
       
 // Results
 // "33"
 // "3.0-123"
-// "CS 210 rocks!"
+// "CS 204 rocks!"
 // "Hello World!"</code></pre>
 
 
@@ -69,12 +69,12 @@ converted to a string, and the two strings are added together. For example:</p>
 
 <pre><code>12 + "1"; 
 3.0 + 4.5 + "1.0";
-"CS " + 210;
+"CS " + 204;
       
 // Results
 // "121"
 // "3.04.51.0"
-// "CS 210"</code></pre>
+// "CS 204"</code></pre>
 
 <p>This is something to be careful of. Make sure your types are correct when adding values together, 
 as you might get some unintended results if you add a number and a string.</p>

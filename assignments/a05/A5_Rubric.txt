@@ -1,0 +1,20 @@
+﻿CS 249 – Front End Web Development
+Assignment 5
+Names: 
+Workspace account:
+
+
+Sliding Tiles
+1. ____/10        Uses absolute and relative positioning to place tiles together
+2. ____/10        Tile animations move in directions that correspond to correct keyboard letters
+3. ____/10        Uses keyboard event handlers to process user input 
+4. ____/10        Functions such as getRightTile() to help find tile next to the blank tile 
+5. ____/10        Function such as doMove() which moves tile in the correct direction
+6. ____/10        Uses JQuery’s animate() function
+7.  ____/10        Global variables and other data structures in JS file are updated after each move
+8. ____/10        Uses abstraction and modularity 
+9. ____/10        Page looks nice, HTML and CSS are valid
+10. ____/10        Functions are easy to test in the JS console.
+
+
+Total: _____/100

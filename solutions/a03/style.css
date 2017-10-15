@@ -1,0 +1,96 @@
+article {
+    margin: 10px 1em;
+}
+
+section {
+    padding: 0px 1em;
+}
+
+section img {
+    display: block;
+    width: 100%;
+}
+
+figure {
+    margin: 10px 2em;
+    border: 2px solid #aabbcc;
+    padding: 2em;
+}
+
+figcaption {
+    text-align: center;
+    border: 1px solid black;
+    background-color: rgb(80%, 80%, 80%);
+    background-color: rgba(80%, 80%, 80%, 0.5);
+}
+
+
+.personal {
+    background-color: rgb(255, 200, 200);
+}
+.academic {
+    background-color: rgb(200, 255, 200);
+}
+.family  {
+    background-color: rgb(200, 200, 255);
+}
+
+ul.validation_icons {
+    list-style: none;
+}
+
+.validation_icons li {
+    display: inline;
+}
+
+/* ================================================================
+   new for a02
+   */
+
+.sections {
+    display: flex;
+    flex-direction: column;
+}
+
+.captioned {
+    position: relative;
+    padding: 0px;
+}
+
+.captioned img {
+    width: 80%;
+    margin: 2em 10%;
+}
+
+.captioned figcaption {
+    position: absolute;
+    width: 80%; /* same as the image */
+    top: 2em;  /* same as margin on the image */
+    left: 10%; /* same as margin on the image */
+    border: none;
+    background-color: white;
+}
+
+/* new for assignment 3 */
+
+#zodiac_image {
+    width: auto;
+    float: left;
+    margin-right: 2em;
+    margin-bottom: 1em;
+}
+
+@media all and (min-width: 768px) {
+    .sections {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    section {
+        flex: 1 1 auto;
+        width: 30%;
+        transition: width 2s ease-out;
+    }
+    section + section {
+        margin-left: 5px;
+    }
+}

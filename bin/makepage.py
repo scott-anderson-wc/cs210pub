@@ -27,12 +27,13 @@ def file_contents(filename):
 if __name__ == '__main__':
     
     if len(sys.argv) == 1:
-        print "Usage: {cmd} [-force] file{{.md,.part}} ...".format(cmd=sys.argv[0])
+        print "Usage: {cmd} [-force] [-verbose] file{{.md,.part}} ...".format(cmd=sys.argv[0])
         sys.exit(0)
 
     verbose = '-verbose' in sys.argv
     force = '-force' in sys.argv
     if verbose:
+        sys.argv.remove('-verbose')
         print 'force is ',force
     if force:
         sys.argv.remove('-force')
@@ -43,7 +44,7 @@ if __name__ == '__main__':
         print "Couldn't see local directory 'templates'", err
         sys.exit(1)
 
-    env = Environment(loader=FileSystemLoader(['/home/cs210/public_html/cs210pub/templates',
+    env = Environment(loader=FileSystemLoader(['/home/cs204/public_html/cs210pub/templates',
                                                'templates']))
     # print 'Available Templates:', env.list_templates()
 
@@ -73,10 +74,18 @@ if __name__ == '__main__':
         if len(pathname_parts) == 1:
             # this is for top-level files like index and about
             template = env.get_template('main.html')
-        elif pathname_parts[0] in ['reading','assignments']:
-            template = env.get_template('reading.html')
-        elif pathname_parts[0] in ['lectures','quizzes']:
-            template = env.get_template('lectures.html')
+            home = ''
+        elif pathname_parts[0] in ('reading','assignments','lectures','quizzes'):
+            subdir = pathname_parts[0]
+            template_file = {'reading': 'reading.html',
+                             'assignments': 'assignment.html',
+                             'lectures': 'lectures.html',
+                             'quizzes': 'lectures.html'}[subdir]
+            home = {'reading': '../',
+                    'assignments': '../../',
+                    'lectures': '../../',
+                    'quizzes': '../'}[subdir]
+            template = env.get_template(template_file)
         else:
             print "Don't know what module to use for this: ",src
             continue
@@ -126,6 +135,7 @@ if __name__ == '__main__':
         else:
             print 'Unknown file type', ext
             raise Exception
+        render_args['HOME'] = home
         # write output file
         with codecs.open(outfile, mode='wt', encoding='utf-8', errors='xmlcharrefreplace') as fout:
             fout.write( template.render(**render_args))

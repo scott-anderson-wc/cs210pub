@@ -1,0 +1,73 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5 -->
+<!-- CreationDate: Thu Oct 12 14:09:25 2017 -->
+<!-- Magnification: 1.000 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="6.2in" height="4.5in" viewBox="1188 1938 7449 5349">
+<g style="stroke-width:.025in; stroke:black; fill:none">
+<!-- Line: box -->
+<rect x="1200" y="1950" width="2700" height="2325" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line: box -->
+<rect x="3150" y="5025" width="3675" height="2250" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="2775,4275
+3344,4986
+" style="stroke:#000000;stroke-width:30;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 2775 4275 - 3403 5060-->
+<polyline points="3066 4783
+3362 5008
+3207 4670
+" style="stroke:#000000;stroke-width:30;
+"/>
+<!-- Line: box -->
+<rect x="6075" y="1950" width="2550" height="2400" rx="0" 
+style="stroke:#000000;stroke-width:7;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Line -->
+<polyline points="6600,4350
+6032,4988
+" style="stroke:#000000;stroke-width:30;
+stroke-linejoin:miter; stroke-linecap:butt;
+"/>
+<!-- Arrowhead on XXXpoint 6600 4350 - 5970 5058-->
+<polyline points="6186 4680
+6014 5009
+6320 4799
+" style="stroke:#000000;stroke-width:30;
+"/>
+<!-- Text -->
+<text xml:space="preserve" x="1650" y="2175" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">Math</text>
+<!-- Text -->
+<text xml:space="preserve" x="6900" y="2175" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">Colors</text>
+<!-- Text -->
+<text xml:space="preserve" x="1275" y="2865" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">function sin(theta)</text>
+<!-- Text -->
+<text xml:space="preserve" x="1275" y="3495" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">function cos(theta)</text>
+<!-- Text -->
+<text xml:space="preserve" x="1275" y="4125" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">function tan(theta)</text>
+<!-- Text -->
+<text xml:space="preserve" x="6150" y="2700" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">red = 0xff0000</text>
+<!-- Text -->
+<text xml:space="preserve" x="6150" y="3015" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">tan = 0xd2b48c</text>
+<!-- Text -->
+<text xml:space="preserve" x="6150" y="3330" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">...</text>
+<!-- Text -->
+<text xml:space="preserve" x="4575" y="5175" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">Main</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="5775" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">z = Math.tan(0.7)</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="6090" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">c = Colors.tan</text>
+<!-- Text -->
+<text xml:space="preserve" x="3375" y="6405" stroke="#000000" fill="#000000"  font-family="Helvetica" font-style="normal" font-weight="bold" font-size="192" text-anchor="start">...</text>
+</g>
+</svg>

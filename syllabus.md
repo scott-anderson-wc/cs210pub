@@ -1,4 +1,4 @@
-# Syllabus for CS 210
+# Syllabus for CS 204
 
 By <q>syllabus</q>, I mean the administrative aspects of the course. If
 you're looking for the [day-to-day schedule](schedule/schedule.html),
@@ -20,14 +20,13 @@ normally
 
 * Mondays and Thursdays 2-3:30
 * Tuesdays and Fridays 3-4
-* Evening office hours after 9pm on Wednesdays and Thursdays when there's
-an assignment due.
+* Evening office hours after 9pm on Tuesdays when there's an assignment due.
 
 I'd also be glad to meet you by appointment.  Check my [Google calendar](https://cs.wellesley.edu/~anderson/index.html#calendar).
 
-I'm also pleased to say that we have Grace Hu as a tutor for the
-course. Grace will hold drop-ins on Monday evenings from 7pm-9pm in SCI
-257 (our classroom).
+I'm also pleased to say that we have Emily Wang (ewang10) as a tutor for
+the course. Emily will hold drop-ins on Tuesday evenings from 7pm-9pm in
+SCI 257.
 
 ## Lectures
 
@@ -40,18 +39,23 @@ grade. (See [Grading Policy](#grading-policy) below.
 
 ## Course Group
 
-Please verify that you are registered to the <em>CS-249-01-SP17</em>
+Please verify that you are registered to the <em>CS-204-01-FA17</em>
 Google group. This group has several purposes. We will use it to make
 class announcements, such as corrections to assignments and clarifications
-of material discussed in class. We encourage you to post questions or
-comments that are of interest to students in the course. Please do not
-post significant amounts of assignment-related JavaScript code (i.e. more
-than one or two lines of code) in your messages on the group! The
-instructors and TAs will read messages posted in the group on a regular
-basis and post answers to questions found there. If you know the answer to
-a classmate's question, feel free to post a reply yourself. The course
-group is also a good place to find people to join a study group. You
-should plan on reading group messages on a regular basis.
+of material discussed in class.
+
+I encourage you to post questions or comments that are of interest to
+students in the course. Please do not post significant amounts of
+assignment-related JavaScript code (i.e. more than one or two lines of
+code) in your messages on the group! The instructors and TAs will read
+messages posted in the group on a regular basis and post answers to
+questions found there. If you know the answer to a classmate's question,
+feel free to post a reply yourself. The course group is also a good place
+to find people to join a study group. You should plan on reading group
+messages on a regular basis.
+
+Join `CS-Students` if you want to hear about internships, talks, social
+events and the like.
 
 ## Textbook
 
@@ -61,18 +65,18 @@ it from Amazon and other vendors.
 
 ## Material from other CS courses
 
-CS 249 was designed by including some of the material that were previously
-taught in CS110. Often you may find that some document we assign refers to
-that course. This is normal.
+CS 204 was designed by including some of the material that were previously
+taught in CS110. You may sometiomes find that some document we assign
+refers to that course. This is normal.
 
-## Class participation, Reading material, Quizzes and Assignments
+## Reading material and Quizzes
 
 You are required to study the reading material assigned for each lecture
-<em>before</em> you come to class, and respond to a quiz (administered
-assigned for the class. This is important since that way we can gear the
-classroom activities towards implementing examples and seeing them in
-action, rather than starting from scratch. Of course, you are encouraged
-to ask questions of any of the material.
+<em>before</em> you come to class, and respond to a quiz (administered via
+Sakai) assigned for the class. This is important since that way we can
+gear the classroom activities towards implementing examples and seeing
+them in action, rather than starting from scratch. Of course, you are
+encouraged to ask questions of any of the material.
 
 ## No Laptop Policy
 
@@ -89,14 +93,16 @@ me know if anything is incorrect.
 
 ## Gradescope
 
-I plan to use [Gradescope](https://www.gradescope.com/) to grade
+I may use [Gradescope](https://www.gradescope.com/) to grade
 assignments. That will involve an extra step of submitting a document to
 Gradescope. Please keep that in mind.
 
 ## Exam
 
-There will be a midterm exam before Spring break, when I'm away at an
-education conference.
+There will be a midterm exam. It will be a paper and pencil exam in which
+you'll solve some problems that the assignments will prepare you for. Yes,
+there will be some coding on the exam. I'll definitely grade the exam
+using Gradescope.
 
 ## Final Project
 
@@ -108,7 +114,8 @@ useful web application.
 Your final grade for the course will be computed as a weighted average of
 several components. One of them is class participation that includes
 coming to lectures and doing the work, and actively participating in
-discussions.
+discussions. I may split the quizzes from the participation grade; I'm
+still thinking about that.
 
 The relative weight of each component is shown below:
 
@@ -128,33 +135,78 @@ the number of A's, B's, C's etc., and every student will be assigned
 the grade they earn and deserve according to the grading standards of
 the college.
 
+## Grading Scale
+
+Numerical grades are converted to letters using the following scale:
+
+<table>
+<tr><th>min</th><th>letter</th></tr>
+<tr><td> >= 95 </td><td> A      </td></tr>
+<tr><td> >= 90 </td><td> A-     </td></tr>
+<tr><td> >= 87 </td><td> B+     </td></tr>
+<tr><td> >= 83 </td><td> B      </td></tr>
+<tr><td> >= 80 </td><td> B-     </td></tr>
+<tr><td> >= 77 </td><td> C+     </td></tr>
+<tr><td> >= 73 </td><td> C      </td></tr>
+<tr><td> >= 70 </td><td> C-     </td></tr>
+<tr><td> >= 60 </td><td> D      </td></tr>
+</table>
+
 ## Lateness Policy
 
 Because it's both important to do the work but also to avoid falling
 behind, I'm establishing the following lateness policy.
 
-Lateness penalties:
+I do plan to go over assignment solutions in class, as a useful learning
+experience.
 
-* 10% per day for the first five days late, but
-* 50% off maximum
+Each assignment will have up to 5 lateness coupons, good for a free,
+one-day, no-excuses extension. This will allow you to turn the assignment
+in as late as the following Sunday at midnight if your life has *blown up*
+in some difficult way.
 
-## How to succeed in the course
 
-* Prepare to spend at least 10 hours every week.
-* Attend all lectures, quit all social media while in class.
-* Read the assigned material and slides BEFORE attempting to do the quiz or the assignment.
-* Submit your quiz answers before class.
-* Read assignment description immediately, start thinking about it ASAP, not 1-2 days before it is due!
-* Start assignments early, be prepared to make mistakes.
-* Programming is a skill: The best programmer has made every mistake in the books!
-* Programming is hard: Do not blame yourself for your mistakes; just give yourself more time!
+## Time and Work
+
+College legislation ([Book 2, Article VI, Section
+1](https://www.wellesley.edu/sites/default/files/assets/departments/provost/files/legislationbookii.pdf))
+says that a work for a course shall not exceed eleven hours a week.
+
+On the other hand, programming is always time consuming, and it's often
+hard to predict how long a task will take. Sometimes I fix a bug in five
+minutes, and sometimes I think about it the wrong way and it takes five
+hours to squash.
+
+The preceding two facts are difficult to reconcile. Some students are
+willing and able to put tremendous amounts of time into an assignment,
+working well beyond the prescribed limits. Other students don't, either
+because they have other obligations (paid work, for example) or other
+priorities (sports, clubs, organizations and so forth). I don't believe
+that a student should be disadvantaged in my class because she is unable
+or unwilling to put in excessive amounts of time. So, here is my current
+policy:
+
+* I will try my best to design assignments that will not take more than
+  6-7 hours to do. That allows two hours of class time and two hours of
+  reading and other preparation outside of class to still meet the 11 hour limit.
+* Each student is required to report how much time she spent on an
+  assignment. This requirement will be part of turning in the assignment.
+  The data allows me to see how I am meeting my goal and allows me to
+  revise the assignment for the next time the course is taught.
+* I ask students to *stop* working on the assignment once they have
+  hit the time limit. Turn in what you have and go do other
+  things.
+* Furthermore, spend your assignment time wisely. If you've spent
+  significant time and given
+  a good faith effort at fixing a bug and you haven't yet fixed it, *stop*
+  and *get help*. 
 
 ## Collaboration Policy
 
 Here is overview on our collaboration policy, and it is followed by a more detailed explanation below:
 
 * Assignments: Rotating pairs of students
-* Project: Teams of 2-3 students
+* Project: Pairs of students
 * Exams: Absolutely no collaboration
 
 ## Collaboration on Assignments
@@ -201,3 +253,22 @@ credit where credit is due. If you make use of an idea that was developed
 by (or jointly with) others, please reference them appropriately in your
 work. It is unacceptable for students to work together but not to
 acknowledge each other in their write-ups.  
+
+## Accommodation
+
+If you have special needs of any kind, please meet with me to discuss
+accommodations that may be helpful to you. I want to make this course
+successful for everyone.
+
+## How to succeed in the course
+
+* Prepare to spend at least 10 hours every week.
+* Attend all lectures, quit all social media while in class.
+* Read the assigned material and slides BEFORE attempting to do the quiz or the assignment.
+* Submit your quiz answers before class.
+* Read assignment description immediately, start thinking about it ASAP, not 1-2 days before it is due!
+* Start assignments early, be prepared to make mistakes.
+* Programming is a skill: The best programmer has made every mistake in the books!
+* Programming is hard: Do not blame yourself for your mistakes; just give yourself more time!
+* Programming requires *resilience*
+

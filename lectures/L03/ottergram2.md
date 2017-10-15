@@ -1,5 +1,9 @@
 # Styling Ottergram
 
+## Finishing Up
+
+We have several items left from [last time](../L02/)
+
 ## Recap of Reading
 
 We'll visit the [reading](../../reading/ch03.html) and quickly recap
@@ -63,7 +67,7 @@ What is selected by the following?
 * `li + li`
 
 <style>
-#ids { color: green; }
+#ids { color: green; font-weight: bold }
 </style>
 
 ## IDs
@@ -71,7 +75,7 @@ What is selected by the following?
 Have two purposes/roles (for now):
 
 * uniquely specify an element for a URL [this section](#ids)
-* uniquely specify an element for CSS selection:  `#ids { color: green; }`
+* uniquely specify an element for CSS selection:  `#ids { color: green; font-weight: bold }`
 
 
 ## Quiz Questions
@@ -82,7 +86,7 @@ Have two purposes/roles (for now):
 
 Make sure you have two workspaces, one public and one private.
 
-Share both with me and with Grace Hu (`ghu@wellesley.edu`)
+Share both with me and with Emily Wang (`ewang10@wellesley.edu`)
 
 ## Cloud 9 startup
 
@@ -104,6 +108,25 @@ Here's our goal for [Chapter 3](https://sample-scottdanderson.c9users.io/front-e
 
 Go head and start on the chapter activities.
 
+## Assignment
+
+Assignment 1 is posted. Let's take a minute to talk about time:
+
+* multi-tasking
+* self-distraction
+* breaks
+
+## Validation
+
+Validation is important. Here's an example:
+
+[Chapter 2 with Validation](https://sample-scottdanderson.c9users.io/front-end-dev-resources/book-solutions/Chapter-02/ottergram/index-w-validation.html)
+
+The [HTML Validator](https://validator.w3.org/nu/)
+
+For assignments, you'll have to use the text input technique. I'll demo
+that.
+
 ## Extra Time?
 
 * try the bronze challenge
@@ -111,4 +134,20 @@ Go head and start on the chapter activities.
 (this roughly follows the "For the More Curious" section on specificity).
 * Create a hyperlink to Barry, using a URL with the *fragment* ID in it
 * Add a Google Font
+
+## End of Class
+
+At the end of each class, I'll hand out 3x5 cards. On it, please write
+your name and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+
+## Conclusion
+
+Here is our [solution to chapter
+  3](https://sample-scottdanderson.c9users.io/front-end-dev-resources/book-solutions/Chapter-03/ottergram/index.html)
+
 

@@ -1,22 +1,42 @@
+# Form Validation
 
+Chapter 12 on form validation is pretty clear, except that it doesn't
+explain much about regular expressions.
 
-## Form Validation
+Regular expressions are a powerful and efficient way to match a pattern
+against a *string*. Most civilized programming languages have them
+available, either built-in or as an easily loaded module.
 
-<p>Later in the course, we'll talk about submitting the form data to a
+You should think of regular expressions as a whole new language with its
+own syntax and grammar. It's not a programming language, but it definitely
+changes the meaning of different characters. Unfortunately, there are
+often variations in the regular expression languages from Java to Python
+to JavaScript and so forth.
+
+The MDN article on [regular expressions in
+JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions)
+is good and comprehensive, probably more comprehensive than we need.  Read
+the book chapter first, so you understand the role that regular
+expressions will play, then read part of the MDN article to learn a bit
+more. Specifically, read from the beginning, up until it explains the
+meaning of the decimal point. That will explain all the stuff going on the
+the chapter.
+
+## What is Form Validation?
+
+Later in the course, we'll talk about submitting the form data to a
 server for more elaborate processing, but before we do that, we should
 discuss <em>validation</em>.  What is form validation?  Essentially, it
 means checking to see that the form has been filled out correctly (as far
 as we can tell).
-</p>
 
-<p>Form validation could be used to ensure that someone hasn't overlooked
+Form validation could be used to ensure that someone hasn't overlooked
   a text input, menu or radio button group, and can check that, for
   example, the zip code is 5 digits (or 9) and that a telephone number is
   10 digits, and that an email address looks like an email
   address.
-</p>
 
-<p>Form validation can actually cancel the submission of the form, so that
+Form validation can actually cancel the submission of the form, so that
 the data never leaves browser.  The reason we validate forms is twofold:
 to give the user immediate feedback that they've missed something, instead
 of waiting for the server to respond, and to protect the server from
@@ -24,27 +44,23 @@ having to handle all those invalid forms.  Of course, a determined
 nefarious person can simply disable our form validation JavaScript and
 hammer our server with invalid forms, but that's rare. The vast majority
 of invalid forms are just human error.
-</p>
 
-<p>Obviously, the browser can't tell whether you entered your correct
+Obviously, the browser can't tell whether you entered your correct
 phone number, but it can check that you typed the right number of digits
 (and only digits).  Similarly, it can't check that your spelled your name
 correctly (and whether your name really is <q>Mickey Mouse</q>), but it
 can check that you didn't leave that input blank.
-</p>
 
-<p>With HTML5 and modern web browsers, form validation has gotten a lot
+With HTML5 and modern web browsers, form validation has gotten a lot
 easier.  In the past, web developers would write JavaScript code that
 would look at the values in the form to check for bogus values.  They
 wrote libraries and jQuery plug-ins to make the job easier for others.
-</p>
 
-<p>However, the vast majority of form validation can be done with a few
+However, the vast majority of form validation can be done with a few
   simple things:
-</p>
 
 * Add the attribute <code>required</code> to any input that you want
-to require the user to fill out. </li>
+to require the user to fill out. 
 * Use the fancy new form input types that HTML5 has added, such as:
     * tel, for telephone numbers
     * email, for email addresses
@@ -53,11 +69,7 @@ to require the user to fill out. </li>
     * datetime, combining date and time inputs
     * and others
 
-<p>Here's a demonstration.  (Note that I didn't re-use the input names
-  from the earlier example because the JavaScript code above referred to
-  the inputs by name, and so we need to make those unique.  I could also
-  have used a nested selector and given each form its own ID.)
-</p>
+Here's a demonstration:
 
 <pre class="prettyprint lang-html">
 &lt;form action="/cgi-bin/dump.cgi"&gt;

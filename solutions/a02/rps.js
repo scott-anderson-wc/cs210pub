@@ -7,8 +7,8 @@
  * can't be sorted!)  Checks that the args are correct. */
 
 function compare(player1,player2) {
-    var p1 = player1.slice().toLowerCase();
-    var p2 = player2.slice().toLowerCase();
+    var p1 = player1.toLowerCase();
+    var p2 = player2.toLowerCase();
     var moves = ["rock", "paper", "scissors"];
     if( moves.indexOf(p1) == -1 ) {
         console.log("p1 is not the correct type: %o",p1);
@@ -50,9 +50,9 @@ function test_sort() {
                       "rock", "paper", "scissors",
                       "rock", "paper", "scissors"];
     many_moves.sort(compare);
-    console.log(many_moves);
+    console.log(JSON.stringify(many_moves));
     many_moves.sort();
-    console.log(many_moves);
+    console.log(JSON.stringify(many_moves));
 }
 
 test_sort();

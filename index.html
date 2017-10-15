@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210: Introduction to Front-End Web Development</title>
+  <title>CS204: Introduction to Front-End Web Development</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -15,18 +15,20 @@
 
   <!-- CSS; should concatenate these into one file
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/skeleton.css">
-<!--  <link rel="stylesheet" href="/css/pygments/colorful.css"> -->
-  <link rel="stylesheet" href="/css/custom.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/glyphicons.css">
+  <link rel="stylesheet" href="css/pygments/colorful.css">
+  <link rel="stylesheet" href="css/custom.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="images/favicon.png">
 
   <!-- We load jQuery at the top so that we can intersperse examples in
        the reading and lecture notes -->
   <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
 
 </head>
 <body>
@@ -35,10 +37,11 @@
         <!-- needs a skip-to-content link -->
         <nav id="site_nav">
             <ul>
-                <li id="home"><a href="/index.html">Home</a></li>
-                <li id="about"><a href="/about.html">About</a></li>
-                <li id="schedule"><a href="/schedule/schedule.html">Schedule</a></li>
-                <li id="reference"><a href="/reference.html">Reference</a></li>
+                <li id="home"><a href="index.html">Home</a></li>
+                <li id="about"><a href="about.html">About</a></li>
+                <li id="schedule"><a href="schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="reference.html">Reference</a></li>
             </ul>
         </nav>
     </header>
@@ -53,10 +56,10 @@
 
 <article id="main" class="ten columns">
 
-    <h1>CS210: Introduction to Front-End Web Development</h1>
+    <h1 id="cs204-introduction-to-front-end-web-development">CS204: Introduction to Front-End Web Development</h1>
 <div id="splash"></div>
 
-<h2>Bulletin Description</h2>
+<h2 id="bulletin-description">Bulletin Description</h2>
 <p>This course introduces modern web development using HTML, CSS and
 JavaScript. JavaScript is explored in detail, including scoping, closures,
 objects, prototype inheritance, and namespacing. The jQuery library is
@@ -67,52 +70,6 @@ web pages will be modern, responsive and accessible. The course also
 covers the jQuery UI (User Interface) library and its capabilities. Other
 topics may include encryption, copyright, intellectual property and
 version control.</p>
-<h2>Intended Audience</h2>
-<p>This course is intended for beginning CS and MAS majors. Its prerequisites
-are CS 111, CS 115 or an equivalent "CS 1" course that introduces
-programming (variables, conditionals, functions, objects and so
-on). Knowledge of JavaScript is not required.</p>
-<h2>History</h2>
-<p>This course grew out of the realization that although the Computer Science
-department no longer had the resources to teach the popular CS 110 course
-for non-majors and it reluctantly had to stop offering that course, much
-of the content of that course was valuable to CS and MAS
-majors. Therefore, this course was created to cover similar ground, but
-starting with an assumption that students know the basics of
-programming. It's also intended to go a bit farther and faster than CS 110
-did. Nevertheless, because of the substantial overlap between CS 110 and
-CS 210, a student cannot earn credit for both courses.</p>
-<h2>Tentative topics</h2>
-<p>The following is a tentative schedule of topics for the course. The course
-is still being created, so these will certainly change.</p>
-<ol>
-<li>HTML, URLs</li>
-<li>CSS 1, fonts</li>
-<li>CSS 2: selectors, box model</li>
-<li>CSS 3: float layouts</li>
-<li>Mobile and responsive</li>
-<li>JS intro</li>
-<li>JS dates and objects</li>
-<li>DOM &amp; jQuery</li>
-<li>Event Handlers + setTimeout</li>
-<li>JS loops and arrays </li>
-<li>Forms and .val(), including radio buttons and checkboxes</li>
-<li>Animations &amp; Absolute Positioning</li>
-<li>Slideshows</li>
-<li>Galleries &amp; Drop-downs</li>
-<li>midterm</li>
-<li>Google Map API</li>
-<li>LocalStorage and Ajax: .get() .post() and Same Origin Policy</li>
-<li>Event Bubbling and delegation</li>
-<li>OOP: methods</li>
-<li>OOP: classes and inheritance</li>
-<li>Closures and namespaces</li>
-<li>jQuery UI, date picker, menus, autocomplete</li>
-<li>Keyboard and Mouse event handlers</li>
-<li>RegEx and Unicode</li>
-<li>Accessibility</li>
-<li>Review</li>
-</ol>
 
 </article>
 <div class="one column"></div>
@@ -127,18 +84,9 @@ is still being created, so these will certainly change.</p>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<script src="/js/google-code-prettify/prettify.js"></script>
-<link rel="stylesheet" href="/css/desert.css">
-<script src="/js/custom.js"></script>
+<script src="js/custom.js"></script>
 
 
-<script>
-checkPreElements();
-trimPreElements();
-addPrettyPrintClass();
-addPreExamples();
-prettyPrint();
-</script>
 
 
 <script>
@@ -147,6 +95,8 @@ $(".example-with-code").each(function (index,elt) {
    console.log("src for "+index+" is "+src);
    $(elt).find("pre").text(src);
 });
+
+addMarginTopToFragment();
 </script>
 
 </body>

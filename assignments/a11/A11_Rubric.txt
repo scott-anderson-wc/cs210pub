@@ -1,0 +1,19 @@
+﻿CS 249 – Front End Web Development
+Assignment 11 – Twenty Questions with Learning
+Names: 
+Workspace account:
+
+
+1. ____/10        HTML page displays additional buttons
+2. ____/10        currentNode and parentNode are global variables storing location in tree
+3. ____/10        currentNode and parentNode are properly updated when necessary
+4. ____/10        addToTree() function adds user’s question and answer to tree
+5. ____/10        Handle a losing guess by requesting the correct question and answer
+6.  ____/10        Event handler for “Add this” button calls addToTree() and removes form
+7. ____/10        Add to Tree button is dynamically created, takes the new question and answer out of the form, and modifies the tree.
+8. ____/10         Get and save tree to/from local storage
+9. ____/10        All button event handlers are properly implemented
+10. ____/10        Uses abstraction and modularity 
+
+
+Total:  _____/100

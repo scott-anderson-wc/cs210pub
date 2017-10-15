@@ -15,20 +15,83 @@
 
 <ol class="questions">
 
-<li>not related to reading, but can we go over how to appropriately style
-images so they don't get so distorted with adaptive layouts?
+<li>I'd appreciate if you further explained media queries. I'm confused about
+what the difference between the two is. Aren't they both accomplishing the
+same thing?
 
-<p>Great question!  In a nutshell:
-<blockquote>
-        <p>Don't set both <code>width</code> and <code>height</code>. The
-        missing one will be calculated from the supplied one to
-        preserve <em>aspect ratio</em>
-        <p>You should probably always set at least one of them, rather
-        than allow an image to be its <q>natural size</q>
-</blockquote>
+<p>What two things?
+
+<li>I'm somewhat confused about what the "all and" part of the @media line stand for.
+
+<p>You can customize the <em>kind</em> of device (e.g. <code>print</code>
+versus <code>screen</code>). That goes where the <code>all</code> is.
+See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">MDN
+media queries</a>
+
+<li>In a media query, how do you specify mobile layouts depending on
+horizontal/vertical orientation?
+
+    <p>Use <code>(orientation: landscape)</code> or <code>(orientation: portrait)</code>. Again,
+See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">MDN
+media queries</a>
+        
+<li>How should you know what pixel size to specify in a media query?
+
+    <p>There are standard sizes/breakpoints for different common
+    devices. Chrome developer tools can help here. Your book lists some.
+        
+<li>What is the difference between layout viewport and visual viewport other than size?
+
+    <p>The former is used, as you might guess, for <em>layout</em>. The
+    latter is a window on the former, so you might need to scroll,
+    magnify, etc.
+
+<li> Why is the visual viewport narrower than the layout viewport?
+
+<p>Because we either want to see everything or part of everything, but we never want to see more than everything.
+    
+<li>what is a breakpoint?
+
+    <p>A device size that triggers a change in the CSS rules (and, often, a change in layout).
+
+<li>I noticed that webpages use media queries for mobile devices, but some webpages use a separate page for mobile devices. How can the webpage detect that the user is viewing the page from mobile device? Also, why do some webpages use a separate mobile page instead of using media queries?
+
+<div class="ans">
+<p>The browser sends an identifying string saying "I'm Chrome" or "I'm
+Firefox" and your browser can detect that. Best practice is <em>not</em>
+to do that, though, because (1) it's better to think
+of <em>capabilities</em>, (2) you might not catch every case, and (3)
+browsers can lie.
+
+<p>Separate pages can allow the CSS to be streamlined, omitting anything
+that is irrelevant, instead of overriding it, but in many cases the
+separate page is a legacy from the days before media queries.
+</div>
+
+<li>What counts and does not count as "responsive"?  When we use ems and
+set widths as percentages, so that they adjust as the window expands, is
+that also responsive, or is there a different term?
+
+    <p>Ems and percentages is part of being responsive. Being responsive
+    doesn't have a mathematical definition, but is the goal of adjusting
+    (responding) to different size devices.
+
+<li>Difference between media query css and normal css when it comes to
+rendering hierarchy. Is it guaranteed that putting a certain size limit on
+the alternate css will make it disable at the right size? Also, which
+version of the css gets priority, the regular version or the one that
+specifies a certain window size?
+
+    <p>There's no difference. Later rules override earlier rules, so
+    standard practice is to specify the default first, and then override
+    for larger devices. Thus, media queries don't complicate the rules for
+    how CSS cascades. As for the guarantee, a browser could be broken,
+    non-compliant or just old, but there's nothing we can do about that.
 
 <li>Run through an example in which we convert code for a desktop webpage
 to mobile (viewports practice)
+
+<div class="ans">
     <p>Actually, we want to do the opposite: convert a mobile page into a
     desktop page.  We'll do it with this page:
 
@@ -37,13 +100,17 @@ to mobile (viewports practice)
     document.getElementById('style1dst').innerHTML = document.getElementById('style1').textContent;
 </script>
 
-<li>Right now I think I am good with all the topics.
+</div>
+
+<li>I'm okay for now! I just need more practice. / Just need more practice 
+
+<p>Great!
 
 </ol>
 
 <ul class="suggs">
 
-<li> [understanding media queries](https://www.sitepoint.com/web-foundations/understanding-media-queries/)
+<li> <a href="https://www.sitepoint.com/web-foundations/understanding-media-queries/">understanding media queries</a>
 
 </ul>    
 </div>

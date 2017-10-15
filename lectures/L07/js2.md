@@ -1,21 +1,11 @@
 # JavaScript Methods
 
-## Announcement
-
-Because it's both important to do the work but also to avoid falling
-behind, I'm establishing the following lateness policy.
-
-Lateness penalties:
-
-* 10% per day for the first five days late, but
-* 50% off maximum
-
-Effective with the next assignment (assignment #2)
+## Announcements
 
 ## Outline
 
 In a few minutes, we'll go to [where we left off last
-time](../L06/js1.html#functions-as-arguments)
+time](../L06/js1.html#loops)
 
 1. Functions as arguments
 1. Anonymous Functions
@@ -208,6 +198,28 @@ Notice that:
 * excess space is squeezed out
 * date objects are converted to strings
 
+## JSON and stringify/parse
+
+JSON is a *notation* for a data structure. The data structure might be
+dynamically generated.
+
+```
+data = ["a" ];
+data[1] = Math.random();
+data[2] = data[1] > 0.5;  // true or false
+data[3] = (new Date()).toDateString();
+
+console.log(typeof data);  // an object
+
+str1 = JSON.stringify(data);
+
+console.log(typeof str1);  // a string
+
+data2 = JSON.parse(str1);
+
+data === data2;
+```
+
 ## Shallow versus Deep Copying
 
 If you read carefully in the documentation on copying an array using
@@ -264,6 +276,16 @@ arguments). Here's what the Mozilla Developers Network has to say about
 [equality
 comparisons](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness).
 
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+
 <script>
-var revealAt = "2/14/2017 5:00 pm";
+var revealAt = "9/26/2017 5:00 pm";
 </script>

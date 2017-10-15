@@ -49,6 +49,8 @@ function foo(a,b) {
 1. Open the JS console in the new tab.
 1. See the `loaded` message
 
+Here is [mine](stuff.html)
+
 ## Exercise 1
 
 Write a function named `line` that takes three arguments and implements a linear function like this:
@@ -106,7 +108,7 @@ I'll take you through debugging the `choose` function using the Chrome debugger 
 
 I'll invoke `choose_v1(3,4)` in my public workspace and we'll see how it works.
 
-You can then do the same.  Or use [mine](https://sample-scottdanderson.c9users.io/js1/stuff.html)
+You can then do the same.  Or use [mine](stuff.html)
 
 ## Local Variables
 
@@ -156,7 +158,6 @@ Python's function.
 
 <div class="solution">
 <pre class="codehilite"> 
-:::javascript
 function range(n) {
     var nums = [];
     for( var i = 1; i <= n; i++ ) {
@@ -203,6 +204,14 @@ function computeCurve(domain, func) {
 }
 </pre>
 </div>
+
+Note that the new `.map()` method on JS Arrays does this in a convenient
+way:
+
+```
+:::JavaScript
+y_values = x_values.map(some_function)
+```
 
 Let's create functions `line23` and `curve234` and use them with this
 function:
@@ -284,6 +293,16 @@ nums2.sort(diff);
 
 Similarly `line23` and `curve234` could have been anonymous functions.
 
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+
 <script>
-var revealAt = "2/10/2017 5:00 pm";
+var revealAt = "9/22/2017 5:00 pm";
 </script>

@@ -1,12 +1,12 @@
 # begin file .htaccess
     AuthType Basic
     AuthName "CS210 Staff and Tutors Only"
-#    AuthUserFile /home/cs210/public_html/cs210pub/solutions/htpasswd
-    AuthUserFile /var/www/htpasswd
+#    AuthUserFile /var/www/htpasswd
+    AuthUserFile /home/cs204/public_html/solutions/htpasswd
     AuthGroupFile /dev/null
     Options All
     Order allow,deny
     Allow from all
-    Require user cs210
+    Require user cs204grader
     SetEnvIf X-FORWARDED-FOR "^128.30.52" ValidatorIP  # w3.org
     allow from env=ValidatorIP

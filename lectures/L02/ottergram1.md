@@ -1,5 +1,12 @@
 # First Project: Ottergram
 
+## Leftovers
+
+We'll finish our discussion of URLs from last time.
+
+In general, we may run out of time during class. Please finish work on
+your own if you can. 
+
 ## Recap of Reading
 
 We'll visit the [reading](../../reading/ch02.html) and quickly recap
@@ -25,18 +32,11 @@ usually many others who are glad she did.
 
 [Your questions](../../quizzes/quiz01.html)
 
-## Syllabus update
-
-I decided that the final project, while it is more substantive than any
-one assignment, should not count almost as much as all of them put
-together, so I changed the balance to 40% for assignments and 15% for the
-project.
-
 ## Cloud 9 clarification
 
 Make sure you have two workspaces, one public and one private.
 
-Share both with me and with Grace Hu (`ghu@wellesley.edu`)
+Share both with me and with Emily (`ewang10@wellesley.edu`)
 
 ## Cloud 9 startup
 
@@ -101,6 +101,10 @@ cache and really load the (updated) website:
 * hold down the *shift* key when clicking on reload, or
 * have the Chrome Development tools open
 
+Let's do a demo of that, using the `hello-world.html` from last
+time. Modify the `.css` file and then reload the page. Then shift+reload
+it.
+
 ## Get started!
 
 Go head and start on the chapter activities.
@@ -123,8 +127,8 @@ However, it does provide two command-line tools:
 
 Try one of the following in your *bash* shell:
 
-`wget http://cs.wellesley.edu/~cs210/downloads/otter-images.tar`
-`curl -O http://cs.wellesley.edu/~cs210/downloads/otter-images.tar`
+`wget http://cs.wellesley.edu/~cs204/downloads/otter-images.tar`
+`curl -O http://cs.wellesley.edu/~cs204/downloads/otter-images.tar`
 
 That's a capital letter O in the `curl` command, not a zero.
 
@@ -186,3 +190,27 @@ Odd or special characters in URLs have to be *encoded* using their ASCII
 02` where the `%40` is the UTF-8 codepoint for the space character.
 
 See, for example, [Stack Overflow on Unicode characters in URLs](http://stackoverflow.com/questions/2742852/unicode-characters-in-urls)
+
+## End of Class
+
+At the end of each class, I'll hand out 3x5 cards. On it, please write
+your name and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+
+## Conclusion
+
+Here is our [solution to chapter
+  2](https://sample-scottdanderson.c9users.io/front-end-dev-resources/book-solutions/Chapter-02/ottergram/index.html)
+
+We'll look at the solution in terms of:
+
+    * files,
+    * folders
+    * links/urls
+    * DOM
+    * Chrome Developer Tools
+

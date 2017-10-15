@@ -102,11 +102,11 @@ to do this is to provide an ALT attribute on the image:
 
 <div>
 <div class="example">
-    <img src="/images/harry-potter-thumb.jpeg"
+    <img src="../images/harry-potter-thumb.jpeg"
          alt="Daniel Radcliffe as Harry Potter">
 </div>
 <pre class="example-code">
-    &lt;img src="/images/harry-potter-thumb.jpeg"
+    &lt;img src="../images/harry-potter-thumb.jpeg"
          alt="Daniel Radcliffe as Harry Potter"&gt;
 </pre>
 </div>
@@ -124,13 +124,13 @@ but a better way to do this would be to use a FIGURE and a CAPTION:
 <div>
 <div class="example">
     <figure>
-        <img src="/images/harry-potter-thumb.jpeg" alt="">
+        <img src="../images/harry-potter-thumb.jpeg" alt="">
         <figcaption>Daniel Radcliffe as Harry Potter</figcaption>
     </figure>
 </div>
 <pre class="example-code">
     &lt;figure&gt;
-        &lt;img src="/images/harry-potter-thumb.jpeg" alt=""&gt;
+        &lt;img src="../images/harry-potter-thumb.jpeg" alt=""&gt;
         &lt;figcaption&gt;Daniel Radcliffe as Harry Potter&lt;/figcaption&gt;
     &lt;/figure&gt;
 </pre>
@@ -163,7 +163,7 @@ image using CSS:
    #soccerball {
       width: 240px;
       height: 240px;
-      background-image: url(/images/240px-Soccer_ball.svg.png);
+      background-image: url(../images/240px-Soccer_ball.svg.png);
    }
    </style>
 
@@ -201,18 +201,13 @@ hyperlinks. Here are just a few items:
 * People expect that links are underlined. Unless the context makes the
   link obvious (a navigation bar), don't use CSS to remove the default
   underline
-
 * An image that is a hyperlink will use the ALT text as the description of the hyperlink.
-
 * Don't say "link to X" or "go to Y"; the screen reader will indicate that the element is a hyperlink
-
-* 
-
 
 
 If you want to learn even more, I suggest [Making Accessible Links: 15
 Golden Rules for
-Developers]{https://www.sitepoint.com/15-rules-making-accessible-links/}.
+Developers](https://www.sitepoint.com/15-rules-making-accessible-links/).
 
 ## Labels for Form Controls
 
@@ -222,13 +217,11 @@ have placeholders and such, but labels are necessary.
 
 ## Avoid Color
 
-
-
-## Non-HTML Content
-
-## Skip Links
-
-## Standards
+Not everyone sees colors correctly. Color blindness is more common in men
+than in women, but it does happen in both sexes. Don't use color as the
+*sole* means of conveying information. It's fine, for example, to mark the
+required form inputs with red, but you should *also* add a bit of text or
+an asterisk or something. It can be a red asterisk.
 
 ## Accessible JavaScript
 
@@ -244,19 +237,11 @@ want that, a better idea is to add an after-event handler to the
 jQuery code to display the content but offscreen (or using one of the
 other techniques for hiding content).
 
-
-## Accessible Drop-down Menus
-
-## Accessible Slideshows
-
 ## Learning More
 
 * [Accessibility Useability For All](https://www.interaction-design.org/literature/article/accessibility-usability-for-all)
 * [Understand the Social Needs for Accessibility](https://www.interaction-design.org/literature/article/understand-the social-needs-for-accessibility-in-ux-design)
 * [Create Accessible Websites with the Principles of Universal Design](https://www.interaction-design.org/literature/article/learn-to-create-accessible-websites-with-the-principles-of-universal-design)
-
-
-
 
 ## Conclusion
 
@@ -268,3 +253,18 @@ has a keyboard? will it work if the user is blind? Will it work if the
 user has limited motor control? Sometimes, this will mean foregoing that
 fancy feature, but the goal of making our website for all instead of the
 lucky few is worth the price.
+
+---
+
+TBD
+
+## Non-HTML Content
+
+## Skip Links
+
+## Standards
+
+## Accessible Drop-down Menus
+
+## Accessible Slideshows
+

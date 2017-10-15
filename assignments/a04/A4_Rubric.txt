@@ -1,0 +1,18 @@
+﻿CS 249 – Front End Web Development
+Assignment 4
+Names: 
+Workspace account:
+
+
+Rock, Paper, and Scissors
+1. ____/10        Selected player throw is outlined
+2. ____/20        Computer Throw invokes random move when Player Throw is selected 
+3. ____/10        Comparison function yields the correct outcome and page displays who won or whether there was a tie
+4. ____/10        Scorecard of how many points each party has is accurate
+5.  ____/10        Starting over button refreshes the scorecard
+6. ____/15        Uses abstraction and modularity 
+7. ____/5                Page looks nice, HTML and CSS are valid
+8. ____/20        Testing functions have been written so that they can be tested on their own using the JS console
+
+
+Total: _____/100

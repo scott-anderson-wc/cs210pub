@@ -1,0 +1,18 @@
+﻿CS 249 – Front End Web Development
+Assignment 9
+Names: 
+Workspace account:
+
+
+20 Questions
+1. ____/10        HTML page displays buttons and containers for tree display and game
+2. ____/10        Use Ajax’s .get() function to fetch tree from server and parseTree() to convert it into a JSON data structure
+3. ____/10        Function to show tree prints nested/indented DIVS uses recursion
+4. ____/10        Function to show tree handles cases differently for nodes that are string v. objects
+5. ____/10        Function responsible for asking the next question builds structure to hold the next question/guess text and accompanying Yes and No buttons.
+6.  ____/10        Event handler for processing Yes and No answers removes both buttons, finds the correct child, and asks the next question
+7. ____/10        Functions that process correct and incorrect guesses remove both buttons and insert a response 
+8. ____/10        Button that starts game clears out previous game and asks first question 
+9. ____/10        Button handlers all work properly  
+10. ____/10        Uses abstraction and modularity 
+Total: _____/100

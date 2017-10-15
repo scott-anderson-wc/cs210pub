@@ -1,0 +1,11 @@
+Q: is the subject real? (not imaginary)
+    YQ: is the subject a US President?
+        YG: Abraham Lincoln
+        NQ: is the subject a revolutionary war figure?
+            YG: Alexander Hamilton
+            NG: Martin Luther King, Jr
+    NQ: is the subject a Star Wars Character?
+        YG: Darth Vader
+        NQ: is the subject a character from Lord of the Rings?
+            YG: Frodo Baggins
+            NG: Captain Kirk

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='slides.css'>
+    <link rel='stylesheet' href='dropdowns.css'>
+    <style>
+        .slideshow-container img { height: 768px; }
+        .slideshow-container figure { margin: 0px; padding: 0px; }
+        #dots { text-align: center }
+        #slideshow-template { display: none; }
+    </style>
+    <meta name=author content="Scott D. Anderson">
+    <title>Slideshows and Dropdowns</title>
+</head>
+<body>
+
+<div class="dropdown">
+    <button class="dropbtn">News Sources</button>
+    <div class="dropdown-content">
+        <a href="https://news.google.com/">Google News</a>
+        <a href="https://nytimes.com/">NY Times</a>
+        <a href="https://washingtonpost.com/">Washington Post</a>
+    </div>
+</div>
+
+
+<div id="slideshow-template">
+    <figure class="mySlides fade">
+        <div class="numbertext">i / n</div>
+        <img src="">
+        <figcaption class="text">Caption text</figcaption>
+    </figure>
+</div>
+
+<div class="slideshow-container">
+    <a class="prev">&#10094;</a>
+    <a class="next">&#10095;</a>
+</div>
+
+<div id="dots"></div>
+
+<script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+<script src="slides.js"></script>
+<script>
+    var slides = [
+        {src: 'images/harry-potter-big.jpeg', alt: 'Harry Potter'},
+        {src: 'images/ron-weasley-big.jpeg', alt: 'Ron Weasley'},
+        {src: 'images/hermione-granger-big.jpeg', alt: 'Hermione Granger'},
+        {src: 'images/draco-malfoy-big.jpeg', alt: 'Draco Malfoy'}
+    ];
+
+    makeSlides(slides);
+    showSlides(slideIndex);         // show first slide
+    // setInterval(nextSlide, 500);
+    $(".slideshow-container .next").one().click(nextSlide);
+    $(".slideshow-container .prev").one().click(prevSlide);
+    // delegated handler
+    $("#dots").on('click','[data-index]',function (event) {
+        var index = $(event.target).attr("data-index");
+        console.log("dot click on "+index);
+        slideIndex = index;
+        showSlides(slideIndex);
+    });
+
+</script>    
+
+<script>
+    // Dropdowns
+
+   $(".dropbtn").on('click',function (event) {
+        $(this).closest(".dropdown").find(".dropdown-content").show();
+    });
+
+    $(window).on('click',function (event) {
+        if(!event.target.matches('.dropbtn')) {
+            $(".dropdown-content").hide();
+        }
+    });
+</script>
+
+</body>
+</html>

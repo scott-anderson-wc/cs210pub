@@ -5,9 +5,9 @@ services. Even the Cloud 9 accounts required some elaborate signup
 forms. In this assignment, you'll write some JavaScript code to
 validate a signup form, checking its values certain common errors.
 
-This assignment is intended to be relatively little coding. My
-solution is only 25 lines of JavaScript, plus some HTML and CSS and
-some editing of other JS files.
+This assignment is intended to be relatively little coding. My solution is
+less than 50 lines of JavaScript, plus some HTML and CSS and some editing
+of other JS files.
 
 ## Goal
 
@@ -17,6 +17,11 @@ password (to make sure they can type it twice correctly) and one for a
 credit card number. There will also be a submit button to submit the
 form. You can add some simple CSS to make the form look nice, but
 you need not put much effort in this (I didn't).
+
+## Dependencies
+
+This assignment is based only on the material up to and including Chapter
+10, in which we learned to handle form submissions.
 
 ## Validation
 
@@ -41,7 +46,7 @@ there are errors).
 
 If all of the tests are passed, the form should be submitted. The
 `action` of your form should be
-`https://cs.wellesley.edu/~cs210/form-echo-html.php`. That script just
+`https://cs.wellesley.edu/~cs204/form-echo-html.php`. That script just
 echoes the values back to you, but it's useful for testing.
 
 ## Luhn Module
@@ -101,18 +106,27 @@ exported. Write a function to test the `sum` function.
 
 ## Modularity
 
+Modularity is key to this assignment. Your HTML will load three files:
+
+1. `Luhn.js`; you'll make only a tiny change to this file
+1. `formhandler.js`; you'll make some small changes to this file
+1. `signup.js`; this file will be similar to the `main.js` file from
+Chapter 10, in that it will *use* functions and objects defined in the
+other files.  By working with both sides of the abstraction barriers, I
+hope you'll feel more comfortable with modules in general and modules in JavaScript.
+
 You must use the `formhandler.js` file that was created in Chapter 10
 of your book. Use that code to attach your own submission handler to
 your form. Here's a copy of the code: [formhandler.js](formhandler.js)
 
-However, you will have to make some small changes to that
-code:
+However, you will have to make some small changes to the
+`addSubmitHandler()` (ASH) method:
 
-1. It should not always prevent the form submission. Instead, your
+1. ASH should not always prevent the form submission. Instead, *your*
 submission handler will decide whether to submit the form.
-1. It will have to pass the event object to your handler, so that your
-handler will be able to prevent the default or not.
-1. It should not reset the form. Otherwise, a correctly filled out
+1. ASH will have to pass the event object to your handler, so that your
+handler will be able to prevent the default or not. 
+1. ASH should not reset the form. Otherwise, a correctly filled out
 form will be submitted as a blank form. (Try it!)
 
 Your own code should also be in its own file. Name the file
@@ -133,6 +147,8 @@ just does a `console.log` and get that to work.
 1. Implement just a single validation test. Choose the easiest one,
    such as password length. Get working the error messages and the yes/no
    decision about whether to submit the form.
+1. You may find the string method [`toLowerCase()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase) and the array method
+[`indexOf`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf) useful in checking the validity of the username   
 1. Incrementally improve your submission handler to cover the other
 tests, saving the Luhn test for last.
 1. Add the `Luhn.js` file and make the changes described

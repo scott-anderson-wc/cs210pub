@@ -2,18 +2,18 @@
 
 Cloud 9 is a service that allows you to create virtual machines
 (workspaces) and Integrated Development Environments (IDEs) that are based
-in the cloud. There is a free service which limits the power of your
+in the cloud. There is a free service level that limits the power of your
 machine (cpu, ram, disk) and also limits the number of private workspaces
-you can have, but these are sufficient for our course.
+you can have, but these limits are sufficient for our course.
 
 ## Signup
 
 Signup is free and is like many other web accounts. You won't have any
 difficulty with it.
 
-I will send each student in the course an invitation using their Wellesley
-email address. That will allow you to create a C9 account without having
-to give a credit card.
+I will send each student in the course (and some of those on the waiting
+list) an invitation using their Wellesley email address. That will allow
+you to create a C9 account without having to give a credit card.
 
 (You're welcome to create a personal account, which is free, but I believe
 they require a credit card anyhow, probably to ensure that you're not 13.)
@@ -36,7 +36,7 @@ that's good too.
 Here's what the workspace looks like:
 
 <figure>
-   <img style="width:80%" src="../images/c9-cs210-initial-workspace-full.png">
+   <img style="width:80%" src="../images/c9-cs204-initial-workspace-full.png">
    <figcaption>The Cloud 9 Initial Workspace</figcaption>
 </figure>
 

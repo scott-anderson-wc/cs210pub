@@ -1,0 +1,24 @@
+﻿CS 249 – Front End Web Development
+Assignment 2 – Mobile Web Page
+Names: 
+Workspace account:
+
+
+Responsive Web Page
+____/10        Flexbox layout to make 3 sections vertical for narrow devices
+____/10        Figures captions overlap the top of the pictures
+____/10        Background of figure captions is opaque white, so text shows
+____/10        The top, left and right edges of the caption box are flush with the image
+____/10        2em of distance between the top figure border and the top edge of the image
+____/10        Visually appealing, HTML & CSS are valid
+
+
+Rock Paper Scissors
+____/20        All 9 comparisons print in the console correctly using nested loops
+____/10        test_sort function prints to console list with correct order
+____/10        Explanation of results of sorting
+
+
+
+
+Total: _____/100

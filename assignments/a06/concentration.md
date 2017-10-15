@@ -114,7 +114,7 @@ and then add JavaScript code to handle events such as the user's clicks.
          your own code.  Here's the URL:
 
 <pre>
-https://cs.wellesley.edu/~cs210/assignments/a06/supplied.js
+https://cs.wellesley.edu/~cs204/assignments/a06/supplied.js
 </pre>
 
       <p>The <code>shuffleImages()</code> function generates a random

@@ -1,7 +1,7 @@
 /* thanks to stackoverflow/questions/9288802/avoid-page-break-inside-row-of-table */
 
-table.print-friendly tr th,
-table.print-friendly tr td {
+table.calendar tr th,
+table.calendar tr td {
     page-break-inside: avoid;
 }
 
@@ -52,13 +52,14 @@ td, th {
     box-sizing: border-box;
     border: 1px solid black;
     border-collapse: collapse;
+    vertical-align: top;
 }
 /* wide days are Tuesday, Thursday and Friday */
 
 .calendar th:nth-of-type(1) { width: 5%; }
 .calendar th:nth-of-type(2) { width: 30%; }
-.calendar th:nth-of-type(3) { width: 5%; }
-.calendar th:nth-of-type(4) { width: 30%; }
+.calendar th:nth-of-type(3) { width: 30%; }
+.calendar th:nth-of-type(4) { width: 5%; }
 .calendar th:nth-of-type(5) { width: 30%; }
 
 @media (max-width: 30em) {

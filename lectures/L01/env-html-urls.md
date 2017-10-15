@@ -1,9 +1,9 @@
-[TOC]
+<!--- [TOC] --->
 
 # Environment, HTML and URLs
 
-This is our first class, so we'll talk about the course, and then get
-started setting up our environment and getting under way.
+This is our first class, so we'll talk about the course, call roll, and
+then get started setting up our environment and getting under way.
 
 ## About this Course
 
@@ -29,7 +29,7 @@ prior course.
 Similar to CS 230 rather than CS 304.
 
 However, this semester, due to its newness and the fact that seniors get
-first dibs, that isn't really the case.
+first dibs, that isn't entirely the case.
 
 So, one difficulty is the range of skill and experience in the class.
 
@@ -41,15 +41,16 @@ So, one difficulty is the range of skill and experience in the class.
 ## What number is it?
 
 * Originally, we planned to number it 210, a souped-up version of 110
-* However, 110 doesn't exist and conceptually, it pairs better with 304, so
+* However, 110 doesn't exist anymore and conceptually, the course pairs better with 304, so
 * Now it's numbered 204,
-* But almost everything I've written says "210"; even this account
+* But almost everything I've written originally said "210", so you may
+* find some vestiges. Don't worry about that.
 
 ## Course Development
 
-Since this is a new course, I will be asking you to fill out lots of
-feedback surveys about whether a reading assignment or problem set is too
-hard, too easy, or just right.
+Since this is a relatively new course, I will be asking you to fill out
+lots of feedback surveys about whether a reading assignment or problem set
+is too hard, too easy, or just right.
 
 I'll try to keep these brief, but they are important
 
@@ -71,6 +72,7 @@ We will learn:
 * JavaScript
 * the DOM, which is how JavaScript controls the page, including HTML, CSS
 and event handling
+* jQuery, a library for doing common DOM-related operations
 
 ## Waiting list
 
@@ -81,6 +83,12 @@ and event handling
     * something else
 * I can't promise anything, but I will do my best    
 
+## Roll Call
+
+During add/drop, I'll call roll. It also helps me learn your names and
+faces. Please correct my pronunciation of your name if necessary, and
+please tell me what your pronouns are. I use "he/him".
+
 ## Syllabus issues:
 
 * Communication: please read/use email every day. I'm old; it's what I use
@@ -88,19 +96,22 @@ and event handling
 * [syllabus](../../syllabus.html)
 * [schedule](../../schedule/schedule.html)
 
+We'll take a few minutes now to talk about the syllabus and the schedule.
+
 ## Environment
 
 Cloud 9 is a platform where you get your own virtual machine in the Cloud:
 
-* command line (we won't use this much)
+* command line 
 * files and folders
 * built-in editor (Ace)
 * variety of backend servers; we'll use the default, which is Apache
 * uniform development environment, whether you're a Mac, PC or Linux person
-* 1 private workspace, that ...
+* as many public workspaces as you want, plus
+* 1 *private* workspace, that ...
 * you will share with me and with the tutor
 
-Login now, please!
+Login now, please! [https://c9.io/](https://c9.io/)
 
 ## Orientation
 
@@ -112,7 +123,7 @@ We'll do this in class together, but if you want to do it beforehand,
 that's good too.
 
 * put in a workspace name. Call it cs204
-* make it *private*
+* make it *public*
 * the default template is okay
 * create the workspace by clicking the big green button
 
@@ -121,10 +132,10 @@ that's good too.
 Launch your workspace and we'll look around.
 
 * Menus on the top like a desktop Integrated Development Environment (IDE)
-  application. That will all you to create, edit, and save files,
+  application. That will allow you to create, edit, and save files,
 * files and folders on the left hand side
-* right hand side has links to share, collaborate, etc
-* shell on the bottom, for executing commands. We won't use that a lot.
+* right hand side has links to collaborate, etc
+* shell on the bottom, for executing commands. 
 * A JavaScript REPL is there on the bottom, too. We'll use that a lot.
 
 ## Using a Workspace
@@ -132,8 +143,10 @@ Launch your workspace and we'll look around.
 They have some "getting started" info. It's worth doing:
 
 1. Open the hello-world.html file by double-clicking
-1. Click on Preview button to see it live
-1. Change something, save, and watch the preview
+1. Click on Preview to see the web page in a tiny pane.
+1. Click on Run to start a web server and
+1. Click on the URL to see it in another tab
+1. Change something, save, and refresh the other tab
 1. have fun!
 
 ## Stuff to Notice
@@ -145,9 +158,10 @@ They have some "getting started" info. It's worth doing:
 
 1. Create a new file: File > New From Template > CSS file
 1. Copy/paste the CSS code (the contents of the `style` tag, from line 9
-to line 44 to the new file
+to line 41 to the new file, *between* the `style` tags).
 1. Save the file as `hello-world.css`:  File > Save As 
-1. In `hello-world.html` after the `<title>` type `link` and hit `tab`
+1. In `hello-world.html` after the `<title>` type `link` and hit
+`tab`. Notice that the editor fills in lots of code for you.
 1. put `hello-world.css` as the value of the `href` attribute. You can try
 right-clicking on the filename in the file browser and choosing "copy file
 path" then pasting it in
@@ -156,10 +170,11 @@ view to refresh it.
 
 ## Edit the HTML to create some more files
 
-1. right after `body` type `<h1>` and notice it puts in the closing tag
-1. Give it a different name, like `Fred`
+   1. right after `body` type `<h1>` and notice the editor puts in the closing tag
+1. Type `Fred` into the `h1` tag. That will make the page look different
+from other pages.
 1. Save the file as `fred.html`: File > Save As
-1. Repeat to create `george.html`
+1. Repeat to create `george.html` and put "George" in the `h1` tag.
 1. Return to `hello-world.html` and put in links to fred and george:
 
 ```html
@@ -233,6 +248,14 @@ Examples of Relative URLs:
 * `..` is a parent folder, but you'd never do that in practice
 * `../mas` is a sibling of a parent
 
+Here's what a site might look like:
+
+![example directory tree](../../images/urls.svg)
+
+Here's the example we just did:
+
+![example directory tree](../../images/urls-hello.svg)
+
 The reason that `george.html` worked and `/fred.html` didn't work is that
 the latter is an absolute URL, so that when we moved the files, the
 absolute URL was no longer correct, but the relative one was *still correct*.
@@ -244,7 +267,7 @@ URLs](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_
 
 ## Share your workspaces with me!
 
-Create *two* workspaces, one public and one private:
+Create *two* workspaces, one public and one private. Call them `cs204` and `cs204private`
 
 1.  use the private one for assignments. You can share it with your partner,
   but no one else will be able to look at it, so your work is secure (you
@@ -258,11 +281,11 @@ one for CS 204 assignments
 
 But, please *share* your workspaces with me and with our tutor. You can
 share it read-write (RW) or read-only (R), but I recommend RW so that, if
-necessary, the tutor and I can modify your files. Please share with these
-two email addresses
+necessary, the tutor (Emily Wang) and I can modify your files. Please
+share with these two email addresses
 
 * `scott.anderson@wellesley.edu`
-* `ghu@wellesley.edu`
+* `ewang10@wellesley.edu`
 
 ## About our book
 
@@ -275,4 +298,7 @@ two email addresses
 
 * send me an introductory email
 * plan to visit me in office hours sometime
-* get a copy of the book. Read chapter 2 and our supplement for Friday
+* get a copy of the book. Read chapter 2 and our online supplement for
+next time
+* There will be a quiz on the reading
+

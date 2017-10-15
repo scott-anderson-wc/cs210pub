@@ -1,38 +1,19 @@
 No Answer
-How can our formatting help or not help accessibility for different people?
 No Answer
-No Answer
-No Answer
-No Answer
-Just a general overview of Flexbox would be nice! :)
-How to place items in a coordinate system 
-No Answer
-No Answer
-No Answer
-Could we talk more about flexbox and its uses?
-No Answer
+I'm curious to learn about the purpose of other position values, such as fixed. Additionally, I would like to learn a bit more about float!
+nothing in particular!
+No questions on this section!
+To clarify: the "auto" in, for example, the shorthand "flex: 0 1 auto;"  tells the container to calculate the element's size rather than the developer specifying it?
 
+Flexbox is just really confusing! Looking forward to practicing in class.
 No Answer
-Could you explain the difference between flex boxes and regular containers, and also the meaning of the flex shorthand property (flex: 0 1 auto)?
+Flexbox vs. Float (just more detail on why we use one over the other, pros and cons)
 No Answer
-No Answer
+"I'm still confused with absolute positioning and relative positioning.
+ What is the difference between flex and float?
+ What does it mean when flex items can ""grow and shrink""?
+ why is it important to explicitly declare position property? "
 
-
-No Answer
-N/A
-No Answer
-No Answer
-No Answer
-No Answer
-Nope :)
-Nope!
-No Answer
-No Answer
-No Answer
-https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-No Answer
-
-No Answer
-No Answer
-No Answer
-No Answer
+The supplemental reading mentioned that flex containers can be nested.  What does that look like?
+What attributes can flexbox have other than positioning and size? Is there a page somewhere with all the attributes you can use?
+Absolute and relative positioning. Flex vs. flexbox.

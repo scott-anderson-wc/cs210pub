@@ -1,0 +1,24 @@
+﻿CS 249 – Front End Web Development
+Assignment 7
+
+
+Names: 
+
+
+Workspace account:
+
+
+Signup
+____/10        Creates HTML form that works with the echo back-end script
+____/10        formhandler.js doesn't always prevent form submission and reset the form
+____/10        signup.js implements the submission handlers using the addSubmitHandler function from the formhandler.js file
+____/10        Submission handler checks that accounts are not prohibited
+____/10        Submission handler checks that password length greater than minimum
+ ____/10        Submission handler checks that both passwords match
+____/10        Submission handler checks that credit card numbers pass the Luhn test. You wrote a function that tests the Luhn sum function and exported the sum function.
+____/10        Error messages display properly
+____/10        signup.js uses an IIFE
+____/10        Uses abstraction and modularity: non-local variables in IIFE, good variable names
+
+
+Total: _____/100

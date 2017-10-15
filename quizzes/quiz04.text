@@ -1,37 +1,16 @@
-not related to reading, but can we go over how to appropriately style images so they don't get so distorted with adaptive layouts?
-N/A
-Run through an example in which we convert code for a desktop webpage to mobile (viewports practice)
+I'd appreciate if you further explained media queries. I'm confused about what the difference between the two is. Aren't they both accomplishing the same thing?
 No Answer
-
-No Answer
-I'm good :)
-No Answer
-No Answer
-No Answer
-No Answer
-No Answer
-No Answer
-No Answer
-No Answer
-Right now I think I am good with all the topics.
-No Answer
-
-================================================================
-
+I'm somewhat confused about what the "all and" part of the @media line stand for.
+In a media query, how do you specify mobile layouts depending on horizontal/vertical orientation? 
+How should you know what pixel size to specify in a media query?
+I'm okay for now! I just need more practice.
+Just need more practice 
 No Answer
 N/A
 No Answer
-No Answer
-
-No Answer
-Nope!
-No Answer
-No Answer
-No Answer
-https://www.sitepoint.com/web-foundations/understanding-media-queries/
-No Answer
-No Answer
-No Answer
-No Answer
-None that I can think of. 
-No Answer
+"What is the difference between layout viewport and visual viewport other than size?
+ Why is the visual viewport narrower than the layout viewport?
+ what is a breakpoint? "
+I noticed that webpages use media queries for mobile devices, but some webpages use a separate page for mobile devices. How can the webpage detect that the user is viewing the page from mobile device? Also, why do some webpages use a separate mobile page instead of using media queries?
+What counts and does not count as "responsive"?  When we use ems and set widths as percentages, so that they adjust as the window expands, is that also responsive, or is there a different term?  
+Difference between media query css and normal css when it comes to rendering hierarchy. Is it guaranteed that putting a certain size limit on the alternate css will make it disable at the right size? Also, which version of the css gets priority, the regular version or the one that specifies a certain window size?

@@ -66,14 +66,14 @@ cal.add_info("17Feb"
 
 // day 9
 cal.add_info("24Feb"
-             ,makeLink("JS: Event Handlers", "../reading/tbd.html")
+             ,makeLink("JS: Event Handlers", "../reading/ch06.html")
              ,"BNR chapter 6"
              ,makeLink("<em>activities</em>","../lectures/L09/")
 );
 
 // day 10
 cal.add_info( "28Feb"
-              ,makeLink("Visual Effects with CSS", "../reading/tbd.html")
+              ,makeLink("Visual Effects with CSS", "../reading/ch07.html")
               ,"BNR chapter 7"
 //              ,"is this obviated by much of the JQ animations?"
               ,makeLink("<em>activities</em>","../lectures/L10/")
@@ -82,95 +82,119 @@ cal.add_info( "28Feb"
 // day 11
 cal.add_info( "03Mar"
               ,makeLink("Closures and Namespaces", "../reading/closures-and-namespaces.html")
+              ,"BNR chapter 8, through page 173"
               ,makeLink("<em>activities</em>","../lectures/L11/")
 );
 
 // day 12
 cal.add_info( "07Mar"
-              ,makeLink("OOP Methods; Modules, Objects and Forms", "../reading/OOP.html")
-              ,"BNR chapter 8"
+              ,"Review for Midterm"
               ,makeLink("<em>activities</em>","../lectures/L12/")
 );
 
 // day 13
-cal.add_info("10Mar","SIGCSE/Midterm");
+cal.add_info("10Mar"
+             ,"SIGCSE/Midterm"
+             ,makeLink("<em>activities</em>","../lectures/L13/")
+);
 
 // day 14
 cal.add_info( "14Mar"
-              ,makeLink("Skeleton and Bootstrap", "../reading/tbd.html")
-              ,"BNR chapter 9"
+              ,"SNOW"
               ,makeLink("<em>activities</em>","../lectures/L14/")
 );
 
 // day 15
 cal.add_info( "17Mar"
-              ,makeLink("Forms and val()", "../reading/tbd.html")
-              ,"BNR chapter 10"
+              ,makeLink("OOP Objects and Methods", "../reading/OOP.html")
+              ,makeLink("Forms", "../reading/forms.html")
+              ,"BNR chapter 8, rest"
+              ,"BNR chapter 9"
               ,makeLink("<em>activities</em>","../lectures/L15/")
 );
 
 // day 16
 cal.add_info( "21Mar"
-              ,makeLink("From Data to DOM (creating checkboxes)", "../reading/tbd.html")
-              ,"BNR chapter 11"
+              ,makeLink("Forms", "../reading/forms-and-js.html")
+              // need to add .val()?
+              ,"BNR chapter 10"
               ,makeLink("<em>activities</em>","../lectures/L16/")
 );
 
 // day 17
-cal.add_info("24Mar"
-             ,makeLink("Validating Forms, including Regular Expressions", "../reading/tbd.html")
-              ,"BNR chapter 12"
+cal.add_info( "24Mar"
+              ,"No new reading"
               ,makeLink("<em>activities</em>","../lectures/L17/")
 );
 
-
 // day 18
 cal.add_info("04Apr"
-             ,makeLink("Local Storage and Ajax, GET, POST and Same Origin Policy", "../reading/tbd.html")
-              ,"BNR chapter 13"
+              ,makeLink("From Data to DOM", "../reading/ch11.html")
+              ,"BNR chapter 11"
               ,makeLink("<em>activities</em>","../lectures/L18/")
 );
 
+
 // day 19
-cal.add_info( "07Apr"
+cal.add_info("07Apr"
+             ,makeLink("Grid Systems", "../reading/grids.html")
+             // Skeleton and Bootstrap, too
+             ,"BNR chapter 9"
+             ,makeLink("<em>activities</em>","../lectures/L19/")
+);
+
+/*
+// dropping this
+cal.add_info( "11Apr"
               ,makeLink("Animations and Absolute Positioning", "../reading/tbd.html")
               ,makeLink("<em>activities</em>","../lectures/L19/")
 //,"might need to drop this; replace with what??"
 );
+*/
 
 // day 20
 cal.add_info( "11Apr"
-              ,makeLink("Slideshows", "../reading/tbd.html")
+             ,makeLink("Validating Forms, including Regular Expressions", "../reading/form-validation.html")
+              ,"BNR chapter 12"
               ,makeLink("<em>activities</em>","../lectures/L20/")
 );
 
 // day 21
 cal.add_info( "14Apr"
-              ,makeLink("Galleries and DropDowns", "../reading/tbd.html")
+              ,makeLink("Ajax and localStorage", "../reading/ajax.html")
+              ,"BNR chapter 13"
               ,makeLink("<em>activities</em>","../lectures/L21/")
+// Eventually, add same origin policy?
 );
+
+/*
+ * dropping this
+              ,makeLink("Keyboard and Mouse Event Handlers","../reading/tbd.html")
+              ,makeLink("<em>activities</em>","../lectures/L23/")
+ */
+
 
 // day 22
 cal.add_info( "18Apr"
-              ,makeLink("OOP: Classes and Inheritance", "../reading/tbd.html")
+              ,makeLink("OOP: Classes and Inheritance", "../reading/OOP-inheritance.html")
               ,makeLink("<em>activities</em>","../lectures/L22/")
 );
 
 // day 23
 cal.add_info( "21Apr"
-              ,makeLink("Keyboard and Mouse Event Handlers","../reading/tbd.html")
+              ,makeLink("Galleries and DropDowns", "../reading/galleries-and-dropdowns.html")
               ,makeLink("<em>activities</em>","../lectures/L23/")
 );
 
 // day 24
 cal.add_info("25Apr"
-             ,makeLink("JQ UI, date picker, menus, autocomplete","../reading/tbd.html")
+             ,makeLink("JQuery UI","../reading/jqueryui.html")
              ,makeLink("<em>activities</em>","../lectures/L24/")
 );
 
 // day 25
 cal.add_info("28Apr"
-             ,makeLink("Google Maps API","../reading/tbd.html")
+             ,makeLink("Google Maps API","../reading/google-maps.html")
              ,makeLink("<em>activities</em>","../lectures/L25/")
             );
 
@@ -204,44 +228,44 @@ cal.add_info(
 
 cal.add_info(
     "02Mar",
-    makeLink("A4: page w/ event handlers", "../assignments/event-handling.html", "due")
-//     ,"Page with style selector buttons, like accessibility, but choosing light/dark, font-size and so forth. Extra credit to save selections to LocalStorage? Or maybe this is the time to play Rock-Paper-Scissors?"
+    makeLink("A4: page w/ event handlers", "../assignments/a04/rps.html", "due")
 );
 
 cal.add_info(
     "09Mar"
-    ,makeLink("A5: page w/ JQ animations", "../assignments/animations.html", "due")
-//    ,"Uses the visual effects transitions? Maybe something with closures instead? "
+    ,makeLink("A5: page w/ JQ animations", "../assignments/a05/tile_game.html", "due")
 );
         
 cal.add_info(
     "16Mar"
-    ,makeLink("A6:  Concentration/Names", "../assignments/concentration.html", "due")
-//    ,"I have a draft of this, based on an original by Ellen. Should be a fun game."
+    ,makeLink("A6:  Concentration", "../assignments/a06/concentration.html", "due")
  );
 
 cal.add_info(
-    "23Mar"
-    ,makeLink("A7:  Form Processing: Quizzes", "../assignments/quizzes.html", "due")
+    "06Apr"
+    ,makeLink("A7: Signup", "../assignments/a07/signup.html", "due")
+    );
+
+cal.add_info(
+    "13Apr"
+    ,makeLink("A8:  Quizzes", "../assignments/a08/quiz.html", "due")
 //    ,"Allow the author to create a quiz for others to take. JQ array of questions, where each question is an object with a question, an array of possible multiple-choice answers and a solution"
  );
 
 cal.add_info(
-    "13Apr" 
-    ,makeLink("A8: Jelly Blobs of Doom", "../assignments/jelly-blobs.html", "due")
-    ,"This is just about ready"
-);
-
-cal.add_info(
     "20Apr" 
-    ,makeLink("A9: Twenty Questions", "../assignments/expandable-forms.html", "due")
-//    ,"I have a draft of this: build a 20-questions game that allows learning, where when the game loses, it asks for a distinguishing yes/no question and builds its tree."
+    ,makeLink("A9: Twenty Questions", "../assignments/a09/20questions.html", "due")
+//    ,"I have a draft of this: build a static 20-questions game
 );
 
 cal.add_info(
     "27Apr" 
-    ,makeLink("A10: Learning Tree", "../assignments/expandable-forms.html", "due")
-//    ,"I have a draft of this: build a 20-questions game that allows learning, where when the game loses, it asks for a distinguishing yes/no question and builds its tree."
+    ,makeLink("A10: Jelly Blobs of Doom", "../assignments/a10/jBlobs.html", "due")
+);
+
+cal.add_info(
+    "04May" 
+    ,makeLink("A11: Learning Tree", "../assignments/a11/20-learning.html", "due")
 );
 
 /*
@@ -253,8 +277,8 @@ cal.add_info(
 */
 
 cal.add_info(
-    "12May" 
-    ,makeLink("Project: Taskmin", "../assignments/taskmin.html", "due")
+    "15May" 
+    ,makeLink("Project: Taskmin; due at 4pm", "../assignments/project/taskmin.html", "due")
 //    ,"Needs some debugging, but I think this will make a good assignment"
 );
 

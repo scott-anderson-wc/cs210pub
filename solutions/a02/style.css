@@ -1,10 +1,6 @@
-article {
-    margin: 10px 1em;
-}
+article {  margin: 10px 1em; }
 
-section {
-    padding: 0px 1em;
-}
+section { padding: 0px 1em; }
 
 section img {
     display: block;
@@ -24,32 +20,38 @@ figcaption {
     background-color: rgba(80%, 80%, 80%, 0.5);
 }
 
+.personal { background-color: rgb(255, 200, 200); }
+.academic { background-color: rgb(200, 255, 200); }
+.family  { background-color: rgb(200, 200, 255); }
 
-.personal {
-    background-color: rgb(255, 200, 200);
-}
-.academic {
-    background-color: rgb(200, 255, 200);
-}
-.family  {
-    background-color: rgb(200, 200, 255);
-}
-
-ul.validation_icons {
-    list-style: none;
-}
-
-.validation_icons li {
-    display: inline;
-}
+ul.validation_icons { list-style: none; }
+.validation_icons li { display: inline; }
 
 /* ================================================================
-   new for a02
-   */
+   new for a02 */
 
 .sections {
     display: flex;
     flex-direction: column;
+}
+
+.captioned {
+    position: relative;
+    padding: 0px;
+}
+
+.captioned img {
+    width: 80%;
+    margin: 2em 10%;
+}
+
+.captioned figcaption {
+    position: absolute;
+    width: 80%; /* same as the image */
+    top: 2em;  /* same as margin on the image */
+    left: 10%; /* same as margin on the image */
+    border: none;
+    background-color: white;
 }
 
 @media all and (min-width: 768px) {

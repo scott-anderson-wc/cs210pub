@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Whiteboard Play</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/~cs210/css/normalize.css">
+  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"></script>
+
+<style>
+    .node {
+        margin-left: 2em;
+    }
+
+</style>
+
+</head>
+<body>
+
+    <header>
+        <h1>20 Questions</h1>
+    </header>
+
+    <noscript>
+        This app requires JavaScript. It won't work at all without
+        JavaScript. Sorry.
+    </noscript>
+
+    <!-- Primary Page Layout
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+
+                <p id="tree_buttons">
+                    <button id="savedTree">Use Locally Saved Tree</button>
+                    <button id="defaultTree">Use Default Tree from Server</button>
+                </p>
+                    
+                <p id="controller_buttons">
+                    <button id="newgame">New Game</button>
+                    <button id="showhidetree">Show Tree</button>
+                    <button id="savetree">Save Tree</button>
+                </p>
+
+                <div id="treedisplay" data-treeshown="no"></div>
+
+                <div id="questions"></div>
+
+
+            </div>
+
+                
+        </div><!-- end of row -->
+        
+    </div><!-- end of container -->
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<template id="questionTemplate">
+    <li class="question"><span class="subj"></span>
+        <button data-ans="yes">Yes</button>
+        <button data-ans="no">No</button></li>
+</template>
+                    
+<template id="guessTemplate">
+    <li class="question">Is the subject <span class="guess"></span>?
+        <button data-ans="win">Yes, you win</button>
+        <button data-ans="lose">No, I win.</button></li>
+</template>
+
+<template id="lossTemplate">
+    <li class="loss">Please enter your answer and a Y/N question to tell
+        my answer and yours apart:
+        <p><form><label for="newQ">Question: <input id="newQ" type="text"></label></form>
+        <ul>
+            <li>True:
+                <!-- can't use ID in a template, so LABEL with wrapping  -->
+                <label>Your answer:
+                    <input class="yourans" type="text"></label></li>
+            <li>False: <span class="myguess"></span></li>
+        </ul>
+        <button data-ans="add">Add this</button></li>
+</template>
+
+<script src="//code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+<script src="20-learning.js"></script>
+<script>
+twenty.init();
+</script>
+
+
+</body>
+</html>

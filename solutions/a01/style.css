@@ -6,6 +6,9 @@ section {
     padding: 0px 1em;
 }
 
+/* have images in sections scale. Use descendant selector so that footer
+   icons don't scale */
+
 section img {
     display: block;
     width: 100%;
@@ -27,6 +30,8 @@ figcaption {
 }
 
 
+/* all sections share the settings above, these settings are individual. */
+
 .personal {
     background-color: rgb(255, 200, 200);
 }
@@ -37,10 +42,12 @@ figcaption {
     background-color: rgb(200, 200, 255);
 }
 
+/* get rid of the bullets */
 ul.validation_icons {
     list-style: none;
 }
 
+/* have the list be horizonal */
 .validation_icons li {
     display: inline;
 }

@@ -1,4 +1,4 @@
-# CS210: Introduction to Front-End Web Development
+# CS204: Introduction to Front-End Web Development
 
 <div id="splash"></div>
 

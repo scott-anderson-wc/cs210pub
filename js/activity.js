@@ -146,6 +146,9 @@ loadExampleFiles();
 // ================================================================
 
 $(".questions").on('click','li', function (evt) { 
+    // have to click on the LI itself, so clickable stuff in the answer is
+    // available without having the answer disappear.
+    if( this != event.target ) return;
     var $this = $(this);
     var $ans = $this.find(".ans");
     if( $ans.length == 0 ) {

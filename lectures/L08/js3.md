@@ -2,13 +2,11 @@
 
 ## Outline
 
-1. Object Literals
-1. JSON
 1. DOM
 1. Events
 1. Event Handlers
-
-First, let's go to [where we left off last time](../L07/js2.html#object-literals)
+1. Your questions
+1. Exercises
 
 ## DOM
 
@@ -24,10 +22,10 @@ as a string argument, and returns the selected node. (If more than one
 matches, it returns the first.)
 * `document.querySelectorAll` is just like the previous
 method but it returns an array-like list of selected nodes.
-* `<em>node</em>.textContent` is an property that
+* `*node*.textContent` is an property that
 corresponds to the content of the selected node. You can set it to replace whatever is
 there. You can only set it to text, not arbitrary HTML.
-* `<em>node</em>.addEventListener(type,function)` takes
+* `*node*.addEventListener(type,function)` takes
 an event type (such as "click") and a function as its arguments. When
 the specified event type happens to the node (e.g. someone clicks on
 the node), the function is invoked. That function can
@@ -99,12 +97,12 @@ $("#fred > li").remove();
 $("#pic").attr("src","fred.jpeg");
 ```
 
-* The first creates an LI element (notice the angle brackets around it --
+* The first *creates* a new LI element not attached to the document (notice the angle brackets around "LI" --
   omitting the angle brackets would mean to select all existing LI
-  elements). Then, change the text inside the list item to 'apples' and
+  elements). Then, change the text inside the list item to 'apples' and, finally,
   append the LI element to the existing element whose ID is `groceries`
-* This example shows a different way to attach an LI to an existing
-  element.
+* This example shows a different way to attach a new LI to an existing
+  element. Notice the change from `append()` to `appendTo()`
 * The `.html()` method allows any HTML to be inserted, replacing whatever
   content is already there.
 * This code removes every LI that is a direct child of the element whose
@@ -175,29 +173,37 @@ Note that:
 1. The function is passed in without putting parentheses after it, which
 would invoke it.
 
+## Quiz Questions
+
+[your questions](../../quizzes/quiz07.html)
+
 ## Exercises
 
 We'll walk through these:
 
-<p>Here's a starter web page: <a href="colors1.html">colors1.html</a>. We'll
+Here's a starter web page: <a href="colors1.html">colors1.html</a>. We'll
   view the source (it's short) to make sure we are comfortable with it.
 
-<h2>Exercise 1: Color Rotation</h2>
+Copy/paste it to your own workspace to work on today.  
 
-<p>As you saw, we have the following code:
-  <pre><code class="codehilite">
+## Exercise 1: Color Rotation
+
+As you saw, we have the following code:
+
+```
+:::JavaScript
 var mainColors = ["red","green","blue","yellow","cyan","magenta"];
 var currColorIndex = 0;
-</code></pre>
+```
 
 <div class="exercise">
 <p>Write a function named <code>nextColor</code> to return the next color
 (a string), treating the array as circular. Implement the function using
 the JS console. Test it the same way. Note that this won't modify the
-document in any way.
+document in any way.</p>
 </div>
 
-<p>Here's my solution:
+<p>Here's my solution:</p>
 <div class="solution">
   <pre><code class="codehilite">
 function nextColor() {
@@ -212,29 +218,34 @@ function nextColor() {
   console and invoking the function a few times.</p>
 </div>
 
-<h2>jQuery</h2>
+## jQuery
 
-<p>Using jQuery, we can change the CSS for any set of elements by using a
-  <em>selector</em> (a string using the same language as for CSS files),
-  the <code>.css</code> method, and arguments comprising a CSS
-  property-value pair:
+Using jQuery, we can change the CSS for any set of elements by using a
+*selector* (a string using the same language as for CSS files), the `.css`
+method, and arguments comprising a CSS property-value pair:
 
-  <pre><code class="codehilite">$(sel).css(prop,val);</code></pre>
+```
+:::JavaScript
+$(sel).css(prop,val);
+```
 
-<p>For example, to change every H2 element to have a line under it, we
-    could do:
+For example, to change every H2 element to have a line under it, we could
+do:
     
-<pre><code class="codehilite">$("h2").css("border-bottom","1px solid green");</code></pre>
+```
+:::JavaScript
+$("h2").css("border-bottom","1px solid green");
+```
 
-<h2>Exercise 2: Setting the Color</h2>
+Exercise 2: Setting the Color
 
 <div class="exercise">
 <p>Write a function name <code>setNextColor</code> to set the color of all
   the LI elements in the list of colors to the new color, as returned
-  by <code>nextColor</code>. Implement and test it using the JS console.
+  by <code>nextColor</code>. Implement and test it using the JS console.</p>
 </div>
 
-<p>Here's my solution:
+<p>Here's my solution:</p>
 <div class="solution">
   <pre><code class="codehilite">
 function setNextColor() {
@@ -246,32 +257,34 @@ function setNextColor() {
   console and invoking the <code>setNextColor()</code> a few times</p>
 </div>
 
-<h2>Events and Event Handlers</h2>
+## Events and Event Handlers
 
-<p>Events are things that happen in the browser, often triggered by the
-  user, such as an element being clicked on or the page finishing loading.
+Events are things that happen in the browser, often triggered by the user,
+such as an element being clicked on or the page finishing loading.
 
-<p>The DOM allows developers like us to attach JavaScript functions to be
-  invoked when certain events occur.
+The DOM allows developers like us to attach JavaScript functions to be
+invoked when certain events occur.
 
-<p>jQuery makes it easy to do this:
-  <ul>
+jQuery makes it easy to do this:
+
+<ul>
+
     <li>To attach a function named <code>fred</code>, do this:
-      <pre><code class="codehilite">$(sel).click(fred);</code></pre>
+      <pre><code class="codehilite">$(sel).click(fred);</code></pre></li>
       
     <li>To attach an anonymous function, do this:
       <pre><code class="codehilite">$(sel).click(function () {...});</code></pre>
       
   </ul>
 
-<h2>Exercise 3: Attach the Function</h2>
+## Exercise 3: Attach the Function
 
 <div class="exercise">
 <p>Attach the <code>setNextColor</code> function to the button. Click the
-  button to test it.
+  button to test it.</p>
 </div>
 
-<p>Here's my solution:
+<p>Here's my solution:</p>
 <div class="solution">
   <pre><code class="codehilite">
 $("#nextColorButton").click(setNextColor);
@@ -279,14 +292,18 @@ $("#nextColorButton").click(setNextColor);
   <p><a href="colors4.html">colors4.html</a></p>
 </div>
 
-<h2>Exercise 4: Change an image</h2>
+## Exercise 4: Change an image
 
 <div class="exercise"> <p>Given this <a
 href="colors4-flowers.html">starting page with flowers</a>, write some
 code to replace the roses with violets (`violets.jpeg`).
 </div>
 
-<p>Here's my solution:
+Note that you can copy/paste this code to your workspace, but replace the
+relative URL for the `roses.jpeg` with an absolute url: `https://cs.wellesley.edu/~cs204/...`
+
+
+<p>Here's my solution:</p>
 <div class="solution">
   <pre><code class="codehilite">
 $("#flower").attr('src','violets.jpeg');
@@ -294,7 +311,33 @@ $("#flower").attr('src','violets.jpeg');
   <p><a href="colors4-flowers-solved.html">colors4-flowers-solved.html</a></p>
 </div>
 
+Thought experiment: how could we have a button that, when clicked, changed
+the roses to violets?
+
+## Conclusion
+
+The DOM means we can dynamically change the document using JavaScript
+
+jQuery is a library to make that easier
+
+Events are opportunities to get our own code executed.
+
+That's done by adding *event handlers* (a function)
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+
+
+
+
 
 <script>
-var revealAt = "2/17/2017 5:00 pm";
+var revealAt = "9/29/2017 5:00 pm";
 </script>

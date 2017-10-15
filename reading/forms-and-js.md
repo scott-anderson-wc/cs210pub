@@ -153,7 +153,7 @@ examples, so that the abstract code will make a bit more sense.
 Let's start with the following form
 
 <form id="form1" method=GET
-      action="https://cs.wellesley.edu/~cs210/form-echo-html.php">
+      action="https://cs.wellesley.edu/~cs204/form-echo-html.php">
       <p><label>What's the Ultimate Question of Life, the Universe and
             Everything
             <input type="text" name="ans">
@@ -173,7 +173,7 @@ What should our function do? For now, let's just alert the user that they
 submitted the form. A little bit of jQuery will suffice.
 
 <form id="form2" method=GET
-      action="https://cs.wellesley.edu/~cs210/form-echo-html.php">
+      action="https://cs.wellesley.edu/~cs204/form-echo-html.php">
       <p><label>What's the Ultimate Question of Life, the Universe and
             Everything
             <input type="text" name="ans">
@@ -209,7 +209,7 @@ event handler to get the event object and use the `preventDefault()`
 method:
 
 <form id="form3" method=GET
-      action="https://cs.wellesley.edu/~cs210/form-echo-html.php">
+      action="https://cs.wellesley.edu/~cs204/form-echo-html.php">
       <p><label>What's the Ultimate Question of Life, the Universe and
             Everything
             <input type="text" name="ans">

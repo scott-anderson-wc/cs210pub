@@ -1,35 +1,33 @@
 # The DOM: The Document Object Model
 
-<p>One of the key things that you can do with JavaScript is to modify the
-  contents of the browser: changing the structure of the document,
-  including adding and removing content.  You can also alter the style of
-  the elements, dynamically changing the CSS classes of elements or
-  directly altering the CSS rules.
+One of the key things that you can do with JavaScript is to modify the
+contents of the browser: changing the structure of the document, including
+adding and removing content.  You can also alter the style of the
+elements, dynamically changing the CSS classes of elements or directly
+altering the CSS rules.
 
-<p>The API or Application Programming Interface by which JavaScript can
-  modify the document is called the Document Object Model, or DOM for
-  short.
+The API or Application Programming Interface by which JavaScript can
+modify the document is called the Document Object Model, or DOM for short.
 
-<p>The DOM entails a lot, but one thing to know is that your document is
-  a <em>tree</em> of nodes.  So, for example, this paragraph is a child of
-  the <code>BODY</code> element, and the <code>em</code> tag earlier is
-  child of this paragraph.  Next in this section is a <code>UL</code>
-  (unordered list), which is the <em>nextSibling</em> of this paragraph,
-  and has several child elements, each of which is a <code>LI</code> (list
-  item).  And so on.  
+The DOM entails a lot, but one thing to know is that your document is a
+<em>tree</em> of nodes.  So, for example, this paragraph is a child of the
+<code>BODY</code> element, and the <code>em</code> tag earlier is child of
+this paragraph.  Next in this section is a <code>UL</code> (unordered
+list), which is the <em>nextSibling</em> of this paragraph, and has
+several child elements, each of which is a <code>LI</code> (list item).
+And so on.
 
+## DOM References
 
-<h2>DOM References</h2>
+Many of the following are excellent introductions to the DOM, but they
+will use the native JavaScript API.  The raw DOM is actually not that hard
+to use from JS, but the jQuery library makes it even easier, so rather
+than learn two ways to modify the DOM, we'll skip over this and modify the
+DOM via JQ.
 
-<p>Many of the following are excellent introductions to the DOM, but they
-  will use the native JavaScript API.  The raw DOM is actually not that
-  hard to use from JS, but the jQuery library makes it even easier, so
-  rather than learn two ways to modify the DOM, we'll skip over this and
-  modify the DOM via JQ.
-
-<p>The following is a list of useful but <em>optional</em> references, but
-  you don't need to learn the raw JS API to the DOM, so feel free to
-  ignore those parts.
+The following is a list of useful but <em>optional</em> references, but
+you don't need to learn the raw JS API to the DOM, so feel free to ignore
+those parts.
 
 <aside style="margin: 10px 2em; border: 2px solid gray; background-color: #eee;">
     <p>The following are optional, supplemental readings, if you want:</p>
@@ -48,11 +46,11 @@
 </ul>
 </aside>
   
-<h2 id="raw-h2">The DOM in raw JavaScript</h2>
+## <span id="raw-h2">The DOM in raw JavaScript</span>
 
-<p>Your book uses the JavaScript DOM API that is built into the
-browser. We will use jQuery instead, but let's take a minute to look at
-the built-in API first.  Specifically, we'll look at these three methods:
+Your book uses the JavaScript DOM API that is built into the browser. We
+will use jQuery instead, but let's take a minute to look at the built-in
+API first.  Specifically, we'll look at these three methods:
 
 <ul>
     
@@ -81,7 +79,7 @@ rawh2.addEventListener("click",function () {
 });
 </script>
 
-<p>The following code implements a click handler for the header for this
+The following code implements a click handler for the header for this
 section, so that you click on the header, it will change. Try it!
 
 <pre id="rawScriptDisplay" class="codehilite"></pre>
@@ -90,12 +88,13 @@ section, so that you click on the header, it will change. Try it!
 document.getElementById("rawScriptDisplay").textContent = document.getElementById("rawScript").textContent;
 </script>
 
-<p>Because jQuery makes manipulating the DOM easier, let's learn jQuery.
+Because jQuery makes manipulating the DOM easier, let's learn jQuery.
 
-<h2>jQuery</h2>
+## jQuery
 
-<p>jQuery is a JavaScript library of useful methods for manipulating the
-  document, by which I mean things like this:
+jQuery is a JavaScript library of useful methods for manipulating the
+document, by which I mean things like this:
+
     <ul>
         <li>Adding structure. For example, the back-end sends some new
         Facebook content; JQ can add that to the page.
@@ -112,24 +111,24 @@ document.getElementById("rawScriptDisplay").textContent = document.getElementByI
         color and animates its changing color and opacity.
     </ul>
 
-<p>It does a few other things as well, including Ajax. For example, those
-  Facebook updates, sending mail from Gmail, and sending the document
-  changes in Google Docs are all done via Ajax.
+It does a few other things as well, including Ajax. For example, those
+Facebook updates, sending mail from Gmail, and sending the document
+changes in Google Docs are all done via Ajax.
 
-<p>jQuery has a small footprint, which means it doesn't take a long time
-    to download to your browser and doesn't take up too much memory once it
-    is loaded.  It's well-supported and extremely popular.  Google,
-    Facebook, and many other tech companies use and support it.
+jQuery has a small footprint, which means it doesn't take a long time to
+download to your browser and doesn't take up too much memory once it is
+loaded.  It's well-supported and extremely popular.  Google, Facebook, and
+many other tech companies use and support it.
 
-<p>For extreme brevity, everything in the jQuery library is accessed by
-  via one function whose name is <code>$</code> &mdash; yes, the dollar
-  sign character.  A synonym of the <code>$</code> variable/function
-  is <code>jQuery</code>, but that's rarely used.  After all, it may be
-  clearer, but it's six times as much typing!
+For extreme brevity, everything in the jQuery library is accessed by via
+one function whose name is <code>$</code> &mdash; yes, the dollar sign
+character.  A synonym of the <code>$</code> variable/function is
+<code>jQuery</code>, but that's rarely used.  After all, it may be
+clearer, but it's six times as much typing!
 
-<h2 id="jq-h2">Click Handling Example</h2>
+## <span id="jq-h2">Click Handling Example</span>
 
-<p>As a point of comparison, let's compare jQuery code equivalent to the
+As a point of comparison, let's compare jQuery code equivalent to the
 example we saw using the raw API.
 
 <script id="js-script">
@@ -144,28 +143,28 @@ $("#jq-h2").click(function () {
 document.getElementById("js-ScriptDisplay").textContent = document.getElementById("js-script").textContent;
 </script>
 
-<p>(Later in the course, we'll learn more about the special variable
+(Later in the course, we'll learn more about the special variable
 `this` in the above code, but for now, you can think of it as the element
 that got clicked.)
 
-<p>You can see that jQuery is a bit more terse than the raw API, which is
+You can see that jQuery is a bit more terse than the raw API, which is
 nice, but not decisive. It also tries to work the same in all browsers,
 hiding their idiosyncracies. It's extremely popular for those reasons.
 
-<h2>jQuery Usage</h2>
+## jQuery Usage
 
-<p>There's a pattern to most jQuery usage:
+There's a pattern to most jQuery usage:
   
 <pre class="codehilite">
 $(selector).method(arg);
 </pre>
 
-<p>The <code>selector</code> argument uses CSS syntax to select some set
-  of nodes in your document to operate on.  The <code>method</code> then
-  operates on that set in some way.  If the method needs to know
-  additional info, that's supplied in the arguments.
+The <code>selector</code> argument uses CSS syntax to select some set of
+nodes in your document to operate on.  The <code>method</code> then
+operates on that set in some way.  If the method needs to know additional
+info, that's supplied in the arguments.
 
-<p>Here are some examples:
+Here are some examples:
   
 <pre class="codehilite">
 // change the CSS of all paragraphs (P elements)
@@ -201,12 +200,13 @@ $("h3").remove();
 $("#sidebar p").hide();    
 </pre>
 
-<p>We could go on, but you get the idea.
+We could go on, but you get the idea.
 
-<h2>jQuery API</h2>
+## jQuery API
 
-<p>The jQuery API is well documented.  Here are some of the methods we
-  used above:
+The jQuery API is well documented.  Here are some of the methods we
+used above:
+
   <ul>
     <li><a href="http://api.jquery.com/css">css</a>
     <li><a href="http://api.jquery.com/addClass">addClass</a>
@@ -217,24 +217,23 @@ $("#sidebar p").hide();
     <li><a href="http://api.jquery.com/hide">hide</a>
   </ul>
 
-<p>You can learn a lot just by poking around in there and reading some of
-  their examples and notes.
+You can learn a lot just by poking around in there and reading some of
+their examples and notes.
 
-<h2>Method Chaining</h2>
+## Method Chaining
 
-<p>The implementation of jQuery uses a clever trick that can create a
-  great deal of efficiency and brevity.  Supplying a selector to the
-  jQuery function and invoking it returns a object that represents the set
-  of matched elements.  That object supports the methods like the ones we
-  looked above.  Furthermore, most of those methods return <em>the same
-  object</em> as their return value, which means that we can keep
-  operating on the same set, just by invoking another method, chaining
-  them together.
+The implementation of jQuery uses a clever trick that can create a great
+deal of efficiency and brevity.  Supplying a selector to the jQuery
+function and invoking it returns a object that represents the set of
+matched elements.  That object supports the methods like the ones we
+looked above.  Furthermore, most of those methods return <em>the same
+object</em> as their return value, which means that we can keep operating
+on the same set, just by invoking another method, chaining them together.
 
-<p>That's all very abstract, so let's see some examples.
+That's all very abstract, so let's see some examples.
 
-<p>This first example is how a novice might do a series of things with
-  some selected objects:
+This first example is how a novice might do a series of things with some
+selected objects:
 
 <pre class="codehilite">
 $(sel).addClass('important');        // make them important
@@ -243,11 +242,10 @@ $(sel).append("&lt;em&gt;really!!&lt;/em");   // add an exclamation
 $(sel).hide();                       // and hide them??
 </pre>
 
-<p>That works fine, but the trouble is that jQuery has to keep finding
-  all the objects, so it wastes a lot of work.
+That works fine, but the trouble is that jQuery has to keep finding all
+the objects, so it wastes a lot of work.
 
-<p>A more experienced or efficiency-conscious person might do the
-  following:
+A more experienced or efficiency-conscious person might do the following:
 
 <pre class="codehilite">
 var $elts = $(sel);                 // get some DOM objects
@@ -257,22 +255,21 @@ $elts.append("&lt;em&gt;really!!&lt;/em");   // add an exclamation
 $elts.hide();                       // and hide them??
 </pre>
 
-<p>That's efficient, but a bit tedious to type.  (Note that it's a common
-  convention, but not required, to name variables that hold jQuery object
-  with a dollar sign). An experienced and terse jQuery coder might do the
-  following:
+That's efficient, but a bit tedious to type.  (Note that it's a common
+convention, but not required, to name variables that hold jQuery object
+with a dollar sign). An experienced and terse jQuery coder might do the
+following:
 
 <pre class="codehilite">
 $(sel).addClass('important').css('color','red').append("&lt;em&gt;really!!&lt;/em").hide();
 </pre>
 
-<p>Of course, that's really ugly and hard to read, all in one line like
-  that.  The important point is that each method is just called on the
-  return value of the one to its left. The layout of the code isn't
-  important, so we are free to lay out the code nicely, maybe with
-  comments.  So, the true jQuery expert writes the following (notice the
-  lack of semi-colons, which would interrupt the chain by ending the
-  statement):
+Of course, that's really ugly and hard to read, all in one line like that.
+The important point is that each method is just called on the return value
+of the one to its left. The layout of the code isn't important, so we are
+free to lay out the code nicely, maybe with comments.  So, the true jQuery
+expert writes the following (notice the lack of semi-colons, which would
+interrupt the chain by ending the statement):
 
 <pre class="codehilite">
 $(sel)                           // get some DOM objects
@@ -282,30 +279,30 @@ $(sel)                           // get some DOM objects
    .hide();                      // and hide them??
 </pre>
 
-<p>The preceding is concise, efficient, and easy to read.
+The preceding is concise, efficient, and easy to read.
 
-<p><strong>Note:</strong> One drawback of this technique of returning
-  a <q>set of matched elements</q> is that the empty set is a perfect
-  valid set, so jQuery is perfectly happy to do all those operations above
-  on an empty set of elements, thereby doing nothing, and never give you a
-  peep of complaint or warning.  So if your jQuery isn't working and
-  there's no error message, scrutinize your selector expressions.  In
-  fact, I often end up doing something like this when I'm debugging:
+**Note:** One drawback of this technique of returning a <q>set of matched
+elements</q> is that the empty set is a perfect valid set, so jQuery is
+perfectly happy to do all those operations above on an empty set of
+elements, thereby doing nothing, and never give you a peep of complaint or
+warning.  So if your jQuery isn't working and there's no error message,
+scrutinize your selector expressions.  In fact, I often end up doing
+something like this when I'm debugging:
 
 <pre class="codehilite">
 var x = $(sel);
 console.log("matched "+x.length+" elements");
 </pre>
 
-<p>If that shows that the number of matched elements is zero, operating on
-  the set will be pointless.  
+If that shows that the number of matched elements is zero, operating on
+the set will be pointless.  
 
-<h2 id="building">Building Structure</h2>
+## <span id="building">Building Structure</span>
 
-<p>Before we get to events, we should take few minutes to look at
-  operating on the structure of the document. We'll use jQuery to do
-  this. We'll start with adding a list of prime numbers to the web
-  page. First, we need to have a destination for them:
+Before we get to events, we should take few minutes to look at operating
+on the structure of the document. We'll use jQuery to do this. We'll start
+with adding a list of prime numbers to the web page. First, we need to
+have a destination for them:
 
 <pre class="brush: html">
   &lt;div id="prime-container"&gt;
@@ -315,7 +312,7 @@ console.log("matched "+x.length+" elements");
   &lt;/div&gt;
 </pre>
 
-<p>Now the code to add some primes to that list:
+Now the code to add some primes to that list:
 
 <pre class="codehilite">
 function addPrimes( primes ) {
@@ -327,7 +324,7 @@ function addPrimes( primes ) {
 addPrimes( [2, 3, 5, 7, 11, 13, 17] );
 </pre>
 
-<p>Here it is:
+Here it is:
 
   <div id="prime-container">
     <p>Our primes:
@@ -357,16 +354,16 @@ function addPrimes( primes ) {
 });
 </script>
 
-<p>You might wonder what the '&lt;li&gt;' does as the argument of the
-  jQuery function, since it's not a CSS selector. What happens is that
-  jQuery creates the given element, but it is not (yet) attached to the
-  document. Here, we attach it to the document with <code>appendTo</code>
-  method.
+You might wonder what the '&lt;li&gt;' does as the argument of the jQuery
+function, since it's not a CSS selector. What happens is that jQuery
+creates the given element, but it is not (yet) attached to the
+document. Here, we attach it to the document with <code>appendTo</code>
+method.
 
-<p>An alternative way to do this is to build the entire list up and only
-  attach it to the document at the end. This is more efficient, since the
-  document only has to be re-rendered once for the list, as opposed to
-  once for each element.
+An alternative way to do this is to build the entire list up and only
+attach it to the document at the end. This is more efficient, since the
+document only has to be re-rendered once for the list, as opposed to once
+for each element.
 
 <pre class="codehilite">
   &lt;div id="prime-container2"&gt;
@@ -374,7 +371,7 @@ function addPrimes( primes ) {
   &lt;/div&gt;
 </pre>
 
-<p>Here's the variant JS/JQ code:
+Here's the variant JS/JQ code:
   
 <pre class="codehilite">
 function addPrimes2(primes) {
@@ -410,13 +407,13 @@ addPrimes2( [2, 3, 5, 7, 11, 13, 17] );
 });
 </script>
 
-<p>Here it is:
+Here it is:
 
   <div id="prime-container2">
     <p>Another list of our primes:
   </div>
 
-<h2 id="events">DOM Events</h2>
+## <span id="events">DOM Events</span>
 
 <script>
 $(function () {
@@ -432,20 +429,20 @@ $("#events").click(turnEventsRandomColor);
 });
 </script>
 
-<p>In addition to letting us work with the DOM, jQuery lets us work
-with <em>events</em>.  Events are important ways of hooking into user
-behavior: a user clicking on something or mousing over something is
-an <em>event</em>, and we can make things happen when that event occurs.
+In addition to letting us work with the DOM, jQuery lets us work with
+<em>events</em>.  Events are important ways of hooking into user behavior:
+a user clicking on something or mousing over something is an
+<em>event</em>, and we can make things happen when that event occurs.
 
-<p>The way that event-handling in the DOM works is that you can
-  say:
+The way that event-handling in the DOM works is that you can say:
 
   <blockquote><p><q>when event E occurs to DOM element D, please invoke
         function F</q>.
   </blockquote>
 
-<p>Here's a partial list of some
-    common <a href="http://en.wikipedia/wiki/DOM_events">DOM events</a>:
+Here's a partial list of some common <a
+    href="http://en.wikipedia/wiki/DOM_events">DOM events</a>:
+
     <ul>
         <li>click:  when you click on something</li>
         <li>dblclick: when you double-click something</li>
@@ -455,10 +452,9 @@ an <em>event</em>, and we can make things happen when that event occurs.
         <li>submit: when a form is submitted</li>
     </ul>
 
-
-<p>Let's make that more concrete.  The H2 header for this section has an
-  ID and the ID is <code>events</code>. Let's write some code that would
-  turn that element a random color:
+Let's make that more concrete.  The H2 header for this section has an ID
+and the ID is <code>events</code>. Let's write some code that would turn
+that element a random color:
 
 <pre class="codehilite">
 var colors = ['red','orange','green','blue','purple'];
@@ -468,10 +464,10 @@ var randColor = colors[randIndex];
 $("#events").css('color',randColor);
 </pre>
 
-<p>Okay, very nice, but that's not yet what we want.  We'd like the user
-  to be able to turn the header a random color just by clicking on it.
-  So, one step on the way to do that is to package up that code into a
-  function, say <code>turnEventsRandomColor</code>:
+Okay, very nice, but that's not yet what we want.  We'd like the user to
+be able to turn the header a random color just by clicking on it.  So, one
+step on the way to do that is to package up that code into a function, say
+<code>turnEventsRandomColor</code>:
 
 <pre class="codehilite">
 function turnEventsRandomColor() {
@@ -483,55 +479,53 @@ function turnEventsRandomColor() {
 }
 </pre>
 
-<p>Then, whenever we want to turn that header a random color, we just
-  invoke the function:
+Then, whenever we want to turn that header a random color, we just invoke
+the function:
 
 <pre class="codehilite">
 turnEventsRandomColor();
 </pre>
 
-<p>However, we want the user to be able to have that function invoked by
-  clicking on the header.  More precisely, we want to say that whenever
-  the <code>#events</code> element gets a <code>click</code> event, we'd
-  like that function invoked. jQuery provides a very easy way do to this,
-  using the same pattern we've seen many times:
+However, we want the user to be able to have that function invoked by
+clicking on the header.  More precisely, we want to say that whenever the
+<code>#events</code> element gets a <code>click</code> event, we'd like
+that function invoked. jQuery provides a very easy way do to this, using
+the same pattern we've seen many times:
 
 <pre class="codehilite">
 $("#events").click(turnEventsRandomColor);
 </pre>
 
-<p>Scroll back and try it!
+Scroll back and try it!
 
-<p>Now, there are some <em>very</em> important points to make: we
-  are <em>not</em> invoking the <code>turnEventsRandomColor</code>
-  function right now.  Instead, we are giving it to the <code>click</code>
-  method, much like we gave the <code>'color'</code> string and the value
-  of the <code>randColor</code> variable to the <code>css</code> method
-  above.  That is, the function is merely a piece of data that is being
-  passed as an argument.  It is not being invoked now.
+Now, there are some <em>very</em> important points to make: we are
+<em>not</em> invoking the <code>turnEventsRandomColor</code> function
+right now.  Instead, we are giving it to the <code>click</code> method,
+much like we gave the <code>'color'</code> string and the value of the
+<code>randColor</code> variable to the <code>css</code> method above.
+That is, the function is merely a piece of data that is being passed as an
+argument.  It is not being invoked now.
   
-<p>To invoke a function we give its name (or, equivalently, a variable
-  whose value is the function) followed by parentheses containing any
-  arguments to be passed.  Since we are not
-  invoking <code>turnEventsRandomColor</code> now, it's not followed by
-  parentheses.
+To invoke a function we give its name (or, equivalently, a variable whose
+value is the function) followed by parentheses containing any arguments to
+be passed.  Since we are not invoking <code>turnEventsRandomColor</code>
+now, it's not followed by parentheses.
 
-<p>When does it get invoked?  The browser will invoke it when the event
+When does it get invoked?  The browser will invoke it when the event
 happens.  The function is an <em>event handler</em>.
 
-<p>The function is also an example of
-  a <a href="http://en.wikipedia.org/wiki/Callback_(computer_programming)"><em>callback</em></a>.
-  A callback is a general Computer Science term for a function that is
-  invoked <em>later</em>, when something happens or has happened.  They're
-  used in graphics programming, processing data, GUI programming and lots
-  of other situations.
+The function is also an example of a <a
+href="http://en.wikipedia.org/wiki/Callback_(computer_programming)"><em>callback</em></a>.
+A callback is a general Computer Science term for a function that is
+invoked <em>later</em>, when something happens or has happened.  They're
+used in graphics programming, processing data, GUI programming and lots of
+other situations.
 
-<p>By the way, an experienced jQuery programmer wouldn't bother to devise
-  that cumbersome name (<code>turnEventsRandomColor</code>) for a function
-  that she is never going to refer to again after handing it to
-  the <code>click</code> method.  Instead, she uses an <em>anonymous</em>
-  function literal, putting all the important code right where she needs
-  it:
+By the way, an experienced jQuery programmer wouldn't bother to devise
+that cumbersome name (<code>turnEventsRandomColor</code>) for a function
+that she is never going to refer to again after handing it to the
+<code>click</code> method.  Instead, she uses an <em>anonymous</em>
+function literal, putting all the important code right where she needs it:
 
 <pre class="codehilite">
 $("#events").click(function () {
@@ -543,8 +537,6 @@ $("#events").click(function () {
 });
 </pre>
 
-<p>The whole function literal is the argument of the <code>click</code>
-  method &mdash; notice the close paren on the last line, after the
-  closing brace of the function literal.
-
-  
+The whole function literal is the argument of the <code>click</code>
+method &mdash; notice the close paren on the last line, after the closing
+brace of the function literal.

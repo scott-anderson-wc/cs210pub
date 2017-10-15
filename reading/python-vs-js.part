@@ -30,7 +30,7 @@
     
     <pre><code>def helloWorld():
     print "Hello world!
-    print "I like CS 210"
+    print "I like CS 204"
     </code></pre>
     
     <p>JavaScript:</p>
@@ -39,7 +39,7 @@
     // Similar to Python's print, but console.log is most often 
     // used in the browser rather than an environment like Canopy
     console.log("Hello world!"); 
-    console.log("I like CS 210");
+    console.log("I like CS 204");
 }</code></pre>
 
     <p>JavaScript uses <b>curly braces</b> to indicate code blocks, while python uses indentation. 
@@ -48,7 +48,7 @@
 
     <p>Technically speaking, this is acceptable and does the same thing:</p>
     
-    <pre><code>function helloWorld(){console.log("Hello world!");console.log("I like CS 210");}</code></pre>
+    <pre><code>function helloWorld(){console.log("Hello world!");console.log("I like CS 204");}</code></pre>
     
     <p>In fact, sometimes JavaScript is <b>minified</b>, where all unnecessary characters are removed for faster performance. 
     But for readability, (as there will be humans reading your code, not just machines!) it's important to indent properly.</p>
@@ -283,7 +283,7 @@ var x = multiply(4,5)
     unlike Python. Javascript turns the number into a string, concatenates the two together, and returns the resulting string.</p>
     
     <pre><code>var notFour = 2 + "2" // Gets "22"
-var ourClass = "CS" + 210 // Gets  "CS210"
+var ourClass = "CS" + 204 // Gets  "CS204"
 var piString = 3.14 + "1519" // Gets "3.141519"</code></pre>
 
 <p>If you want to change your string into a number, there are the functions parseInt() and parseFloat()</p>

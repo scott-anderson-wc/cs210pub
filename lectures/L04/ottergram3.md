@@ -9,7 +9,7 @@ You can upload this [chaper 3 tarfile](../../downloads/ch03.tar) to
 explore it with me:
 
 ```
-curl -O http://cs.wellesley.edu/~cs210/downloads/ch03.tar
+curl -O http://cs.wellesley.edu/~cs204/downloads/ch03.tar
 tar xf ch03.tar
 ```
 
@@ -59,7 +59,7 @@ versions on demand.  We can do that with JavaScript.
 ## Flexbox Model
 
 * main and cross axes, either row or column
-* easy change to layout by changing a CSS
+* easy to change layout by changing a CSS rule
 * can nest these as deeply as you want
 
 ## Flexbox Example
@@ -162,7 +162,7 @@ Let's try the following:
 You can use the Chapter 3 folder that you uploaded at the beginning of
 class as a starting point for today's activities.
 
-Here's our goal for [Chapter 4](https://sample-scottdanderson.c9users.io/front-end-dev-resources/book-solutions/Chapter-04/ottergram/index.html)
+Here's our goal for [Chapter 4](https://sample-scottdanderson.c9users.io/Chapter-04b/ottergram/index.html)
 
 Go head and start on the chapter activities.  Stop when you get to
 *Absolute and Relative Positioning*; we'll do that next time.
@@ -170,6 +170,16 @@ Go head and start on the chapter activities.  Stop when you get to
 ## Extra Time?
 
 * Add some text that will flow around the detail image, making the detail float
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
 
 ## Fun fact
 

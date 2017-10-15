@@ -1,0 +1,20 @@
+﻿CS 249 – Front End Web Development
+Assignment 8
+Names: 
+Workspace account:
+
+
+Quiz
+1. ____/10        HTML is structured for two column grid
+2. ____/10        Question constructor constructs questions in a paragraph, answers in radio buttons with accompanying labels, and a Grade button using .append() 
+3. ____/10        Question constructor stores the answer in the div’s ‘data-answer’ selector
+4. ____/10        Question object has addToDOM method that appends the question to a given DOM element.
+5. ____/10        quiz.js creates new Question object for each question and adds them to the DOM such that first half of questions appear on the right and second half on the left.
+6.  ____/10        quiz.js implements an event handler to grade questions
+7. ____/10        Event handler finds the correct question to grade by using event.target and .closest()
+8. ____/10        Event handler finds which radio button user selected 
+9. ____/10        Handles behavior for when a user answers correctly and incorrectly 
+10. ____/10        Uses abstraction and modularity (bundle code in IIFE, define function that creates radio buttons, etc.)
+
+
+Total: _____/100

@@ -1,3 +1,0 @@
-# uncommment this to avoid logging email events
-# php_value mail.log /dev/null
-

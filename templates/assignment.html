@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<article id="main" class="twelve columns">
+
+    {{article}}
+
+<h2 id="rubric">Rubric</h2>
+
+<p>Here's the grading rubric for this assignment:</p>
+
+<div id="rubric_template" style="display: none;">
+    <li><span class="points">XY</span> points: <span class="desc"></span></li>
+</div>
+
+<div id="rubric_goes_here"></div>
+<script>
+    $.getScript("rubric_data.js", function () {
+        var ul = $("<ul>");
+        var li = $("#rubric_template > li");
+        var dest = $("#rubric_goes_here");
+        var title = rubric_data.assign_num+": "+rubric_data.assign_desc;
+        $("<p>").text(title).appendTo(dest);
+        rubric_data.items.forEach(function (elt) {
+            console.log(elt.desc);
+            var c = li.clone();
+            c.find(".points").text(elt.value);
+            c.find(".desc").text(elt.desc);
+            c.appendTo(ul);
+        });
+        dest.append(ul);
+   })
+     .fail(function () { console.log("Rubric failed to load"); });
+</script>
+
+
+<p>Finally, make sure you fill out
+the <a href="https://goo.gl/forms/mC6qI9J7UjKZPPVz1">Time and Work
+Report</a>. That report is <em>required</em>, and I even want both
+partners to fill it out (for redundancy).</p>
+
+</article>
+{% endblock %}

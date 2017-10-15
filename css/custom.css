@@ -6,7 +6,10 @@ body {
 }
 
 @media print {
-    body { font-size: 12pt; }
+    body {
+        font-family: "Times New Roman";
+        font-size: 12pt;
+    }
 }
 
 /* ================================================================ 
@@ -159,4 +162,14 @@ table.border {
     border-radius: 20px;
     padding: 20px;
     background-color: #d3f2f8;
+}
+
+figure {
+    border: 2px solid deepskyblue;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+figcaption {
+    text-align: center;
 }

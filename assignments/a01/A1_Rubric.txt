@@ -1,0 +1,24 @@
+﻿CS 249 – Front End Web Development
+Assignment 1 – First Web Page
+Names: 
+Workspace account:
+
+
+
+
+____/10        Use margins and padding to keep text spaced from borders
+____/10        Figures have a two-pixel border in silver
+____/10        Figure captions have a border (1 pixel black)
+____/10        Figure caption elements are 80% of their container, centered
+____/10        Figure text is centered within its container
+____/10        Figure captions have a background color that is 50% 
+transparent of 80% gray
+____/10        Each section has different background color
+____/10        List with the validation icons has no bullets and is horizontal
+____/10        Main figures scale with the browser; the icons don’t
+____/10        Visually appealing
+
+
+
+
+Total: _____/100

@@ -1,0 +1,19 @@
+﻿CS 249 – Front End Web Development
+Assignment 3
+Names: 
+Workspace account:
+
+
+Zodiac.js JavaScript and JQuery
+1. ____/10        makeDate() takes a string as its argument and returns a date object
+2. ____/10        formatDate() takes a date object and returns a formatted string 
+3. ____/10        zodiacSign() takes a date object and returns name of the zodiac sign
+4. ____/10        randomElt() takes an array and returns a random element from the array
+5. ____/10        randomDate() randomly chooses a date string from an array of test values 
+6. ____/10        updatePage() puts the above functions together and inserts the correct image into the page.
+7. ____/10        Zodiac sign and date appear when page loads and when button is clicked
+Testing
+1. ____/10        test_makeDate() invokes makeDate() for every element of a test value array and is printed to the console
+2. ____/10        test_formatDate() invokes formatDate() for every date derived from your array of test values and prints the result to the console.
+3. ____/10        test_zodiacSign() invokes zodiacSign() for every date and prints the result.
+Total: _____/100

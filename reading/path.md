@@ -1,6 +1,6 @@
 # JavaScript
       
-There are two possible prerequisites for CS 210, CS 115 or CS 111.  Since
+There are two possible prerequisites for CS 204: CS 115 or CS 111.  Since
 the two classes follow different structures, for the first few lectures,
 we will be separating the notes for two different audiences.</p>
       

@@ -80,8 +80,8 @@ However, it does provide two command-line tools:
 
 Try one of the following commands in your bash shell:
 
-`wget http://cs.wellesley.edu/~cs210/downloads/otter-images.tar`
-`curl -O http://cs.wellesley.edu/~cs210/downloads/otter-images.tar`
+`wget http://cs.wellesley.edu/~cs204/downloads/otter-images.tar`
+`curl -O http://cs.wellesley.edu/~cs204/downloads/otter-images.tar`
 
 That's a capital letter O in the `curl` command, not a zero.
 

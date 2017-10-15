@@ -27,7 +27,7 @@ handlers
 jQuery.
 * Coding quality matters. Try to be concise and abstract.
 * My code, including functions you've already written, and including blank
-lines and comments space between functions, is still less than 100 lines.
+lines, comments and space between functions, is still less than 100 lines.
 
 ## Final Checklist
 

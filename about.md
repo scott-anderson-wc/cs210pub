@@ -1,4 +1,4 @@
-# About CS 249
+# About CS 204
 
 This course is about Front-End Web Development.  The "front-end" is jargon
 for all the stuff that goes on in the browser. (The "back-end" is the term
@@ -27,7 +27,7 @@ majors. Therefore, this course was created to cover similar ground, but
 starting with an assumption that students know the basics of
 programming. It's also intended to go a bit farther and faster than CS 110
 did. Nevertheless, because of the substantial overlap between CS 110 and
-CS 210, a student cannot earn credit for both courses.
+CS 204, a student cannot earn credit for both courses.
 
 ## Tentative topics
 

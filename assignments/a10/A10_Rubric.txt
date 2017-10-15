@@ -1,0 +1,35 @@
+﻿CS 249 – Front End Web Development
+Assignment 10 - Jelly Blobs
+Names: 
+Workspace account:
+
+
+____/10        HTML page displays instructions and buttons to start game and test growing and shrinking
+
+
+____/10        Test Growing shows Player continuing to grow after colliding with smaller enemies
+
+
+____/10        Test Shrinking shows Player continuing to shrink after colliding with larger enemies
+
+
+____/10        Blob constructor initializes instance variables and constructs a circle DOM element
+
+
+____/10        Blobg.js properly implements functions to set/get instance variables and adds a blob to some container.
+
+
+ ____/10        Player.js implements a constructor, grow(), shrink(), collide() functions and uses mouse movement events in the move() function.
+
+
+____/10        Enemy.js implements functions to handle collisions and uses JQuery’s animate() method to move Enemy blobs across the screen.
+
+
+____/10         Use methods provided in random.js to create random Enemy blobs and the setInterval() method to launch Enemy blobs automatically 
+
+
+____/10        Another JavaScript file handles starting and stopping the game, as well as implements button handlers.
+
+
+____/10        Use Object Oriented Programming (OOP) and inheritance in implementation 
+Total:  _____/100

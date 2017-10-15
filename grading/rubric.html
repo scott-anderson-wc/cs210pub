@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='/~anderson/sda-style.css'>
+    <meta name=author content="Scott D. Anderson">
+    <title>Example Rubric</title>
+    <style>
+        #form_template, #item_template { display: none; }
+        input.earned { width: 3em; }
+        textarea:focus { width: 100%; height: 5em; }
+        textarea { height: 1em; }
+        [name=student_name],[name=student_email] { width: 50em; }
+    </style>
+</head>
+<body>
+
+<div id="roster_menu_here"></div>
+
+<div id="form_template">
+    <div>
+        <p>Name: <input type="text" name="student_name" required></p>
+        <p>Email: <input type="text" name="student_email" required></p>
+        <p>Score: <span class="score"></span> out of <span class="possible"></span></p>
+        <div class="items_go_here"></div>
+        <p>Score: <span class="score"></span> out of <span class="possible"></span></p>
+        <button type="submit">Send Mail</button>
+    </div>
+</div>
+
+<div id="item_template">
+    <li><input class="earned" type="number">/<span class="value">NN</span>
+        <span class="desc">Item description goes here</span>
+        <textarea class="comments" placeholder="comments"></textarea></li>
+</div>
+
+<h1 id="assign_title">Rubric</h1>
+
+<p>Select assignment: <select name="assignment">
+        <option value="">Choose one</option>
+        <option>a01</option>
+        <option>a02</option>
+        <option>a03</option>
+        <option>a04</option>
+        <option>a05</option>
+        <option>a06</option>
+        <option>a07</option>
+        <option>a08</option>
+        <option>a09</option>
+        <option>a10</option>
+        <option>a11</option>
+        <option>project</option>
+        </select>
+</p>
+        
+
+<form id="finished_rubric">
+</form>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="rubric.js"></script>
+
+</body>
+</html>

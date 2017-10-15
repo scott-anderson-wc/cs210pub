@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210: Introduction to Front-End Web Development</title>
+  <title>CS204: Introduction to Front-End Web Development</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -15,19 +15,20 @@
 
   <!-- CSS; should concatenate these into one file
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/~cs210/css/normalize.css">
-  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
-  <link rel="stylesheet" href="/~cs210/css/glyphicons.css">
-  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css">
-  <link rel="stylesheet" href="/~cs210/css/custom.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+  <link rel="stylesheet" href="../css/glyphicons.css">
+  <link rel="stylesheet" href="../css/pygments/colorful.css">
+  <link rel="stylesheet" href="../css/custom.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/~cs210/images/favicon.png">
+  <link rel="icon" type="image/png" href="../images/favicon.png">
 
   <!-- We load jQuery at the top so that we can intersperse examples in
        the reading and lecture notes -->
   <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
 
 </head>
 <body>
@@ -36,11 +37,11 @@
         <!-- needs a skip-to-content link -->
         <nav id="site_nav">
             <ul>
-                <li id="home"><a href="/~cs210/index.html">Home</a></li>
-                <li id="about"><a href="/~cs210/about.html">About</a></li>
-                <li id="schedule"><a href="/~cs210/schedule/schedule.html">Schedule</a></li>
-                <li id="syllabus"><a href="/~cs210/syllabus.html">Syllabus</a></li>
-                <li id="reference"><a href="/~cs210/reference.html">Reference</a></li>
+                <li id="home"><a href="../index.html">Home</a></li>
+                <li id="about"><a href="../about.html">About</a></li>
+                <li id="schedule"><a href="../schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="../syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="../reference.html">Reference</a></li>
             </ul>
         </nav>
     </header>
@@ -55,31 +56,71 @@
 
     <ol class="questions">
 
-<li>Just a general overview of Flexbox would be nice! :)
+<li>To clarify: the "auto" in, for example, the shorthand "flex: 0 1
+auto;" tells the container to calculate the element's size rather than the
+developer specifying it?
 
-<li>Could we talk more about flexbox and its uses?
+<p class="ans">Exactly.
 
-<li>Could you explain the difference between flex boxes and regular
-containers, and also the meaning of the flex shorthand property (flex: 0 1
-auto)?
+<li>Flexbox is just really confusing! Looking forward to practicing in class.
 
-<p>That property says "don't grow me, shrink me if needed, automatically
-calculate my size)
+    <p class="ans">For sure!
 
-<li>How to place items in a coordinate system
+<li>Flexbox vs. Float (just more detail on why we use one over the other, pros and cons)
 
-<p>We'll definitely go over that. 
+    <p>Float predates Flexbox. It's not as easy to work with. Flexbox was
+    basically invented to supercede float.  Still, there are times when
+    float is convenient, say for images inset into paragraphs.
 
-<li>How can our formatting help or not help accessibility for different people?
+<li>What is the difference between flex and float?
 
-<p>Great question! The last day of class is devoted to accessibility, but
-we should be thinking about it throughout. Generally speaking, pages are
-presented by accessibility aids in source order, so rearranging things
-using CSS can be bad if it hides important stuff.  For example, putting
-the navigation last in the HTML and then using CSS to put it at the top of
-the page:  a blind visitor might have to read the whole page before
-getting to the navigation.  So far, I haven't seen anything they've done
-that impairs accessibility, but let's keep an eye on it.
+    <p>Huge. A floated element is removed from the flow, allowing stuff to
+    move up to where it was, and then shoved back into the layout,
+    causing <em>inline</em> stuff to flow <em>around</em> it.  Flex
+    explicitly talks about directions: row vs column, and allows you to
+    allocate space (grow/shrink).
+
+<li>What does it mean when flex items can ""grow and shrink""?
+
+    <p>If the browser is resized (or the page is viewed on a different
+    device) there are more pixels to allocate. Grow and shrink allows the
+    size of items to adjust to the window.
+
+<li>The supplemental reading mentioned that flex containers can be nested.
+What does that look like?
+
+    <p>We can draw this.  Think of the NY times page.
+
+<li>What attributes can flexbox have other than positioning and size? Is
+there a page somewhere with all the attributes you can use?
+
+    <p>I'd go to the MDN reference pages. Let's do that. Also, see
+    suggestion below.
+
+<li>I'm still confused with absolute positioning and relative positioning.
+
+<p>They have different <em>origins</em>. Relative is a <em>delta</em> from
+where it would land "normally."  Absolute doesn't care where something
+would "normally" have been. Instead it has a different <em>origin</em>.
+
+<li>why is it important to explicitly declare position property?
+
+    <p>For <code>position:absolute</code>, the rule is that the origin is
+    determine by the closest ancestor that has a position that is not the
+    default of <code>static</code>. So, something that
+    has <code>position:relative</code> is the standard practice.
+
+<li>Absolute and relative positioning. Flex vs. flexbox.
+
+<li>I'm curious to learn about the purpose of other position values, such
+as fixed. Additionally, I would like to learn a bit more about float!
+
+<p>Fixed is useful rarely. I think of it as <code>position:absolute</code>
+but relative to the <em>glass</em>, rather than the document. Nice, say,
+for menus that can't scroll away. Let's talk more about this at the end of
+class or in office hours.
+
+<li>nothing in particular! No questions on this section!
 
 </ol>
 
@@ -99,9 +140,10 @@ that impairs accessibility, but let's keep an eye on it.
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<script src="/~cs210/js/custom.js"></script>
+<script src="../js/custom.js"></script>
 
-<script src="/~cs210/js/activity.js"></script>
+<script src="https://cs.wellesley.edu/~anderson/js/Datejs-master/build/date-en-US.js"></script>
+<script src="../js/activity.js"></script>
 
 
 

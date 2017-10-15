@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>CS210: Introduction to Front-End Web Development</title>
+  <title>CS204: Introduction to Front-End Web Development</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -15,19 +15,20 @@
 
   <!-- CSS; should concatenate these into one file
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="/~cs210/css/normalize.css">
-  <link rel="stylesheet" href="/~cs210/css/skeleton.css">
-  <link rel="stylesheet" href="/~cs210/css/glyphicons.css">
-  <link rel="stylesheet" href="/~cs210/css/pygments/colorful.css">
-  <link rel="stylesheet" href="/~cs210/css/custom.css">
+  <link rel="stylesheet" href="{{HOME}}css/normalize.css">
+  <link rel="stylesheet" href="{{HOME}}css/skeleton.css">
+  <link rel="stylesheet" href="{{HOME}}css/glyphicons.css">
+  <link rel="stylesheet" href="{{HOME}}css/pygments/colorful.css">
+  <link rel="stylesheet" href="{{HOME}}css/custom.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="/~cs210/images/favicon.png">
+  <link rel="icon" type="image/png" href="{{HOME}}images/favicon.png">
 
   <!-- We load jQuery at the top so that we can intersperse examples in
        the reading and lecture notes -->
   <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
 
 </head>
 <body>
@@ -36,11 +37,11 @@
         <!-- needs a skip-to-content link -->
         <nav id="site_nav">
             <ul>
-                <li id="home"><a href="/~cs210/index.html">Home</a></li>
-                <li id="about"><a href="/~cs210/about.html">About</a></li>
-                <li id="schedule"><a href="/~cs210/schedule/schedule.html">Schedule</a></li>
-                <li id="syllabus"><a href="/~cs210/syllabus.html">Syllabus</a></li>
-                <li id="reference"><a href="/~cs210/reference.html">Reference</a></li>
+                <li id="home"><a href="{{HOME}}index.html">Home</a></li>
+                <li id="about"><a href="{{HOME}}about.html">About</a></li>
+                <li id="schedule"><a href="{{HOME}}schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="{{HOME}}syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="{{HOME}}reference.html">Reference</a></li>
             </ul>
         </nav>
     </header>
@@ -59,7 +60,7 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<script src="/~cs210/js/custom.js"></script>
+<script src="{{HOME}}js/custom.js"></script>
 {% block javascript_trailer %}
 {% endblock %}
 
