@@ -88,7 +88,7 @@ cal.add_info( "13Oct"
 
 // day 12 (new! inserted. All subsequent got renumbered)
 cal.add_info( "17Oct"
-              ,fakeLink("more on Closures and Namespaces", "../reading/namespaces2.html")
+              ,makeLink("more on Closures and Namespaces", "../reading/namespaces2.html")
               ,"BNR chapter 8, through page 173"
               ,makeLink("<em>activities</em>","../lectures/L12/")
 );
