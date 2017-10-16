@@ -88,7 +88,8 @@ cal.add_info( "13Oct"
 
 // day 12 (new! inserted. All subsequent got renumbered)
 cal.add_info( "17Oct"
-              ,makeLink("more on Closures and Namespaces", "../reading/namespaces2.html")
+              ,makeLink("OOP Objects and Methods", "../reading/OOP.html")
+              // ,makeLink("more on Closures and Namespaces", "../reading/namespaces2.html")
               ,"BNR chapter 8, through page 173"
               ,makeLink("<em>activities</em>","../lectures/L12/")
 );
@@ -107,9 +108,7 @@ cal.add_info("24Oct"
 
 // day 15
 cal.add_info( "27Oct"
-              ,makeLink("OOP Objects and Methods", "../reading/OOP.html")
               ,makeLink("Forms", "../reading/forms.html")
-              ,"BNR chapter 8, rest"
               ,"BNR chapter 9"
               ,makeLink("<em>activities</em>","../lectures/L15/")
 );
