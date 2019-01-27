@@ -18,10 +18,12 @@ console.log("s1 is "+s1.toString());     // Look in the JS console
 
 // ================================================================
 
-function Rectangle(color,c1,c2) {
+function Rectangle(color,corner1,corner2) {
     // initialize object using superclass
     Shape.call(this,color);
     // UL is upper left, LR is lower right
+    var c1 = corner1;
+    var c2 = corner2;
     this.ulx = Math.min(c1.x, c2.x);
     this.uly = Math.max(c1.y, c2.y);
     this.lrx = Math.max(c1.x, c2.x);

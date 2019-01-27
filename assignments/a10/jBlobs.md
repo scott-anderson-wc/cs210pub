@@ -123,9 +123,9 @@ Blob.prototype.intersects = function (other) {
 ## Player Object
 
 There will only be one instance of the Player object, but we'll define it
-as a class anyhow. Its construtore can have the same arguments as
-`Blob`. The player will have all the behavior of Blobs, plus the following
-methods
+as a class anyhow. (Maybe there will be a multi-player version
+someday...). Its constructor can have the same arguments as `Blob`. The
+player will have all the behavior of Blobs, plus the following methods
 
 * `move` which takes a mouse movement event object (see below) as its
   argument and moves the DIV so that the center is in the new location.
@@ -177,7 +177,8 @@ collided with the player, but when the Player moves, it doesn't check to
 see if it has collided with any enemies. This rule, odd as it is, has the
 advantage that an enemy only has to check *one* other blob for collisions,
 while a player would have to check against every enemy. This rule means
-that the player doesn't have to worry about all the enemies.
+that the player code doesn't have to worry about all the enemies (the
+*human* player does).
 
 Furthermore, enemies can only collide with the Player once. This means,
 for example, that if the enemy moves over the Player in ten steps, that
@@ -185,9 +186,9 @@ doesn't count as ten collisions. To implement this rule, an enemy will
 have to keep track of whether it has collided with the Player, and if it
 has already collided, skip any further collision checking.
 
-If it actually has to check for a collision, it does the following
+Whenever an enemy moves, it does the following:
 
-* update the values of X and Y from the DOM object. As we'll see later,
+* updates the values of X and Y from the DOM object. As we'll see later,
   jQuery animations modify the CSS properties, and our code will have to
   extract the values of `top` and `left` in order to determine the center
   of the blob, so that the `intersects` algorithm above can be used.
@@ -206,13 +207,13 @@ Setting initial coordinates is a bit tricky. Essentially:
   `window.innerHeight). The X coordinate is chosen so that the blob is
   initially just off screen.
 
-The enemy should have a `remove` method that stops the animation and
-removes the DOM element from the document.  This method would be used by
-the Player when it eats a smaller blob or when the animation is done.
+The enemy has a `remove` method that stops the animation and removes the
+DOM element from the document.  This method is used by the Player when it
+eats a smaller blob or when the animation is done.
 
-The enemy should have a `start` method that starts its animation
-going. So, in a moment, we'll turn to animation to learn more.  First,
-though, here are some values you might want:
+The enemy has a `start` method that starts its animation going. So, in a
+moment, we'll turn to animation to learn more.  First, though, here are
+some values you might want:
 
 ```
 :::JavaScript
@@ -240,7 +241,6 @@ invoked from the constructor.
 * `start` which starts the jQuery animation of this enemy moving across
 the board.
 
-
 ## jQuery Animation
 
 Animation in jQuery is very cool and powerful. You can read a ton about
@@ -267,6 +267,106 @@ a method of an object, you might need to use the `bind` method that we
 learned.
 1. `complete` a function that jQuery invokes when the animation is
 done. Again, you might need to use `bind` here.
+
+## Animation and our Model
+
+The jQuery animation happens separately from our JavaScript
+code. (Technically, it happens in what is called a different *thread*.)
+The jQuery animation incrementally updates the `top` or `left` CSS values
+of the DOM object (the `div.circle` that we discussed above). By default,
+the jQuery animation does not update anything in our `Blob` object: no
+instance variables are modified.
+
+Let's take a concrete example to explain what is going on. Suppose we have
+a blob with a radius of 10. It starts out nestled snugly in the upper left
+corner of the screen, so the CSS looks like `top:0px;left:0px` and the
+`Blob` object has instance variables recording that the center of the blob
+is at (10,10).
+
+We then start an animation where the blob is moving diagonally across the
+screen. After a while, the CSS values will be `top:800px;left:800px` but
+the `Blob` object's instance variables still have the center at
+(10,10). That's because the animation only updates the CSS values we asked
+it to, nothing else.
+
+If we want it to update something else, namely the blob's center, we can
+use the `progress` callback. (This is information flowing from the
+animation back to our JS code.)  Here's an example of the idea:
+
+```
+:::JavaScript
+    blob17 = new Blob("coral",20);
+    $(blob17.elt)
+        .animate({ left: "+=456px" },
+                 { duration: 3000,
+                   progress: function () {
+                     var $elt = $(blob17.elt);
+                     var left = parseInt($elt.css("left"),10);
+                     var x = left+100; // radius is 100
+                     console.log("x is now "+x);
+                 }});                                  
+```
+
+Of course, the code above is not sufficiently modular or generic, and it
+doesn't update the object. You should define a method that does the right
+thing here. Again, you might find `.bind()` useful, since you need to turn
+that method into a function for the `progress` callback.
+
+## Testing
+
+In my experience, the most common student errors came in
+
+* getting the blob model correct: the correct center x,y and radius
+* updating the blob model from the animation, as described in the previous
+section
+* computing the intersection of two blobs. Once the model is correct, this
+is usually a straightforward use of the code I supplied.
+
+To make this easier, I am supplying these testing functions:
+
+```
+:::JavaScript
+function testIntersect(dx,dy) {
+    // This test has two blobs of radius 100 and a 120,160,200
+    // triangle between their centers, so their centers are
+    // 200 px apart and they should be just tangent. The second
+    // blob is perturbed by (dx,dy)
+    dx = (dx === undefined) ? 0 : dx;
+    dy = (dy === undefined) ? 0 : dy;
+    $(".circle").remove();      // remove any prior blobs
+    // these are global on purpose, so you can play with them afterward.
+    b1 = new Blob("red",200);   // radius of 100
+    b2 = new Blob("green",200);
+    b1.setX(100).setY(100).addToGame("body");
+    b2.setX(100+120+dx).setY(100+160+dy).addToGame("body");
+    console.log("b1 intersects b2? ",b1.intersects(b2));
+    console.log("b2 intersects b1? ",b2.intersects(b1));
+}
+
+function testProgress() {
+    $(".circle").remove();      // remove any prior blobs
+    blob17 = new Blob("coral",200);
+    blob17.setX(100).setY(100).addToGame("body");
+    $(blob17.elt)
+        .animate({ left: "+=456px" },
+                 { duration: 3000,
+                   progress: function () {
+                     var $elt = $(blob17.elt);
+                     var left = parseInt($elt.css("left"),10);
+                     var x = left+100; // radius is 100
+                     console.log("x is now "+x);
+                 }});                                  
+}
+```
+
+The first puts two blobs on the screen, just touching. You can move the
+green one relative to the red one, so that sometimes they intersect and
+sometimes they don't.  
+
+The second would allow you to test your own `progress` callback.
+
+I will demonstrate both of these in class. Feel free to modify the code of
+either one of these to facilitate your own testing.
 
 ## Testing Mode
 
@@ -305,6 +405,9 @@ So, code like:
 :::JavaScript
 $(document).on('mousemove', function (event) { ... });
 ```
+
+Your event handler should update the blob representing the player and that
+should indirectly update the blue `div.circle` on the screen.
 
 ## Random Stuff
 
@@ -366,13 +469,25 @@ height: ...;
 background-color: ...;
 ```
 
+Remember that CSS's block model wants to know the width and height of the
+rectangular region occupied by the blob and the absolute positioning needs
+to know the left and top. The intersection code needs to know the center
+coordinates and radius. There's an obvious relationship between the two,
+but keeping these in sync is tricky. Here's a screenshot that may help,
+where I've put the mouse over a blob I added to the screen using the
+`testIntersect` function:
 
+<figure>
+    <img src="screenshot-test-blobs.png">
+    <figcaption>The CSS for a circular blob with center (221,261) and
+    radius 100</figcaption>
+</figure>
 
 
 ## Modularity
 
 This assignment is hard enough, so don't worry about packaging things up
-in modules.
+in IIFE modules.
 
 ## Feedback
 

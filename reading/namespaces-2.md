@@ -1,3 +1,0 @@
-# More on Namespaces
-
-TBD

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS204: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../css/normalize.css">
+  <link rel="stylesheet" href="../../css/skeleton.css">
+  <link rel="stylesheet" href="../../css/glyphicons.css">
+  <link rel="stylesheet" href="../../css/pygments/colorful.css">
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="../../index.html">Home</a></li>
+                <li id="about"><a href="../../about.html">About</a></li>
+                <li id="schedule"><a href="../../schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="../../syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="../../reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns">
+
+    <h2 id="assignment-5-sliding-tiles">Assignment 5: Sliding Tiles</h2>
+<p>We'll visit the online solution to see it in action. Here are the key
+parts of the code (about 100 lines of code):</p>
+<div class="codehilite"><pre><span class="kd">var</span> <span class="nx">tileArray</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">],</span> 
+                 <span class="p">[</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;f&quot;</span><span class="p">],</span> 
+                 <span class="p">[</span><span class="s2">&quot;g&quot;</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">]];</span>
+
+<span class="kd">var</span> <span class="nx">blankTileRow</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">blankTileCol</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="c1">//returns element to the right of the null element in tileArray</span>
+<span class="kd">function</span> <span class="nx">getRightTile</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">blankTileCol</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// three similar</span>
+</pre></div>
+
+
+<p>Moving a picture (tile) uses the <code>animate</code> method, but has to know what
+tile to move and which way. Those are arguments:</p>
+<div class="codehilite"><pre><span class="kd">var</span> <span class="nx">duration</span> <span class="o">=</span> <span class="mi">500</span><span class="p">;</span>  <span class="c1">// half a second to slide a tile</span>
+
+<span class="c1">//animate the selected tile in the direction specified by input</span>
+<span class="kd">function</span> <span class="nx">movePicture</span><span class="p">(</span><span class="nx">direction</span><span class="p">,</span> <span class="nx">tile</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span> <span class="nx">tile</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nx">tile</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">$elt</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;movePicture id &quot;</span> <span class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s2">&quot; to direction: &quot;</span> <span class="o">+</span> <span class="nx">direction</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">tileLeft</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$elt</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">),</span><span class="mi">10</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">tileTop</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">$elt</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">&quot;top&quot;</span><span class="p">),</span><span class="mi">10</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$elt</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span> <span class="nx">left</span><span class="o">:</span> <span class="nx">tileLeft</span> <span class="o">-</span> <span class="mi">200</span> <span class="p">},</span> <span class="nx">duration</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$elt</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span> <span class="nx">left</span><span class="o">:</span> <span class="nx">tileLeft</span> <span class="o">+</span> <span class="mi">200</span> <span class="p">},</span> <span class="nx">duration</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s2">&quot;up&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$elt</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span> <span class="nx">top</span><span class="o">:</span> <span class="nx">tileTop</span> <span class="o">-</span> <span class="mi">200</span> <span class="p">},</span> <span class="nx">duration</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">direction</span> <span class="o">==</span> <span class="s2">&quot;down&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$elt</span><span class="p">.</span><span class="nx">animate</span><span class="p">({</span> <span class="nx">top</span><span class="o">:</span> <span class="nx">tileTop</span> <span class="o">+</span> <span class="mi">200</span> <span class="p">},</span> <span class="nx">duration</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;no such direction: &quot;</span><span class="o">+</span><span class="nx">direction</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">updateData</span><span class="p">(</span><span class="nx">direction</span><span class="p">,</span> <span class="nx">tile</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>We have to maintain our data structures when a tile moves. Same args as
+the previous function.</p>
+<div class="codehilite"><pre><span class="c1">//updates global variables tileArray, blankTileRow, blankTileCol</span>
+<span class="kd">function</span> <span class="nx">updateData</span><span class="p">(</span><span class="nx">direction</span><span class="p">,</span> <span class="nx">tile</span><span class="p">){</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s2">&quot;left&quot;</span><span class="p">){</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">]</span> <span class="o">=</span>  <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nx">blankTileCol</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s2">&quot;right&quot;</span><span class="p">){</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">]</span> <span class="o">=</span>  <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nx">blankTileCol</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">direction</span> <span class="o">===</span> <span class="s2">&quot;up&quot;</span><span class="p">){</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">]</span> <span class="o">=</span>  <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">];</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nx">blankTileRow</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">direction</span> <span class="o">==</span> <span class="s2">&quot;down&quot;</span><span class="p">){</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">]</span> <span class="o">=</span>  <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">];</span>
+        <span class="nx">tileArray</span><span class="p">[</span><span class="nx">blankTileRow</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="nx">blankTileCol</span><span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="nx">blankTileRow</span><span class="o">--</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;no such direction:&quot;</span><span class="o">+</span><span class="nx">direction</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;blankTileRow: &quot;</span> <span class="o">+</span> <span class="nx">blankTileRow</span> <span class="o">+</span> <span class="s2">&quot;\nblankTileCol: &quot;</span> <span class="o">+</span> <span class="nx">blankTileCol</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Doing a move given only a direction requires finding the correct tile
+(solved first) and then moving a picture. Notice that this can be tested
+in the JS console.</p>
+<div class="codehilite"><pre><span class="kd">function</span> <span class="nx">doMove</span><span class="p">(</span><span class="nx">direction</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">direction</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">movePicture</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span><span class="nx">getRightTile</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="nx">direction</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">movePicture</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span><span class="nx">getLeftTile</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="nx">direction</span> <span class="o">==</span> <span class="s2">&quot;up&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">movePicture</span><span class="p">(</span><span class="s2">&quot;up&quot;</span><span class="p">,</span><span class="nx">getBelowTile</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="nx">direction</span> <span class="o">==</span> <span class="s2">&quot;down&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">movePicture</span><span class="p">(</span><span class="s2">&quot;down&quot;</span><span class="p">,</span><span class="nx">getAboveTile</span><span class="p">());</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;no such direction: &quot;</span><span class="o">+</span><span class="nx">direction</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Finally, hook these up to the event listener:</p>
+<div class="codehilite"><pre><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keypress&#39;</span><span class="p">,</span><span class="kd">function</span> <span class="p">(</span><span class="nx">eventObj</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">a_key</span> <span class="o">=</span> <span class="mi">97</span><span class="p">;</span> <span class="c1">//left</span>
+    <span class="kd">var</span> <span class="nx">s_key</span> <span class="o">=</span> <span class="mi">115</span><span class="p">;</span> <span class="c1">//down</span>
+    <span class="kd">var</span> <span class="nx">d_key</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span> <span class="c1">//right</span>
+    <span class="kd">var</span> <span class="nx">w_key</span> <span class="o">=</span> <span class="mi">119</span><span class="p">;</span> <span class="c1">//up</span>
+
+    <span class="k">if</span><span class="p">(</span> <span class="nx">eventObj</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="nx">a_key</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;a key pressed&quot;</span><span class="p">);</span>
+        <span class="nx">doMove</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">eventObj</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="nx">d_key</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">doMove</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">eventObj</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="nx">w_key</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;w key pressed&quot;</span><span class="p">);</span>
+        <span class="nx">doMove</span><span class="p">(</span><span class="s2">&quot;up&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">eventObj</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="nx">s_key</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;s key pressed&quot;</span><span class="p">);</span>
+        <span class="nx">doMove</span><span class="p">(</span><span class="s2">&quot;down&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//do nothing</span>
+    <span class="p">}</span>
+
+<span class="p">});</span>
+</pre></div>
+
+
+<p>Points to notice:</p>
+<ul>
+<li>Each function has a well-defined purpose and a good name</li>
+<li>Functions can be tested from the JS console</li>
+<li>The event listener is kept lean</li>
+</ul>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="../../js/custom.js"></script>
+
+<script src="https://cs.wellesley.edu/~anderson/js/Datejs-master/build/date-en-US.js"></script>
+<script src="../../js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+</body>
+</html>

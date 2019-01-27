@@ -9,17 +9,48 @@ We'll also look at my solution to A10 (Jelly Blobs)
 
 1. Admin
 1. Questions on A11?
+1. Solution to A10
 1. Discuss Accessibility
 1. Answer your questions
 1. Explore Taskmin
 
 ## Admin
 
-* Return A10 today
+Perkins School for the Blind (near Boston) is having a [hackathon](https://www.perkins.org/get-involved/events/perkins-hacks) for
+visual accessibility in April 2018!  
+
 * Printouts of A10 solution available now
-* Printouts of A11 solution on Friday
-* Come to the CS 304 showcase on Friday 10-12
+* Come to the CS 304 showcase in SCI 257 on Thursday 12/14 from 10-12
+* Printouts of A11 solution then
 * The final project can be done solo if you wish, for any reason.
+
+## A10 Jelly Blobs
+
+[my solution](../../solutions/a10-jelly/jBlobs.html)
+
+## Code Review
+
+* We'll start with the HTML file and notice
+    * the initial buttons and text
+    * the way the files are loaded and used
+* We'll look briefly at the CSS file; there's not much there
+* We'll look at the JS files, in order.
+
+Things to note:
+
+* Correspondence between DOM object (a `div`) and the JS object (`Blob`);
+  look at `setDiameter` for example
+* `Player` is pretty simple.
+* Constructor for `Enemy` invokes `Blob` constructor, after choosing color
+  and diameter
+* `maybeCollide` does some important work
+* How enemy sets coords
+* The `start` method starts the animation, with the `progress` and `done`
+  callbacks, including two uses of `bind`.
+* The `game.js` file (not printed) defines a function to start the game,
+  and sets up event handlers (click handlers and a mouse handler with
+  another use of `bind`)
+
 
 ## Accessibility
 
@@ -102,7 +133,9 @@ If you create your own widgets (like our button-like span, above), you can
 make them accessible via ARIA.
 
 See [Using the button
-role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniquest/Using_the_button_role).
+role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_button_role).
+
+Alternatively, wrap them in a hyperlink (the `a` tag).
 
 ## Buttons vs SPAN buttons
 
@@ -146,27 +179,9 @@ I'll answer [your questions](../../quizzes/quiz22.html)
 
 ## Alt
 
-There are some interesting quizzes here; we'll do them.
+There are some interesting quizzes here; we'll do some
 
 [alt text](http://webaim.org/techniques/alttext)
-
-## Assignment 10
-
-We'll look at the code of Assignment 10 (Jelly Blobs)
-
-First, some concepts and a sketch:
-
-* Interaction between the HTML document and JavaScript
-* methods
-* the `progress` callback
-
-## Code Review
-
-* We'll start with the HTML file and notice
-    * the initial buttons and text
-    * the way the files are loaded and used
-* We'll look briefly at the CSS file; there's not much there
-* We'll look at the JS files, in order.
 
 ## Final Project
 
@@ -184,9 +199,20 @@ movements](http://touchpunch.furf.com/):
 You don't have to use this, but playing with the app on your touch-screen
 device might be fun.
 
-I will write this assignment up and try to slim down the
-requirements. It's significantly difficult, though, so it will take some
-effort. Still, I think this is better than a 
+[taskmin](../../solutions/taskmin/taskmin.html)
+
+* click a header to toggle the display of add task, edit tags, and sort
+* add tasks
+* mark tasks as done. Become gray (or other CSS)
+* delete tasks
+* undo buttons; confirm by doing something else (optional)
+* not implemented additional menu (omit this)
+* sorting by different criteria:
+    * main tag puts personal together, then work
+    * date by order of when they are due
+    * tag number by order of when they are entered
+* Automatically saved to localstorage. I used
+`getItem("TASKMIN-tasklist")` and `getItem("TASKMIN-taglist")` 
 
 ## Summary
 
@@ -208,3 +234,14 @@ details. Accessibility is a thousand tiny details that make your web page
 a bit better for someone who often is neglected. Sometimes, those details
 differ from time to time.  But don't give up, just because perfection
 can't be achieved.
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+

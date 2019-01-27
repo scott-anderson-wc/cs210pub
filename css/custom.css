@@ -173,3 +173,8 @@ figure {
 figcaption {
     text-align: center;
 }
+
+.ans {
+    border: 1px solid black;
+    padding: 1ex 1em;
+}

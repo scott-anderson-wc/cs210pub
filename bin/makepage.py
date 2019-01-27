@@ -75,16 +75,18 @@ if __name__ == '__main__':
             # this is for top-level files like index and about
             template = env.get_template('main.html')
             home = ''
-        elif pathname_parts[0] in ('reading','assignments','lectures','quizzes'):
+        elif pathname_parts[0] in ('reading','assignments','lectures','quizzes','solutions'):
             subdir = pathname_parts[0]
             template_file = {'reading': 'reading.html',
                              'assignments': 'assignment.html',
                              'lectures': 'lectures.html',
-                             'quizzes': 'lectures.html'}[subdir]
+                             'quizzes': 'lectures.html',
+                             'solutions': 'lectures.html'}[subdir]
             home = {'reading': '../',
                     'assignments': '../../',
                     'lectures': '../../',
-                    'quizzes': '../'}[subdir]
+                    'quizzes': '../',
+                    'solutions': '../../'}[subdir]
             template = env.get_template(template_file)
         else:
             print "Don't know what module to use for this: ",src

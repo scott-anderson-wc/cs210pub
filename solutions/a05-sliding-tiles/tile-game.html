@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Original draft for CS 249 A5 by Grace Hu-->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="tile-game.css" type="text/css" />
+</head>
+<body>
+
+<h1>The Wellesley Tile Slider Game</h1>
+
+<figure id="directions">
+    <div id="up">w &uarr; Up</div>
+    <div id="down">s &darr; Down</div>
+    <div id="left">a &larr; Left</div>
+    <div id="right">d &rarr; Right</div>
+</figure>
+    
+    <figure id="board">
+      <img id="a" src="tiles/a.jpeg" alt="tile">
+      <img id="b" src="tiles/b.jpeg" alt="tile">
+      <img id="c" src="tiles/c.jpeg" alt="tile">
+      <img id="d" src="tiles/d.jpeg" alt="tile">
+      <img id="e" src="tiles/e.jpeg" alt="tile">
+      <img id="f" src="tiles/f.jpeg" alt="tile">
+      <img id="g" src="tiles/g.jpeg" alt="tile">
+      <img id="h" src="tiles/h.jpeg" alt="tile">
+    </figure>
+
+<p>
+<button id="scrambleButton">Scramble Board (30 moves)</button>
+</p>        
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="tiles.js"></script>
+<script src="tiles2.js"></script> <!-- adds the scrambling behavior -->
+
+</body>
+</html>

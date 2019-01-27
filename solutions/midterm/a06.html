@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS204: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../css/normalize.css">
+  <link rel="stylesheet" href="../../css/skeleton.css">
+  <link rel="stylesheet" href="../../css/glyphicons.css">
+  <link rel="stylesheet" href="../../css/pygments/colorful.css">
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="../../index.html">Home</a></li>
+                <li id="about"><a href="../../about.html">About</a></li>
+                <li id="schedule"><a href="../../schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="../../syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="../../reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns">
+
+    <h2 id="hwk6-concentration">Hwk6 Concentration</h2>
+<p>We'll look at the HTML and CSS for a minute. The key things:</p>
+<div class="codehilite"><pre>   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;board&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;blank.jpg&quot;</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">alt=</span><span class="s">&quot;image1&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;blank.jpg&quot;</span> <span class="na">id=</span><span class="s">&quot;2&quot;</span> <span class="na">alt=</span><span class="s">&quot;image2&quot;</span><span class="nt">&gt;</span>
+        ...
+   <span class="nt">&lt;/div&gt;</span>
+
+   <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;startNewGameButton&quot;</span><span class="nt">&gt;</span>Start New Game<span class="nt">&lt;/button&gt;</span>
+
+   <span class="nt">&lt;h2&gt;</span>Clicks: <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">&quot;tries&quot;</span><span class="nt">&gt;&lt;/span&gt;</span> Matches: <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">&quot;matches&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/h2&gt;</span>
+   <span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">&quot;msg&quot;</span><span class="nt">&gt;&lt;/h2&gt;</span>
+   <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/JavaScript&quot;</span> <span class="na">src=</span><span class="s">&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+   <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;https://cs.wellesley.edu/~cs204/assignments/a06/supplied.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+   <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;solution-v3.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+
+<p>The CSS:</p>
+<div class="codehilite"><pre><span class="c">/* outer width is 184px. */</span>
+<span class="nf">#board</span> <span class="nt">img</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="nb">black</span><span class="p">;</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c">/* Needs to contain 4*184 or 786px */</span>
+<span class="nf">#board</span> <span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">90</span><span class="o">%</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="nb">black</span><span class="p">;</span>
+    <span class="k">margin</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Now, the JavaScript code (about 100 lines total).</p>
+<p>First, showing and hiding images.</p>
+<div class="codehilite"><pre><span class="kd">function</span> <span class="nx">showImage</span><span class="p">(</span><span class="nx">elementid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="nx">elementid</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="nx">getImage</span><span class="p">(</span><span class="nx">elementid</span><span class="p">));</span>
+<span class="p">}</span> 
+
+<span class="kd">function</span> <span class="nx">hideImage</span><span class="p">(</span><span class="nx">elementid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#&#39;</span> <span class="o">+</span> <span class="nx">elementid</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="s2">&quot;blank.jpg&quot;</span><span class="p">);</span>
+<span class="p">}</span> 
+</pre></div>
+
+
+<p>Okay, now a deep breath. We'll look at the finished function to process a
+click.</p>
+<div class="codehilite"><pre><span class="kd">var</span> <span class="nx">tries</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">matches</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">click</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">firstelt</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">processClick</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Processing for elt &quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
+    <span class="c1">// Optional:  if the image is already showing, do nothing.</span>
+    <span class="kd">var</span> <span class="nx">img</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="o">+</span><span class="nx">id</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">img</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">&quot;blank.jpg&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;click on revealed image is ignored&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">click</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nx">showImage</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+        <span class="nx">firstelt</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+        <span class="nx">click</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span>  <span class="p">{</span>
+        <span class="nx">tries</span> <span class="o">=</span> <span class="nx">tries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">showImage</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">getImage</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">!=</span> <span class="nx">getImage</span><span class="p">(</span><span class="nx">firstelt</span><span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#msg&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;No match!&quot;</span><span class="p">);</span>
+            <span class="nx">setTimeout</span><span class="p">(</span>
+                <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#msg&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+                    <span class="nx">hideImage</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>  
+                    <span class="nx">hideImage</span><span class="p">(</span><span class="nx">firstelt</span><span class="p">);</span>
+                <span class="p">},</span> 
+                <span class="mi">1000</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#msg&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Match!&quot;</span><span class="p">);</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#msg&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span> <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+            <span class="nx">matches</span> <span class="o">=</span> <span class="nx">matches</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">matches</span> <span class="o">==</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#msg&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">&quot;Game over!&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nx">click</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nx">updateStatus</span><span class="p">();</span>
+    <span class="p">}</span> <span class="c1">// second click processing</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>We'll take some time to absorb that and explain it.</p>
+<p>Next, we'll tie up the loose ends</p>
+<div class="codehilite"><pre><span class="kd">function</span> <span class="nx">updateStatus</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#tries&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">tries</span><span class="p">);</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#matches&quot;</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="nx">matches</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// When the initial page is loaded, shuffle the images to randomly</span>
+<span class="c1">// assign them to the elements in the grid.  </span>
+
+<span class="nx">shuffleImages</span><span class="p">();</span>
+</pre></div>
+
+
+<p>Very important step: setting up 16 event handlers.</p>
+<div class="codehilite"><pre><span class="kd">var</span> <span class="nx">id</span><span class="p">;</span>                         <span class="c1">// just for debugging</span>
+
+<span class="c1">// This is how our book would do it:</span>
+
+<span class="kd">function</span> <span class="nx">addEventHandler_book</span><span class="p">(</span><span class="nx">img</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">img</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+       <span class="kd">var</span> <span class="nx">elementId</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">img</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+       <span class="nx">id</span> <span class="o">=</span> <span class="nx">elementId</span><span class="p">;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Click on element id &quot;</span><span class="o">+</span><span class="nx">elementId</span><span class="p">);</span>
+       <span class="nx">processClick</span><span class="p">(</span><span class="nx">elementId</span><span class="p">);</span> <span class="c1">// or maybe, pass in the element?</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// Here&#39;s a slightly more efficient way:</span>
+
+<span class="kd">function</span> <span class="nx">addEventHandler</span><span class="p">(</span><span class="nx">img</span><span class="p">)</span> <span class="p">{</span>
+   <span class="kd">var</span> <span class="nx">elementId</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">img</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+   <span class="nx">$</span><span class="p">(</span><span class="nx">img</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">id</span> <span class="o">=</span> <span class="nx">elementId</span><span class="p">;</span>  <span class="c1">// closure variable</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Click on element id &quot;</span><span class="o">+</span><span class="nx">elementId</span><span class="p">);</span>
+       <span class="nx">processClick</span><span class="p">(</span><span class="nx">elementId</span><span class="p">);</span> <span class="c1">// or maybe, pass in the element?</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">addEventHandlers</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;adding event handlers using book approach&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">nodes</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s2">&quot;#board img&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">nodeArray</span> <span class="o">=</span> <span class="p">[].</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">nodes</span><span class="p">);</span>
+    <span class="nx">nodeArray</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">addEventHandler</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">addEventHandlers</span><span class="p">();</span>
+</pre></div>
+
+
+<p>Finally, allow the game to be restarted.</p>
+<div class="codehilite"><pre><span class="c1">//reinitialize the page when a new game is started</span>
+<span class="kd">function</span> <span class="nx">newGame</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">click</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">tries</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">matches</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">updateStatus</span><span class="p">();</span>
+    <span class="nx">shuffleImages</span><span class="p">();</span>
+    <span class="c1">// replace all pics with blank</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#board img&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="s2">&quot;blank.jpg&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#startNewGameButton&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="nx">newGame</span><span class="p">);</span>
+</pre></div>
+
+
+<h2 id="aside-on-global-variables">Aside on Global variables</h2>
+<ul>
+<li>The sliding tile game had some global variables.</li>
+<li>Concentration had even more.</li>
+<li>Aren't globals <em>bad</em>?</li>
+</ul>
+<p>Maybe not <em>bad</em> but they should be <em>minimized</em></p>
+<p>Use an IFFE:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+
+     <span class="c1">// all the original code</span>
+
+<span class="p">})()</span>     
+</pre></div>
+
+
+<p>Very easy but then you have no globals, which can make
+debugging/inspection harder.  So wait on that.</p>
+<p>Alternatively, have <em>one</em> global, say, <code>app</code>.</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nb">window</span><span class="p">)</span> <span class="p">{</span>
+     <span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">app</span> <span class="o">||</span> <span class="p">{};</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">score</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="nx">app</span><span class="p">.</span><span class="nx">num_clicks</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="p">...</span>
+
+     <span class="c1">// all code, but using app.score instead of score and so forth</span>
+
+     <span class="nb">window</span><span class="p">.</span><span class="nx">app</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
+<span class="p">})(</span><span class="nb">window</span><span class="p">);</span>
+</pre></div>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="../../js/custom.js"></script>
+
+<script src="https://cs.wellesley.edu/~anderson/js/Datejs-master/build/date-en-US.js"></script>
+<script src="../../js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+</body>
+</html>

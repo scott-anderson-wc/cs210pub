@@ -89,12 +89,13 @@ So, you have to convert it to a number. For that, use the built-in
 `parseInt()` function. (Note that `parseInt` has an optional second
 argument which is the *radix* (number base), so if you want to parse octal
 or hexadecimal strings, you can. It defaults to 10, but supplying 10 is
-not a bad idea.)
+a good idea.)
 
 <button id="findBiggerWidthButton">Find a Bigger Width</button>
 <script>
 $("#findBiggerWidthButton").click(function () {
-    var width = parseInt($("body").css("width"));
+    var widthStr = $("body").css("width");
+    var widthInt = parseInt(widthStr,10);
     var width1 = width + 1;
     alert('one pixel bigger is '+width1);
 });
@@ -106,7 +107,8 @@ Here's the code:
 ```
 :::JavaScript
 $("#findBiggerWidthButton").click(function () {
-    var width = parseInt($("body").css("width"));
+    var widthStr = $("body").css("width");
+    var widthInt = parseInt(widthStr,10);
     var width1 = width + 1;
     alert('one pixel bigger is '+width1);
 });
@@ -114,7 +116,8 @@ $("#findBiggerWidthButton").click(function () {
 
 ## Animation Callbacks
 
-Checking that a jQuery animation <q>worked</q> is tricky. The following won't work:
+Checking that a jQuery animation <q>worked</q> is tricky. The following
+won't work:
 
 <button id="growButton">Grow</button>
 <button id="alice">Alice</button>
@@ -178,6 +181,12 @@ $("#growButton2").click(function () {
 });
 ```
 
+You will not need the animation callback to get your assignment working,
+but you may find it helpful during debugging. At the very least, you won't
+make the initial mistake of printing the value of the css property
+immediately after starting the animation and not understanding why it
+didn't change.
+
 ## Directions
 
 I'm going to leave most of the markup, CSS and coding to you. One
@@ -189,8 +198,8 @@ positioned appropriately with the grid.
 You can let each piece keep track of its location and use jQuery's `css`
 method to read those values off when you need them.
 
-I suggest giving each piece an ID so that you can easily find it to move
-it around.
+I suggest giving each piece an ID or `data-` attribute so that you can
+easily find it to move it around.
 
 I will supply a set of images that you can use in this
 [tarfile](../../downloads/tiles.tar)
@@ -199,12 +208,30 @@ If you want to use a different image, you can go to
 [imagesplitter.net](http://imagesplitter.net) and split an image of your
 choosing.
 
+Note that the tiles include a blank.jpeg file (just because the
+imagesplitter created it), but you don't need to use it at all. If you
+arrange the 8 tiles in a 3x3 grid, one grid position will naturally be
+empty. Your game only needs to worry about sliding a single tile into the
+unoccupied grid position.
+
+## Where is the Blank?
+
+Students have often written code that searches the 2D array to find the
+blank, which then allows their code to determine the neighboring
+tile. Such code can work, but is unnecessarily time consuming. Instead,
+just keep track of where the blank is. After all, you know where it
+starts, and it only moves under your control, so it's straightforward to
+keep track of where it currently is. 
+
 ## Advice
 
 * Build functions that you can test on their own, using the JS console,
 rather than trying to build everything and test it using the click
 handlers
-* A low-level function you might write could be `getRightTile()` taking no arguments which returns the tile to the right of the blank, if any. You'll have to figure out what it should do or return if there is no such tile. Test it from the JS console.
+* A low-level function you might write could be `getRightTile()` taking no
+arguments and which returns the tile to the right of the blank, if
+any. You'll have to figure out what it should do or return if there is no
+such tile. Test it from the JS console. Write and test three similar functions.
 * A high-level function you might write could be `doMove` which takes a direction, determines the tile to slide and slides it one space in that direction. Test it from the JS console.
 * Remember that whenever you move a tile, you have to update your data structures and global variables to ensure that they correctly represent the new state of the grid.
 * When you have the functions working well, then add the keyboard event handler to do the right thing.
@@ -216,6 +243,8 @@ jQuery.
 * Coding quality matters. Try to be concise and abstract.
 * My code, including functions you've already written, and including blank
 lines and comments space between functions, is still less than 100 lines.
+* You don't have to use OOP in this assignment. You can, but I didn't. We
+will use OOP on future assignments.
 
 ## Final Checklist
 
@@ -223,7 +252,8 @@ lines and comments space between functions, is still less than 100 lines.
 * Make sure everything works and looks nice
 * Make sure both the HTML and the CSS are valid
 * Fill out this [form](https://docs.google.com/a/wellesley.edu/forms/d/e/1FAIpQLSe970yhc5Pws7GP_1xe_P-0cwliVZd4f_mWhxC5xRhji7bo9Q/viewform?usp=sf_link)
-That form will help me improve the course for next time. The form is anonymous; it will not collect your username.
+That form will help me improve the course for next time. The form is
+optional and anonymous; it will not collect your username.
 
 ## How to turn this in
 

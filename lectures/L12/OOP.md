@@ -1,14 +1,24 @@
-# OOP in JS + Forms
+# OOP in JS
 
 Today, we'll focus on how to do Object-Oriented Programming (OOP) in
-JavaScript.
+JavaScript, as covered in Chapter 8.
+
+We probably won't go past page 183.
 
 ## Plan
 
+1. Admin: A4 Questions, midterm next week, etc.
 1. Discuss Modules in JS
-1. Discuss OOP in JS
-1. Discuss forms
+1. Bank Accounts
+1. OOP in JS
+1. Your Questions
+1. OOP Exercises
+1. Objects as Database
+1. APIs
 1. Chapter 8 activity
+1. Pitfalls of `this`
+1. Debugging Activity
+1. More OOP exercises
 
 ## The App module from Chapter 8 
 
@@ -75,9 +85,13 @@ Account.prototype.withdrawal = function (amount) {
 
 var harry = new Account(1000);
 var ron = new Account(2);
+var hermione = new Account(200);
 </script>
 
+<div class="codehilite">
 <pre id="bank1-src"></pre>
+</div>
+
 <script>$("#bank1-src").text($("#bank1").text());</script>
 
 Let's try it out in the JS console!  Try some deposits and withdrawals. If you look in the console, you can see the current balance.
@@ -90,11 +104,12 @@ What we saw above:
 
 ### Constructors
 
-This is the 
+The constructor is the `Account` function we saw above.
+
 * Create a constructor function (really, it's an initializer)
-* By convention, name it with a capital letter
-* It can access `this` when the constructor is running
-* use the `new` keyword when invoking the constructor
+* By convention, name it with a capital letter, to remind us to use `new`
+* Use the `new` keyword when invoking the constructor
+* The constructor can access `this` when it executes
 * The value of `this` is an new, empty, object
 * except the object has a *prototype* connection
 * The constructor has no return value
@@ -111,9 +126,10 @@ var hermione = new Account(200);
 
 ### Instance Variables
 
-In our bank account example, this is the `balance` property.
+In our bank account example, the instance variable is the `balance`
+property. Instance variables 
 
-* also called
+* are also called
     * attributes
     * data members
     * fields
@@ -135,8 +151,10 @@ creating, but *all* the objects made by that factory contain an
 invisible link to the prototype.
 
 <figure>
-<img src="object-factory-with-prototype.svg">
-<figcaption>Object factory with cyan objects and a pink prototype</figcaption>
+<img src="object-factory-with-prototype-x4.svg">
+<figcaption>Object factory with cyan objects and a pink
+prototype. (Factory image by Chrystina Angeline, from the Noun
+Project)</figcaption>
 </figure>
 
 The prototype has *read-only* properties that *all* instances share. Let's try the following:
@@ -162,7 +180,13 @@ In our bank account example, these were `deposit` and `withdrawal`
 * inherited by all objects created using the given constructor
 * the function is *shared* by all instances (saving memory)
 * can reference `this` to refer to the object and its properties
-* note that because we assign them to properties of the prototype, the statement ends with a semi-Colon.
+* note that because we assign them to properties of the prototype, the statement ends with a semi-colon.
+
+```
+:::JavaScript
+Foo.prototype.meth = function () { code };
+```
+
 
 ### Invoking a Method
 
@@ -183,7 +207,7 @@ function Foo(z) {
     this.z = z;
 }
 
-Foo.prototype.sum = function (x,y) { return this.z+x+y; };
+Foo.prototype.sum = function (x,y) { return x+y+this.z; };
 
 var f1 = new Foo(1);
 f1.sum(2,3);   // returns 6
@@ -199,12 +223,12 @@ We'll look at [your questions](../../quizzes/quiz11.html)
 ## Exercise 1
 
 1. Create a web page in your C9 public account with an attached JS file.
-1. Copy the code above into the `.js` file
+1. Copy the bank account code above into the `.js` file
 1. Make sure it works as above
-1. If you get stuck, you can use this tarfile: http://cs.wellesley.edu/~cs204/downloads/oop1.tar
+1. If you get stuck, you can `curl -O` this tarfile: `http://cs.wellesley.edu/~cs204/downloads/bank.tar`
 1. Add an instance variable to the object for different types of accounts: checking vs savings
 
-<div class="solution">
+<div class="solution codehilite">
 <pre>
 function Account(type,init) {
     this.type = type;
@@ -232,90 +256,6 @@ Account.prototype.addInterest =
 </div>
 
 
-## Pitfall of `this`
-
-Open up a JS console and try the following:
-
-```
-var fred = Account(500);
-```
-
-Print the value of `fred`. Print the value of `balance`
-
-What happened?
-
-<div class="solution">
-<p>The <code>fred</code> variable is undefined and <code>balance</code> is
-a new global variable.
-
-<p>The cause is that we forgot the <code>new</code> keyword.
-
-<p>It turns out that <code>this</code> is equivalent
-to <code>window</code> and <q>global</q> variables are properties of the
-<code>window</code> object in JS (in a browser). If you want to protect
-against this error, make your constructor like this:
-<pre>
-function Account(init) {
-    if( this === window ) {
-        throw new Error("you forgot the 'new' keyword");
-    }
-    this.balance = init;
-}
-</pre>
-
-</div>
-
-## Invoking methods without an Object
-
-Here's a mistake you're unlikely to make until the situation becomes more complicated:
-
-```
-:::JavaScript
-var luna = new Account(20);
-var balance = 10;
-luna.deposit(10);
-luna;
-var f = luna.deposit;
-f(10);
-luna;
-balance;
-```
-
-In the last function invocation, it *seems* like the same function is being invoked and it *is*, but this time the syntactic pattern isn't one of method invocation, so `this` isn't bound to the object (how could it be?) but instead is bound to `window`
-
-When we want to use methods as event handlers, this will become an issue. One solution is a *closure*, but because `this` is special, we can't close over it. 
-
-## More on `this`
-
-The `this` variable is constantly being re-bound. If a function is invoked in the non-method way, `this` doesn't have the value we expect. Here's an example you might find surprising:
-
-```
-:::JavaScript
-function Foo(x) { this.x = x; }
-Foo.prototype.zark = function (y) {
-    console.log(y);
-    console.log(this.x);
-	var f = function () {
-	    console.log(y);
-	    console.log(this.x);
-		};
-	f();
-	console.log("done");
-};
-
-var f1 = new Foo(1);
-f1.zark(2);
-```
-
-## Solving the `this` problem
-
-So, how to solve the problem above?  In a future meeting, we'll discuss two approaches:
-
-* closures, usually over the word `that`
-* the `bind` method that has been added to JavaScript
-
-Meanwhile, let's turn to other topics.
-
 ## Using Objects as a Database
 
 There are many kinds of database. A very common and useful type is a [key-value database](https://en.wikipedia.org/wiki/Key-value_database).
@@ -324,6 +264,7 @@ For an in-memory database of that kind, we could use JavaScript objects. Like th
 
 ```
 :::JavaScript
+var house = {};
 house['cho'] = 'ravenclaw';
 house['draco'] = 'slytherin';
 house['cedric'] = 'hufflepuff';
@@ -334,13 +275,13 @@ Or this:
 ```
 :::JavaScript
 var heads = {};
-heads['gryffindor'] = 'McGonnigal';
+heads['gryffindor'] = 'McGonnagall';
 heads['slytherin'] = 'Snape';
 ```
 
 ## APIs
 
-Abstraction barriers gives the implementation *freedom*
+Abstraction barriers give the implementation *freedom*
 and *flexibility*. I'll draw a picture of this on the board and if it
 works, I'll add it to the reading.
 
@@ -350,6 +291,13 @@ to switch to Oracle NoSQL or LMDB or ... The code above would be a
 nightmare to update. But if we hide the database behind an abstraction
 barrier, we can isolate that implementation decision and allow
 ourselves to change it.
+
+Our API will consist of two methods:
+
+* `put(key,val)` stores a key, value pair
+* `get(key)` returns the stored value
+
+Here's one way:
 
 ```
 :::JavaScript
@@ -361,7 +309,7 @@ KeyValue.put = function (key,val) { db[key] = val; }
 KeyValue.get = function (key) { return this.db[key]; }
 
 var heads = new KeyValue();
-heads.put('gryffindor', 'McGonnigal');
+heads.put('gryffindor', 'McGonnagall');
 heads.put('slytherin','Snape');
 ```
 
@@ -371,92 +319,35 @@ Work through the first part of the activity, but *stop* when you get to page 183
 
 Depending on the time we have, either I will step through that with you, or we'll turn to other things.
 
-## List of Accounts
+## Debugging 
 
-How could we keep a global list of accounts?  Implement that.
+We'll look at the buggy code that we constructed partway through [Chapter
+8](../../front-end-dev-resources/book-solutions/Chapter-08-halfway/coffeerun/index.html)
 
-<div class="solution">
-<p>Here's one way:
-<pre>
-var allAccounts = [];
-
-function Account(type,balance) {
-   this.type = type;
-   this.balance = balance;
-   allAccounts.push(this);
-}
-</pre>
-</div>
-
-## Printing
-
-Is there a `.toString()` method? What does it do?
-
-Define a `toString()` method for an account. Print all the accounts.
-
-<div class="solution">
-<p>Here's one way:
-<pre>
-Account.prototype.toString = function () { return "Account("+this.type+","+this.balance+")"; };
-
-allAccounts.forEach(function (acct) { console.log(acct.toString()); });
-</pre>
-</div>
-
-## Processing Accounts
-
-Define a function to add interest to all the savings accounts.
-
-<div class="solution">
-<p>Here's one way:
-<pre>
-function addInterest(rate) {
-    allAccounts.forEach(function (acct) { acct.addInterest(rate); });
-}
-</pre>
-</div>
-
-## Chaining
-
-If we have time, let's look at chaining.  Imagine that we have a series of
-transactions we need to do. (Maybe these should be changes to house points).
+We can replicate the bug with the function `replicateBug` that I
+implemented for us, to avoid a bit of typing. We'll look at the definition
+first:
 
 ```
 :::JavaScript
-var hermione = new Account("savings",300);
-hermione.deposit(100);
-hermione.deposit(200);
-hermione.withdrawal(150);
-hermione.addInterest(0.1);
+var myTruck; 
+function replicateBug() {
+    myTruck = new App.Truck('007',new App.DataStore());
+    myTruck.createOrder({ emailAddress: 'm@bond.com', coffee: 'earl grey'});
+    myTruck.createOrder({ emailAddress: 'dr@no.com', coffee: 'decaf'});
+    myTruck.createOrder({ emailAddress: 'me@goldfinger.com', coffee: 'double mocha'});
+    myTruck.printOrders(); // triggers the bug on line 25
+}
 ```
 
-Fine, but a little tedious. Wouldn't it be nice to chain them together, like this:
+Then we'll click through there, open up the JS console and run that function.
 
-```
-:::JavaScript
-var hermione = new Account("savings",300);
-hermione.deposit(100)
-        .deposit(200)
-        .withdrawal(150)
-        .addInterest(0.1);
-```
+## End of Class
 
-How could we implement that?
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
 
-<div class="solution">
-<p>Make sure each method returns <code>this</code>.</p>
-</div>
-
-## Conclusion
-
-Objects often don't seem worthwhile, but taking the time to implement an
-abstraction layer often pays off in unforeseen ways.
-
-There was a story I heard where an AI system didn't get an innovation
-implemented because they couldn't tell the difference between accessing
-the first element of a list as a field accessor (method) versus other
-kinds of list processing.
-
-## Chapter 8 code
-
-We'll look at the code that we constructed in Chapter 8
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement

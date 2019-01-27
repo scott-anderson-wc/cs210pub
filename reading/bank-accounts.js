@@ -1,3 +1,5 @@
+// Used in the description of `bind` in forms-and-js.md
+
 var allAccounts = [];
 
 function Account(type,init) {

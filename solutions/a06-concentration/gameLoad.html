@@ -1,0 +1,138 @@
+<!doctype html>
+
+<!-- 
+     Game of Concentration for CS110 assignment
+     Written by CS110 staff, Fall 2012
+-->
+     
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Game of Concentration</title>
+   <link rel="stylesheet" href="game.css">
+   <script src="http://cs.wellesley.edu/~cs110/js/game.js"></script>
+
+   <script>
+      // create global variables needed for the game
+      var clickNum = 1;    // 1 or 2 (waiting for first or second click)
+      var firstId;         // image id for cell selected with first click
+      var matches = 0;     // number of matches so far
+      var clicks = 0;      // number of clicks so far
+      
+      shuffleImages();     // create random arrangement of images
+
+      // given an input id for an img element, assumed to be a string
+      // containing an integer between 1 and 16, showImage() displays 
+      // the hidden image associated with this cell
+      function showImage (id) {
+          var elt = document.getElementById(id);
+          elt.src = getImage(id);
+      }
+
+      // given an input id for an img element, displays the blank image
+      // in this cell 
+      function hideImage (id) {
+          var elt = document.getElementById(id);
+          elt.src = "blank.jpg";
+      }
+
+      // process a click for a cell on the game board whose img element
+      // has the input id
+      function processClick (id) {
+          // display the image associated with this cell
+          showImage(id);
+          clicks = clicks + 1;      // increment click counter
+          // update display of number of clicks
+          document.getElementById('counter').innerHTML = "clicks: " + clicks 
+                                                        + " matches " + matches; 
+          if (clickNum == 1) {
+             // if first click, store away the selected id and switch
+             // click number to 2
+             firstId = id;
+             clickNum = 2;
+          } else {
+             // if second click, check if the image for this cell matches
+             // the image for the cell selected with the first click
+             if (getImage(id) == getImage(firstId)) {
+                // increment the number of matches and update display
+                matches = matches + 1;    
+                document.getElementById('counter').innerHTML = "clicks: " + clicks 
+                                                           + " matches " + matches; 
+                // check if the game is done
+                if (matches == 8) {
+                   alert("Yay! You finished with " + clicks + " clicks!");
+                } 
+             } else {
+                // change the selected pair of cells back to blank images
+                alert("no match");
+                hideImage(firstId);
+                hideImage(id);
+             }
+             clickNum = 1;   // switch click number back to 1
+          } 
+      }
+
+      // starts a new game by creating a new random board, changing all the
+      // cells to blank images, and resetting the global variables and number
+      // of clicks and matches
+      function startNewGame () {
+          shuffleImages();
+          clicks = 0;
+          matches = 0;
+          clickNum = 1;
+          hideImage("1");
+          hideImage("2");
+          hideImage("3");
+          hideImage("4");
+          hideImage("5");
+          hideImage("6");
+          hideImage("7");
+          hideImage("8");
+          hideImage("9");
+          hideImage("10");
+          hideImage("11");
+          hideImage("12");
+          hideImage("13");
+          hideImage("14");
+          hideImage("15");
+          hideImage("16");
+          document.getElementById('counter').innerHTML = "clicks: 0 matches: 0";
+      }
+
+      var temp = new Image();
+      for (i = 1; i <= 8; i++) {
+          temp.src = "http://cs.wellesley.edu/~cs110/assignments/assignment6F12/images/im" + i + ".jpg";
+      }
+   </script>
+</head>
+
+<body>
+   <h1>The Game of Concentration</h1>
+
+   <!-- initially display a 4 x 4 grid of 16 blank images -->
+   <div id="board">
+        <img src="blank.jpg" id="1" alt="image1" onClick="processClick('1');">
+        <img src="blank.jpg" id="2" alt="image2" onClick="processClick('2');">
+        <img src="blank.jpg" id="3" alt="image3" onClick="processClick('3');">
+        <img src="blank.jpg" id="4" alt="image4" onClick="processClick('4');">
+        <img src="blank.jpg" id="5" alt="image5" onClick="processClick('5');">
+        <img src="blank.jpg" id="6" alt="image6" onClick="processClick('6');">
+        <img src="blank.jpg" id="7" alt="image7" onClick="processClick('7');">
+        <img src="blank.jpg" id="8" alt="image8" onClick="processClick('8');">
+        <img src="blank.jpg" id="9" alt="image9" onClick="processClick('9');">
+        <img src="blank.jpg" id="10" alt="image10" onClick="processClick('10');">
+        <img src="blank.jpg" id="11" alt="image11" onClick="processClick('11');">
+        <img src="blank.jpg" id="12" alt="image12" onClick="processClick('12');">
+        <img src="blank.jpg" id="13" alt="image13" onClick="processClick('13');">
+        <img src="blank.jpg" id="14" alt="image14" onClick="processClick('14');">
+        <img src="blank.jpg" id="15" alt="image15" onClick="processClick('15');">
+        <img src="blank.jpg" id="16" alt="image16" onClick="processClick('16');">
+   </div>
+
+   <!-- start a new game of concentration -->
+   <p class="newGame" onClick="startNewGame();">start new game</p>
+
+   <!-- display the number of clicks and matches as the game progresses -->
+   <h2 id="counter">clicks: 0 matches: 0</h2>
+</body>
+</html>

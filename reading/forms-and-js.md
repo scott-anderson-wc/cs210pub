@@ -3,7 +3,7 @@
 This reading supplements Chapter 10, which introduces JS code to process
 data that is entered into forms.  We'll look at the following topics:
 
-* `bind` (this is from Chapter 9, but re-occurs in Chapter 10)
+* `bind` (this is from Chapter 8, but re-occurs in Chapter 10)
 * submit handlers
 * preventing defaults
 * jQuery and its pitfall
@@ -12,137 +12,24 @@ data that is entered into forms.  We'll look at the following topics:
 
 ## Binding `this`
 
-Last time, we looked at a simple OOP system of bank accounts.
-
-<script src="bank-accounts.js"></script>
-
-Some observations:
-
-* `toString` is a method that returns a descriptive string
-* `print` is a method that uses `console.log` to print the description
-
-Suppose that we want to invoke the `print` method but not right away,
-maybe in about 5 seconds.  (Not a plausible scenario, but simpler than the
-realistic scenarios that your book presents in chapter 9 and chapter 10 --
-we'll discuss those in class.)
-
-To do that, we'll use the `setTimeout` function, which takes two
-arguments: a function to invoke, and a time delay in milliseconds.  So, to
-print ron's account 5 seconds from now, we can do the following:
-
-```
-:::JavaScript
-fn = function () { ron.print(); };
-setTimeout( fn, 5000 );
-```
-
-That works fine. You might think, though, that since `setTimeout` just
-needs a function of no arguments, and `ron.print` is a function of no
-arguments, inherited from `Account.prototype`, we could do the following:
-
-```
-:::JavaScript
-fn = ron.print;
-setTimeout( fn, 5000 );
-```
-
-Alas, that doesn't work (try it!). That's because the magic variable
-`this` doesn't have the correct value. However, there's something called
-`bind` which can take a method and return a function that has the correct
-value for `this`.  (In general, to give a value to a name is called
-*binding*, so `bind` gives a value to `this`.)
-
-So, the following *does* work:
-
-```
-:::JavaScript
-fn = ron.print.bind(ron);
-setTimeout( fn, 5000 );
-```
-
-## Bind in method definitions
-
-What if we wanted to make delayed printing a general feature of bank
-accounts, so we provide a method for it. Here's our first draft:
-
-
-```
-:::JavaScript
-Account.prototype.print = function () {
-    console.log(this.toString());
-}
-
-Account.prototype.print5seconds_bad = function () {
-    // the following won't work, because 'this' gets rebound to 'window'
-    setTimeout( this.print, 5000);
-}
-```
-
-Feel free to try it, and all these examples, in the JS console, say by
-invoking `ron.print5seconds_bad()`
-
-As the comment says, our `_bad` version doesn't work because the magic
-variable 'this' only has meaning within the method, not in the setTimeout,
-when it changes back to `window` (its meaning outside method invocations).
-
-Our next attempt is to use a closure over `this`:
-
-```
-:::JavaScript
-Account.prototype.print5seconds_this = function () {
-    // the following won't work, because we can't close over 'this'
-    // it tries to print the window!
-    var closure = function () { this.print(); };
-    setTimeout( closure, 5000);
-}
-```
-
-This idea is a good idea, but it turns out that the name `this` is
-special and changes its meaning.  If you want to capture its value, you
-have to assign it to a non-magical name. The convention in JavaScript is
-to use `that` as the non-magical name. So the following *works*:
-
-```
-:::JavaScript
-Account.prototype.print5seconds_that = function () {
-    // the following *does* work, because we can close over 'that'.
-    var that = this;
-    var closure = function () { that.print(); };
-    setTimeout( closure, 5000);
-}
-```
-
-Compare it carefully with the previous example.
-
-This technique of creating a special closure just to capture the value of
-`this` for use by a method is common enough that the `bind()` feature was
-created.  The following solution works the same way as the previous
-example, but it's just a bit more succinct:
-
-
-```
-:::JavaScript
-Account.prototype.print5seconds_bind = function () {
-    //  the following also works, using 'bind' to create a closure where
-    //  'this' has the correct value.
-    var closure = this.print.bind(this);
-    setTimeout( closure, 5000);
-}
-```
+We saw `bind` back in Chapter 8, but it rears its ugly head again in
+Chapter 10. 
 
 If you'd like to explore `bind` with more examples, check out the [MDN
 explanation of
 bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
 
+If you're not feeling okay about it, please talk to me or to our tutor.
+
 ## Form Submission
 
-Now let's turn from the language theory of `bind` and talk about
-forms. HTML forms were invented so that a page could collect information
-from the user and allow it to be packaged up and submitted to a server for
-some kind of processing.  Think about forms on Amazon.com or Ebay.com or
-any other kind of web application. Think about the <q>customer
-feedback</q> questionnaires we are constantly being asked to fill out.
-All of those are forms being submitted to servers.
+Now let's talk about forms. HTML forms were invented so that a page could
+collect information from the user and allow it to be packaged up and
+submitted to a server for some kind of processing.  Think about forms on
+Amazon.com or Ebay.com or any other kind of web application. Think about
+the <q>customer feedback</q> questionnaires we are constantly being asked
+to fill out.  Even Facebook posts. All of those are forms being submitted
+to servers.
 
 We can write JavaScript code that gets triggered when a form is
 submitted. In this chapter, the authors write some sophisticated, abstract
@@ -199,6 +86,8 @@ of the event, which is what your book does:
 $("#form2").on('submit', (function () { alert("form submitted!"); });
 ```
 
+Note that the URL changes when you submit this form, with your form data
+(key/value pairs) appearing in the URL.
 
 ## Preventing Defaults
 
@@ -232,6 +121,9 @@ $("#form3").submit(function (evt) {
 });
 </script>
 
+Note that the URL doesn't change with this event handler. Of course,
+that's because we've prevented the default behavior.
+
 ## jQuery and its pitfall
 
 What's wrong with the following combination of HTML and CSS and
@@ -259,7 +151,8 @@ submit handler. Alas, nothing matches that selector, but jQuery doesn't
 give you an error message. It treats it as an empty set: valid but useless.
 
 Sometimes, jQuery's behavior is exactly what you want, but often, you'd
-like to know if you've done something wrong. So check:
+like to know if you've done something wrong. So check the number of
+matched items:
 
 ```
 :::JavaScript
@@ -269,6 +162,12 @@ if ($form.length === 0) {
 }
 $form.submit( function () { alert("submitted"); });
 ```
+
+(In the code above, we've used a dollar sign in the name of the
+variable. That's a common but not universal convention for variables that
+contain jQuery results, since it helps you remember that you can use
+jQuery methods on the value of that varible. But it's also a little
+ugly. Your book chooses to use this convention; don't let it throw you.)
 
 In fact, you might even create a higher-level function that will search,
 check and then add the event handler.  Like this:
@@ -302,6 +201,17 @@ function addFormSubmissionHandler(selector, fn) {
 }    
 ```
 
+One important thing to notice about the code above is how a function
+(`fn`) is passed in. That function does the rest of the work of the form
+submission handler. So, you can think of the `addFormSubmissionHandler`
+function as:
+
+1. find the form using a selector
+1. if the selector didn't work, complain
+1. set up a submission handler for that form
+1. the submission handler will do some routine stuff and then,
+1. invoke a function arg to do the specific stuff for this form
+
 ## Serializing Forms
 
 In general, forms have several inputs and all of them get packaged up and
@@ -314,10 +224,128 @@ name/value pairs.
 
 jQuery has a method that will serialize a form for you. It's called,
 unsurprisingly, `.serialize()`.  You can also get the inputs as an array
-of objects; that's called `.serializeArray()`.
+of objects; that's called `.serializeArray()`. Each object in the array
+consists of a single name/value pair from the form. That is, a form asking
+about pizza preferences:
 
-More on this later. Or check out [jQuery
-.serializeArray](https://api.jquery.com/serializeArray)
+```
+:::HTML
+<form id="pizza">
+    <input name="kind">  <!-- e.g. pepperoni or veggie --> 
+    <select name="size">
+        <option>large (16 inch)</option>
+        <option>medium (14 inch)</option>
+        <option>personal (12 inch)</option>
+    </select>
+</form>
+```
 
+Might serialize like this:
 
+```
+:::JavaScript
+$("#pizza").serializeArray();
+[{name: 'kind', value: 'veggie'},
+ {name: 'size', value: 'personal (12 inch)'}]
+```
 
+Check out [jQuery .serializeArray](https://api.jquery.com/serializeArray)
+to learn more.
+
+In this chapter, they arrange for all form submission handlers to
+serialize the form into an array, and then collect all the form inputs
+into a single object. Like this:
+
+```
+:::JavaScript
+var data = {};
+$(this).serializeArray().forEach(function (item) {
+    data[item.name] = item.value;
+    });
+```
+
+The earlier pizza form would serialize into an object like this:
+
+```
+:::JavaScript
+{kind: 'veggie',
+ size: 'personal (12 inch)'}
+```
+
+The form submission handler then invokes the callback function with the
+form data object as its input.  So the overall plan is now:
+
+1. find the form using a selector
+1. if the selector didn't work, complain
+1. set up a submission handler for that form
+1. the submission handler will do some routine stuff namely
+     a. prevent the default, and
+     a. serialize the form into a single object
+1. invoke a function arg with the form data object to do
+the specific stuff for this form
+
+Here's the code:
+
+```
+:::JavaScript
+  FormHandler.prototype.addSubmitHandler = function (fn) {
+    console.log('Setting submit handler for form');
+    this.$formElement.on('submit', function (event) {
+      event.preventDefault();
+
+      var data = {};
+      $(this).serializeArray().forEach(function (item) {
+        data[item.name] = item.value;
+        console.log(item.name + ' is ' + item.value);
+      });
+      console.log(data);
+      fn(data); // invoke the callback with the form data
+    });
+  };
+```
+
+Re-read the code above keeping the abstract plan in mind.
+
+## Bind
+
+They've set up this very abstract code to attach a submission handler to a
+form with the routine stuff factored from the specific stuff. The code for
+the specific stuff will be passed in as a callback function. Now they'll
+use this to attach a submission handler to a form.
+
+Unfortunately, the callback function that they want to use is, in fact, a
+*method*. It's the `createOrder` method of a `Truck` object. So, they'd
+like to do:
+
+```
+:::JavaScript
+var myTruck = new Truck('ncc-1701', new dataStore());
+var formHandler = new FormHandler(FORM_SELECTOR);
+formHandler.addSubmitHandler( myTruck.createOrder ); // doesn't work
+```
+
+The last line doesn't work. It doesn't work because `createOrder` is a
+method, and it needs a value for `this`. We *could* do the following:
+
+```
+:::JavaScript
+var myTruck = new Truck('ncc-1701', new dataStore());
+var formHandler = new FormHandler(FORM_SELECTOR);
+formHandler.addSubmitHandler( function (form_data) {
+     myTruck.createOrder(form_data);
+     });
+```
+
+but it works just as well do to the following:
+
+```
+:::JavaScript
+...
+var myTruck = new Truck('ncc-1701', new dataStore());
+var formHandler = new FormHandler(FORM_SELECTOR);
+formHandler.addSubmitHandler( myTruck.createOrder.bind(myTruck) );
+```
+
+The latter is what our book uses. Use whichever technique you understand
+better. Using `bind` is also a little more concise, though that's not an
+important reason.

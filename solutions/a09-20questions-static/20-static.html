@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <title>20 Questions</title>
+  <meta name="description" content="A static 20-questions game">
+  <meta name="author" content="Scott D. Anderson">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/custom.css">
+
+</head>
+<body>
+
+    <header>
+        <h1>20 Questions</h1>
+    </header>
+
+    <noscript>
+        This app requires JavaScript. It won't work at all without it. Sorry.
+    </noscript>
+
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+
+                <p id="tree_buttons">
+                    <button id="defaultTree">Get Tree from Server</button>
+                </p>
+                    
+                <p id="controller_buttons">
+                    <button id="newgame">New Game</button>
+                    <button id="showhidetree">Show Tree</button>
+                </p>
+
+                <div id="treedisplay" data-treeshown="no"></div>
+
+                <ol id="questions"></ol>
+
+            </div><!-- end of columns -->
+        </div><!-- end of row -->
+    </div><!-- end of container -->
+
+<div class="template" id="questionTemplate">
+    <li class="question"><span class="subj"></span>
+        <button data-ans="yes">Yes</button>
+        <button data-ans="no">No</button></li>
+</div>
+                    
+<div class="template" id="guessTemplate">
+    <li class="question">Is the subject <span class="guess"></span>?
+        <button data-ans="win">Yes, you win</button>
+        <button data-ans="lose">No, I win.</button></li>
+</div>
+
+<script src="//code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+<script src="scripts/parseTree.js"></script>
+<script src="scripts/20-static.js"></script>
+<script>
+/* global twenty */
+
+twenty.url = 'tree1.text';       // the url for the default tree
+twenty.init();
+</script>
+</body>
+</html>

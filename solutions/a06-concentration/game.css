@@ -1,0 +1,23 @@
+#board img {
+    width: 150px;
+	border: 2px solid black;
+	margin: 10px;
+	padding: 5px;
+}
+
+#board {
+    width: 90%;
+	border: 2px solid black;
+	margin: 10px;
+	padding: 10px;
+}
+
+.clearfloat {clear: left}
+.results {color: red}
+
+button {
+	font: 20px verdana;
+	padding: 0.5ex 1em;
+	border: 1px solid black;
+	border-radius: 0.5ex;
+}

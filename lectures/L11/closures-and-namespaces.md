@@ -283,12 +283,12 @@ instead of this:
 
 ```
 :::JavaScript
-x = 3;
-y = 4;
-function hyp(a,b) {
+var x = 3;
+var y = 4;
+var hyp = function (a,b) {
     return Math.sqrt(a*a+b*b);
 }
-z = hyp(x,y);
+var z = hyp(x,y);
 alert('hypotenuse is '+z);
 ```
 
@@ -298,12 +298,12 @@ instead do:
 ```
 :::JavaScript
 (function () {
-    x = 3;
-    y = 4;
-    function hyp(a,b) {
+    var x = 3;
+    var y = 4;
+    var hyp = function (a,b) {
          return Math.sqrt(a*a+b*b);
     }
-    z = hyp(x,y);
+    var z = hyp(x,y);
     alert('hypotenuse is '+z);
 })();
 ```

@@ -117,6 +117,10 @@ and then add JavaScript code to handle events such as the user's clicks.
 https://cs.wellesley.edu/~cs204/assignments/a06/supplied.js
 </pre>
 
+        <p>(You're welcome to look at that <a
+        href="https://cs.wellesley.edu/~cs204/assignments/a06/supplied.js">code</a>;
+        there are no secrets.)</p>
+
       <p>The <code>shuffleImages()</code> function generates a random
        configuration of the 8 pairs of images for the game board. This
        function has no inputs or outputs and can be invoked as follows:
@@ -290,7 +294,16 @@ https://cs.wellesley.edu/~cs204/assignments/a06/supplied.js
           <p><strong><em>Test your code for this stage to be sure it works
           correctly before proceeding to the next stage!</em></strong>
 
-          <p>Once you get this working, you can remove the alerts.
+          <p>Once you get this working, you can remove the alerts. In
+          fact, you <em>should</em> remove the alerts. There is an odd
+          effect where the <code>alert</code> causes the browser to stop
+          before it has updated the page with the new image, so even
+          though your code invokes <code>showImage</code> to show the
+          image, you might not see the image (at least until after you
+          respond to the alert).  Pretty much any other way of reporting
+          what's happening will work, such as <code>console.log</code> or
+          inserting the string <code>no match</code> onto the page, which
+          is what your finished code will do.
 
       <h4>Stage 3: Keep track of the status of the game</h4>
 

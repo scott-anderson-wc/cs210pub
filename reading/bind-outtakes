@@ -1,0 +1,115 @@
+## Abstract Rules
+
+A *method* is just a function stored in an object (or on its prototype
+chain). So, suppose I have an object like this:
+
+```
+:::JavaScript
+var obj = {}
+
+obj.x = 3;
+
+obj.meth = function () {  
+
+
+If I have a function `f`, and I invoke it with the following syntax:
+
+```
+:::JavaScript
+f(1,2);
+```
+
+the variable `this` is `undefined`.
+
+On the other hand, if I store `f` in an object, say as the property `g`,
+and invoke it with the following syntax:
+
+```
+:::JavaScript
+obj.g = f;
+obj.g(1,2);
+```
+
+then `this` will be bound to `obj`.
+
+## Invoking Methods without an Object
+
+
+
+
+Here's a mistake you're unlikely to make until the situation becomes more
+complicated:
+
+```
+:::JavaScript
+var luna = new Account(20);
+var balance = 10;
+luna.deposit(10);
+luna;
+var f = luna.deposit;
+f(10);
+luna;
+balance;
+```
+
+Copy that code line by line into a JS console to see what it does.
+
+In the last function invocation, it *seems* like the same function is
+being invoked and it *is*, but this time the syntactic pattern isn't one
+of method invocation, so `this` isn't bound to the object (how could it
+be?) but instead is bound to `window`
+
+When we want to use methods as event handlers, this will become an
+issue. One solution is a *closure*, but because `this` is special, we
+can't close over it.
+
+## More on `this`
+
+The `this` variable is constantly being re-bound. If a function is invoked
+in the non-method way, `this` doesn't have the value we expect. Here's an
+example you might find surprising:
+
+```
+:::JavaScript
+function Foo(x) { this.x = x; }
+
+Foo.prototype.zark = function (y) {
+    console.log(y);
+    console.log(this.x);
+	var printBoth = function () {
+	    console.log(y);
+	    console.log(this.x);
+		};
+	printBoth();
+	console.log("done");
+};
+
+var f1 = new Foo(1);
+f1.zark(2);
+```
+
+* First, predict what you will see in the JS console.
+* Then, copy/paste the code and check.
+
+Even though the `printBoth` function does the same thing as the first two
+`console.log` statements, it doesn't work, because the value of `this`
+inside the execution of `printBoth` isn't the same as what it is in the
+`zark` method.
+
+## Realistic Example
+
+To make a more realistic example, we'll imagine that we want to print the
+balance for each bank account in a list of bank accounts.  (This is
+slightly simplified from the example in our book, which is very
+realistic.)  Here's some code:
+
+<script id="print-bank-list">
+Account.prototype.print = function () {
+    console.log("account with balance "+this.balance);
+};
+
+function printAll(account_array) {
+    account_array.foreach( function(acct) { acct.
+        
+
+

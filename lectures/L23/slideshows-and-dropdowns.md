@@ -71,23 +71,45 @@ function plusSlides(n) {
 }    
 ```
 
-Third, they hide every slide instead of the one that is shown.
+I'd rather see:
 
-Fourth, they use global variables, so you can't have multiple slideshows
-on one page.
+```
+:::JavaScript
+var slideIndex;
 
-Fifth, they did it in raw JS instead of JQ. 
+function plusSlides(n) {
+    slideIndex += n;
+    showSlides( slideIndex );
+}    
+```
+
+Third, they use global variables, so you can't have multiple slideshows on
+one page.  (But this makes the code simpler and clearer, and it's easy
+enough to wrap all this up in an IIFE.)
+
+Fourth, they did it in raw JS instead of JQ. 
 
 None of these are fatal flaws, just minor objections.
 
 ## Alternatives
 
-Here's another way to do the slideshow: [cs110 f15 animation slideshow](http://cs.wellesley.edu/~cs110f15/reading/animations.html)
+Here's another way to do the slideshow, in which all the slides are
+arranged left to right within a container that is only big enough to show
+one at a time. By sliding the whole ensemble to the left, you can advance
+the slides in a nice way:
 
-Here's yet another way, using a lightbox: [cs110 s16 animation slideshow](http://cs.wellesley.edu/~cs110s16/reading/galleries-and-drop-downs.html)
+[cs110 f15 animation
+slideshow](http://cs.wellesley.edu/~cs110f15/reading/animations.html)
+
+Here's yet another way, using a lightbox:
+
+[cs110 s16 animation slideshow](http://cs.wellesley.edu/~cs110s16/reading/galleries-and-drop-downs.html)
+
+[cs110 s16 lightbox gallery](http://cs.wellesley.edu/~cs110s16/project/min-reqs/gallery/gallery.html)
 
 There are dozens of JS libraries to do slideshows. Google for one and see
-what you like.
+what you like. Now that you understand the basic principles, you can teach
+yourself other slideshow or gallery implementations.
 
 ## Automatic Slideshows
 
@@ -114,7 +136,7 @@ We add a click handler to the window that catches every click that bubbles
 up to it. Unless the target is the header (`.dropbtn`), the handler closes
 every dropdown.
 
-[clickable dropdown](https://www.w3schools.com/howto/howto_js_dropdown.asp)
+[W3 Schools clickable dropdown](https://www.w3schools.com/howto/howto_js_dropdown.asp)
 
 ## Your Questions
 
@@ -124,9 +146,14 @@ I'll answer [your questions](../../quizzes/quiz19.html)
 
 Copy one of these to your C9 workspace, if you don't already have them.
 
-* [otter images](../../downloads/otter-images.tar)
-* [Rock-Paper-Scissors images](../../downloads/rps-images.tar)
-* [Harry Potter images](../../downloads/hp-images.tar)
+```
+curl -O https://cs.wellesley.edu/~cs204/downloads/otter-images.tar 
+curl -O https://cs.wellesley.edu/~cs204/downloads/rps-images.tar
+curl -O https://cs.wellesley.edu/~cs204/downloads/hp-images.tar
+```
+
+The first is pictures of otters, the second Rock-Paper-Scissors, and the
+last is images of Harry Potter characters.
 
 Create a slideshow.
 
@@ -140,7 +167,32 @@ That has some useful abstractions that are worth looking at.
 
 ## Assignment 10
 
-We'll look at Assignment 10
+We'll look at Assignment 10, Jelly Blobs. In particular, I'll talk about:
+
+* The correspondence between the *model* and the CSS
+* The `progress` callback
+* Enemies do the checking for collisions, not the player
+* Two testing functions I defined
 
 ## Summary
+
+Galleries, Slideshows, and clickable drop-down menus are common and the
+menus are particularly useful.  The ottergram from Chapter 6 is a nice
+gallery.
+
+They are based on hiding an element and revealing it later, triggered by
+some event, such as a click or a 
+
+Clickable drop-downs are the modern way because of touch-screen devices.
+
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
 

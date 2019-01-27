@@ -2,14 +2,18 @@
 
 Today doesn't have a lot of code but has some important concepts.
 
-We'll also look at my solution to A8 (Quizzes)
+On Friday, we'll also look at my solution to A8 (Quizzes), to allow a few
+people to catch up.
 
 ## Plan
 
-1. Questions on A9?
+1. Admin: Where are people? How many have fallen behind? How can I help?
+1. Partnerships seems to be working only for some. I think it may be
+better to let people self-pair from now on.
+1. Questions on A9 (twenty questions)?
 1. Recap OOP 
 1. Answer your questions
-1. Explore Quizzes
+1. Discuss A10 (Jelly Blobs of Doom)
 
 ## Recap OOP
 
@@ -28,7 +32,16 @@ Discuss: Why is abstraction an advantage?
 Originally created decades ago in the context of a simulation system, but
 also important in many other situations.
 
-Consider *addition*
+Consider *addition*. We can define `add` on:
+
+* integers
+* floats
+* ratios
+* complex numbers
+* vectors
+* matrices
+* functions
+* many others
 
 Consider this API from `coffeerun`:
 
@@ -48,6 +61,13 @@ the same API.
 
 Discuss: Would it make sense to define a superclass of the `coffeerun` API
 that they all inherit from?
+
+<div class="solution">
+<p>It gives us an opportunity to define the API without worrying about
+implementation, but we can do that with documentation.
+<p>If there is code that can be <em>shared</em> among the children, then certainly
+    we should do so.
+</div>
 
 ## How to Implement Inheritance:
 
@@ -72,12 +92,23 @@ Shape.prototype.toString = function() {
 };
 
 var s1 = new Shape("red");
-console.log("s1 is "+s1.toString());
+console.log("s1 is "+s1.toString());  // [A red Shape]
 ```
+
+Note that `constructor.name` is built-in and gives the name of the
+constructor as a string, so in this case it produces the string
+`Shape`. Thus the string returned by `s1.toString()` is `[A red Shape]`
+
 
 ## The Subclass
 
-Obviously, the subclass must be aware of the superclass.
+Obviously, the subclass must be aware of the superclass. In particular,
+any initialization that the superclass needs to do has to be done by the
+constructor of the subclass. So, the subclass needs to *call* the
+superclass constructor while *supplying* the value of `this`. Usually,
+constructors are magically given a value of `this` because they are
+invoked with the `new` keyword in front, but that doesn't happen with the
+subclass. So, we use the `call` method.
 
 ```
 :::JavaScript
@@ -122,32 +153,39 @@ and repeat the operations.
 
 ## Your Questions
 
-Only 9 people did the quiz questions. I know this is a busy time of the
-semester, but our time in class will be more effective if you do the
-reading and the quiz.
-
-Am I reviewing too much in class? Was it the fact that there wasn't any
-book reading?
-
 I'll answer [your questions](../../quizzes/quiz18.html)
 
 ## Exercise:
 
-Implement a `Square` class to the system.  Create an instance and
-experiment with it. Here's my solution:
+Implement a `Square` class to the system.  To use your C9 account, you can
+upload the [shapes
+file](https://cs.wellesley.edu/~cs204/reading/shapes.html) from the
+reading:
+
+```
+curl -O https://cs.wellesley.edu/~cs204/reading/shapes.html
+curl -O https://cs.wellesley.edu/~cs204/reading/shapes.js
+```
+
+No need to un-tar it; it's just two files.  Alternatively, just click on
+the link above and work in the JS console.
+
+Create an instance and experiment with it. Here's my solution:
 
 <div class="solution">
 <p>Did you make your <code>Square</code> inherit from <code>Shape</code> or from <code>Rectangle</code>?
 
 <pre>
-function Square(color,side) {
-     Rectangle.call(this,color,side,side);
+function Square(color,upperleftcorner,side) {
+     var ul = upperleftcorner;
+     var lr = {x: ul.x+side, y: ul.y+side};    
+     Rectangle.call(this,color,ul,lr);
 }
 
 Square.prototype = Object.create(Rectangle.prototype);
 Square.prototype.constructor = Square;
 
-sq1 = new Square("yellow",3);
+sq1 = new Square("yellow",p1,3);  // a 3x3 square with upper left at p1 = (10,20)
 sq1.toString();
 sq1.area();
 sq1 instanceof Square;
@@ -158,7 +196,22 @@ sq1 instanceof Shape;
 
 ## Assignment 8
 
-We'll look at the code of Assignment 8.
+On Friday, we'll look at the code of Assignment 8 (quizzes)
+
+## Assignment 10
+
+[Jelly Blobs of Doom](../../solutions/a10-jelly/jBlobs.html)
+
+This is very cool but it's difficult. I'm going to spend some time later
+this week trying to make the implementation easier. I'll have some hints
+as well. Still, get started on it ASAP.
+
+What makes it hard?
+
+1. lots more code
+1. testing is hard
+1. interactions with the animation thread
+
 
 ## Summary
 
@@ -168,4 +221,15 @@ Classes allow us:
 1. Polymorphism: which allows us to support common APIs and "distribute"
 the implementation of methods over a set of objects.
 1. Inheritance: which allows us to reuse behavior, code and types.
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and **how far behind you are** on the assignments. Of course, you
+may also say one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
 

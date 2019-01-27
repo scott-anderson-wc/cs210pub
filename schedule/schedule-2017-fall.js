@@ -90,7 +90,7 @@ cal.add_info( "13Oct"
 cal.add_info( "17Oct"
               ,makeLink("OOP Objects and Methods", "../reading/OOP.html")
               // ,makeLink("more on Closures and Namespaces", "../reading/namespaces2.html")
-              ,"BNR chapter 8, through page 173"
+              ,"BNR chapter 8, pp 173 - 183"
               ,makeLink("<em>activities</em>","../lectures/L12/")
 );
 
@@ -108,6 +108,8 @@ cal.add_info("24Oct"
 
 // day 15
 cal.add_info( "27Oct"
+              ,makeLink("Bind", "../reading/bind.html")
+              ,"BNR chapter 8 pp 183-195"
               ,makeLink("Forms", "../reading/forms.html")
               ,"BNR chapter 9"
               ,makeLink("<em>activities</em>","../lectures/L15/")
@@ -115,7 +117,7 @@ cal.add_info( "27Oct"
 
 // day 16
 cal.add_info( "03Nov"
-              ,makeLink("Forms", "../reading/forms-and-js.html")
+              ,makeLink("Forms and JS", "../reading/forms-and-js.html")
               // need to add .val()?
               ,"BNR chapter 10"
               ,makeLink("<em>activities</em>","../lectures/L16/")
@@ -123,24 +125,25 @@ cal.add_info( "03Nov"
 
 // day 17
 cal.add_info( "07Nov"
-              ,"Catchup; No new reading"
+              ,makeLink("From Data to DOM", "../reading/ch11.html")
+              ,"BNR chapter 11"
               ,makeLink("<em>activities</em>","../lectures/L17/")
 );
 
 // day 18
 cal.add_info("10Nov"
-              ,makeLink("From Data to DOM", "../reading/ch11.html")
-              ,"BNR chapter 11"
-              ,makeLink("<em>activities</em>","../lectures/L18/")
+             ,makeLink("Grid Systems", "../reading/grids.html")
+             // Skeleton and Bootstrap, too
+             ,"BNR chapter 9"
+             ,makeLink("<em>activities</em>","../lectures/L18/")
 );
 
 
 // day 19
 cal.add_info("14Nov"
-             ,makeLink("Grid Systems", "../reading/grids.html")
-             // Skeleton and Bootstrap, too
-             ,"BNR chapter 9"
-             ,makeLink("<em>activities</em>","../lectures/L19/")
+             ,makeLink("Validating Forms, including Regular Expressions", "../reading/form-validation.html")
+              ,"BNR chapter 12"
+              ,makeLink("<em>activities</em>","../lectures/L19/")
 );
 
 /*
@@ -154,17 +157,16 @@ cal.add_info( "11Apr"
 
 // day 20
 cal.add_info( "17Nov"
-             ,makeLink("Validating Forms, including Regular Expressions", "../reading/form-validation.html")
-              ,"BNR chapter 12"
+              ,makeLink("Ajax and localStorage", "../reading/ajax.html")
+              ,"BNR chapter 13"
               ,makeLink("<em>activities</em>","../lectures/L20/")
+// Eventually, add same origin policy?
 );
 
 // day 21
 cal.add_info( "21Nov"
-              ,makeLink("Ajax and localStorage", "../reading/ajax.html")
-              ,"BNR chapter 13"
+              ,"Catchup; No new reading"
               ,makeLink("<em>activities</em>","../lectures/L21/")
-// Eventually, add same origin policy?
 );
 
 /*
@@ -228,12 +230,12 @@ cal.add_info(
 
 cal.add_info(
     "18Oct",
-    makeLink("A4: page w/ event handlers", "../assignments/a04/rps.html", "due")
+    makeLink("A4: Rock-Paper-Scissors", "../assignments/a04/rps.html", "due")
 );
 
 cal.add_info(
     "01Nov"
-    ,makeLink("A5: page w/ JQ animations", "../assignments/a05/tile_game.html", "due")
+    ,makeLink("A5: sliding tiles", "../assignments/a05/tile_game.html", "due")
 );
         
 cal.add_info(

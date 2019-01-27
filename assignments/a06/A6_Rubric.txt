@@ -1,0 +1,20 @@
+﻿CS 249 – Front End Web Development
+Assignment 6
+Names: 
+Workspace account:
+
+
+Concentration
+____/10        shuffleImages() is invoked to create random configuration of hidden images
+____/10        showImages() reveals hidden image after user clicks it by changing src attribute
+____/10        hideImage() changes cell back to blank image by changing src attribute
+____/10        processClick() handles user clicks and invokes shuffleImages() and hideImages()
+____/10        setTimeout() function hides first image after 1 second of display
+ ____/10        Global variables hold number of clicks and matches so far and are modified properly in processClick() and showImages()
+____/10        startNewGame() creates a new game and resets all global variables 
+____/10        Uses abstraction and modularity 
+____/10        4x4 game board, page looks nice, HTML and CSS are valid
+____/10        Functions are easy to test in the JS console.
+
+
+Total: _____/100

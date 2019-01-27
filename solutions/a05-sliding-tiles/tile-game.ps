@@ -1,0 +1,1624 @@
+%!PS-Adobe-3.0
+%%Title: tile-game.html, tile-game.css, tiles.js
+%%For: Introduction to Front-End Web Development
+%%Creator: a2ps version 4.14
+%%CreationDate: Tue Nov  7 09:36:17 2017
+%%BoundingBox: 24 24 588 768
+%%DocumentData: Clean7Bit
+%%Orientation: Landscape
+%%Pages: 2
+%%PageOrder: Ascend
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%Requirements: Tumble Duplex 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      % <vector> <key> <val>
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def % -
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Get the underline position and thickness if they're defined.
+    % Use 1 if they are not defined.
+    currentdict /FontInfo 2 copy known
+    { get
+      /UnderlinePosition 2 copy % <FontInfo> /UP <FontInfo> /UP
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+
+      /UnderlineThickness 2 copy % <FontInfo> /UT <FontInfo> /UT
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+      pop % -
+    }{ pop pop
+    } ifelse
+
+    currentdict
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed string
+% Version 1.2 1/31/1990
+% Orignal Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 612 def
+/sw 792 def
+/llx 24 def
+/urx 768 def
+/ury 588 def
+/lly 24 def
+/#copies 1 def
+%% Pagedevice definitions:
+countdictstack
+% Push our own mark, since there can be several PS marks pushed depending
+% where the failure really occured.
+/a2ps_mark
+{
+%%BeginFeature: *Tumble False
+  (<<) cvx exec /Tumble (false) cvx exec (>>) cvx exec setpagedevice
+%%EndFeature
+%%BeginFeature: *Duplex True
+  (<<) cvx exec /Duplex (true) cvx exec (>>) cvx exec setpagedevice
+%%EndFeature
+} stopped
+% My cleartomark
+{ /a2ps_mark eq { exit } if } loop
+countdictstack exch sub dup 0 gt
+{
+  { end } repeat
+}{
+  pop
+} ifelse
+/th 15.000000 def
+/fnfs 11 def
+/bfs 7.060185 def
+/cw 4.236111 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 86.400000 mul
+def
+/ph
+   520.335631 th add
+def
+/pmw urx llx sub pw 2 mul sub 1 div def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+  dup pmw add pw add
+] def
+/y [
+  pmh ph add 0 mul ph add
+  dup
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 5 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1,1) 1
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.965278 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (<!DOCTYPE html>) K n
+0 T (<html) S
+( ) p
+(lang=) k
+(") p
+(en) str
+(") p
+(>) K n
+0 T (<head>) N
+0 T () S
+(    ) p
+(<!-- Original draft for CS 249 A5 by Grace Hu-->) c n
+(5) # () S
+(    ) p
+(<!-- Required meta tags -->) c n
+0 T () S
+(    ) p
+(<meta) K
+( ) p
+(charset=) k
+(") p
+(utf-8) str
+(") p
+(>) K n
+0 T () S
+(    ) p
+(<meta) K
+( ) p
+(name=) k
+(") p
+(viewport) str
+(") p
+( content=) k
+(") p
+(width=device-width, initial-scale=1, shrink-to-fit=no) str
+(") p
+(>) K n
+0 T () S
+(    ) p
+(<link) K
+( ) p
+(rel=) k
+(") p
+(stylesheet) str
+(") p
+( href=) k
+(") p
+(tile-game.css) str
+(") p
+( type=) k
+(") p
+(text/css) str
+(") p
+( /) k
+(>) K n
+0 T (</head>) N
+(10) # (<body>) N
+0 T () N
+0 T (<h1>) S
+(The Wellesley Tile Slider Game) p
+(</h1>) K n
+0 T () N
+0 T (<figure) S
+( ) p
+(id=) k
+(") p
+(directions) str
+(") p
+(>) K n
+(15) # () S
+(    ) p
+(<div) K
+( ) p
+(id=) k
+(") p
+(up) str
+(") p
+(>) K
+(w &uarr; Up) p
+(</div>) K n
+0 T () S
+(    ) p
+(<div) K
+( ) p
+(id=) k
+(") p
+(down) str
+(") p
+(>) K
+(s &darr; Down) p
+(</div>) K n
+0 T () S
+(    ) p
+(<div) K
+( ) p
+(id=) k
+(") p
+(left) str
+(") p
+(>) K
+(a &larr; Left) p
+(</div>) K n
+0 T () S
+(    ) p
+(<div) K
+( ) p
+(id=) k
+(") p
+(right) str
+(") p
+(>) K
+(d &rarr; Right) p
+(</div>) K n
+0 T (</figure>) N
+(20) # () S
+(    ) p n
+0 T (    ) S
+(<figure) K
+( ) p
+(id=) k
+(") p
+(board) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(a) str
+(") p
+( src=) k
+(") p
+(tiles/a.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(b) str
+(") p
+( src=) k
+(") p
+(tiles/b.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(c) str
+(") p
+( src=) k
+(") p
+(tiles/c.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+(25) # () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(d) str
+(") p
+( src=) k
+(") p
+(tiles/d.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(e) str
+(") p
+( src=) k
+(") p
+(tiles/e.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(f) str
+(") p
+( src=) k
+(") p
+(tiles/f.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(g) str
+(") p
+( src=) k
+(") p
+(tiles/g.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+0 T () S
+(      ) p
+(<img) K
+( ) p
+(id=) k
+(") p
+(h) str
+(") p
+( src=) k
+(") p
+(tiles/h.jpeg) str
+(") p
+( alt=) k
+(") p
+(tile) str
+(") p
+(>) K n
+(30) # () S
+(    ) p
+(</figure>) K n
+0 T () N
+0 T (<p>) N
+0 T (<button) S
+( ) p
+(id=) k
+(") p
+(scrambleButton) str
+(") p
+(>) K
+(Scramble Board \(30 moves\)) p
+(</button>) K n
+0 T (</p>) S
+(        ) p n
+(35) # () N
+0 T () S
+(<script) K
+( ) p
+(src=) k
+(") p
+(https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js) str
+(") p
+(></script>) K n
+0 T (<script) S
+( ) p
+(src=) k
+(") p
+(tiles.js) str
+(") p
+(></script>) K n
+0 T (<script) S
+( ) p
+(src=) k
+(") p
+(tiles2.js) str
+(") p
+(></script>) K
+( ) p
+(<!-- adds the scrambling behavior -->) c n
+0 T () N
+(40) # () S
+(</body>) K n
+0 T (</html>) N
+(tile-game.html) (Page 1/1) (Nov 07, 17 9:24) title
+border
+/v 1 store
+/x0 x v get 2.965278 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (h1 {) p n
+0 T (    font-family: Verdana;) N
+0 T () S 8 T (padding-top: 20px;) N
+0 T () S 8 T (padding-left: 30px;) N
+(5) # (}) N
+0 T () N
+0 T (#directions, #board {) N
+0 T (    display: inline-block;) N
+0 T (    vertical-align: top;) N
+(10) # (    position: relative;) N
+0 T () S 8 T (margin: 20px;) N
+0 T (}) N
+0 T () N
+0 T (#directions {) N
+(15) # (    height: 400px;) N
+0 T (    width: 300px;) N
+0 T (    font: 20px Verdana;) N
+0 T (}) N
+0 T () N
+(20) # (#directions div {) N
+0 T (    position: absolute;) N
+0 T (    width: 100px;) N
+0 T (}) N
+0 T () N
+(25) # (#up    { top: 0px; left: 100px; }) N
+0 T () N
+0 T (#down  { top: 200px; left: 100px; }) N
+0 T () N
+0 T (#left  { top: 100px; left: 0px; }) N
+(30) # () N
+0 T (#right { top: 100px; left: 200px; }) N
+0 T () N
+0 T (#board {) N
+0 T () S 8 T (height: 600px;) N
+(35) # () S 8 T (width: 600px;) N
+0 T (}) N
+0 T () N
+0 T (/* give this property to all of the tile images */) N
+0 T (#board img {) N
+(40) # (    position: absolute;) N
+0 T (}) N
+0 T () N
+0 T (#a { left: 000px; top: 0px; }) N
+0 T (#b { left: 200px; top: 0px; }) N
+(45) # (#c { left: 400px; top: 0px; }) N
+0 T () N
+0 T (#d { left: 000px; top: 200px; }) N
+0 T (#e { left: 200px; top: 200px; }) N
+0 T (#f { left: 400px; top: 200px; }) N
+(50) # () N
+0 T (#g { left: 000px; top: 400px; }) N
+0 T (#h { left: 200px; top: 400px; }) N
+0 T () N
+0 T (#scrambleButton {) N
+(55) # (    font: 20px Verdana;) N
+0 T (    padding: 1ex;) N
+0 T (    border: 1px solid blue;) N
+0 T (    border-radius: 0.5ex;) N
+0 T (}) N
+(tile-game.css) (Page 1/1) (Nov 07, 17 9:32) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(tile-game.html, tile-game.css) (1/2) (Tuesday November 07, 2017) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (1-2) 2
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.965278 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (// JavaScript for game representation and tile movement) c n
+0 T () N
+0 T (// Null marks the blank.) N
+0 T () S
+(var) K
+( tileArray = [[") p
+(a) str
+(", ") p
+(b) str
+(", ") p
+(c) str
+("], ) p n
+(5) # (                 [") S
+(d) str
+(", ") p
+(e) str
+(", ") p
+(f) str
+("], ) p n
+0 T (                 [") S
+(g) str
+(", ") p
+(h) str
+(", ) p
+(null) k
+(]];) p n
+0 T () N
+0 T () S
+(var) K
+( blankTileRow = 2;) p n
+0 T () S
+(var) K
+( blankTileCol = 2;) p n
+(10) # () N
+0 T () S
+(// returns element to the right of the null element in tileArray) c n
+0 T (// returns null if there is no tile to the right) N
+0 T () S
+(function) K
+( ) p
+(getRightTile) l
+(\(\){) p n
+0 T (    ) S
+(if) K
+(\(blankTileCol == 2\)) p n
+(15) # (        ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+0 T (    ) S
+(else) K n
+0 T () S
+(        ) p
+(return) K
+( tileArray[blankTileRow][blankTileCol + 1];) p n
+0 T (}) N
+0 T () N
+(20) # () S
+(function) K
+( ) p
+(getLeftTile) l
+(\(\){) p n
+0 T (    ) S
+(if) K
+(\(blankTileCol == 0\)) p n
+0 T (        ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+0 T (    ) S
+(else) K n
+0 T () S
+(        ) p
+(return) K
+( tileArray[blankTileRow][blankTileCol - 1];) p n
+(25) # (}) N
+0 T () N
+0 T () S
+(function) K
+( ) p
+(getAboveTile) l
+(\(\){) p n
+0 T (    ) S
+(if) K
+(\(blankTileRow == 0\)) p n
+0 T (        ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+(30) # (    ) S
+(else) K n
+0 T () S
+(        ) p
+(return) K
+( tileArray[blankTileRow - 1][blankTileCol];) p n
+0 T (}) N
+0 T () N
+0 T () S
+(function) K
+( ) p
+(getBelowTile) l
+(\(\){) p n
+(35) # (    ) S
+(if) K
+(\(blankTileRow == 2\)) p n
+0 T (        ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+0 T (    ) S
+(else) K n
+0 T () S
+(        ) p
+(return) K
+( tileArray[blankTileRow + 1][blankTileCol];) p n
+0 T (}) N
+(40) # () N
+0 T () S
+(/* global $ */) c n
+0 T () N
+0 T () S
+(var) K
+( duration = 500;  ) p
+(// half a second to slide a tile) c n
+0 T () N
+(45) # (//animate the selected tile in the direction specified by input) N
+0 T () S
+(function) K
+( ) p
+(movePicture) l
+(\(direction, tile\) {) p n
+0 T (    ) S
+(if) K
+(\( tile == ) p
+(null) k
+(\) ) p
+(return) K
+(;) p n
+0 T (    ) S
+(var) K
+( id = ") p
+(#) str
+(" + tile;) p n
+0 T (    ) S
+(var) K
+( $elt = $\(id\);) p n
+(50) # (    console.log\(") S
+(movePicture id ) str
+(" + id + ") p
+( to direction: ) str
+(" + direction\);) p n
+0 T (    ) N
+0 T (    ) S
+(var) K
+( tileLeft = parseInt\($elt.css\(") p
+(left) str
+("\),10\);) p n
+0 T (    ) S
+(var) K
+( tileTop = parseInt\($elt.css\(") p
+(top) str
+("\),10\);) p n
+0 T () N
+(55) # (    ) S
+(// just for debugging; not necessary ) c n
+0 T () S
+(    ) p
+(function) K
+( ) p
+(done) l
+(\(\) { ) p n
+0 T (        console.log\(") S
+(now at ) str
+(",$elt.css\(") p
+(left) str
+("\),") p
+( and ) str
+(",$elt.css\(") p
+(top) str
+("\)\); ) p n
+0 T (    }) N
+0 T (    ) S
+(if) K
+(\(direction === ") p
+(left) str
+("\) {) p n
+(60) # (        $elt.animate\({ left: tileLeft - 200 }, duration\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\(direction === ") p
+(right) str
+("\) {) p n
+0 T (        $elt.animate\({ left: tileLeft + 200 }, duration\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\(direction === ") p
+(up) str
+("\) {) p n
+0 T (        $elt.animate\({ top: tileTop - 200 }, duration\);) N
+(65) # (    } ) S
+(else) K
+( ) p
+(if) K
+(\(direction == ") p
+(down) str
+("\) {) p n
+0 T (        $elt.animate\({ top: tileTop + 200 }, duration\);) N
+0 T (    } ) S
+(else) K
+( {) p n
+0 T (        console.log\(") S
+(no such direction: ) str
+("+direction\);) p n
+0 T (    }) N
+(70) # (    updateData\(direction, tile\);) N
+0 T (}) N
+0 T () N
+0 T () N
+(tiles.js) (Page 1/2) (Nov 07, 17 9:34) title
+border
+/v 1 store
+/x0 x v get 2.965278 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (//updates global variables tileArray, blankTileRow, blankTileCol) c n
+(75) # () S
+(function) K
+( ) p
+(updateData) l
+(\(direction, tile\){) p n
+0 T () N
+0 T (    ) S
+(// generic function to update the represention. ) c n
+0 T () S
+(    ) p
+(// one of the args will be zero; the other will be +/- 1) c n
+0 T () S
+(    ) p
+(// they represent the location of the moving tile relative to the blank) c n
+(80) # () N
+0 T () S
+(    ) p
+(function) K
+( ) p
+(update) l
+(\(rowDiff, colDiff\) {) p n
+0 T (        ) S
+(// move the tile) c n
+0 T () S
+(        tileArray[blankTileRow][blankTileCol] =  ) p n
+0 T (            tileArray[blankTileRow + rowDiff][blankTileCol + colDiff];) N
+(85) # (        ) S
+(// set the location of the blank) c n
+0 T () S
+(        tileArray[blankTileRow + rowDiff][blankTileCol + colDiff] = ) p
+(null) k
+(;) p n
+0 T (        blankTileRow += rowDiff;) N
+0 T (        blankTileCol += colDiff;) N
+0 T (    }) N
+(90) # () N
+0 T (    ) S
+(if) K
+( \(direction === ") p
+(left) str
+("\) {) p n
+0 T (        update\(0,+1\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+( \(direction === ") p
+(right) str
+("\) {) p n
+0 T (        update\(0,-1\);) N
+(95) # (    } ) S
+(else) K
+( ) p
+(if) K
+( \(direction === ") p
+(up) str
+("\) {) p n
+0 T (        update\(+1,0\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+( \(direction == ") p
+(down) str
+("\) {) p n
+0 T (        update\(-1,0\);) N
+0 T (    } ) S
+(else) K
+( {) p n
+(100) # (        console.log\(") S
+(no such direction:) str
+("+direction\);) p n
+0 T (    }) N
+0 T (    console.log\(") S
+(blankTileRow: ) str
+(" + blankTileRow + ") p
+(\\n) str
+(" +) p n
+0 T (                ") S
+(blankTileCol: ) str
+(" + blankTileCol\);) p n
+0 T (}) N
+(105) # () N
+0 T () S
+(function) K
+( ) p
+(doMove) l
+(\(direction\) {) p n
+0 T (    ) S
+(if) K
+(\(direction == ") p
+(left) str
+("\) {) p n
+0 T (        movePicture\(") S
+(left) str
+(",getRightTile\(\)\);) p n
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\( direction == ") p
+(right) str
+("\) {) p n
+(110) # (        movePicture\(") S
+(right) str
+(",getLeftTile\(\)\);) p n
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\( direction == ") p
+(up) str
+("\) {) p n
+0 T (        movePicture\(") S
+(up) str
+(",getBelowTile\(\)\);) p n
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\( direction == ") p
+(down) str
+("\) {) p n
+0 T (        movePicture\(") S
+(down) str
+(",getAboveTile\(\)\);) p n
+(115) # (    } ) S
+(else) K
+( {) p n
+0 T (        console.log\(") S
+(no such direction: ) str
+("+direction\);) p n
+0 T (    }) N
+0 T (}) N
+0 T () N
+(120) # (document.addEventListener\(') S
+(keypress) str
+(',function \(eventObj\) {) p n
+0 T (    ) N
+0 T (    ) S
+(var) K
+( a_key = 97; ) p
+(//left) c n
+0 T () S
+(    ) p
+(var) K
+( s_key = 115; ) p
+(//down) c n
+0 T () S
+(    ) p
+(var) K
+( d_key = 100; ) p
+(//right) c n
+(125) # () S
+(    ) p
+(var) K
+( w_key = 119; ) p
+(//up) c n
+0 T () S
+(    ) p n
+0 T (    ) S
+(if) K
+(\( eventObj.keyCode === a_key \) {) p n
+0 T (        console.log\(") S
+(a key pressed) str
+("\);) p n
+0 T (        doMove\(") S
+(left) str
+("\);) p n
+(130) # (    } ) S
+(else) K
+( ) p
+(if) K
+(\(eventObj.keyCode === d_key \) {) p n
+0 T (        doMove\(") S
+(right) str
+("\);) p n
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\(eventObj.keyCode === w_key \) {) p n
+0 T (        console.log\(") S
+(w key pressed) str
+("\);) p n
+0 T (        doMove\(") S
+(up) str
+("\);) p n
+(135) # (    } ) S
+(else) K
+( ) p
+(if) K
+(\(eventObj.keyCode === s_key \) {) p n
+0 T (        console.log\(") S
+(s key pressed) str
+("\);) p n
+0 T (        doMove\(") S
+(down) str
+("\);) p n
+0 T (    } ) S
+(else) K
+( {) p n
+0 T (        ) S
+(//do nothing) c n
+(140) # () S
+(    }) p n
+0 T (    ) N
+0 T (}\);) N
+(tiles.js) (Page 2/2) (Nov 07, 17 9:34) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(tiles.js) (2/2) (Tuesday November 07, 2017) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

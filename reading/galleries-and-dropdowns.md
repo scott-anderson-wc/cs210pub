@@ -8,8 +8,8 @@ between slides and much more. We're going to keep it fairly basic, though.
 
 Rather than write up how to do this, I'm going to defer to two
 descriptions that are on [W3Schools](https://www.w3schools.com/). Let me
-know whether you find them reasonably clear.  We will talk about them in
-class and implement some examples.
+know whether you find the links below reasonably clear.  We will talk
+about them in class and implement some examples.
 
 ## Slideshows
 

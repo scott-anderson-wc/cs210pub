@@ -2,13 +2,14 @@
 
 Google Maps are fun and not too hard to use.
 
+To use them, we have to understand *Ajax*, but fortunately, we *do*!
+
 ## Plan
 
-1. Questions on A10 (Jelly Blobs)
+1. Questions on A10 (Jelly Blobs) or A11 (Learning Twenty Questions)?
 1. Discuss Google Maps
 1. Answer your questions
 1. Building a Google Map app
-1. Our last assignment
 1. Google API keys and referrer
 
 ## Google Maps tutorials
@@ -32,16 +33,11 @@ I'll answer [your questions](../../quizzes/quiz21.html)
 
 ## Geocoder
 
-Looking up the latitude and longitude of a location is pretty cool:
+Looking up the latitude and longitude of a location via an Ajax call is pretty cool:
 
 [geocoder tutorial](https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple)
 
-## Eni's Examples
-
-Eni Mustafaraj made these [Google Maps
-examples](/~mashups/pages/am3/gmaps.html) for her web mashups course.
-
-## Exercise
+## Example
 
 I decided to build a Google map to show my summer vacation plan:
 
@@ -71,33 +67,36 @@ request knows when *it* is done, but they might finish in any order.
 1. Each requests checks to see if the counter has reached zero
 1. The last request to finish invokes the function to create the path
 
+## Exercise
+
+Build a Google Map demo!
+
 ## Console
 
 Let's talk about setting the *referrer* patterns for your API key
 
 [credentials](https://console.developers.google.com/apis/credentials)
 
-## Last Assignment
+The API key I used for this example is under project `C9 Demo 1` and is
+`Gmaps Lecture`
 
-I'll demo the last assignment: a *learning* version of 20 questions. It's
-not written up yet but the essentials are these:
+## Eni's Examples
 
-1. Play the game as usual
-1. If the human wins, the game asks:
-    1. The correct answer (this will be the "Yes" or "True" child)
-    1. A Yes/No (True/False) question to tell the correct answer and the
-    incorrect one apart
-1. It updates the tree (we'll draw this)
-1. It adds two buttons:
-    1. save the tree to local storage and
-    1. read a saved tree from local storage
-
-We might on Tuesday learn how to save the tree to the cloud, so you can
-learn across multiple browsers.
-
-Get your friends to play! Build a super duper tree!
+Eni Mustafaraj made these [Google Maps
+examples](/~mashups/pages/am3/gmaps.html) for her web mashups course.
 
 ## Summary
 
 Google maps aren't trivial, and they exercise our understanding of Ajax
 and callbacks, but we can do it!
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+

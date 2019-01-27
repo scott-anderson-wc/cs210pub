@@ -1,0 +1,117 @@
+Last time, we looked at a simple OOP system of bank accounts.
+
+<script src="bank-accounts.js"></script>
+
+Some observations:
+
+* `toString` is a method that returns a descriptive string
+* `print` is a method that uses `console.log` to print the description
+
+Suppose that we want to invoke the `print` method but not right away,
+maybe in about 5 seconds.  (Not a plausible scenario, but simpler than the
+realistic scenarios that your book presents in chapter 9 and chapter 10 --
+we'll discuss those in class.)
+
+To do that, we'll use the `setTimeout` function, which takes two
+arguments: a function to invoke, and a time delay in milliseconds.  So, to
+print ron's account 5 seconds from now, we can do the following:
+
+```
+:::JavaScript
+fn = function () { ron.print(); };
+setTimeout( fn, 5000 );
+```
+
+That works fine. You might think, though, that since `setTimeout` just
+needs a function of no arguments, and `ron.print` is a function of no
+arguments, inherited from `Account.prototype`, we could do the following:
+
+```
+:::JavaScript
+fn = ron.print;
+setTimeout( fn, 5000 );
+```
+
+Alas, that doesn't work (try it!). That's because the magic variable
+`this` doesn't have the correct value. However, there's something called
+`bind` which can take a method and return a function that has the correct
+value for `this`.  (In general, to give a value to a name is called
+*binding*, so `bind` gives a value to `this`.)
+
+So, the following *does* work:
+
+```
+:::JavaScript
+fn = ron.print.bind(ron);
+setTimeout( fn, 5000 );
+```
+
+## Bind in method definitions
+
+What if we wanted to make delayed printing a general feature of bank
+accounts, so we provide a method for it. Here's our first draft:
+
+
+```
+:::JavaScript
+Account.prototype.print = function () {
+    console.log(this.toString());
+}
+
+Account.prototype.print5seconds_bad = function () {
+    // the following won't work, because 'this' gets rebound to 'window'
+    setTimeout( this.print, 5000);
+}
+```
+
+Feel free to try it, and all these examples, in the JS console, say by
+invoking `ron.print5seconds_bad()`
+
+As the comment says, our `_bad` version doesn't work because the magic
+variable 'this' only has meaning within the method, not in the setTimeout,
+when it changes back to `window` (its meaning outside method invocations).
+
+Our next attempt is to use a closure over `this`:
+
+```
+:::JavaScript
+Account.prototype.print5seconds_this = function () {
+    // the following won't work, because we can't close over 'this'
+    // it tries to print the window!
+    var closure = function () { this.print(); };
+    setTimeout( closure, 5000);
+}
+```
+
+This idea is a good idea, but it turns out that the name `this` is
+special and changes its meaning.  If you want to capture its value, you
+have to assign it to a non-magical name. The convention in JavaScript is
+to use `that` as the non-magical name. So the following *works*:
+
+```
+:::JavaScript
+Account.prototype.print5seconds_that = function () {
+    // the following *does* work, because we can close over 'that'.
+    var that = this;
+    var closure = function () { that.print(); };
+    setTimeout( closure, 5000);
+}
+```
+
+Compare it carefully with the previous example.
+
+This technique of creating a special closure just to capture the value of
+`this` for use by a method is common enough that the `bind()` feature was
+created.  The following solution works the same way as the previous
+example, but it's just a bit more succinct:
+
+
+```
+:::JavaScript
+Account.prototype.print5seconds_bind = function () {
+    //  the following also works, using 'bind' to create a closure where
+    //  'this' has the correct value.
+    var closure = this.print.bind(this);
+    setTimeout( closure, 5000);
+}
+```

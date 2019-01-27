@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Account Signup</title>
+        <link rel="stylesheet" href="signup.css" type="text/css" />
+    </head>
+    <body>
+        
+    <h1>Signup for Our Exciting Service!</h1>
+
+    <form id="signup" method="post" action="https://cs.wellesley.edu/~cs204/form-echo-html.php">
+        <p><label for="user">Username:
+                <input type="text" name="user" id="user"></label>
+            <span class="error" id="usererror"></span></p>
+        <p><label for="passwd">Password:
+                <input type="password" name="passwd" id="passwd"></label>
+            <span class="error" id="passwderror"></span></p>
+        <p><label for="passwd2">Password again:
+                <input type="password" name="passwd2" id="passwd2a"></label>
+            <span class="error" id="passwd2error"></span></p>
+        <p><label for="cc_num">Credit Card Number:
+                <input type="text" name="cc_num" id="cc_num" value="79927398713">
+            </label>
+            <span class="error" id="ccerror"></span></p>
+        <p><input type="submit"></p>
+    </form>
+    
+    <div id="errors"></div>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+   <script src="scripts/formhandler.js"></script>
+   <script src="scripts/Luhn.js"></script>
+   <script src="scripts/signup.js"></script>
+    </body>
+</html>

@@ -5,116 +5,22 @@ and how they interact with JavaScript.
 
 ## Plan
 
-1. Conclude OOP in JS
-1. Discuss `bind`
-1. Discuss forms
-1. Discuss submit handlers
-1. Chapter 8/9/10 activities
+1. Midterm recap
+1. Review forms
+1. A6 preview
+1. Forms and JS
+1. Quiz Questions
+1. Chapter 9/10 activities
+1. Chapter 10 review
 
-## OOP
+## Midterm Recap
 
-Any questions on what we learned about OOP last time?
+I'll go over a few of the midterm questions that people had trouble with.
 
-* Constructors
-* instance variables
-* prototypes
-* method definition
-* method invocation
+[midterm questions](../../solutions/midterm/midterm.html)
 
-## Binding `this`
-
-Methods *must* have an object, bound to `this`
-
-Unfortunately, `this` is no ordinary varible. It constantly gets rebound,
-anytime there's a function call or a method call.
-
-The following code, mal-adapted from your book (page 189) *doesn't* work:
-
-```
-:::JavaScript
-Truck.prototype.printOrders_bad = function () {
-    var customerIdArray = Object.keys(this.db.getAll());
-
-    console.log("Truck #" + this.TruckId + " has pending orders:");
-    customerIdArray.forEach( function (id) {
-        console.log(this.db.get(id));
-       });
-}
-
-truck1.printOrders_bad();
-```
-
-The `Object.keys()` method is a way of getting an array of all the
-properties in an object. Here the database is an object with a key for
-each order, so an array of all the keys comprises all the orders. We then
-use the `.forEach()` method on that array to print all the orders.
-
-Why doesn't in work?  Because `this` doesn't mean the same thing in the
-function passed to `forEach` as it did outside. Why? Because there's been
-a method call and a function call.  
-
-### Solution 1:  use a closure over `that`
-
-```
-:::JavaScript
-Truck.prototype.printOrders_closure = function () {
-    var customerIdArray = Object.keys(this.db.getAll());
-
-    console.log("Truck #" + this.TruckId + " has pending orders:");
-    var that = this;
-    var print1 = function (id) { console.log(that.db.get(id)); }
-    customerIdArray.forEach( print1 );
-}
-```
-
-### Solution 2: use `bind`
-
-This does the same thing, without having to invent a variable like `that`
-and creating a closure:
-
-```
-:::JavaScript
-Truck.prototype.printOrders_bind = function () {
-    var customerIdArray = Object.keys(this.db.getAll());
-
-    console.log("Truck #" + this.TruckId + " has pending orders:");
-    var print1 = function (id) {
-        console.log(this.db.get(id));
-    }.bind(this);
-    customerIdArray.forEach( print1 );
-}
-```
-
-Compare that with their code from page 189, which avoids an extra variable
-at the price of some syntactic complexity:
-
-```
-:::JavaScript
-Truck.prototype.printOrders_original = function () {
-    var customerIdArray = Object.keys(this.db.getAll());
-
-    console.log("Truck #" + this.TruckId + " has pending orders:");
-    customerIdArray.forEach( function (id) {
-        console.log(this.db.get(id));
-    }.bind(this));
-}
-```
-
-## OOP Conclusion
-
-Objects often don't seem worthwhile, but taking the time to implement an
-abstraction layer often pays off in unforeseen ways.
-
-There was a story I heard where an AI system didn't get an innovation
-implemented because they couldn't tell the difference between accessing
-the first element of a list as a field accessor (method) versus other
-kinds of list processing.
-
-I can also tell you about a success I had in which I had defined a thin
-interface to a library and I was able to keep all my code working when the
-library failed by replacing the library and re-writing the interface a
-bit.
-
+If you have any questions or concerns, please come talk to me! I'd like to
+make sure everyone has a firm foundation for the rest of the course.
 
 ## HTML forms
 
@@ -143,9 +49,18 @@ Attributes to know:
 
 We'll look back at the example in the reading, to make sure it's clear.
 
-## Questions
+## Assignment 6
 
-I'll answer [your questions](../../quizzes/quiz12.html)
+You should start on A6 right away. In general, even if you are taking
+lateness coupons, you should meet with your collaborator for the new
+assignment and start thinking about it. Overlap the implementation effort.
+
+[a06](../../assignments/a06/concentration.html)
+
+[my solution](../../solutions/a06-concentration/game.html)
+
+There are lots of suggestions and advice in that assignment. I hope it'll
+be helpful, but if it's not, talk to me or the tutor.
 
 ## Forms and JS
 
@@ -153,10 +68,13 @@ I'll answer [your questions](../../quizzes/quiz12.html)
 text to "place order" or whatever.
 * form submission is an *event*
 * we can attach JS functions to the event
-* often those handlers will want to `event.preventDefault()`
-* we should probably check that we succeeded in attaching the event
-handler
+* often those handlers will want to do `event.preventDefault()`
+* we should probably check that we succeeded in finding the form to attach
+the event handler to
 * can get all the data using `.serialize` or `.serializeArray` (jQuery methods).
+* elaborate protocol of writing a generic *add handler* method that takes
+a *callback* function to get the form data as an argument and then do the
+specific work for that form.
 
 ## Questions
 
@@ -164,10 +82,20 @@ I'll answer [your questions](../../quizzes/quiz13.html)
 
 ## Activities
 
-There are some important debugging aspects of the activities in Chapters
-8, 9 and 10, so we'll do as much of that as we can.
+There are some important debugging aspects of the activities in Chapters 9
+and 10, so we'll do as much of that as we can.
 
-## Chapter 10
+## Chapter 10 Activity
+
+Here's the finished code from chapter 9, which you can use as a starting
+point for Chapter 10's activity.
+
+```
+curl -O https://cs.wellesley.edu/~cs204/downloads/ch09.tar
+tar xf ch09.tar
+```
+
+## Chapter 10 Review
 
 Here's the final code from chapter 10, slightly edited
 
@@ -231,59 +159,17 @@ your code is more mature and needs less debugging.
 form as an submission handler.
 * It can even supply some standard behavior, such as `.preventDefault()`
 
-
-## Chaining
-
-If we have time, let's look at chaining in OOP.  Imagine that we have a
-series of transactions we need to do. (Maybe these should be changes to
-Hogwart's house points).
-
-```
-:::JavaScript
-var hermione = new Account("savings",300);
-hermione.deposit(100);
-hermione.deposit(200);
-hermione.withdrawal(150);
-hermione.addInterest(0.1);
-```
-
-Fine, but a little tedious. Wouldn't it be nice to chain them together,
-like this:
-
-```
-:::JavaScript
-var hermione = new Account("savings",300);
-hermione.deposit(100)
-        .deposit(200)
-        .withdrawal(150)
-        .addInterest(0.1);
-```
-
-How could we implement that?
-
-<div class="solution">
-<p>Make sure each method returns <code>this</code>. For example:</p>
-<pre>
-Account.prototype.deposit = function (amount) {
-     this.balance += amount;
-     return this;
-}     
-</pre>
-</div>
-
-Any disadvantages to the chaining idea?
-
-<div class="solution">
-<p>Maybe we want the <code>.deposit()</code>
-and <code>.withdrawal()</code> methods to return the new balance, instead
-of the object?
-
-<p>But we could just chain on <code>.getBalance()</code> if we wanted.
-
-<p>In general, if we want to "switch focus" that might affect our
-choice. jQuery does this sometimes.
-</div>
-
 ## Next Time
 
 We'll look at dynamically creating DOM elements using jQuery.
+
+## End of Class
+
+At the end of each class, I'll hand out paper slips. On it, please write
+*your name* and one of the following:
+
+* A question you have about the material of the day
+* Something you learned
+* A suggestion
+* An "I'm okay" statement
+

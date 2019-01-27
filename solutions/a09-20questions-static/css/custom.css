@@ -1,0 +1,12 @@
+/* for displaying tree nodes, to make sure they are indented. */
+
+.node {
+    margin-left: 2em;
+}
+
+/* I use cloning, so I want to make the templates hidden. */
+
+.template {
+    display: none;
+}
+

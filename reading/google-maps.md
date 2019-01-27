@@ -84,9 +84,11 @@ attributes:
 
 You can read more about these attributes on the [MDN
 Script](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script),
-but essential these extra attributes allow the browser to load other
+but essentially these extra attributes allow the browser to load other
 things while the Google Maps code is loading, without bringing the browser
-to a screeching halt.
+to a screeching halt, which is the normal behavior when a JS script
+element loads (that's why we moved the `script` tags to the bottom of our
+html page).
 
 Let's use the Google version. Delete the W3Schools version and copy/paste
 your API key into the script tag to replace the `YOUR_API_KEY` placeholder.
@@ -95,7 +97,7 @@ your API key into the script tag to replace the `YOUR_API_KEY` placeholder.
 
 Notice that, in addition to the `key=YOUR_API_key` there is also
 `callback=myMap` (W3Schools) or `callback=initMap` (Google's). The value
-on the left of the equals sign is the name of a function that will be
+on the right of the equals sign is the name of a function that will be
 invoked when the Google map code is done loading.
 
 We're pretty familiar with callback functions by now. This is just another
@@ -119,9 +121,9 @@ That's enough for now.
 
 ## Tutorial
 
-Please read through the first two pages of the W3Schools tutorials. You
-can just start at the first one and click the big green "next" button on
-each page.  
+Please read through the first two pages of the W3Schools tutorials (linked
+below). You can just start at the first one and click the big green "next"
+button on each page.
 
 1. [Maps Intro](https://www.w3schools.com/graphics/google_maps_intro.asp)
 This is the set up to show a nice, static map, at a place of your choosing

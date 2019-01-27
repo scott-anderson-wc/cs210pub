@@ -95,7 +95,7 @@ sorting algorithm?
 
 Consider the scopes of different variables.  The parameters of `partition`
 and of the recursive `qs` function (`lo` and `hi`) are local to just those
-function calls. That's a good thin, particularly in the case of the
+function calls. That's a good thing, particularly in the case of the
 recursive `qs` function, because there are several of them being computed
 at once, and so they each need to have different values for `lo` and `hi`.
 
@@ -147,7 +147,7 @@ disappear.
 
 Formally, a closure is a function plus an environment (you can read more
 about them in the [Wikipedia article on
-Closures](https://en.wikipedia.org/wiki/Closure_(computer_programming)),
+Closures](https://en.wikipedia.org/wiki/Closure_(computer_programming))),
 so to begin getting a handle on them, we start with some more observations
 about functions.
 

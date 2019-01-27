@@ -52,8 +52,10 @@ function geocodeAddress(geocoder, address, index, destmap) {
                              locations[index] = location;
                              numPending--;
                              if(numPending == 0) {
-                                 console.log(JSON.stringify(addressCache));
-                                 console.log(JSON.stringify(locations));
+                                 console.log('addressCache is '+
+                                             JSON.stringify(addressCache));
+                                 console.log('locations array is '+
+                                             JSON.stringify(locations));
                                  showPath();
                              }
                          } else {

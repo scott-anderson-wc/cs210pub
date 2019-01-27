@@ -1,0 +1,11 @@
+#player img { 
+    width: 200px; 
+    border-width: 5px;
+    border-style: solid;
+    border-color: white;
+}
+
+body {
+    font-family: verdana;
+    font-size: x-large;
+}

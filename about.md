@@ -13,7 +13,7 @@ information that was previously stored.)  The front end includes:
 ## Intended Audience
 
 This course is intended for beginning CS and MAS majors. Its prerequisites
-are CS 111, CS 115 or an equivalent "CS 1" course that introduces
+are CS 111 or an equivalent "CS 1" course that introduces
 programming (variables, conditionals, functions, objects and so
 on). Knowledge of JavaScript is not required.
 

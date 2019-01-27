@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS204: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../css/normalize.css">
+  <link rel="stylesheet" href="../../css/skeleton.css">
+  <link rel="stylesheet" href="../../css/glyphicons.css">
+  <link rel="stylesheet" href="../../css/pygments/colorful.css">
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="../../index.html">Home</a></li>
+                <li id="about"><a href="../../about.html">About</a></li>
+                <li id="schedule"><a href="../../schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="../../syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="../../reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns">
+
+    <h1 id="midterm-exam">Midterm Exam</h1>
+<p>People did pretty well. Some common errors:</p>
+<h2 id="q1-two-col-css">Q1 two col CSS</h2>
+<p>Have to set widths on the children (the two columns). Many people forgot
+that the default width of block elements is 100%</p>
+<p>flex will work. <code>display:flex</code> on the <em>parent</em> and <code>flex:1 0 auto</code> on the
+<em>children</em> </p>
+<p><code>display:inline-block</code> will work.</p>
+<p><code>float:left</code> will work</p>
+<p><code>position:absolute</code> will work but shouldn't be used.</p>
+<p>There were some selector errors. I gave you lots of options:</p>
+<div class="codehilite"><pre><span class="nt">&lt;main&gt;</span>
+<span class="nt">&lt;aside</span> <span class="na">id=</span><span class="s">&quot;menu&quot;</span> <span class="na">class=</span><span class="s">&quot;options&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>ABC<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>CBS<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>NBC<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>CNN<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+<span class="nt">&lt;/aside&gt;</span>
+<span class="nt">&lt;article</span> <span class="na">id=</span><span class="s">&quot;content&quot;</span> <span class="na">class=</span><span class="s">&quot;story&quot;</span><span class="nt">&gt;</span>
+Lorem ipsum dolor sit amet, ...
+<span class="nt">&lt;/article&gt;</span>
+<span class="nt">&lt;/main&gt;</span>
+</pre></div>
+
+
+<p>Tags: <code>main</code>, <code>aside</code> <code>article</code></p>
+<p>IDs: <code>#menu</code> <code>#content</code></p>
+<p>classes:  <code>.options</code>, <code>.story</code></p>
+<h2 id="q3-css-hover">Q3 CSS Hover</h2>
+<p>Describing something in English is a skill. You have to think
+abstractly. Summarize the overall effect or behavior. Try to ignore the
+implementation details.</p>
+<p>A common, good student response:</p>
+<div class="codehilite"><pre><span class="n">the</span> <span class="n">class</span> <span class="n">fred</span> <span class="n">first</span> <span class="n">has</span> <span class="n">an</span> <span class="n">opacity</span> <span class="n">of</span> <span class="mi">0</span><span class="p">,</span> <span class="n">meaning</span> <span class="n">it</span> <span class="n">is</span> <span class="n">not</span>
+<span class="n">opaque</span><span class="p">.</span>  <span class="n">When</span> <span class="n">the</span> <span class="n">user</span> <span class="n">hovers</span> <span class="n">her</span> <span class="n">mouse</span> <span class="n">over</span> <span class="n">the</span> <span class="s">&quot;fred&quot;</span>
+<span class="n">element</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">turn</span> <span class="n">perfectly</span> <span class="n">opaque</span> <span class="n">in</span> <span class="n">a</span> <span class="n">span</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">seconds</span>
+</pre></div>
+
+
+<p>What I had in mind:</p>
+<div class="codehilite"><pre><span class="n">The</span> <span class="n">CSS</span> <span class="n">causes</span> <span class="n">elements</span> <span class="n">of</span> <span class="n">class</span> <span class="n">fred</span> <span class="n">to</span> <span class="n">fade</span> <span class="n">in</span> <span class="n">when</span> <span class="n">hovered</span>
+<span class="n">over</span><span class="p">.</span> <span class="n">They</span> <span class="n">fade</span> <span class="n">out</span> <span class="n">when</span> <span class="n">the</span> <span class="n">mouse</span> <span class="n">leaves</span><span class="p">.</span> <span class="n">The</span> <span class="n">transition</span>
+<span class="n">takes</span> <span class="mi">3</span> <span class="n">seconds</span><span class="p">.</span>
+</pre></div>
+
+
+<p>Very few people used the word "fade"</p>
+<h2 id="q4-holidays">Q4 Holidays</h2>
+<p>People did well on this, but generally the coding was wordy. Here's how I
+solved it:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">today</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">today</span><span class="p">.</span><span class="nx">getDate</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span> <span class="p">(</span><span class="nx">m</span> <span class="o">==</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="p">(</span> <span class="nx">d</span> <span class="o">==</span> <span class="mi">10</span> <span class="o">||</span> <span class="nx">d</span> <span class="o">==</span> <span class="mi">11</span> <span class="p">))</span> <span class="o">||</span>
+        <span class="p">(</span><span class="nx">m</span> <span class="o">==</span> <span class="mi">11</span> <span class="o">&amp;&amp;</span> <span class="p">(</span> <span class="nx">d</span> <span class="o">&gt;=</span> <span class="mi">22</span> <span class="o">&amp;&amp;</span> <span class="nx">d</span> <span class="o">&lt;=</span> <span class="mi">27</span> <span class="p">)))</span> <span class="p">{</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;no class today&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+</pre></div>
+
+
+<p>There were lots of clever solutions using date strings and such, so the
+preceding isn't the only way.</p>
+<p>IIFEs were a problem though. Many people defined a function and then
+didn't invoke it, or invoked it without an argument that it needed:</p>
+<div class="codehilite"><pre><span class="p">(</span><span class="kd">function</span> <span class="nx">isBreak</span><span class="p">(</span><span class="nx">today</span><span class="p">)</span> <span class="p">{</span>
+   <span class="p">...</span>
+<span class="p">})();</span>
+</pre></div>
+
+
+<p>Sometimes people didn't invoke it.</p>
+<h2 id="q5-frenemies-lists">Q5 Frenemies Lists</h2>
+<p>People did reasonably well on this, particularly given the complexity of
+the problem. (I think this was the hardest problem.)</p>
+<p>First: Distinguish between a click handler on <code>UL</code> versus each
+<code>LI</code>.  Think about the otters! We put the click handler on <em>each</em>
+thumbnail, not on the parent element.</p>
+<p>Imagine the HTML:</p>
+<div class="codehilite"><pre><span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;friends&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;li</span> <span class="na">data-name=</span><span class="s">&quot;Harry&quot;</span><span class="nt">&gt;</span>Harry<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li</span> <span class="na">data-name=</span><span class="s">&quot;Ron&quot;</span><span class="nt">&gt;</span>Ron<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li</span> <span class="na">data-name=</span><span class="s">&quot;Hermione&quot;</span><span class="nt">&gt;</span>Hermione<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;enemies&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;li</span> <span class="na">data-name=</span><span class="s">&quot;Draco&quot;</span><span class="nt">&gt;</span>Draco<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li</span> <span class="na">data-name=</span><span class="s">&quot;Snape&quot;</span><span class="nt">&gt;</span>Snape<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li</span> <span class="na">data-name=</span><span class="s">&quot;Voldemort&quot;</span><span class="nt">&gt;</span>Voldemort<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+
+
+<p>Use a <em>descendant selector</em> to get the LI elements. Here's what I
+intended:</p>
+<div class="codehilite"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#friends &gt; li&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;They are awesome&quot;</span><span class="p">);</span> <span class="p">});</span>
+</pre></div>
+
+
+<p>If you leave out the <code>&gt; li</code> (which many of you did) it works, but for
+reasons we won't get to until later.</p>
+<p>For the second part:</p>
+<div class="codehilite"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#enemies &gt; li&quot;</span><span class="p">).</span><span class="nx">each</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">index</span><span class="p">,</span><span class="nx">elt</span><span class="p">)</span> <span class="p">{</span>
+     <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">elt</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-name&#39;</span><span class="p">);</span>
+     <span class="nx">$</span><span class="p">(</span><span class="nx">elt</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;I hate &quot;</span><span class="o">+</span><span class="nx">name</span><span class="p">);</span> <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+
+
+<p>If you don't put the event handler on the <code>LI</code>, there's no <code>data-name</code>
+attribute to use.</p>
+<p>Remember how to do <code>alert()</code>.</p>
+<p>To see it in action; here is a <a href="https://jsfiddle.net/hv4r47ss/">jsfiddle</a></p>
+<h2 id="q6-code-description">Q6. Code Description</h2>
+<p>As I said before, describing something in English is a skill. Try to
+distinguish process from result. Typically, we would describe just the
+result.</p>
+<div class="codehilite"><pre><span class="kd">var</span> <span class="nx">pts</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">50</span><span class="p">},</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">y</span><span class="o">:</span> <span class="mi">30</span><span class="p">}</span> <span class="p">...</span> <span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">z</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span> <span class="nx">e</span><span class="p">.</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="nx">z</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="nx">z</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">x</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">pts</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">bar</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">z</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Which do you like better. This:</p>
+<div style="border: 1px solid black; padding: 2ex 1em"> <p>For each
+element (coordinate pair) in the pts array, the function bar(e) will be
+called on it, and x will be evaluated and subsequently this may or may not
+change the value of z, depending on x is greater than foo's variable
+z. The function foo asks it to return the value of z for each element of
+the array.</p> </div>
+
+<p>Or this:</p>
+<div style="border: 1px solid black; padding: 2ex 1em">
+<p>The function returns the largest x coordinate in the array of points.</p>
+</div>
+
+<p>If you were <em>naming</em> this function, you would name it something like
+<code>largestX</code> or something like that. Good function names are usually about
+results, not process.</p>
+<h2 id="q7-objects-and-methods">Q7. Objects and Methods</h2>
+<p>Here's the intended solution:</p>
+<div class="codehilite"><pre><span class="kd">function</span> <span class="nx">Point</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">=</span> <span class="nx">x</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">=</span> <span class="nx">y</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">p0</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Point</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>   <span class="c1">// example point</span>
+
+<span class="nx">Point</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">isQuadrantI</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">p0</span><span class="p">.</span><span class="nx">isQuadrantI</span><span class="p">());</span> <span class="c1">// true</span>
+</pre></div>
+
+
+<p>Common errors included</p>
+<ul>
+<li>not assigning the method to the prototype</li>
+<li>using arguments instead of <code>this</code> (so it's not a method)</li>
+<li>omitting examples</li>
+</ul>
+<h2 id="q8-mobile-friendly">Q8 Mobile-Friendly</h2>
+<p>People did <em>very</em> well on this, and I wasn't too picky. An ideal answer:</p>
+<ol>
+<li>The page should be designed for small devices by default</li>
+<li>The page should use media queries so that layout can be improved on
+large devices</li>
+<li>The page should be <em>responsive</em></li>
+<li>Where appropriate, elements should scale with the size of the
+browser, using widths that are in percentages.</li>
+<li>images, in particular, should scale with the page</li>
+</ol>
+<h2 id="q9-htmlurls">Q9. HTML/URLs</h2>
+<p>People did great on this, except for the URLs.</p>
+<p>Given:</p>
+<div class="codehilite"><pre><span class="n">hogwarts</span>
+    <span class="n">houses</span>
+        <span class="n">gryffindor</span><span class="p">.</span><span class="n">html</span>
+    <span class="n">students</span>
+        <span class="n">hermione</span><span class="p">.</span><span class="n">html</span>
+        <span class="n">images</span>
+            <span class="n">granger</span><span class="p">.</span><span class="n">jpg</span>
+        <span class="n">students</span><span class="p">.</span><span class="n">html</span>
+</pre></div>
+
+
+<p>What are links from <code>hermione.html</code> to:</p>
+<ul>
+<li><code>granger.jpg</code></li>
+<li><code>gryffindor.html</code></li>
+<li><code>students.html</code></li>
+<li><code>www.facebook.com</code></li>
+</ul>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="../../js/custom.js"></script>
+
+<script src="https://cs.wellesley.edu/~anderson/js/Datejs-master/build/date-en-US.js"></script>
+<script src="../../js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+</body>
+</html>
