@@ -232,7 +232,11 @@ Lots of other objects and methods exist in JavaScript.
 Here's another method, this time on <em>numbers</em>, the
 <code>toFixed()</code> method. Note that you'll have to open the
 JavaScript console to see the output, but using the console allows you to
-see all the results as once. a
+see all the results as once. This reading will typically use `console.log`
+rather than `alert` from now on, so you might find it useful to keep the
+JavaScript console open as you read this material. (You should read this
+on a real computer, not a phone, so you actually have a JavaScript console
+and can run the examples by clicking the "execute it" buttons.)
   
 <div>
 <form>
@@ -346,7 +350,7 @@ It's now time to return to talking about <a
 href="http://www.w3schools.com/js/js_objects.asp">JavaScript objects</a>
 in general rather than just date objects.
 
-In JavaScript, an object is a collection of data (properties and methods.
+In JavaScript, an object is a collection of data (properties and methods).
 This collection can be arbitrarily complex, including having other objects
 inside the containing object (much like a folder can contain other
 folders), but for now let's keep it simple:
@@ -401,7 +405,7 @@ Let's repeat those assignment statements, together with an abstraction:
 <pre class="codehilite">
 var person1 = {name: "Alice", gradYear: 2019, going: "yes"};
 var person2 = {name: "Betty", gradYear: 2020, going: "no"};
-var person2 = {prop1: value1, prop2: value2, prop3: value3};
+var personN = {prop1: value1, prop2: value2, prop3: value3};
 </pre>
 
 The things on the right hand side are called <em>object literals</em>.
@@ -437,7 +441,7 @@ operation, use `JSON.parse`:
 
 <div>
 <form>
-<textarea rows=15 cols=80>
+<textarea rows=11 cols=80>
 var shopping = ['Apples','Bananas','Chocolate'];
 
 var s = JSON.stringify(shopping);
@@ -494,7 +498,7 @@ console.log(person1.name+" lives in "+person1.dorm);
 delete(person1.dorm);
 console.log("after removing dorm: "+JSON.stringify(person1));
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </div>
 </form>
@@ -523,7 +527,7 @@ alert(JSON.stringify(person2));
 person1.gradYear = person1.gradYear + 1;
 alert(JSON.stringify(person1));
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </div>
 </form>
@@ -574,7 +578,7 @@ following fails, because it tries to look up a property named
   var dim = rect1.larger_dim;
   alert("the "+larger_dim+" is "+dim);
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -590,7 +594,7 @@ var person3 = {name: "Cathy",dorm: "Tower"};
 person3["grad year"] = 2021;
 alert(JSON.stringify(person3));
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -608,7 +612,7 @@ property.  Note that here, the expression in the square brackets is a
   alert("the "+larger_dim+" is "+dim);
 
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -625,7 +629,7 @@ person1["grad year"] = 2016;
 person1["dorm"] = "Stone D";
 alert(JSON.stringify(person1));
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -637,7 +641,7 @@ of the dot notation, so you will see it a lot.
 
 Sometimes it's useful to be able to loop over all the properties of an
 object.  JavaScript has a built-in syntax, a special kind of loop, for
-doing just that.  For example, the following will alert all the properties
+doing just that.  For example, the following will log all the properties
 in an object:
 
 <form>
@@ -648,12 +652,12 @@ for(var prop in person1) {
    console.log(prop);
 }
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </div>
 </form>
 
-The following variation alerts all the values in an object. Note that
+The following variation logs all the values in an object. Note that
 using the square bracket notation is necessary here, because each time
 through the loop the variable <code>prop</code> has a different value.
 
@@ -665,7 +669,7 @@ for( var prop in person1) {
    console.log(person1[prop]);
 }
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </div>
 </form>
@@ -678,10 +682,13 @@ for ( var P in OBJ ) {
 }
 </pre>
 
-The <code>P</code> is a <em>new</em> variable and we declare it here to
-avoid creating a global variable.  It is given a value (as if by an
-assignment statement) before each time through the body of the loop. Those
-values will be the properties of the object.  The <code>OBJ</code> is an
+The <code>P</code> is a <em>new</em> variable and we declare it here
+using <code>var</code> to avoid creating a global variable.  (We could
+also have used <code>let</code>, which would be superior in this example,
+since the variable wouldn't exist outside the loop.) The variable is given
+a value (as if by an assignment statement) before each time through the
+body of the loop. Those values will be the properties of the object.
+The <code>OBJ</code> is an
 <em>existing</em> variable that holds an existing object.
 
 Here's one last example, which counts the number of properties in an
@@ -697,7 +704,7 @@ for ( var prop in person1 ) {
 }
 console.log("That object has "+prop_count+" properties.");
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </div>
 </form>

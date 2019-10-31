@@ -7,7 +7,6 @@ We probably won't go past page 183.
 
 ## Plan
 
-1. Admin: A4 Questions, midterm next week, etc.
 1. Discuss Modules in JS
 1. Bank Accounts
 1. OOP in JS
@@ -15,10 +14,7 @@ We probably won't go past page 183.
 1. OOP Exercises
 1. Objects as Database
 1. APIs
-1. Chapter 8 activity
 1. Pitfalls of `this`
-1. Debugging Activity
-1. More OOP exercises
 
 ## The App module from Chapter 8 
 
@@ -26,17 +22,17 @@ You'll find this example on page 171. It has an odd trick in it.
 
 ```
 :::JavaScript
-(function (win) {
+(function (win) {             // line 1
    'use strict';
-   var App = win.App || {};
+   var App = win.App || {};   // line 3
 
-   function DataStore () {
+   function DataStore () {    // line 5
       console.log('running the DataStore function');
    }
 
-   App.DataStore = DataStore;  // put it in our app
+   App.DataStore = DataStore;  // line 9
 
-   win.App = App;   // store app globally
+   win.App = App;   // line 11, store app globally
 })(window);
 ```
 
@@ -59,14 +55,44 @@ Now, we'll switch to talking about OOP in JS.
 * First, we'll see a practical example, to help make things concrete.
 * Then we'll talk about some abstract principles
 
-## Example of OOP in JS 
+## Example of OOP in JS using new `class` syntax
 
-Let's see an example using JS, namely bank accounts. Each has
+Let's see an example using the new `class` syntax for OOP in JS, namely
+bank accounts. Each bank account has
 
-* state: the current balance for that account, and
-* behavior (methods): the way that clients can change the balance, namely `deposit` and `withdrawal`
+* *state*: the current balance for that account, and
+* *behavior* (methods): the way that clients can change the balance, namely `deposit` and `withdrawal`
 
-<script id="bank1">
+```
+:::JavaScript
+class Account {
+    constructor (init) {
+        this.balance = init;
+    }
+    function deposit (amount) {
+        this.balance += amount;
+    }
+    function withdrawal (amount) {
+        if( this.balance >= amount ) {
+            this.balance -= amount;
+        } else {
+            throw new Error("Insufficient funds");
+        }
+    }
+
+var harry = new Account(1000);
+var ron = new Account(2);
+var hermione = new Account(200);
+```
+
+Here is a [demo using `class` syntax](bank/index_class.html).
+
+## Example of OOP in JS using traditional syntax
+
+Here's the same example using the traditional syntax that our book uses:
+
+```
+:::JavaScript
 function Account(init) {
     this.balance = init;
 }
@@ -79,22 +105,19 @@ Account.prototype.withdrawal = function (amount) {
     if( this.balance >= amount ) {
         this.balance -= amount;
     } else {
-        throw new Error("Sorry, you are overdrawn");
+        throw new Error("Insufficient funds");
     }
 };
 
 var harry = new Account(1000);
 var ron = new Account(2);
 var hermione = new Account(200);
-</script>
+```
 
-<div class="codehilite">
-<pre id="bank1-src"></pre>
-</div>
+Here is a [demo using the traditional syntax](bank/index.html).
 
-<script>$("#bank1-src").text($("#bank1").text());</script>
-
-Let's try it out in the JS console!  Try some deposits and withdrawals. If you look in the console, you can see the current balance.
+Let's try it out in the JS console!  Try some deposits and withdrawals. If
+you look in the console, you can see the current balance.
 
 How could we write a method to find out the current balance?
 
@@ -104,7 +127,7 @@ What we saw above:
 
 ### Constructors
 
-The constructor is the `Account` function we saw above.
+The constructor is the `Account` function:
 
 * Create a constructor function (really, it's an initializer)
 * By convention, name it with a capital letter, to remind us to use `new`
@@ -163,7 +186,7 @@ The prototype has *read-only* properties that *all* instances share. Let's try t
 ron   // one instance variable
 ron.__proto__  // a hidden property
 Account.prototype;   // an object
-ron.__proto__ == Account.prototype;  // the same object
+ron.__proto__ == Account.prototype;  // same
 Account.prototype.FDIC = true;
 console.log(ron.FDIC);
 console.log(harry.FDIC);
@@ -207,7 +230,8 @@ function Foo(z) {
     this.z = z;
 }
 
-Foo.prototype.sum = function (x,y) { return x+y+this.z; };
+Foo.prototype.sum =
+    function (x,y) { return x+y+this.z; };
 
 var f1 = new Foo(1);
 f1.sum(2,3);   // returns 6
@@ -218,15 +242,24 @@ The syntactic rule is that the special variable `this` gets bound to the object.
 
 ## Questions
 
-We'll look at [your questions](../../quizzes/quiz11.html)
+We'll look at [your questions](../../quizzes/quiz10.html)
 
 ## Exercise 1
 
-1. Create a web page in your C9 public account with an attached JS file.
-1. Copy the bank account code above into the `.js` file
+To get started, copy the `~cs204/pub/downloads/bank` folder to your cs204
+folder:
+
+```
+cd ~/public_html/cs204/
+cp -r ~cs204/pub/downloads/bank .
+```
+
 1. Make sure it works as above
-1. If you get stuck, you can `curl -O` this tarfile: `http://cs.wellesley.edu/~cs204/downloads/bank.tar`
 1. Add an instance variable to the object for different types of accounts: checking vs savings
+1. You may use either the traditional syntax in `Account.js` or the new
+syntax in `Account_class.js`.
+    * Using the tradition syntax might be less confusing because it matches our reading, but
+    * Using the new syntax might be simpler and less confusing.
 
 <div class="solution codehilite">
 <pre>
@@ -260,7 +293,9 @@ Account.prototype.addInterest =
 
 There are many kinds of database. A very common and useful type is a [key-value database](https://en.wikipedia.org/wiki/Key-value_database).
 
-For an in-memory database of that kind, we could use JavaScript objects. Like this:
+For an in-memory database of that kind, we could use JavaScript
+objects. Like this:
+
 
 ```
 :::JavaScript
@@ -305,42 +340,75 @@ function KeyValue() {
     this.db = {};
 }
 
-KeyValue.put = function (key,val) { db[key] = val; }
-KeyValue.get = function (key) { return this.db[key]; }
+KeyValue.prototype.get =
+    function (key) { return this.db[key]; }
+
+KeyValue.prototype.put =
+    function (key,val) { this.db[key] = val; }
 
 var heads = new KeyValue();
 heads.put('gryffindor', 'McGonnagall');
 heads.put('slytherin','Snape');
 ```
 
-## Chapter 8 Activity
-
-Work through the first part of the activity, but *stop* when you get to page 183 on *debugging*.
-
-Depending on the time we have, either I will step through that with you, or we'll turn to other things.
-
 ## Debugging 
 
-We'll look at the buggy code that we constructed partway through [Chapter
+We'll look at the buggy code that was constructed partway through [Chapter
 8](../../front-end-dev-resources/book-solutions/Chapter-08-halfway/coffeerun/index.html)
 
-We can replicate the bug with the function `replicateBug` that I
-implemented for us, to avoid a bit of typing. We'll look at the definition
-first:
+We can replicate the bug with the function `bugSetup` that I implemented
+for us, to avoid a bit of typing. We'll look at the definition first:
 
 ```
 :::JavaScript
 var myTruck; 
-function replicateBug() {
+function bugSetup() {
     myTruck = new App.Truck('007',new App.DataStore());
-    myTruck.createOrder({ emailAddress: 'm@bond.com', coffee: 'earl grey'});
-    myTruck.createOrder({ emailAddress: 'dr@no.com', coffee: 'decaf'});
-    myTruck.createOrder({ emailAddress: 'me@goldfinger.com', coffee: 'double mocha'});
-    myTruck.printOrders(); // triggers the bug on line 25
+    myTruck.createOrder({ emailAddress: 'm@bond.com',
+                          coffee: 'earl grey'});
+    myTruck.createOrder({ emailAddress: 'dr@no.com',
+                          coffee: 'decaf'});
+    myTruck.createOrder({ emailAddress: 'me@goldfinger.com',
+                          coffee: 'double mocha'});
 }
 ```
 
-Then we'll click through there, open up the JS console and run that function.
+Next, we will try the following method invocations:
+
+```
+myTruck.printOrders_buggy();
+myTruck.printOrders_closure();
+myTruck.printOrders_bind();
+myTruck.printOrders_solved();
+```
+
+## Bug Diagnosis
+
+Here's a description of the bug:
+
+```
+:::JavaScript
+// This is the buggy version from page 183
+Truck.prototype.printOrders_buggy = function () {
+  var customerIdArray = Object.keys(this.db.getAll());
+
+  console.log('Truck #' + this.truckId + ' pending orders:');
+  customerIdArray.forEach(function (id) {
+    console.log(this.db.get(id));
+  });
+};
+```
+
+The `forEach` in that code is a method invocation, and so `this` is
+*bound* to the `customerIdArray` instead of to the `Truck` instance. Then
+the anonymous function is invoked, and because it's not a method, `this`
+is *unbound* (AKA *undefined*). 
+
+The `this` in the anonymous function doesn't mean the same object as the
+one in the second line!
+
+In the rest of the chapter, we'll learn a solution to that problem using
+the `.bind()` method, which allows us to specify a value of `this`.
 
 ## End of Class
 

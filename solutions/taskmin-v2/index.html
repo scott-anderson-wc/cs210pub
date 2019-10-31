@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Taskmin: A Task Administrator App</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+  
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../css/normalize.css">
+  <link rel="stylesheet" href="../../css/skeleton.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css"></script>
+
+  <style>
+      /* Use document level style because this is only one page. */
+
+      /* white is background color, so this won't be visible */
+      
+      button { border: 2px solid white; }
+
+      button:focus, button:hover { border: 2px dotted red; }
+
+      #addtask-form ul { list-style-type: none; }
+      
+      #edit-tags-list ul { list-style-type: none; }
+
+      #edit-tags-list li { padding: 0.2rem 0.5rem; }
+
+      #task-tag-checkboxes { list-style-type: none; }
+
+      #addtag-form ul { list-style-type: none; }
+
+      #sort-menu { list-style-type: none; }
+
+      #tasklist ul { list-style-type: none; }
+
+      #tasklist li {
+          margin: 0.2rem;
+          max-width: 30rem;
+          border-style: solid;
+          border-color: black;
+          border-radius: 0.5rem;
+          padding: 0.2rem;
+      }
+
+      .work     { background-color: yellow; }
+      .personal { background-color: lightblue; }
+
+      /* completed tasks */
+      .done { opacity: 0.5; border-style: dotted; }
+
+  </style>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+</head>
+<body>
+
+    <header>
+        <h1>TaskMin</h1>
+    </header>
+
+    <noscript>
+        This app requires JavaScript. It won't work at all without
+        JavaScript. Sorry.
+    </noscript>
+
+    <!-- Primary Page Layout
+         –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <div id="mainButtons"><button type="button" id="addtask-button">Add Task</button>
+                <div id="addtask-form">
+                    <form action="">
+                        <h2>Add Task Form</h2>
+                        <ul>
+                            <li><label for="task-text">Description<br>
+                            <textarea id="task-text" rows="3"
+                            placeholder="task description"></textarea>
+                        </label>
+                        <li><label for="task-priority">Priority
+                            <select id="task-priority">
+                                <option>low</option>
+                                <option selected>medium</option>
+                                <option>high</option>
+                            </select>
+                        </label>
+                        <li><label for="task-due">Due Date
+                            <input type="date" id="task-due" placeholder="due date">
+                        </label>
+                        </ul>
+                        <!-- see
+                        http://uxmovement.com/forms/why-your-checkboxes-need-to-have-label-tags/ -->
+                        <h3>task tags</h3>
+                        <div id="task-tag-checkboxes">
+                            <!-- tags filled in dynamically -->
+                            <ul>
+                            </ul>
+                        </div><!-- task-tag-checkboxes -->
+                        <button type="button" id="done-add-task">Add This Task</button>
+                        <button type="button" id="cancel-add-task">Cancel</button>
+                        <ul id="task-checkbox-template" style="display:none">
+                            <!-- same as example above-->
+                            <li><label>
+                                    <span class="tag-text">personal</span>
+                                    <input type="radio" name="tag" value="personal">
+                            </label></li>
+                        </ul>
+                    </form>
+                </div><!-- addtask-form -->
+                <button type="button" id="sort-button">Sort</button>
+                <ul id="sort-menu">
+                    <li><button id="sort-by-taskId">by task number</button></li>
+                    <li><button id="sort-by-dueDate">by due date</button></li>
+                    <li><button id="sort-by-mainTag">by main tag</button></li>
+                </ul>
+                <button type="button" id="reset-button">Reset</button>
+                </div><!-- main buttons -->
+                
+                <h2>Current Tasks</h2>
+                <div id="tasklist"></div>
+
+                <!-- a template for the items above -->
+                <ul id="templatetasklist" style="display:none">
+                    <li class="task"><span class="duedate"></span>
+                        <span class="priority"></span>
+                        <span class="tags"></span>
+                        <div class="text"></div>
+                        <!-- from the Unicode dingbats block -->
+                    <button type="button" class="done">&#x2714;</button>
+                    </li>
+                </ul>
+            </div>
+
+        </div><!-- end of row -->
+        
+    </div><!-- end of container -->
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//code.jquery.com/jquery-3.0.0.js"></script>
+<script src="bounds-plugin.js"></script>
+<script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<!-- Thanks to http://touchpunch.furf.com/ -->
+<script src="jquery.ui.touch-punch.min.js"></script>
+<script src="example-task-list.js"></script>
+<script src="Task.js"></script>
+<script src="TaskList.js"></script>
+<script src="testing.js"></script>
+<script src="taskmin.js"></script>
+<script>
+// Defined in taskmin.js, but we're not ready until those other files are loaded.
+initializeAll();
+</script>
+
+
+</body>
+</html>

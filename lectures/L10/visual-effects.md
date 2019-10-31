@@ -5,23 +5,18 @@ Hopefully, this will be fun
 ## Plan
 
 1. jQuery at the *bottom*
-1. Assignment 4
 1. Review the solution from Chapter 6
 1. Recap concepts and techniques for Chapter 7
 1. Activity from Chapter 7
 1. Review the solution
 
-## Assignment 4 (Rock-Paper-Scissors Game)
+## Assignment 5 (Sliding Tile Puzzle)
 
-[RPS Game](../../assignments/a04/rps.html)
+[Sliding Tile Puzzle](../../assignments/a05/tile_game.html)
 
 ## Solution to Chapter 6
 
-We'll look at the JS code in the solution.  We'll take our time for this.
-
-## Questions from last night
-
-[questions](../../quizzes/quiz09.html)
+We'll recap the JS code in the solution.  We'll take our time for this.
 
 ## Recap of Visual Effects
 
@@ -47,6 +42,14 @@ change and for how long
 affine transformations. (<q>Affine </q> means lines are still lines.) See
 [MDN transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform)
 
+## A simpler example:
+
+[swing-left example](swing-example.html) shows two boxes summing to
+1000px. The left one grows and the right one shrinks if the `.swing-left`
+class is added to an ancestor. By adding it once to the top (an ancestor
+of both) the swing is simultaneous. If we do it in two steps (in either
+order), and unpleasant middle state occurs.
+
 ## Transition
 
 Try mousing over the following:
@@ -67,7 +70,7 @@ Try mousing over the following:
 </p>
 </div>
 
-Here's the code:
+Here's the CSS code:
 
 ```
 :::CSS
@@ -80,7 +83,8 @@ Here's the code:
 }
 ```
 
-I can show you a trick for debugging these in Chrome.
+I can show you a trick for debugging these in Chrome, namely clicking on
+the `:hov` element in the CSS styles section for that element.
 
 ## Easing
 
@@ -99,9 +103,14 @@ on MDN.
 
 [the result](../../front-end-dev-resources/book-solutions/Chapter-07/ottergram/index.html)
 
-* clicking on a thumbnail changes the detail, now with eye candy
+* clicking on a thumbnail changes the detail, now with eye candy, namely
+the browser "zooms" in, expanding the image from tiny to large.
 * pressing escape removes the detail, giving big thumbnails
 * clicking on a big thumbnail restores the first display
+
+## Questions from last night
+
+[questions](../../quizzes/quiz09.html)
 
 ## Activity
 

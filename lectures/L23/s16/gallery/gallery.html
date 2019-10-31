@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+<head>
+    <meta name=author content="Scott D. Anderson">
+    <title>CS110: Image Gallery</title>
+    <style>
+
+      /* Ideally, your images are already uniform dimensions, because
+      they'll fit more nicely in the gallery grid, but if not, we can
+      force them to be by specifying their dimensions here. */
+
+      #gallery1 img {
+          width: 100px;
+          height: 75px;
+      }
+
+      #gallery1 figure {
+          float: left;
+          width: 100px;
+          padding: 10px;
+      }
+
+      
+      #gallery1 {
+         overflow: hidden;       /* since the figures float */
+         background-color: #dddddd;
+         border: 2px solid black;
+         padding: 10px;
+      }
+
+      #gallery1 figcaption {
+          text-align: center;
+      }
+
+      /* this will be responsive */
+      
+      #large_image img {
+         width: 60%;
+         display: block;
+         margin: auto;
+      }
+
+      #large_image figcaption {
+         font-size: 30px;
+         text-align: center;
+      }
+
+      /* lightbox stuff */
+
+      #lightbox_gallery {
+         overflow: hidden;
+      }
+
+      #lightbox_gallery figure {
+         float: left;
+         padding: 10px;
+      }
+
+      #lightbox_display {
+         position: fixed;
+         top: 0px;
+         left: 0px;
+         width: 100%;
+         height: 100%;
+         background: black;
+         background: rgba(0,0,0,0.8);
+         display: none;
+      }
+
+      #lightbox_display figure {
+         background-color: white;
+         width: 75%;
+         margin: auto;
+      }
+
+      #lightbox_display figure img {
+         width: 100%;
+      }
+
+      #lightbox_display figcaption {
+         font-size: 30px;
+         text-align: center;
+      }
+    </style>
+</head>
+<body>
+
+  <h1>Image Gallery</h1>
+
+  <p>Often, you want to display a set of pictures and allow the user to
+  choose which ones to look at more closely, something like an art
+  gallery. Therefore, we'll call this JavaScript application
+  a <em>gallery</em>. We'll have an arrangement of small pictures, often
+  called <em>thumbnails</em>, and, if the user clicks on any one of them,
+  a larger version is displayed.
+
+  <p>Note that one advantage of a gallery is that a set of thumbnails can
+  load quicker than even one of the larger versions, if the file-sizes are
+  much smaller. Therefore, you should go to the extra effort to make
+  thumbnail-size images, using an image editor (like PhotoShop
+  or <a href="http://pixlr.com">Pixlr</a> or
+  the <a href="http://gimp.org">Gimp</a>), rathern than just using the
+  width and height attributes to make the squeeze the big files down to a
+  small screen area.
+
+    <h2 id="gallery-example">Gallery Example</h2>
+    
+  <p>This will just be a small gallery, with just four pictures. In this
+  version of the gallery application, we'll allocate space on the page for
+  the larger version. In this example, we'll put a boring pale-yellow
+  image there. In your application, you could choose one of the large
+  images, either randomly or deterministically, or something else
+  entirely.
+    
+    <div id="gallery1"></div>
+
+    <figure id="large_image">
+      <img src="../potterpics/pale-yellow-266x200.png" alt="filler image">
+      <figcaption>A pale yellow image filler image</figcaption>
+    </figure>
+      
+    <h2 id="lightbox-gallery">Lightbox Gallery</h2>
+
+    <p>An alternative is to have the large image take over the window,
+    putting everything else behind a semi-transparent dim filter, so that
+    the user's attention is necessarily on the large image. This is called
+    a <a href="https://en.wikipedia.org/wiki/Lightbox_(JavaScript)">Lightbox</a>,
+    and has been implemented many times since its originator, Lokesh
+    Dhakar. We've implemented a very simple version of it; there are many
+    more sophisticated ones. The lightbox, of course, requires an
+    additional bit of coding to make the image go away so that the user can
+    look at another image or do anything else.
+
+    <div id="lightbox_gallery"></div>
+
+    <div id="lightbox_display">
+      <div id="lightbox_inner">
+        <figure>
+          <img src="../potterpics/pale-yellow-266x200.png" alt="filler image">
+          <figcaption>A pale yellow image filler image</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <h2>How It's done</h2>
+
+    <p>Use <q>view source</q> on this page to see exactly how we did
+      it.
+
+    <p>There's more in
+    the <a href="../galleries-and-drop-downs.html">reading on
+    galleries and drop-downs</a>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="gallery.js"></script>
+
+</body>
+</html>

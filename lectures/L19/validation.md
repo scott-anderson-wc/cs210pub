@@ -16,61 +16,33 @@ Form validation is an important filter to make sure
 
 ## Plan
 
-1. Admin: A7 due tonight. Questions? How far are people falling behind? A8
-due next Tuesday, just before the break. Will that be a problem?
-1. Discuss solution to A6 (Concentration)
+1. Admin: 
+1. Discuss solution to A7 Signup
 1. Recap Form Validation
 1. Answer your questions
 1. Explore Regular Expressions
 1. Book Activities
 
-## Solution to Concentration
+## Solution to Signup
 
-[my solution](../../solutions/a06-concentration/game.html)
+[my solution](../../solutions/a07-signup/signup.html)
 
-How would we solve this using event delegation?
+Observations:
 
-<div class="solution">
-Replace this:
-<pre>
-function addEventHandler(img) {
-   var elementId = $(img).attr('id');
-   $(img).click(function (event) {
-       id = elementId;  // closure variable
-       console.log("Click on element id "+elementId);
-       processClick(elementId); // or maybe, pass in the element?
-    });
-}
-
-function addEventHandlers() {
-    console.log("adding event handlers using book approach");
-    var nodes = document.querySelectorAll("#board img");
-    var nodeArray = [].slice.call(nodes);
-    nodeArray.forEach(addEventHandler);
-}
-</pre>
-
-With this (no delegation):
-<pre>
-function addEventHandlers() {
-    $("#board img").on('click', function (event) {
-        var id = $(event.target).attr('id');  // *not* a closure!
-        processClick(id);
-    });
-}
-</pre>
-
-And then with this (with delegation):
-<pre>
-function addEventHandlers() {
-    $("#board").on('click','img', function (event) {
-        var id = $(event.target).attr('id');  // *not* a closure!
-        processClick(id);
-    });
-}
-</pre>
-</div>
-
+1. `formhandler.js` only has a few small mods:
+    * omit `event.preventDefault()`
+    * pass `event` to user callback
+    * omit form reset
+1. `Luhn.js` has a sum-testing function implemented but not exported;
+doesn't export `test` anymore
+1. `signup.js` has an IIFE that
+    * creates a formhandler for the `#signup` form
+    * adds a submit handler
+    * the handler:
+        * clears old error messages
+        * tests various critera
+        * inserting error message if true
+        * preventing default if true
 
 ## Recap Form Validation
 
@@ -86,26 +58,25 @@ API](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Form_validation#T
 
 ## Required
 
-This couldn't be easier. Just add the `required` attribute, and you're done.
+This couldn't be easier. Just add the `required` attribute, and you're
+done. You can submit the following form using the "enter" key:
 
 ```
 :::HTML
 <form>
    <p><label>
-         <span class="label-body">Name</span>
-         <input type="text" name="name" required>
+         <span class="label-body">zip code</span>
+         <input type="text" name="zip" required>
       </label></p>
 </form>
 ```
 
 <form>
    <p><label>
-         <span class="label-body">Name</span>
-         <input type="text" name="name" required>
+         <span class="label-body">zip code</span>
+         <input type="text" name="zip" required>
       </label></p>
 </form>
-
-Note the multiple uses of `name` above. *sigh*
 
 ## HTML5 types
 
@@ -173,7 +144,8 @@ Our authors suggest that the event to attach the processing to is the
 `input` event, which fires when the `value` changes.
 
 Here, let's use the constraint API to check for a value that is not a
-regular expression or anything else that is easy to check for:
+regular expression or anything else that is easy to check for. Instead, it
+checks that the number is divisible by 3.
 
 ```
 :::HTML
@@ -192,10 +164,11 @@ regular expression or anything else that is easy to check for:
       </label></p>
 </form>
 <script>
-$("#num1").on('input', function(event) {
+$("#num1").on('input',
+  function(event) {
      var n = parseInt(event.target.value,10);
      // arbitrary processing of the value
-     if( n % 3 == 0 ) {
+     if( n % 3 === 0 ) {
           event.target.setCustomValidity('');
      } else {
           event.target.setCustomValidity('Sorry, that is not divisible by 3');
@@ -207,16 +180,21 @@ Here's the code:
 
 ```
 :::JavaScript
-$("#num1").on('input', function(event) {
+$("#num1").on('input',
+   function(event) {
      var n = parseInt(event.target.value,10);
      // arbitrary processing of the value
-     if( n % 3 == 0 ) {
+     if( n % 3 === 0 ) {
           event.target.setCustomValidity('');
      } else {
           event.target.setCustomValidity('Sorry, that is not divisible by 3');
      }
 });
 ```
+
+## Your Questions
+
+Before we go on, I'll answer [your questions](../../quizzes/quiz16.html)
 
 ## Regular Expressions
 
@@ -235,7 +213,8 @@ Let's start simple, and look at a regexp that tests for a string containing
 </form>
 
 <script>
-$("#by1").on('input', function (event) {
+$("#by1").on('input',
+  function (event) {
     var sp = ' ';
     var str = event.target.value;
     $("#out1").text(str+sp+/by/.test(str));
@@ -256,7 +235,8 @@ Here is the full code:
 
 ```
 :::JavaScript
-$("#by1").on('input', function (event) {
+$("#by1").on('input',
+  function (event) {
     var sp = ' ';
     var str = event.target.value;
     $("#out1").text(str+sp+/by/.test(str));
@@ -283,7 +263,8 @@ the regexp language
 
 ## Regular Expression Language
 
-From now on, we'll use the following form to test our regular expressions.
+From now on, we'll use the following form to test our regular
+expressions. Here is [the regular expression tester in a separate page](regex-tester.html)
 
 <form id="regexp-string">
    <p><label>
@@ -297,15 +278,33 @@ From now on, we'll use the following form to test our regular expressions.
    <p>String and result: <output aria-live="polite" id="result"></output></p>
 </form>
 
+```
+<form id="regexp-string">
+   <p><label>
+         <span class="label-body">regexp</span>
+         <input type="text" name="pattern" id="pattern">
+      </label></p>
+   <p><label>
+         <span class="label-body">string</span>
+         <input type="text" name="string" id="string">
+      </label></p>
+   <p>String and result:
+       <output aria-live="polite" id="result"></output>
+       </p>
+</form>
+```
+
 <script>
-$("#regexp-string").on('input', 'input', function (event) {
-    var sp = ' ';
-    var pat = $("#pattern").val();
-    var str = $("#string").val();
-    var regexp = new RegExp(pat);
-    var result = regexp.test(str);
-    $("#result").text(str+sp+result);
-});
+$("#regexp-string").on('input', // event
+                       'input', // selector
+    function (event) {
+        var sp = ' ';
+        var pat = $("#pattern").val();
+        var str = $("#string").val();
+        var regexp = new RegExp(pat);
+        var result = regexp.test(str);
+        $("#result").text(str+sp+result);
+    });
 $("#regexp-string").on('submit',
                        function(event) {
                             event.preventDefault();
@@ -318,16 +317,20 @@ RegExp()` notation:
 
 ```
 :::JavaScript
-$("#regexp-string").on('input', 'input', function (event) {
-    var pat = $("#pattern").val();
-    var str = $("#string").val();
-    var regexp = new RegExp(pat);
-    var result = regexp.test(str);
-    $("#result").text(result);
-});
+$("#regexp-string").on('input', // event
+                       'input', // selector
+    function (event) {
+        var sp = ' ';
+        var pat = $("#pattern").val();
+        var str = $("#string").val();
+        var regexp = new RegExp(pat);
+        var result = regexp.test(str);
+        $("#result").text(str+sp+result);
+    });
 $("#regexp-string").on('submit',
-                       function(event) { event.preventDefault();}
-                       );
+   function(event) {
+      event.preventDefault();
+   });
 ```
 
 First, try "by" against the strings "goodbye" and "hello".
@@ -397,10 +400,6 @@ var mk = "Michael Kölling";
 console.log(/^\w+$/.test(mk));
 </script>
 
-## Your Questions
-
-I'll answer [your questions](../../quizzes/quiz16.html)
-
 ## Exercise: Implement Coffee Run form validation
 
 Do the activities from Chapter 12.
@@ -441,18 +440,22 @@ In `formhandler.js`:
 
 ```
 :::JavaScript
-  FormHandler.prototype.addInputHandler = function (fn) {
+  FormHandler.prototype.addInputHandler =
+  function (fn) {
     console.log('Setting input handler for form');
-    this.$formElement.on('input', '[name="emailAddress"]', function (event) {
-      var emailAddress = event.target.value;
-      var message = '';
-      if (fn(emailAddress)) {
-        event.target.setCustomValidity('');
-      } else {
-        message = emailAddress + ' is not an authorized email address!';
-        event.target.setCustomValidity(message);
-      }
-    });
+    this.$formElement.on('input',
+                         '[name="emailAddress"]',
+      function (event) {
+          var emailAddress = event.target.value;
+          var message = '';
+          if (fn(emailAddress)) {
+            event.target.setCustomValidity('');
+          } else {
+            message = (emailAddress +
+                       ' is not authorized!');
+            event.target.setCustomValidity(message);
+          }
+      });
   };
 ```
 

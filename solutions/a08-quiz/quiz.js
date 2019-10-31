@@ -12,9 +12,10 @@
 (function () {
     
     function makeQuestions() {
-        // you could also use .forEach() here, but I think the loop is fine.
-        var $right = $("#right");
-        var $left = $("#left");
+        // you could also use .forEach() here, 
+        // but I think the loop is fine.
+        var $right = $('#right');
+        var $left = $('#left');
         for( var i=0; i < questions.length; i++ ) {
             var quest = questions[i];
             var qobj = new Question(quest,i);
@@ -26,27 +27,28 @@
         }
     }
     
-    // This is short but hard. Note how the correct answer and the given answer 
+    // This is short but hard. 
+    // Note how the correct answer and the given answer 
     // are looked up in the DOM.
     
     function addGrader(sel) {
         $(sel).on('click','[data-kind=grade]', function (event) {
             console.log('Clicked on '+event.target);
-            var $div = $(event.target).closest(".question");
-            var correct = $div.attr("data-answer");
-            var given =$div.find("[type=radio]:checked").val();
-            console.log("correct answer is "+correct);
-            console.log("User answered "+given);
+            var $div = $(event.target).closest('.question');
+            var correct = $div.attr('data-answer');
+            var given =$div.find('[type=radio]:checked').val();
+            console.log('correct answer is '+correct);
+            console.log('User answered '+given);
             if( correct == given ) {
-                $div.removeClass("wrong").addClass("correct");
+                $div.removeClass('wrong').addClass('correct');
                 $div.find('.feedback').text('Correct!');
             } else {
-                $div.removeClass("correct").addClass("wrong");
+                $div.removeClass('correct').addClass('wrong');
                 $div.find('.feedback').text("Sorry, that's not correct.");
             }
         });
     }
     
     makeQuestions();
-    addGrader("#grader");
+    addGrader('#grader');
 })();

@@ -51,7 +51,6 @@ console.log("area is "+r1.area());
 function Circle(color,c1,radius) {
     // initialize using super's constructor
     Shape.call(this,color);
-    // UL is upper left, LR is lower right
     this.center = c1;
     this.radius = radius;
 }

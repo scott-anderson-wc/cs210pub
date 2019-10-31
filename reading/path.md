@@ -1,18 +1,10 @@
 # JavaScript
       
-There are two possible prerequisites for CS 204: CS 115 or CS 111.  Since
-the two classes follow different structures, for the first few lectures,
-we will be separating the notes for two different audiences.</p>
+CS 111 is a prerequisite for CS 204, so our introduction to JavaScript
+will compare it to Python. If you skipped CS 111 or have forgotten Python,
+let me know.
       
-However, note that you can read both links if you are interested. The CS
-115 link will assume some JavaScript knowledge and explain programming
-concepts more throughly, while the CS 111 link will compare
-Python/JavaScript and their similarities and differences.</p>
-      
-* [CS 111](python-vs-js.html)
-* [CS 115](CS115JS.html)
-      
-## For Everyone
+[Python versus JavaScript](python-vs-js.html)
 
-Reading for everyone: [How to Run JavaScript](practical.html)
+Finally, there's some practical information on [how to run JavaScript](practical.html)
 

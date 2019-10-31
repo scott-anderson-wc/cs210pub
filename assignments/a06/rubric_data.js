@@ -12,7 +12,7 @@
 {value: 10, desc: 'startNewGame() creates a new game, invoking shuffleImages() and resets all global variables '},
 {value: 10, desc: 'Uses abstraction and modularity '},
 {value: 10, desc: '4x4 game board, page looks nice, HTML and CSS are valid'},
-{value: 10, desc: 'Functions are easy to test in the JS console.'}
+{value: 10, desc: 'Good coding style, indentation, etc.'}
         ]
 };
 

@@ -1,0 +1,2069 @@
+%!PS-Adobe-3.0
+%%Title: jBlobs.html, jBlobs.css, Blob.js, Player.js, Enemy.js, game.js
+%%For: Introduction to Front-End Web Development
+%%Creator: a2ps version 4.14
+%%CreationDate: Mon May 13 13:45:58 2019
+%%BoundingBox: 24 40 588 752
+%%DocumentData: Clean7Bit
+%%Orientation: Landscape
+%%Pages: 4
+%%PageOrder: Ascend
+%%DocumentMedia: Letterdj 612 792 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%Requirements: Tumble Duplex 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      % <vector> <key> <val>
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def % -
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Get the underline position and thickness if they're defined.
+    % Use 1 if they are not defined.
+    currentdict /FontInfo 2 copy known
+    { get
+      /UnderlinePosition 2 copy % <FontInfo> /UP <FontInfo> /UP
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+
+      /UnderlineThickness 2 copy % <FontInfo> /UT <FontInfo> /UT
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+      pop % -
+    }{ pop pop
+    } ifelse
+
+    currentdict
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed string
+% Version 1.2 1/31/1990
+% Orignal Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 612 def
+/sw 792 def
+/llx 40 def
+/urx 752 def
+/ury 588 def
+/lly 24 def
+/#copies 1 def
+%% Pagedevice definitions:
+countdictstack
+% Push our own mark, since there can be several PS marks pushed depending
+% where the failure really occured.
+/a2ps_mark
+{
+%%BeginFeature: *Tumble False
+  (<<) cvx exec /Tumble (false) cvx exec (>>) cvx exec setpagedevice
+%%EndFeature
+%%BeginFeature: *Duplex True
+  (<<) cvx exec /Duplex (true) cvx exec (>>) cvx exec setpagedevice
+%%EndFeature
+} stopped
+% My cleartomark
+{ /a2ps_mark eq { exit } if } loop
+countdictstack exch sub dup 0 gt
+{
+  { end } repeat
+}{
+  pop
+} ifelse
+/th 15.000000 def
+/fnfs 11 def
+/bfs 6.751543 def
+/cw 4.050926 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 86.400000 mul
+def
+/ph
+   524.594895 th add
+def
+/pmw urx llx sub pw 2 mul sub 1 div def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+  dup pmw add pw add
+] def
+/y [
+  pmh ph add 0 mul ph add
+  dup
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 5 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1,1) 1
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (<!DOCTYPE html>) K n
+0 T (<html>) N
+0 T () S
+(    ) p
+(<head>) K n
+0 T () S
+(        ) p
+(<title>) K
+(Jelly Blobs of Doom) p
+(</title>) K n
+(5) # () S
+(        ) p
+(<link) K
+( ) p
+(rel='stylesheet' type='text/css' href='jBlobs.css'/) k
+(>) K n
+0 T () S
+(        ) p
+(<link) K
+( ) p
+(href=) k
+(") p
+(https://fonts.googleapis.com/css?family=Asap|Ubuntu) str
+(") p
+( rel=) k
+(") p
+(stylesheet) str
+(") p
+(>) K n
+0 T () S
+(    ) p
+(</head>) K n
+0 T () S
+(    ) p n
+0 T (    ) S
+(<body>) K n
+(10) # () S
+(        ) p
+(<div) K
+( ) p
+(id=) k
+(") p
+(intro) str
+(") p
+(>) K n
+0 T () S
+(            ) p
+(<h1>) K
+(Jelly Blobs of Doom) p
+(</h1>) K n
+0 T () S
+(            ) p
+(<p>) K
+(Based on an original game by Alice Zhou and Jacqueline Young.) p n
+0 T (            ) S
+(<p>) K
+(Instructions:) p
+(</p>) K n
+0 T () S
+(            ) p
+(<ul>) K n
+(15) # () S
+(                ) p
+(<li>) K
+(Move the mouse to control the blue blob.) p n
+0 T (                ) S
+(<li>) K
+(Eat blobs that are smaller than you in order to grow.) p n
+0 T (                ) S
+(<li>) K
+(Avoid bigger blobs or you will shrink.) p n
+0 T (            ) S
+(</ul>) K n
+0 T () S
+(            ) p
+(<p>) K
+( Good luck!) p
+(</p>) K n
+(20) # () S
+(            ) p
+(<p>) K n
+0 T () S
+(                ) p
+(<button) K
+( ) p
+(id=) k
+(") p
+(start) str
+(") p
+( class=) k
+(") p
+(button) str
+(") p
+( type=) k
+(") p
+(button) str
+(") p
+(>) K
+(Start Game) p
+(</button>) K n
+0 T () S
+(                ) p
+(<button) K
+( ) p
+(id=) k
+(") p
+(testGrow) str
+(") p
+( class=) k
+(") p
+(button) str
+(") p
+( type=) k
+(") p
+(button) str
+(") p
+(>) K
+(Test Growing) p
+(</butt) K n
+0 T (on>) N
+0 T () S
+(                ) p
+(<button) K
+( ) p
+(id=) k
+(") p
+(testShrink) str
+(") p
+( class=) k
+(") p
+(button) str
+(") p
+( type=) k
+(") p
+(button) str
+(") p
+(>) K
+(Test Shrinking) p
+(</b) K n
+0 T (utton></p>) N
+0 T () S
+(        ) p
+(</div>) K n
+(25) # () S
+(        ) p n
+0 T (        ) S
+(<div) K
+( ) p
+(id=) k
+(") p
+(winOrLose) str
+(") p
+(></div>) K n
+0 T () S
+(        ) p n
+0 T (        ) S
+(<script) K
+( ) p
+(src=) k
+(") p
+(https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js) str
+(") p
+(></script>) K n
+0 T () S
+(        ) p
+(<script) K
+( ) p
+(type='text/javascript' src='random.js') k
+(></script>) K n
+(30) # () S
+(        ) p
+(<script) K
+( ) p
+(type='text/javascript' src='Blob.js') k
+(></script>) K n
+0 T () S
+(        ) p
+(<script) K
+( ) p
+(type='text/javascript' src='Player.js') k
+(></script>) K n
+0 T () S
+(        ) p
+(<script) K
+( ) p
+(type='text/javascript' src='Enemy.js') k
+(></script>) K n
+0 T () S
+(        ) p
+(<script) K
+( ) p
+(type='text/javascript' src='game.js') k
+(></script>) K n
+0 T () S
+(        ) p n
+(35) # (        ) N
+0 T (    ) S
+(</body>) K n
+0 T (</html>) N
+(jBlobs.html) (Page 1/1) (Apr 26, 17 11:36) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (.circle {) p n
+0 T (    border-radius: 50%;) N
+0 T (    position: absolute;) N
+0 T (/*    display: inline-block;*/) N
+(5) # (}) N
+0 T () N
+0 T (#player {) N
+0 T (    width: 50px;) N
+0 T (    height: 50px;) N
+(10) # (    top: 100px;) N
+0 T (    left: 100px;) N
+0 T (    z-index: 999;) N
+0 T (}) N
+0 T () N
+(15) # (body {) N
+0 T (    overflow: hidden;) N
+0 T (}) N
+0 T () N
+0 T (#winOrLose {) N
+(20) # (    position: absolute;) N
+0 T (    top: 42%;) N
+0 T (    left: 42%;) N
+0 T (    z-index: 9999;) N
+0 T (    font-size: 40px;) N
+(25) # (    font-family: 'Asap', sans-serif;) N
+0 T (}) N
+0 T () N
+0 T (.button {) N
+0 T (    margin: 10px auto;) N
+(30) # (    padding: 15px;) N
+0 T (    background-color: tomato;) N
+0 T (    border-radius: 10px;) N
+0 T (    font-size: 30px;) N
+0 T (}) N
+(35) # () N
+0 T (#intro {) N
+0 T (    width: 90%;) N
+0 T (    margin: auto;) N
+0 T (    font-size: 30px;) N
+(40) # (    z-index: 9999;) N
+0 T (    font-family: 'Asap', sans-serif; ) N
+0 T (}) N
+0 T () N
+0 T (h1 {) N
+(45) # (    width: 50%;) N
+0 T (    margin: auto;) N
+0 T (    margin-top: 10%;) N
+0 T (    margin-bottom: none;) N
+0 T (    font-family: 'Asap', sans-serif; ) N
+(50) # (    ) N
+0 T (}) N
+(jBlobs.css) (Page 1/1) (Nov 28, 17 11:01) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(jBlobs.html, jBlobs.css) (1/4) (Monday May 13, 2019) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (1,1) 2
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (function) K
+( ) p
+(Blob) l
+(\(color, diameter\) {) p n
+0 T (    ) S
+(// have to create the elt first, since other methods modify its CSS) c n
+0 T () S
+(    ) p
+(this) k
+(.elt = $\(") p
+(<div></div>) str
+("\).addClass\(") p
+(circle) str
+("\);) p n
+0 T (    ) S
+(this) k
+(.setDiameter\(diameter\);) p n
+(5) # (    ) S
+(this) k
+(.setColor\(color\);) p n
+0 T (    ) S
+(this) k
+(.radius = Math.floor\(diameter/2\);) p n
+0 T (    ) S
+(// coordinates; as yet unknown) c n
+0 T () S
+(    ) p
+(this) k
+(.setX\(0\);) p n
+0 T (    ) S
+(this) k
+(.setY\(0\);) p n
+(10) # (}) N
+0 T () N
+0 T (Blob.) S
+(prototype) k
+(.addToGame = function \(container\) { ) p n
+0 T (    ) S
+(this) k
+(.elt.appendTo\(container\); ) p n
+0 T (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+(15) # (};) N
+0 T () N
+0 T (Blob.) S
+(prototype) k
+(.setColor = function \(color\) {) p n
+0 T (    ) S
+(this) k
+(.color = color;) p n
+0 T (    ) S
+(this) k
+(.elt.css\(") p
+(background-color) str
+(",color\);) p n
+(20) # (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+0 T (};) N
+0 T () N
+0 T (Blob.) S
+(prototype) k
+(.setDiameter = function \(diameter\) {) p n
+0 T (    ) S
+(this) k
+(.diameter = diameter;   ) p
+(// check that it's positive?) c n
+(25) # () S
+(    ) p
+(var) K
+( radius = diameter/2;) p n
+0 T (    ) S
+(this) k
+(.radius = radius;) p n
+0 T (    ) S
+(this) k
+(.elt.css\({width: diameter,) p n
+0 T (                  height:diameter,) N
+0 T (                  left: ) S
+(this) k
+(.x-radius,) p n
+(30) # (                  top: ) S
+(this) k
+(.y-radius}\);) p n
+0 T (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+0 T (};) N
+0 T (    ) N
+0 T (Blob.) S
+(prototype) k
+(.setRadius = function \(radius\) {) p n
+(35) # (    ) S
+(this) k
+(.setDiameter\(radius*2\);) p n
+0 T (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+0 T (};) N
+0 T () N
+0 T (Blob.) S
+(prototype) k
+(.getDiameter = function \(\) { ) p
+(return) K
+( ) p
+(this) k
+(.diameter };) p n
+(40) # () N
+0 T (Blob.) S
+(prototype) k
+(.getRadius = function \(\) { ) p
+(return) K
+( ) p
+(this) k
+(.radius };) p n
+0 T () N
+0 T () S
+(// x and y are the *center* values, not top left) c n
+0 T () S
+(Blob.) p
+(prototype) k
+(.getX =  function \(\) { ) p
+(return) K
+( ) p
+(this) k
+(.x; };) p n
+(45) # (Blob.) S
+(prototype) k
+(.getY =  function \(\) { ) p
+(return) K
+( ) p
+(this) k
+(.y; };) p n
+0 T (    ) N
+0 T (Blob.) S
+(prototype) k
+(.setX =  function \(x\) { ) p n
+0 T (    ) S
+(this) k
+(.x = x; ) p n
+0 T (    ) S
+(this) k
+(.elt.css\(") p
+(left) str
+(",\() p
+(this) k
+(.x-) p
+(this) k
+(.radius\)+") p
+(px) str
+("\);) p n
+(50) # (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+0 T (};) N
+0 T () N
+0 T (Blob.) S
+(prototype) k
+(.setY =  function \(y\) { ) p n
+0 T (    ) S
+(this) k
+(.y = y; ) p n
+(55) # (    ) S
+(this) k
+(.elt.css\(") p
+(top) str
+(",\() p
+(this) k
+(.y-) p
+(this) k
+(.radius\)+") p
+(px) str
+("\);) p n
+0 T (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+0 T (};) N
+0 T (    ) N
+0 T (Blob.) S
+(prototype) k
+(.intersects = function \(other\) {) p n
+(60) # (    ) S
+(var) K
+( dx = ) p
+(this) k
+(.getX\(\) - other.getX\(\);) p n
+0 T (    ) S
+(var) K
+( dy = ) p
+(this) k
+(.getY\(\) - other.getY\(\);) p n
+0 T (    ) S
+(var) K
+( distance_squared = \(dx * dx + dy * dy\);) p n
+0 T () N
+0 T (    ) S
+(var) K
+( r1 = ) p
+(this) k
+(.getRadius\(\);) p n
+(65) # (    ) S
+(var) K
+( r2 = other.getRadius\(\);) p n
+0 T (    ) S
+(var) K
+( rsum = r1+r2;) p n
+0 T (    ) S
+(var) K
+( closer = \(distance_squared <= rsum*rsum\);) p n
+0 T (    ) S
+(return) K
+( closer;) p n
+0 T (};) N
+(Blob.js) (Page 1/1) (Dec 12, 17 9:41) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (var) K
+( winningDiameter = window.innerHeight/2; ) p
+(// bigger than this wins) c n
+0 T () S
+(var) K
+( losingDiameter = 5;                     ) p
+(// smaller than this loses) c n
+0 T () S
+(var) K
+( growDiameter = 20;                      ) p
+(// grow by this many pixels) c n
+0 T () S
+(var) K
+( shrinkDiameter = 5;                     ) p
+(// shrink by this many pixels) c n
+(5) # () N
+0 T () S
+(function) K
+( ) p
+(Player) l
+(\(color, diameter\) {) p n
+0 T (    Blob.call\() S
+(this) k
+(,color,diameter\);) p n
+0 T (    ) S
+(this) k
+(.setX\(window.innerWidth/2\);) p n
+0 T (    ) S
+(this) k
+(.setY\(window.innerHeight/2\);) p n
+(10) # (}) N
+0 T (    ) N
+0 T (Player.) S
+(prototype) k
+( = Object.create\(Blob.) p
+(prototype) k
+(\);) p n
+0 T (Player.) S
+(prototype) k
+(.constructor = Player;) p n
+0 T () N
+(15) # () S
+(/* Ideally, this method should *also* check for collisions, but we'd have) c n
+0 T ( * to check every Enemy in the game. We could do that; there's probably) N
+0 T ( * only a dozen at a time. */) N
+0 T () N
+0 T () S
+(Player.) p
+(prototype) k
+(.move = function\(point\) {) p n
+(20) # (    ) S
+(this) k
+(.setX\(point.clientX\);) p n
+0 T (    ) S
+(this) k
+(.setY\(point.clientY\);) p n
+0 T (    ) S
+(return) K
+( ) p
+(this) k
+(;) p n
+0 T (};) N
+0 T (    ) N
+(25) # (Player.) S
+(prototype) k
+(.grow = function \(\) {) p n
+0 T (    ) S
+(this) k
+(.setDiameter\() p
+(this) k
+(.getDiameter\(\)+growDiameter\);) p n
+0 T (    console.log\(') S
+(grow! to ) str
+('+) p
+(this) k
+(.getDiameter\(\)\);) p n
+0 T (    ) S
+(if) K
+(\( ) p
+(this) k
+(.getDiameter\(\) >= winningDiameter \) {) p n
+0 T (        $\(") S
+(#winOrLose) str
+("\).text\( ") p
+(You win! :\) ) str
+("\);) p n
+(30) # (        stopGame\(\);) N
+0 T (    }) N
+0 T (};) N
+0 T (    ) N
+0 T (Player.) S
+(prototype) k
+(.shrink = function \(\) {) p n
+(35) # (    ) S
+(this) k
+(.setDiameter\() p
+(this) k
+(.getDiameter\(\)-5\);) p n
+0 T (    console.log\(') S
+(shrink! to ) str
+('+) p
+(this) k
+(.getDiameter\(\)\);) p n
+0 T (    ) S
+(if) K
+(\( ) p
+(this) k
+(.getDiameter\(\) < losingDiameter \) {) p n
+0 T (        $\(") S
+(#winOrLose) str
+("\).text\( ") p
+(Booo, you've lost.) str
+("\);) p n
+0 T (        stopGame\(\);) N
+(40) # (    }) N
+0 T (};) N
+0 T () N
+0 T (Player.) S
+(prototype) k
+(.collide = function \(enemy\) {) p n
+0 T (    ) S
+(if) K
+(\( ) p
+(this) k
+(.diameter >= enemy.getDiameter\(\) \) {) p n
+(45) # (        ) S
+(this) k
+(.grow\(\);) p n
+0 T (        enemy.remove\(\);) N
+0 T (    } ) S
+(else) K
+( {) p n
+0 T (        ) S
+(this) k
+(.shrink\(\);) p n
+0 T (    }) N
+(50) # (};) N
+(Player.js) (Page 1/1) (Dec 12, 17 9:47) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(Blob.js, Player.js) (2/4) (Monday May 13, 2019) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (1-2) 3
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (var) K
+( testingMode = ) p
+(false) k
+(;        ) p
+(// or 'grow' or 'shrink') c n
+0 T () N
+0 T () S
+(var) K
+( minDiameter = 5;                   ) p
+(// random size >= this) c n
+0 T () S
+(var) K
+( maxDiameter = window.innerWidth/4; ) p
+(// random size <= this) c n
+(5) # () S
+(var) K
+( enemyDuration = 5000;              ) p
+(// time to cross the document) c n
+0 T () N
+0 T () S
+(function) K
+( ) p
+(Enemy) l
+( \(\) {) p n
+0 T (    ) S
+(var) K
+( color = random.color\(\);) p n
+0 T (    ) S
+(var) K
+( diam;) p n
+(10) # (    ) S
+(if) K
+(\(testingMode===') p
+(shrink) str
+('\) {) p n
+0 T (        diam = 100;             ) S
+(// big blobs to test shrinking) c n
+0 T () S
+(    } ) p
+(else) K
+( ) p
+(if) K
+( \(testingMode === ') p
+(grow) str
+('\) {) p n
+0 T (        diam = 10;              ) S
+(// small blobs to test growing) c n
+0 T () S
+(    } ) p
+(else) K
+( {) p n
+(15) # (        diam = random.intBetween\(minDiameter, maxDiameter\);) N
+0 T (    }) N
+0 T (    Blob.call\() S
+(this) k
+(,color,diam\);) p n
+0 T (    ) S
+(// whether it has collided with the player. Only the first collision counts.) c n
+0 T () S
+(    ) p
+(this) k
+(.collided = ) p
+(false) k
+(;) p n
+(20) # (    ) S
+(// the side it comes in from) c n
+0 T () S
+(    ) p
+(this) k
+(.side = random.arrayElt\([') p
+(top) str
+(',') p
+(right) str
+(',') p
+(bottom) str
+(',') p
+(left) str
+(']\);) p n
+0 T (    ) S
+(this) k
+(.setCoords\(\);) p n
+0 T (}) N
+0 T (    ) N
+(25) # (Enemy.) S
+(prototype) k
+( = Object.create\(Blob.) p
+(prototype) k
+(\);) p n
+0 T (Enemy.) S
+(prototype) k
+(.constructor = Enemy;) p n
+0 T () N
+0 T (Enemy.) S
+(prototype) k
+(.collide = function \(\) { ) p n
+0 T (    ) S
+(this) k
+(.collided = ) p
+(true) k
+(; ) p n
+(30) # (    thePlayer.collide\() S
+(this) k
+(\);) p n
+0 T (};) N
+0 T () N
+0 T (Enemy.) S
+(prototype) k
+(.maybeCollide = function \(\) {) p n
+0 T (    ) S
+(if) K
+(\( ! ) p
+(this) k
+(.collided \) {) p n
+(35) # (        ) S
+(// OMG. This is a pain, but necessary, because the animation only) c n
+0 T () S
+(        ) p
+(// updates the CSS properties, not the x and y values in our) c n
+0 T () S
+(        ) p
+(// object.) c n
+0 T () S
+(        ) p
+(this) k
+(.setX\(parseInt\() p
+(this) k
+(.elt.css\(") p
+(left) str
+("\),10\)+) p
+(this) k
+(.radius\);) p n
+0 T (        ) S
+(this) k
+(.setY\(parseInt\() p
+(this) k
+(.elt.css\(") p
+(top) str
+("\),10\)+) p
+(this) k
+(.radius\);) p n
+(40) # (        ) S
+(if) K
+(\( ) p
+(this) k
+(.intersects\(thePlayer\) \) {) p n
+0 T (            ) S
+(this) k
+(.collide\(\);) p n
+0 T (        }) N
+0 T (    }) N
+0 T (};) N
+(45) # () N
+0 T (Enemy.) S
+(prototype) k
+(.setCoords = function\(\) {) p n
+0 T (    ) S
+(var) K
+( x, y;) p n
+0 T (    ) S
+(if) K
+(\(testingMode\) {) p n
+0 T (        x = window.innerWidth/2;) N
+(50) # (        y = window.innerHeight/2;) N
+0 T (    } ) S
+(else) K
+( {) p n
+0 T (        x = random.intBetween\(0, window.innerWidth\);) N
+0 T (        y = random.intBetween\(0, window.innerHeight\);) N
+0 T (    }) N
+(55) # (    ) S
+(switch) K
+( \() p
+(this) k
+(.side\) {) p n
+0 T (    ) S
+(case) K
+( ") p
+(top) str
+(": ) p n
+0 T (        ) S
+(this) k
+(.setX\( x \);) p n
+0 T (        ) S
+(this) k
+(.setY\( -1*) p
+(this) k
+(.radius \);) p n
+0 T (        ) S
+(break) K
+(;) p n
+(60) # () N
+0 T (    ) S
+(case) K
+( ") p
+(right) str
+(":) p n
+0 T (        ) S
+(this) k
+(.setX\( window.innerWidth+) p
+(this) k
+(.radius \);) p n
+0 T (        ) S
+(this) k
+(.setY\( y \);) p n
+0 T (        ) S
+(break) K
+(;) p n
+(65) # () N
+0 T (    ) S
+(case) K
+( ") p
+(bottom) str
+(":) p n
+0 T (        ) S
+(this) k
+(.setX\( x \);) p n
+0 T (        ) S
+(this) k
+(.setY\( window.innerHeight+) p
+(this) k
+(.radius \);) p n
+0 T (        ) S
+(break) K
+(;) p n
+(70) # () N
+0 T (    ) S
+(case) K
+( ") p
+(left) str
+(":) p n
+0 T (        ) S
+(this) k
+(.setX\( -1*) p
+(this) k
+(.radius \);) p n
+0 T (        ) S
+(this) k
+(.setY\( y \);) p n
+0 T (        ) S
+(break) K
+(;) p n
+(75) # (                 ) N
+0 T (    ) S
+(default) K
+(: ) p
+(throw) K
+( ) p
+(new) K
+( Error\(") p
+(no such 'side' :) str
+("+) p
+(this) k
+(.side\);) p n
+0 T (    }) N
+(Enemy.js) (Page 1/2) (Dec 12, 17 9:45) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (};) p n
+0 T (    ) N
+(80) # (Enemy.) S
+(prototype) k
+(.remove = function \(\) { ) p n
+0 T (    ) S
+(this) k
+(.elt.stop\(\).remove\(\); ) p n
+0 T (};) N
+0 T () N
+0 T (Enemy.) S
+(prototype) k
+(.start = function\(\) {) p n
+(85) # (    ) S
+(var) K
+( options = { duration: enemyDuration,) p n
+0 T (                    progress: ) S
+(this) k
+(.maybeCollide.bind\() p
+(this) k
+(\),) p n
+0 T (                    complete: ) S
+(this) k
+(.remove.bind\() p
+(this) k
+(\) };) p n
+0 T () N
+0 T (    ) S
+(switch) K
+(\() p
+(this) k
+(.side\) {) p n
+(90) # (    ) S
+(case) K
+( ") p
+(top) str
+(":) p n
+0 T (        ) S
+(this) k
+(.elt.animate\({ top: ") p
+(+=) str
+(" + \(window.innerHeight+) p
+(this) k
+(.diameter\) },) p n
+0 T (                         options\);) N
+0 T (        ) S
+(break) K
+(;) p n
+0 T (    ) S
+(case) K
+( ") p
+(right) str
+(":) p n
+(95) # (        ) S
+(this) k
+(.elt.animate\({ left: ") p
+(-=) str
+(" + \(window.innerWidth+) p
+(this) k
+(.diameter\) },) p n
+0 T (                         options\);) N
+0 T (        ) S
+(break) K
+(;) p n
+0 T (    ) S
+(case) K
+( ") p
+(bottom) str
+(":) p n
+0 T (        ) S
+(this) k
+(.elt.animate\({ top: ") p
+(-=) str
+(" + \(window.innerHeight+) p
+(this) k
+(.diameter\) },) p n
+(100) # (                         options\);) N
+0 T (        ) S
+(break) K
+(;) p n
+0 T (    ) S
+(case) K
+( ") p
+(left) str
+(":) p n
+0 T (        ) S
+(this) k
+(.elt.animate\({ left: ") p
+(+=) str
+(" + \(window.innerWidth+) p
+(this) k
+(.diameter\) },) p n
+0 T (                         options\);) N
+(105) # (        ) S
+(break) K
+(;) p n
+0 T (    ) S
+(default) K
+(: ) p
+(throw) K
+( ) p
+(new) K
+( Error\(") p
+(no such 'side' :) str
+("+) p
+(this) k
+(.side\);) p n
+0 T (    }) N
+0 T (};) N
+(Enemy.js) (Page 2/2) (Dec 12, 17 9:45) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(Enemy.js) (3/4) (Monday May 13, 2019) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (1-2) 4
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (// Should wrap these up in an IIFE) c n
+0 T () N
+0 T () S
+(var) K
+( interval;) p n
+0 T () N
+(5) # () S
+(function) K
+( ) p
+(stopGame) l
+(\(\) {) p n
+0 T (    console.log\(') S
+(stopping game) str
+('\);) p n
+0 T (    clearInterval\(interval\);) N
+0 T (    $\(") S
+(div) str
+("\).stop\(\);) p n
+0 T (}) N
+(10) # () N
+0 T () S
+(var) K
+( startingDiameter = 30;) p n
+0 T () S
+(var) K
+( thePlayer;) p n
+0 T () N
+0 T () S
+(function) K
+( ) p
+(startGame) l
+(\(\) {) p n
+(15) # (    console.log\(") S
+(starting game) str
+("\);) p n
+0 T (    $\(") S
+(#intro) str
+("\).remove\(\);) p n
+0 T (    ) S
+(var) K
+( board = $\(") p
+(body) str
+("\);) p n
+0 T (    thePlayer = ) S
+(new) K
+( Player\(") p
+(blue) str
+(",startingDiameter\);) p n
+0 T (    thePlayer) N
+(20) # (        .setX\(window.innerWidth/2\)) N
+0 T (        .setY\(window.innerHeight/2\)) N
+0 T (        .addToGame\(board\);) N
+0 T (    interval = setInterval\(function \(\) { ) N
+0 T (        ) S
+(var) K
+( e = ) p
+(new) K
+( Enemy\(\); ) p n
+(25) # (        e.addToGame\(board\).start\(\);) N
+0 T (    },) N
+0 T (                           1000\);) N
+0 T (    $\(document\).on\(') S
+(mousemove) str
+(',) p n
+0 T (                   thePlayer.move.bind\(thePlayer\)\);) N
+(30) # (}) N
+0 T () N
+0 T ($\(') S
+(#start) str
+('\).click\(function \(\) {) p n
+0 T (    testingMode = ) S
+(false) k
+(;) p n
+0 T (    startGame\(\);) N
+(35) # (}\);) N
+0 T () N
+0 T ($\(') S
+(#testGrow) str
+('\).click\(function \(\) { ) p n
+0 T (    testingMode = ') S
+(grow) str
+(';) p n
+0 T (    startGame\(\);) N
+(40) # (}\);) N
+0 T () N
+0 T ($\(') S
+(#testShrink) str
+('\).click\(function \(\) { ) p n
+0 T (    testingMode = ') S
+(shrink) str
+(';) p n
+0 T (    startGame\(\);) N
+(45) # (}\);) N
+0 T () N
+0 T () S
+(// ================================================================) c n
+0 T (// Testing) N
+0 T () N
+(50) # () S
+(function) K
+( ) p
+(testGame) l
+(\(size\) {) p n
+0 T (    thePlayer = ) S
+(new) K
+( Player\(") p
+(blue) str
+(",size\);) p n
+0 T (    thePlayer.addToGame\(") S
+(body) str
+("\);) p n
+0 T (    e1 = ) S
+(new) K
+( Enemy\(\);) p n
+0 T (    e1.addToGame\(") S
+(body) str
+("\);) p n
+(55) # (    e1.start\(\);) N
+0 T (}) N
+0 T () N
+0 T () S
+(function) K
+( ) p
+(testIntersect) l
+(\(dx,dy\) {) p n
+0 T (    ) S
+(// This test has two blobs of radius 100 and a 120,160,200 triangle) c n
+(60) # () S
+(    ) p
+(// between their centers, so their centers are 200 px apart and they) c n
+0 T () S
+(    ) p
+(// should be just tangent. The second blob is perturbed by \(dx,dy\)) c n
+0 T () S
+(    dx = \(dx === ) p
+(undefined) k
+(\) ? 0 : dx;) p n
+0 T (    dy = \(dy === ) S
+(undefined) k
+(\) ? 0 : dy;) p n
+0 T (    $\(") S
+(.circle) str
+("\).remove\(\);      ) p
+(// remove any prior blobs) c n
+(65) # () S
+(    ) p
+(// these are global on purpose, so you can play with them afterward.) c n
+0 T () S
+(    b1 = ) p
+(new) K
+( Blob\(") p
+(red) str
+(",200\);   ) p
+(// radius of 100) c n
+0 T () S
+(    b2 = ) p
+(new) K
+( Blob\(") p
+(green) str
+(",200\);) p n
+0 T (    b1.setX\(100\).setY\(100\).addToGame\(") S
+(body) str
+("\);) p n
+0 T (    b2.setX\(100+120+dx\).setY\(100+160+dy\).addToGame\(") S
+(body) str
+("\);) p n
+(70) # (    console.log\(") S
+(b1 intersects b2? ) str
+(",b1.intersects\(b2\)\);) p n
+0 T (    console.log\(") S
+(b2 intersects b1? ) str
+(",b2.intersects\(b1\)\);) p n
+0 T (}) N
+0 T () N
+0 T () S
+(function) K
+( ) p
+(testProgress) l
+(\(\) {) p n
+(75) # (    $\(") S
+(.circle) str
+("\).remove\(\);      ) p
+(// remove any prior blobs) c n
+0 T () S
+(    blob17 = ) p
+(new) K
+( Blob\(") p
+(coral) str
+(",200\);) p n
+0 T (    blob17.setX\(100\).setY\(100\).addToGame\(") S
+(body) str
+("\);) p n
+(game.js) (Page 1/2) (Nov 29, 17 16:55) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (    $\(blob17.elt\)) p n
+0 T (        .animate\({ left: ") S
+(+=456px) str
+(" },) p n
+(80) # (                 { duration: 3000,) N
+0 T (                   progress: function \(\) {) N
+0 T (                     ) S
+(var) K
+( $elt = $\(blob17.elt\);) p n
+0 T (                     ) S
+(var) K
+( left = parseInt\($elt.css\(") p
+(left) str
+("\),10\);) p n
+0 T (                     ) S
+(var) K
+( x = left+100; ) p
+(// radius is 100) c n
+(85) # () S
+(                     console.log\(") p
+(x is now ) str
+("+x\);) p n
+0 T (                 }}\);                                  ) N
+0 T (}) N
+(game.js) (Page 2/2) (Nov 29, 17 16:55) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(game.js) (4/4) (Monday May 13, 2019) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

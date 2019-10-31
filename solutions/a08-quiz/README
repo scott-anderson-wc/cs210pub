@@ -1,0 +1,7 @@
+I created quiz.ps like this:
+
+a2ps -f7 -o quiz.ps quiz.html custom.css Question.js quiz.js
+
+The f7 makes the font a little bigger than the default (I have no idea
+what units those are in), while still fitting on one sheet of paper.
+

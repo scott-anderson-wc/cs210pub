@@ -2,6 +2,8 @@
 
 ## Outline
 
+1. Announcements
+1. Catch up on dates
 1. DOM
 1. Events
 1. Event Handlers
@@ -86,12 +88,13 @@ Notice that the semi-colon to end the statement is *only* on the last line.
 
 There are lots of jQuery methods to insert nodes and content and otherwise modify the structure of the document. 
 
-Here are some examples. We'll talk through them.
+Here are some examples. We'll walk through them.
 
 ```
 :::javascript
 $("<li>").text('apples').appendTo("#groceries");
-$("#groceries").append("<li><em>lots</em> of chocolate</li>");
+$("#groceries").append
+        ("<li><em>lots</em> of chocolate</li>");
 $("#sec1").html("<b>important</b> stuff");
 $("#fred > li").remove();
 $("#pic").attr("src","fred.jpeg");
@@ -179,12 +182,20 @@ would invoke it.
 
 ## Exercises
 
-We'll walk through these:
+There is a short series of exercises in our course folder. Here's how to
+copy the collection:
 
-Here's a starter web page: <a href="colors1.html">colors1.html</a>. We'll
-  view the source (it's short) to make sure we are comfortable with it.
+```
+cd ~/public_html/cs204/
+cp -r ~cs204/pub/downloads/js3 js3
+cd js3
+code colors1.html
+```
 
-Copy/paste it to your own workspace to work on today.  
+Here's the first web page: <a
+  href="js3/colors1.html">js3/colors1.html</a>. We'll view the source
+  (it's short) to make sure we are comfortable with it.
+
 
 ## Exercise 1: Color Rotation
 
@@ -197,10 +208,24 @@ var currColorIndex = 0;
 ```
 
 <div class="exercise">
-<p>Write a function named <code>nextColor</code> to return the next color
-(a string), treating the array as circular. Implement the function using
-the JS console. Test it the same way. Note that this won't modify the
-document in any way.</p>
+
+<p>Write a function named <code>nextColor</code> that takes no arguments
+and returns the next color (a string) in the array. It should treat the
+array as circular.
+
+<p>Note that you will <em>not</em> need a loop here. 
+
+<p>Implement the function and reload your page. Test it using the JS
+console. Note that this won't modify the document in any way. Here's what
+the calls in the console will look like:</p>
+
+<pre class="prettyprint lang-js">
+&gt; nextColor();
+&lt; "green"
+&gt; nextColor();
+&lt; "blue"
+</pre>
+
 </div>
 
 <p>Here's my solution:</p>
@@ -214,8 +239,10 @@ function nextColor() {
     return mainColors[currColorIndex];
 }
 </code></pre>
-  <p><a href="colors2.html">colors2.html</a>. Test it by opening the
-  console and invoking the function a few times.</p>
+
+  <p>You can see and test the solution in
+  the <a href="js3/colors2.html">jw3/colors2.html</a> File. Test it by
+  opening the console and invoking the function a few times.</p>
 </div>
 
 ## jQuery
@@ -240,9 +267,12 @@ $("h2").css("border-bottom","1px solid green");
 Exercise 2: Setting the Color
 
 <div class="exercise">
+
 <p>Write a function name <code>setNextColor</code> to set the color of all
   the LI elements in the list of colors to the new color, as returned
-  by <code>nextColor</code>. Implement and test it using the JS console.</p>
+  by <code>nextColor</code>. The function will take no arguments and
+  return no values. Implement, save the file,reload, and test it using the
+  JS console.</p>
 </div>
 
 <p>Here's my solution:</p>
@@ -253,8 +283,9 @@ function setNextColor() {
     $("#colorList li").css("color",color);
 }
 </code></pre>
-  <p><a href="colors3.html">colors3.html</a> Test it by opening the
-  console and invoking the <code>setNextColor()</code> a few times</p>
+  <p><a href="js3/colors3.html">js3/colors3.html</a> has the
+  solution. Test it by opening the console and invoking
+  the <code>setNextColor()</code> a few times</p>
 </div>
 
 ## Events and Event Handlers
@@ -289,30 +320,28 @@ jQuery makes it easy to do this:
   <pre><code class="codehilite">
 $("#nextColorButton").click(setNextColor);
 </code></pre>
-  <p><a href="colors4.html">colors4.html</a></p>
+<p>You can see and try the solution in 
+<a href="js3/colors4.html">js3/colors4.html</a></p>
+
 </div>
 
 ## Exercise 4: Change an image
 
-<div class="exercise"> <p>Given this <a
-href="colors4-flowers.html">starting page with flowers</a>, write some
-code to replace the roses with violets (`violets.jpeg`).
+<div class="exercise">
+
+<p>Write some code to dynamically replace the roses with violets
+(<code>violets.jpeg</code>) when the <code>#changeFlowersButton</code> is
+clicked.
+
 </div>
-
-Note that you can copy/paste this code to your workspace, but replace the
-relative URL for the `roses.jpeg` with an absolute url: `https://cs.wellesley.edu/~cs204/...`
-
 
 <p>Here's my solution:</p>
 <div class="solution">
   <pre><code class="codehilite">
 $("#flower").attr('src','violets.jpeg');
 </code></pre>
-  <p><a href="colors4-flowers-solved.html">colors4-flowers-solved.html</a></p>
+  <p><a href="js3/solved4.html">js3/solved4.html</a> is the solution.</p>
 </div>
-
-Thought experiment: how could we have a button that, when clicked, changed
-the roses to violets?
 
 ## Conclusion
 

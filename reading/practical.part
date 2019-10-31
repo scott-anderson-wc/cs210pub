@@ -18,12 +18,15 @@
     In CS 204, we will mostly be using external JavaScript files.</p>
     <iframe width="100%" height="300" src="//jsfiddle.net/ffbk7Lr4/7/embedded/js,html,result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-<p>If you took CS 111, you used Canopy as your editor. Canopy had a file editor area and a <b>console</b> (also known as a <b>shell</b>) 
-In CS 204, we are using cloud 9 as the editor and the <b>chrome browser</b> for its console, where you can evaluate single JavaScript expressions and test your code for outputs.</p>
+<p>If you took CS 111, you used Canopy as your editor. Canopy had a file
+editor area and a <b>console</b> (also known as a <b>shell</b>) In CS 204,
+we are using cloud 9's built-in editor (Ace) and the <b>chrome browser</b>
+for its console, where you can evaluate single JavaScript expressions and
+test your code for outputs.</p>
 
 <p>To get to the console on a mac:</p>
 <ol>
-  <li>Open up a chrome browser (any website will do)</li>
+  <li>Open up a chrome browser (any website will do, including this page)</li>
   <li>On the top bar, go to view --> developer --> JavaScript Console</li>
 </ol>
 

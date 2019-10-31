@@ -119,12 +119,22 @@ function playerTurn(choice) {
 // =============================================================================
 // Finally, add the event handlers
 
+// Here's the code I expected you to write for RPS:
+
+$("#player-throws-rock").click(function () { playerTurn("rock"); });
+$("#player-throws-paper").click(function () { playerTurn("paper"); });
+$("#player-throws-scissors").click(function () { playerTurn("scissors"); });
+
+// Here's a fancier way, more similar to the book:
+
 // Note that this code is very similar to how click handlers were added to
 // thumbnails in Ottergram, except that this code uses jQuery, which provides
 // some nice shortcuts. The inner anonymous function is still a closure over
 // the variable 'choice', which in this case has a value that is a string,
 // rather than being a DOM element. Instead, we get the string out of the DOM
 // element before the closure is created. 
+
+/*
 
 function addEventHandlers() {
    $("#player img").each( function (index, elt) {
@@ -134,3 +144,5 @@ function addEventHandlers() {
 }
 
 addEventHandlers();
+*/
+

@@ -45,7 +45,7 @@ are contained inside the form.
             
 Let's see an example form, and then we'll look at the code that creates it.
 
-<form class="example" id="pizza-form">
+<form class="example" id="pizza-form" method="GET" action="https://cs.wellesley.edu/~cs304/cgi-bin/dump.cgi">
   <p><label>Customer name: <input name="customer"></label></p>
   <p><label>Telephone: <input type=tel name="phone"></label></p>
   <p><label>E-mail address: <input type=email name="addr"></label></p>
@@ -88,18 +88,19 @@ Let's see an example form, and then we'll look at the code that creates it.
 
 ## Form Fields
 
-<p>Let's look at the different input elements.  The following table shows
-  the HTML syntax for including different HTML elements in a form. As you
-  will notice, the most common element is <code>&lt;input&gt;</code>,
-  which, based on the value for its attribute <code>type</code> will
-  display a different kind of input. Play with the rendered version of a
-  tag in every row in the table.</p>
+<p>Let's look at the different input elements (also known as
+  <em>controls</em>).  The following table shows the HTML syntax for
+  including different HTML elements in a form. As you will notice, the
+  most common element is <code>&lt;input&gt;</code>, which, based on the
+  value for its attribute <code>type</code> will display a different kind
+  of input. Play with the rendered version of a tag in every row in the
+  table.</p>
           
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>Tag Name</th>
-      <th>Rendered Tag</th>
+      <th>Control HTML</th>
+      <th>Rendered Control</th>
       <th>
         More Info
       </th>
@@ -107,43 +108,43 @@ Let's see an example form, and then we'll look at the code that creates it.
   </thead>
   <tbody>
     <tr>
-      <td><pre class="prettyprint lang-html">&lt;input type="text"&gt;</pre></td>
-      <td><input></td>
+      <td>text: <pre class="prettyprint lang-html">&lt;input type="text"&gt;</pre></td>
+      <td><label>name: <input type="text"></label></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/tags/tag_input.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>
     </tr>
     <tr>
-      <td><pre class="prettyprint lang-html">Your Age: &lt;input type="number" min="1" max="120"&gt;</pre></td>
-      <td>Your Age: <input type=number min="1" max="120"></td>
+      <td>number: <pre class="prettyprint lang-html">&lt;input type="number" min="1" max="120"&gt;</pre></td>
+      <td><label>age: <input type=number min="1" max="120"></label></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/tags/tag_input.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
     <tr>
-      <td><pre class="prettyprint lang-html">&lt;input type="range" min="100" max="200"&gt;</pre></td>
-      <td><input type=range min="100" max="200"></td>
+      <td>range: <pre class="prettyprint lang-html">&lt;input type="range" min="100" max="200"&gt;</pre></td>
+      <td><label>mood: <input type=range min="100" max="200"></label></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/tags/tag_input.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
     <tr>
-      <td><pre class="prettyprint lang-html">&lt;input type="date"&gt;</pre></td>
-      <td><input type=date></td>
+      <td>date: <pre class="prettyprint lang-html">&lt;input type="date"&gt;</pre></td>
+      <td><label>depart: <input type=date></label></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/tags/tag_input.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
     <tr>
-      <td><pre class="prettyprint lang-html">&lt;input type="time"&gt;</pre></td>
-      <td><input type=time></td>
+      <td>time: <pre class="prettyprint lang-html">&lt;input type="time"&gt;</pre></td>
+      <td><label>when: <input type=time></label></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/tags/tag_input.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
     <tr>
@@ -151,23 +152,23 @@ Let's see an example form, and then we'll look at the code that creates it.
       <td><button>Click me</button></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/TAGs/tag_button.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
     <tr>
-      <td><pre class="prettyprint lang-html">&lt;textarea rows="2" cols="10"&gt; You can type here&lt;/textarea&gt;</pre></td>
-      <td><textarea rows="2" cols="10">You can type here</textarea></td>
+      <td>long text: <pre class="prettyprint lang-html">&lt;textarea rows="2" cols="10"&gt; You can type here&lt;/textarea&gt;</pre></td>
+      <td><label>comments: <textarea rows="2" cols="10" placeholder"type here"></textarea></label></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/TAGs/tag_textarea.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
     <tr>
-      <td><pre class="prettyprint lang-html">&lt;select&gt;&lt;option&gt;Black &lt;option&gt;White &lt;/select&gt;</pre></td>
-      <td><select><option>Black <option>White</select></td>
+      <td>menu: <pre class="prettyprint lang-html">&lt;select&gt;&lt;option&gt;Black &lt;option&gt;White &lt;/select&gt;</pre></td>
+      <td><label>color: <select><option>Black <option>White</select></color></td>
       <td class="text-center">
         <a href="http://www.w3schools.com/TAGs/tag_textarea.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
   </tbody>
@@ -312,6 +313,8 @@ validation
 <p>The latter is a bit more work, but it is necessary in some cases where
   the structure of the HTML doesn't allow the input to be a child of the
   label, as with a table. Your book uses this approach.</p>
+  
+<p>Using labels is important for <em>accessibility</em>. More on this below.</p>
 
 ## Name and Value
 
@@ -366,7 +369,7 @@ frequently are `name` and `value`
   name"&gt;</code> will be rendered like this:
 </p>
 
-<p> <input type="text" placeholder="Enter your name">.</p>
+<p> <label>Name: <input type="text" placeholder="Enter your name"></label>.</p>
           
 ## Radio Buttons
 
@@ -382,8 +385,7 @@ the buttons on a car radio, to choose the station).  </p>
     <tr>
       <th>HTML</th>
       <th>Rendered HTML</th>
-      <th>
-      </th>
+      <th>More info</th>
     </tr>
   </thead>
   <tbody>
@@ -401,18 +403,62 @@ the buttons on a car radio, to choose the station).  </p>
       <label for="wbur">WBUR</label>
       <input type="radio" name="station" id="wbur">
       <label for="wzly">WZLY</label>
-      <input type="radio" name="station" id="wxly">
+      <input type="radio" name="station" id="wzly">
       </fieldset>
       </td>
       <td class="text-center">
         <a href="http://www.w3schools.com/tags/tag_input.asp" target="_blank">
-          <span class="glyphicon glyphicon-info-sign"></a>
+          <span class="glyphicon glyphicon-info-sign">info</span></a>
       </td>                  
     </tr>
   </tbody>
 </table>
 
 <p>Try choosing one button and then the other</p>
+
+## Testing Accessibility
+
+Accessibility is a big complex subject, and professional websites have
+trained developers, automated tools, and human testers to ensure
+accessibility. All that is outside the scope of this course, but I will
+introduce three important tools and require you to use them.
+
+<ul>
+        <li><p>All HTML must be <em>valid</em>, which means it satisfies
+            the structural rules set out by the WWW consortium
+            (W3C). Valid HTML is important because screen readers and such
+            can do a better job understanding the structure of the page if
+            it follows the rules. Most browsers are much more forgiving,
+            so don't assume that if it looks good in a browser that it's
+            good.
+                <p>You can validate your HTML using this website from the
+            W3C: <a href="https://validator.nu/">https://validator.nu/</a>. That
+            site works in three modes: you can give it a URL and it'll
+            retrieve the page using the URL and validate
+            it. Unfortunately, because our C9 sites are behind a login
+            wall, you can't use that approach. (Once you upload to the CS
+            server you can, though.) The other modes are file upload and
+            direct input. The last mode allows you to just copy/paste your
+            HTML from your file on C9 to the validator, which only takes a
+            minute and is very easy. </p></li>
+        <li><p>All CSS (see below) must be <em>valid</em>, for similar reasons as the HTML.
+                <p>The W3C also provides a CSS validator that works the same way as the HTML validator: <a href="https://jigsaw.w3.org/css-validator/">https://jigsaw.w3.org/css-validator</a>
+        </p> </li>
+        <li><p>Check the page for common accessibility issues with the
+        WAVE, the Web Accessibility Evaluation
+        tool, <a href="https://wave.webaim.org/">https://wave.webaim.org/</a>. It's
+        important to note that getting no errors from the WAVE tool
+        doesn't mean your site is accessible &mdash; only a person can
+        decide that &mdash; but it's a useful tool nevertheless. Not passing
+        the WAVE test is certainly undesirable.
+                <p>Like the earlier validators, WAVE can retrieve a
+        publicly hosted page given its URL and evaluate it. It doesn't
+        have a mode where you can copy/paste your code, but there are two
+        browser plugins that will evaluate the page in your browser. In
+        less than 1 minute, I installed the Chrome plug-in, viewed my C9
+        page, and evaluated it. See screenshot below, showing four errors,
+        all of which are fixed in the <code>improved</code> form.
+    </ul>
 
 ## Topics we didn't cover
 

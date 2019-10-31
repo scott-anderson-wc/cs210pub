@@ -1,0 +1,7 @@
+footer ul {
+    list-style-type: none;   /* no bullets */
+}
+
+footer li {
+    display: inline;   /* arrange horizontally */
+}

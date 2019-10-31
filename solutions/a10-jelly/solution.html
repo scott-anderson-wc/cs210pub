@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS204: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../css/normalize.css">
+  <link rel="stylesheet" href="../../css/skeleton.css">
+  <link rel="stylesheet" href="../../css/glyphicons.css">
+  <link rel="stylesheet" href="../../css/pygments/colorful.css">
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="../../images/favicon.png">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="../../index.html">Home</a></li>
+                <li id="about"><a href="../../about.html">About</a></li>
+                <li id="schedule"><a href="../../schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="../../syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="../../reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns lecture">
+
+    <h1 id="solution-to-jelly-blobs-of-doom">Solution to Jelly Blobs of Doom</h1>
+<p><a href="jBlobs.html">my solution</a></p>
+<h2 id="code-review">Code Review</h2>
+<ul>
+<li>We'll start with the HTML file and notice<ul>
+<li>the initial buttons and text</li>
+<li>the way the files are loaded and used</li>
+</ul>
+</li>
+<li>We'll look briefly at the CSS file; there's not much there</li>
+<li>We'll look at the JS files, in order.</li>
+</ul>
+<p>Things to note:</p>
+<ul>
+<li>Correspondence between DOM object (a <code>div</code>) and the JS object (<code>Blob</code>);
+  look at <code>setDiameter</code> for example</li>
+<li><code>Player</code> is pretty simple.</li>
+<li>Constructor for <code>Enemy</code> invokes <code>Blob</code> constructor, after choosing color
+  and diameter</li>
+<li><code>maybeCollide</code> does some important work</li>
+<li>How enemy sets coords</li>
+<li>The <code>start</code> method starts the animation, with the <code>progress</code> and <code>done</code>
+  callbacks, including two uses of <code>bind</code>.</li>
+<li>The <code>game.js</code> file (not printed) defines a function to start the game,
+  and sets up event handlers (click handlers and a mouse handler with
+  another use of <code>bind</code>)</li>
+</ul>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="../../js/custom.js"></script>
+
+<script src="https://cs.wellesley.edu/~anderson/js/Datejs-master/build/date-en-US.js"></script>
+<script src="../../js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+<footer>
+<ul class="validation_icons">
+    <li><a href="//validator.w3.org/check?uri=referer"><img 
+       src="//cs.wellesley.edu/~cs204/Icons/valid-html5v2.png"
+       alt="Valid HTML 5"
+       title="Valid HTML 5"  
+       height="31" width="88"/></a></li>
+
+<li><a href="//jigsaw.w3.org/css-validator/check/referer"><img 
+      style="border:0;width:88px;height:31px"
+      src="//cs.wellesley.edu/~cs204/Icons/vcss.gif"
+      alt="Valid CSS!"/></a></li>
+</ul>
+</footer>
+
+</body>
+</html>

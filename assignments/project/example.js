@@ -6,22 +6,22 @@ var example_task_list =
     [
         {text: "Finish Taskmin Project",
          priority: "high",
-         duedate: "May 15, 2017",
+         duedate: "May 15, 2019",
          tag: "work"
         },
         {text: "send card to mom",
          priority: "medium",
-         duedate: "May 10, 2017",
+         duedate: "May 10, 2019",
          tag: "personal"
         },
         {text: "Do CS 432 exam",
          priority: "low",
-         duedate: "May 12, 2017",
+         duedate: "May 12, 2019",
          tag: "work"
         },
         {text: "pack for home",
          priority: "high",
-         duedate: "May 16, 2017",
+         duedate: "May 16, 2019",
          tag: "personal"
         }
     ];

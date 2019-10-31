@@ -25,7 +25,8 @@ Here are the things you'll need to figure out
 * Where the blank is.  You'll maintain a global variable or two that keeps
   track of the coordinates of the blank.
 * What moves are possible. 
-* Given a move, figure out what tile needs to move and slide it the correct way. if it's not a possible move, just do nothing.
+* Given a move, figure out what tile needs to move and slide it the correct way.
+If it's not a possible move, just do nothing.
 
 ## Demo
 
@@ -96,8 +97,8 @@ a good idea.)
 $("#findBiggerWidthButton").click(function () {
     var widthStr = $("body").css("width");
     var widthInt = parseInt(widthStr,10);
-    var width1 = width + 1;
-    alert('one pixel bigger is '+width1);
+    var width_1 = widthInt + 1;
+    alert('one pixel bigger is '+width_1);
 });
 </script>
 
@@ -109,15 +110,17 @@ Here's the code:
 $("#findBiggerWidthButton").click(function () {
     var widthStr = $("body").css("width");
     var widthInt = parseInt(widthStr,10);
-    var width1 = width + 1;
-    alert('one pixel bigger is '+width1);
+    var width_1 = widthInt + 1;
+    alert('one pixel bigger is '+width_1);
 });
 ```
 
 ## Animation Callbacks
 
 Checking that a jQuery animation <q>worked</q> is tricky. The following
-won't work:
+won't work. The buttons to grow/shrink the "Alice" regious work, but the
+`console.log` statements always print the same value, namely the "before"
+values.
 
 <button id="growButton">Grow</button>
 <button id="alice">Alice</button>
@@ -145,12 +148,13 @@ $("#growButton").click(function () {
 });
 ```
 
-The reason is because the animation takes *time* (say, 600ms), and the
-console.log happens *immediately* after the animation *begins*. So, the
-value that we label "after" is unchanged from the "before" value.
+The before value is printed twice because the animation takes *time* (say,
+600ms), and the second console.log happens *immediately* after the
+animation *begins*. So, the value that we label "after" is unchanged from
+the "before" value.
 
 So, what to do?  You can supply a callback function that is invoked after
-the animation completes:
+the animation completes. The following prints the correct "after" value:
 
 <button id="growButton2">Grow</button>
 <button id="white_rabbit">White_Rabbit</button>
@@ -181,7 +185,7 @@ $("#growButton2").click(function () {
 });
 ```
 
-You will not need the animation callback to get your assignment working,
+You will not need the animation callback in a working solution,
 but you may find it helpful during debugging. At the very least, you won't
 make the initial mistake of printing the value of the css property
 immediately after starting the animation and not understanding why it
@@ -189,10 +193,15 @@ didn't change.
 
 ## Directions
 
-I'm going to leave most of the markup, CSS and coding to you. One
-important piece is to realize that the 8 pieces are all positioned in an
-area of the browser set aside for them. The playing area (grid) should be
-`position:relative` and all the pieces are `position:absolute` and
+I'm going to leave most of the markup, CSS and coding to you. The HTMl and
+CSS have to be valid, though, so it would be helpful to have the
+validation icons. You can get them from the
+[template](../reading/template.html) file.
+
+
+One important piece is to realize that the 8 pieces are all positioned in
+an area of the browser set aside for them. The playing area (grid) should
+be `position:relative` and all the pieces are `position:absolute` and
 positioned appropriately with the grid.
 
 You can let each piece keep track of its location and use jQuery's `css`
@@ -201,8 +210,17 @@ method to read those values off when you need them.
 I suggest giving each piece an ID or `data-` attribute so that you can
 easily find it to move it around.
 
-I will supply a set of images that you can use in this
-[tarfile](../../downloads/tiles.tar)
+As in the last two assignments, I will supply a set of images that you can
+use in this [tarfile](../../downloads/tiles.tar). To use the images in the
+tarfile, you follow the same procedure:
+
+```
+cd ~/public_html/cs204-assignments/a05
+curl https://cs.wellesley.edu/~cs204/downloads/tiles.tar --output tiles.tar
+tar xf tiles.tar
+```
+
+(This is the same procedure as for the last two assignments.)
 
 If you want to use a different image, you can go to
 [imagesplitter.net](http://imagesplitter.net) and split an image of your
@@ -251,21 +269,12 @@ will use OOP on future assignments.
 * Make sure your name is in the files. If you have a partner, *both* names should be in the files.
 * Make sure everything works and looks nice
 * Make sure both the HTML and the CSS are valid
-* Fill out this [form](https://docs.google.com/a/wellesley.edu/forms/d/e/1FAIpQLSe970yhc5Pws7GP_1xe_P-0cwliVZd4f_mWhxC5xRhji7bo9Q/viewform?usp=sf_link)
-That form will help me improve the course for next time. The form is
-optional and anonymous; it will not collect your username.
 
 ## How to turn this in
 
-In your C9 workspace, rename your working directory to a finished directory:
+We'll grade the work in your `cs204-assignments/a05` folder; no need to do
+anything else
 
-`mv a05-work a05-done`
+## Tutors/Graders
 
-then make it not writeable:
-
-`chmod -R a-w a05-done`
-
-Finally, touch the directory for the last time:
-
-`touch a05-done`
-
+You can use the password to view the [Sliding Tiles](../../solutions/a05-sliding-tiles/tile-game.html)

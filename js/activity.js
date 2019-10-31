@@ -5,7 +5,8 @@
 will cause the JS code in the element to be executed. */
 
 function addExecuteButton(elt) {
-    var button = $("<button type='button'>execute it</button>")
+    var button = $("<button type='button'>Execute it</button>")
+        .addClass("execute")
         .click(function (evt) {
             that = this;
             var code = $(elt).text(); // closure over elt

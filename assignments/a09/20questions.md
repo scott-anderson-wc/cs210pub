@@ -73,7 +73,7 @@ When the page loads, it'll have buttons for the following:
 1. Show Tree
 
 Initially, the first button is the only one that will work. It uses an
-Ajax request to load the tree from the server as a string and parse it
+Ajax request to load the tree from the server as a string of text and parse it
 into a JSON data structure. After the tree is loaded, both of the other
 two buttons will work.
 
@@ -83,8 +83,11 @@ Internally, the question tree will be a tree of JavaScript objects, but
 that's inconvenient for writing (actually, it's not so bad...).
 Nevertheless, I created a format that is a little easier to write.
 
-Here's an example of the [file format](tree1.text).  Feel free to copy that
-file and feel free to modify it.
+Here's an example of the [file format](tree1.text).  Feel free to copy
+that file and feel free to modify it.  The URL for that file is
+`https://cs.wellesleyedu/~cs204/assignments/a09/tree1.txt` Take a look at
+it; you'll see that it's a plain text file that would need to be parsed to
+create a proper JSON tree.
 
 I will supply you the function to parse that file format and create a JSON
 tree structure.  I called that file [parseTree.js](parseTree.js)
@@ -113,6 +116,20 @@ guesses:
 
 It's possible for either child to be a string and the other a node; they
 don't have to simultaneously be strings.
+
+So, task 1 is to to use Ajax to load the text file above, parse it to a
+tree made of JavaScript objects, and then play the game using that
+tree. You can just use the URL above, or you can copy the file to your own
+C9 workspace, which would allow you to modify it if you'd like.
+
+Note that by default jQuery will try to guess the datatype of the
+response. If it guesses JSON, it will silently fail, because the response
+is *not* json, but plain text. So your jQuery request will should be:
+
+```
+:::JavaScript
+$.get(url, function (resp) { your code here }, 'text');
+```
 
 ## Bypassing the Ajax Loading
 

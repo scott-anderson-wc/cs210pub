@@ -8,8 +8,5 @@
 {value: 10, desc: 'The top, left and right edges of the caption box are flush with the image'},
 {value: 10, desc: '2em of distance between the top figure border and the top edge of the image'},
 {value: 10, desc: 'Visually appealing, HTML & CSS are valid'},
-{value: 20, desc: 'All RPS 9 comparisons print in the console correctly using nested loops'},
-{value: 10, desc: 'test_sort function prints to console list with correct order'},
-{value: 10, desc: 'Explanation of results of sorting'}
 ]
 }

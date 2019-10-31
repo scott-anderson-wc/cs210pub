@@ -5,8 +5,7 @@
     AuthUserFile /home/cs204/public_html/solutions/htpasswd
     AuthGroupFile /dev/null
     Options All
-    Order allow,deny
-    Allow from all
-    Require user cs204grader
-    SetEnvIf X-FORWARDED-FOR "^128.30.52" ValidatorIP  # w3.org
-    allow from env=ValidatorIP
+    <RequireAny>
+       Require user cs204grader
+       Require host w3.org  # ip 128.30.52.0" # w3.org Allow from all
+    </RequireAny>

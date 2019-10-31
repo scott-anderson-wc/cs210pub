@@ -1,0 +1,162 @@
+<!doctype html>
+<head>
+
+    <title>Dropdown Example</title>
+
+    <!-- modified the JS from Susan's original. See bottom of file. -->
+
+    <style>
+
+        /* Color palette chosen from: https://coolors.co */
+
+        /* Text styling */
+        #nav1 a, #nav1 ul {
+            font-family:Helvetica;
+            color:#47BBD7; /* teal blue */
+            text-decoration:none;
+        }
+
+        /* Outermost UL */
+        #nav1 ul {
+            background-color: #43ABC1; /* seafoam greenish */
+            margin:0;
+            padding:5px;
+            list-style-type: none;  /* Hide bullets */
+        }
+
+        /* Primary menu items */
+        #nav1 > ul > li {
+            padding:5px;
+            display:inline-block;
+            background-color: #EEF5DB;
+            text-align:center;
+            position:relative;
+
+            /* Keep things narrow so design won't break down on smaller screens/mobile devices */
+            width:65px;
+            margin: 0px 5px;
+        }
+
+        /* Give user feedback when they hover over the menu */
+        #nav1 ul li:hover {
+            cursor:pointer;
+            background-color:#FAEA8C;
+        }
+
+        /* Sub menu group */
+        #nav1 ul ul {
+            text-align:left;
+
+            /* So it lines up nicely with its parent */
+            margin-left:-5px;
+            margin-top:5px;
+            width:200px;
+            display:none;                 /* change to "none" to hide the sub-menus */
+            background-color:#EEF5DB;     /* just to set them off */
+            border-top:1px solid #43ABC1; /* teal blue */
+            position: absolute;           /* relative to parent menu */
+        }
+
+        /* Individual items in the sub menu */
+        #nav1 ul ul li {
+            /* Give them a little breathing room */
+            padding-left:5px;
+            padding-top:5px;
+        }
+
+        /* Scott added this, hoping to have the hyperlinks be the whole LI */
+        #nav1 ul li a {
+            display: inline-block;
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<nav id="nav1">
+    <ul>
+        <li>
+            <a href="../../../index.html">Home</a>
+        </li>
+
+        <li class="has_submenu">
+            CS204
+            <ul>
+                <li><a href="../../../../about.html">About</a></li>
+                <li><a href="../../../../schedule/schedule.html">Schedule</a></li>
+                <li><a href="../../../../syllabus.html">Syllabus</a></li>
+                <li><a href="../../../../reference.html">Reference</a></li>
+            </ul>
+        </li>
+
+        <li class="has_submenu">
+            News
+            <ul>
+                <li><a href="https://news.google.com">Google News</a></li>
+                <li><a href="https://nytimes.com">The New York Times</a></li>
+                <li><a href="https://bbc.com">The BBC</a></li>
+            </ul>
+        </li>
+
+        <li class="has_submenu">
+            Weather
+            <ul>
+                <li><a href="http://www.weather.com/">Weather Channel</a></li>
+                <li><a href="http://www.wunderground.com/">Weather Underground</a></li>
+                <li><a href="http://www.accuweather.com/">AccuWeather</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+<p>Changed from Susan's original to close submenu if (1) the header is
+clicked again, so it acts as a toggle, or (2) anywhere else is clicked.
+If a submenu is open and another header is clicked, the first is closed
+and the new one is opened.
+
+<p>This will involve learning about
+  <ul>
+    <li>event propagation
+    <li>the "event" object argument to event handlers
+    <li>testing whether a submenu is open
+    <li>attaching an event to the document
+  </ul>
+
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+/* Changed from Susan's original. See main text.
+
+Scott
+*/
+
+function closeAll() {
+    // Turn off any existing submenus
+    $(".has_submenu").find("ul").hide();
+}    
+
+function toggleSubmenu_v1(event) {
+
+    var $submenu = $(this).find("ul");
+    if( $submenu.css("display") == "block" ) {
+       // it's open, so close it
+       $submenu.hide();
+    } else {
+       // it's closed, so open it (close others, first)
+       closeAll();
+       // Turn on the requested submenu
+       $submenu.show();
+    }
+    event.stopPropagation();
+}
+
+$(".has_submenu").click(toggleSubmenu_v1);
+
+$(document).click(closeAll);
+
+</script>
+
+</body>
+</html>

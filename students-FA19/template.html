@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <title>Semester CS230 Accounts</title>
+
+<script type="text/JavaScript">
+ function writeServerUserURL(userName, file, text) {
+        document.write(" [<a href='http://cs.wellesley.edu/~" 
+                       + userName + "/" + file + "'>" + text + "</a>]");
+    }
+
+ function writeStudent(fullName, account, lecture) {
+      document.write("<li class='nameline'> ");
+      document.write("<div class='namebox'>");              // start of  name box
+      document.write("<span class='lecture'>"+lecture+"</span>");
+      document.write("<strong>" + fullName + ":</strong> ");
+      document.write("("+account + ") ");
+      document.write("</div><div class='rest'>");           // end of name box, start of rest of line
+      // document.write(lecture + " ");
+      writeServerUserURL(account, "", "public");
+      writeServerUserURL(account, "cs230-assignments", "cs230-assignments");
+      document.write("</div>");                             // end of box for rest of line
+      document.writeln("</li>");
+ }
+</script>
+
+<style type="text/css">
+  li.nameline {
+      width: 100%;
+  }
+
+  div.namebox {
+      display: inline-block;
+      width: 27em;
+  }
+
+  .lecture {
+      display: inline-block;
+      width: 6em;
+      color: green;
+  }
+
+  div.rest {
+      display: inline-block; /* it'll end up next to the namebox. */
+  }
+
+</style>
+</head>
+<body>
+<h1>CS 230 Accounts</h1>
+
+<ol>
+<script type="text/JavaScript">
+</script>
+</ol>
+
+
+</body>
+</html>

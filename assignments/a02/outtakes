@@ -1,0 +1,72 @@
+* Beginning JavaScript
+    * Functions with arguments and return values
+    * Arrays
+	* Loops
+	* Conditionals
+
+
+
+* Add a `script` tag in the `index.html` file to load the `rps.js` file that you will create
+* Write and debug the JavaScript code. 
+
+
+## JavaScript
+
+You have to write three JavaScript functions in the `rps.js` file. The
+first is a fundamental building block of the Rock-Paper-Scissors (RPS)
+game.  It must be named `compare` and it takes two arguments, both
+strings. The two strings are moves in RPS, namely "rock", "paper", or
+"scissors". The return value is:
+
+* -1 if the first argument beats the second,
+* 0 if it's a tie
+* +1 if the first argument loses to the second
+
+The second function takes no arguments. It's called `test_compare` and
+it shows that the first function works, by trying all 9 possible
+calling patterns and the return value. It does its output using
+`console.log` so the output might look like:
+
+```
+for rock and rock compare returns 0
+for rock and paper compare returns 1
+for rock and scissors compare returns -1
+for paper and rock compare returns -1
+for paper and paper compare returns 0
+for paper and scissors compare returns 1
+for scissors and rock compare returns 1
+for scissors and paper compare returns -1
+for scissors and scissors compare returns 0
+```
+
+You could do this with 9 `console.log` statements, but you should use
+an array of the three possible moves and loop over it.
+
+Invoke this function in your `rps.js` file, so that we'll automatically see the output.
+
+Finally, the last function named `test_sort` shows the funny behavior that
+sorting does when we use the RPS comparison function you wrote. You will
+sort the following array:
+
+```
+:::JavaScript
+var many_moves = [
+   "rock", "paper", "scissors",
+   "rock", "paper", "scissors",
+   "rock", "paper", "scissors"];
+```
+
+The function should sort that array using your `compare` function and
+print that. Then it should sort the array using the default comparison and
+print the result. Invoke that function in your file as well.  Note that to
+print the array, you should use `JSON.stringify()` on the array and print
+the resulting string. This is because `console.log(my_array)` will yield a
+"live" display that won't show the array as it was at the time it was
+printed, which is what we want.
+
+Finally, add a comment at the end of your `rps.js` file explaining the
+results of the sorting by your `compare` function.
+
+
+* Make sure you have three JS functions in `rps.js`, *and* an explanation of
+the sorting output when sorted by your function

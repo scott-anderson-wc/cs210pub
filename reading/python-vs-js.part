@@ -10,18 +10,23 @@
    </p>
     
     
-    <p>Think of translation of spoken languages--There are people who translate speech on the 
-    fly while it's being spoken. There are also people who will read an entire script beforehand, translate it 
-    in one sitting, then give the entire translated speech at once. Computer science-wise, the person who 
-    translates on the fly is like an interpreted language, while the person who translates in one sitting 
+    <p>Think of translation of spoken languages: There are people who
+    translate speech on the fly while it's being spoken. There are also
+    people who will read an entire script beforehand, translate it in one
+    sitting, then give the entire translated speech at once. Computer
+    science-wise, the person who translates on the fly is like an
+    interpreted language, while the person who translates in one sitting
     is like a compiled language.</p>
     
-    <p>On another note, you may think that JavaScript is similar to Java due to their names, but make no mistake! 
-    They are extremely different in functionality, and the name JavaScript was only given in an attempt 
-    to boost its popularity (as Java was quite popular at the time). The official name of JavaScript is 
-    actually ECMAscript, but we will continue to refer to it as JavaScript.</p>
+    <p>On another note, you may think that JavaScript is similar to Java
+    due to their names, but make no mistake!  They are extremely different
+    in functionality, and the name JavaScript was only given in an attempt
+    to boost its popularity (as Java was quite popular at the time). The
+    official name of JavaScript is actually ECMAscript, but we will
+    continue to refer to it as JavaScript.</p>
     
-    <p>In this reading, we'll be highlighting some important differences between JavaScript and Python.</p>
+    <p>In this reading, we'll be highlighting some important differences
+    between JavaScript and Python.</p>
     
     
     <h2>Syntactic Differences</h2>
@@ -29,7 +34,7 @@
     <p>Python:</p>
     
     <pre><code>def helloWorld():
-    print "Hello world!
+    print "Hello world!"
     print "I like CS 204"
     </code></pre>
     
@@ -42,17 +47,20 @@
     console.log("I like CS 204");
 }</code></pre>
 
-    <p>JavaScript uses <b>curly braces</b> to indicate code blocks, while python uses indentation. 
-    Also, Javascript uses <b>semicolons</b> to terminate statements, while python uses newlines.
+    <p>JavaScript uses <b>curly braces</b> to indicate code blocks, while
+    python uses indentation.  Also, Javascript uses <b>semicolons</b> to
+    terminate statements, while python uses newlines.
     </p>
 
-    <p>Technically speaking, this is acceptable and does the same thing:</p>
+    <p>Technically speaking, the following code is acceptable and does the
+    same thing:</p>
     
     <pre><code>function helloWorld(){console.log("Hello world!");console.log("I like CS 204");}</code></pre>
     
-    <p>In fact, sometimes JavaScript is <b>minified</b>, where all unnecessary characters are removed for faster performance. 
-    But for readability, (as there will be humans reading your code, not just machines!) it's important to indent properly.</p>
-    
+    <p>In fact, sometimes JavaScript is <b>minified</b>, where all
+    unnecessary characters are removed for faster performance.  But for
+    readability, (as there will be humans reading your code, not just
+    machines!) it's important to indent properly.</p>
     
     <h2>Type</h2>
     
@@ -152,7 +160,8 @@ else:
 
 <p>JavaScript:</p>
 
-<pre><code>// JS conditionals. Notice the logical expressions in parenthesis, such as (age >= 18)
+<pre><code>// JS conditionals. Notice the logical expressions in
+// parentheses, such as (age >= 18)
 
 if (age >= 18) {
     console.log("You can vote");
@@ -231,6 +240,26 @@ var x = multiply(4,5)
 
 <p>We'll see how anonymous functions can be used in more practical applications later.</p>
 
+<h3>Arrow Functions</h3>
+
+<p>A new feature of JavaScript
+is <a href="https://developer.mozilla.org/en-US/Web/JavaScript/Reference/Functions/Arrow_functions">arrow
+functions</a>, which are even more succinct but also have some technical
+differences that we'll get into later. Arrow functions can only be one
+expression, which is returned. 
+
+<pre><code>var mult = (a,b) => a * b;
+
+// x is the returned value of 20
+var x = mult(4,5);
+
+var neg = a => - a;        
+
+var y = neg(7);  // y = -7
+
+</code></pre>
+
+
 <h2>Built-in Functions</h2>
 
 <p>Here are some useful built in functions and their JavaScript equivalent:</p>
@@ -255,7 +284,7 @@ var x = multiply(4,5)
     <td>raw_input(str)</td>
     <td>prompt(str)</td>
     <td>Not an exact comparison, but the Python version gives a text prompt, 
-    while the JAvaSCript version gives a pop-up prompt in the browser.</td>
+    while the JAvaScript version gives a pop-up prompt in the browser.</td>
   </tr>
     <tr>
     <td>max(a, b)</td>

@@ -2,17 +2,13 @@
 
 Today doesn't have a lot of code but has some important concepts.
 
-On Friday, we'll also look at my solution to A8 (Quizzes), to allow a few
-people to catch up.
-
 ## Plan
 
-1. Admin: Where are people? How many have fallen behind? How can I help?
-1. Partnerships seems to be working only for some. I think it may be
-better to let people self-pair from now on.
+1. Admin: 
 1. Questions on A9 (twenty questions)?
 1. Recap OOP 
 1. Answer your questions
+1. Review A8 (quizzes)
 1. Discuss A10 (Jelly Blobs of Doom)
 
 ## Recap OOP
@@ -63,10 +59,13 @@ Discuss: Would it make sense to define a superclass of the `coffeerun` API
 that they all inherit from?
 
 <div class="solution">
+
 <p>It gives us an opportunity to define the API without worrying about
 implementation, but we can do that with documentation.
-<p>If there is code that can be <em>shared</em> among the children, then certainly
-    we should do so.
+
+<p>If there is code that can be <em>shared</em> among the children, then
+    certainly we should do so.
+
 </div>
 
 ## How to Implement Inheritance:
@@ -83,9 +82,11 @@ function Shape(color) {
    this.color = color;
 }
 
-Shape.prototype.getColor = function () { return this.color; };
+Shape.prototype.getColor =
+    function () { return this.color; };
 
-Shape.prototype.setColor = function (color) { this.color = color; };
+Shape.prototype.setColor =
+    function (color) { this.color = color; };
 
 Shape.prototype.toString = function() {
     return "[A "+this.color+" "+this.constructor.name+"]";
@@ -124,7 +125,10 @@ Rectangle.prototype.constructor = Rectangle;
 
 ## Activity
 
-Let's look at the trouble with the `Triangle` object from [shapes](../../reading/shapes.html)
+Let's build a picture of what's going on with prototypes, constructors,
+methods and such from [shapes](../../reading/shapes.html)
+
+Let's look at the trouble with the `Triangle` object in that reading.
 
 ```
 t1.__proto__;
@@ -153,7 +157,7 @@ and repeat the operations.
 
 ## Your Questions
 
-I'll answer [your questions](../../quizzes/quiz18.html)
+I'll answer [your questions](../../quizzes/quiz19.html)
 
 ## Exercise:
 
@@ -173,7 +177,9 @@ the link above and work in the JS console.
 Create an instance and experiment with it. Here's my solution:
 
 <div class="solution">
-<p>Did you make your <code>Square</code> inherit from <code>Shape</code> or from <code>Rectangle</code>?
+
+<p>Did you make your <code>Square</code> inherit from <code>Shape</code>
+or from <code>Rectangle</code>?
 
 <pre>
 function Square(color,upperleftcorner,side) {
@@ -185,7 +191,8 @@ function Square(color,upperleftcorner,side) {
 Square.prototype = Object.create(Rectangle.prototype);
 Square.prototype.constructor = Square;
 
-sq1 = new Square("yellow",p1,3);  // a 3x3 square with upper left at p1 = (10,20)
+// a 3x3 square with upper left at p1 = (10,20)
+sq1 = new Square("yellow",p1,3);  
 sq1.toString();
 sq1.area();
 sq1 instanceof Square;
@@ -196,15 +203,33 @@ sq1 instanceof Shape;
 
 ## Assignment 8
 
-On Friday, we'll look at the code of Assignment 8 (quizzes)
+[quizzes](../../solutions/a08-quiz/quiz.html)
+
+Notes:
+
+* HTML is spartan
+* IDs for the *three* things I want to address
+* CSS is simple
+* `Question.js` puts most work in the constructor.
+* used a subfunction to avoid duplicate code
+* squirrels away DOM element in instance variable for later
+* method uses saved DOM element to attach to page
+* quiz.js loops over questions, creating elements and adding to page
+* grading function involves lots of DOM traversal and jQuery magic
 
 ## Assignment 10
 
+We'll look at Assignment 10, Jelly Blobs. In particular, I'll talk about:
+
+* The correspondence between the *model* and the CSS
+* The `progress` callback
+* Enemies do the checking for collisions, not the player
+* Two testing functions I defined. I'll demo those.
+* Inheritance: blobs, enemies, player
+
 [Jelly Blobs of Doom](../../solutions/a10-jelly/jBlobs.html)
 
-This is very cool but it's difficult. I'm going to spend some time later
-this week trying to make the implementation easier. I'll have some hints
-as well. Still, get started on it ASAP.
+This is very cool but it's difficult. Get started on it ASAP.
 
 What makes it hard?
 
@@ -212,6 +237,11 @@ What makes it hard?
 1. testing is hard
 1. interactions with the animation thread
 
+## New Syntax
+
+If there's time, we'll explore the new syntax for subclasses:
+
+[shapes new](../../reading/shapes-new.html)
 
 ## Summary
 

@@ -1,19 +1,12 @@
 # Web Hosting and Other Topics
 
-Today is a grab-bag of hopefully interesting topics
+A grab-bag of hopefully interesting topics
 
 ## Plan
 
-1. Digression: How to reach students
-1. Questions or concerns about A8 (quiz)?
-1. Review solution to A7 (signup form). Reminder about time-and-work form
 1. Web hosting on Tempest
 1. Unicode
-1. Inclusivity?
-
-## Assignment 7
-
-We'll look at my solution to [Assignment 7 (Signup)](../../solutions/a07-signup/signup.html)
+1. Inclusivity and Internationalization
 
 ## Web Hosting
 
@@ -26,7 +19,7 @@ You have many options:
 * Create a GitHub account and host on `github.com`. Many employers expect
 something like this, but other possibilities exist, such as `bitbucket.com`
 * A private web hosting company. I personally use `dreamhost.com` but
-company is just one of many.
+that company is just one of many.
 
 ## Hosting on `cs.wellesley.edu`
 
@@ -34,8 +27,8 @@ Your account on `cs.wellesley.edu` AKA `tempest` is a general purpose Unix
 account.
 
 In it is a directory called `public_html`. Any file in that directory is
-*on the web*. That is, Apache is willing to respond to a request for that
-file by delivering it to the requesting browser.
+*on the world-wide web*. That is, Apache is willing to respond to a
+request for that file by delivering it to the requesting browser.
 
 How do you put something on the web? Copy it to that directory. 
 
@@ -59,8 +52,8 @@ I will give these credentials in class. You can email me if you forget.
 You can give out the guest credentials to friends and family. They don't
 allow any power to modify anything on the server; they merely allow the
 ability to read pages. Still, you need to be careful with them, since
-giving them out allows the person to ready everyone's web pages, not just
-yours.
+giving them out allows the person to ready every student's web pages, not
+just yours, so don't post them for the world to read.
 
 ## .htaccess
 
@@ -142,7 +135,7 @@ You may get a challenge about the authenticity. It will look like this:
 
 <div class="codehilite"><pre>
 wendy:~/workspace $ scp -r homepage/* wendy@cs.wellesley.edu:public_html/
-The authenticity of host 'cs.wellesley.edu (149.130.136.40)' can't be established.
+The authenticity of host 'cs.wellesley.edu (149.130.15.5)' can't be established.
 RSA key fingerprint is ae:53:ce:76:03:10:a9:23:ee:89:14:5a:23:3f:fb:32.
 Are you sure you want to continue connecting (yes/no)?
 </pre></div>
@@ -168,7 +161,8 @@ thought of:
 
 ## SFTP
 
-If you need to move files, you can use SFTP.  Some sample commands:
+If you need to move files or fix permissions, you can use SFTP.  Some
+sample commands:
 
 <div class="codehilite"><pre>
 cd
@@ -185,8 +179,8 @@ I'll demo this with my own C9 account
 
 ## SSH
 
-You can also *login* to Tempest.  Try this from either a Mac Terminal or
-from C9:
+You can also *login* to Tempest, if your account permits it.  Try this
+from either a Mac Terminal or from C9:
 
 <div class="codehilite"><pre>
 ssh youracct@cs.wellesley.edu

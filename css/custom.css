@@ -5,6 +5,25 @@ body {
     font-size: 2.25rem; /* skeleton default is 1.5rem */
 }
 
+/* this overrides the 960px constraint in skeleton */
+
+.container {
+    max-width: none;
+}
+
+/* See https://code.iamkate.com/html-and-css/fixing-browsers-broken-monospace-font-handling/ */
+pre, code, tt, samp, kdb {
+    font-family: monospace,monospace;
+    font-size: 1em;
+}
+
+
+article.lecture {
+    font-weight: medium;
+    font-size: 4rem;
+}
+
+
 @media print {
     body {
         font-family: "Times New Roman";
@@ -124,6 +143,7 @@ padding, thanks to a rule in skeleton.css. */
 .questions li { font-weight: normal; }
 .questions > li { border-top: 1px solid teal; font-weight: bold; }
 .questions li p { font-weight: normal; }
+.questions li .ans { font-weight: normal; }
 
 /* for hidden solutions */
 
@@ -142,14 +162,13 @@ padding, thanks to a rule in skeleton.css. */
 }
 
 textarea {
-    font-family: monospace;
-    font-size: 10px;
+    font-family: monospace,monospace;
     height: auto;
     width: 100%;
     margin-bottom: 0.5rem;
 }
 
-input[value=Execute it] {
+input[value="Execute it"], .execute {
     background-color: #1EAEDB;
 }
 
@@ -175,6 +194,15 @@ figcaption {
 }
 
 .ans {
-    border: 1px solid black;
+    border: 2px solid teal;
     padding: 1ex 1em;
+    font-weight: normal;
+}
+
+footer ul {
+    list-style-type: none;   /* no bullets */
+}
+
+footer li {
+    display: inline;   /* arrange horizontally */
 }

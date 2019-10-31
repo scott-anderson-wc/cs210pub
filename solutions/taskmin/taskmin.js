@@ -230,7 +230,7 @@ $("#edit-tags-list")
 // Try event delegation instead of a single click handler for #tasklist
 
 // These globals are just for debugging. No longer necessary.
-var gtarget, gtaskElt, gtaskId;
+var gtarget, gtaskElt, gtaskId, gtask;
 
 $("#tasklist").on("click",
                   "button.done",
@@ -249,6 +249,7 @@ $("#tasklist").on("click",
                       var taskId = getTaskId(taskElt);
                       gtarget = this; gtaskElt = taskElt; gtaskId = taskId;
                       var task = TaskList.get(taskId);
+                      gtask = task;
                       task.remove(taskElt);
                   });
 

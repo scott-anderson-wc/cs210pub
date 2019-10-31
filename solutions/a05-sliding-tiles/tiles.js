@@ -8,22 +8,7 @@ var tileArray = [["a", "b", "c"],
 var blankTileRow = 2;
 var blankTileCol = 2;
 
-// returns element to the right of the null element in tileArray
-// returns null if there is no tile to the right
-function getRightTile(){
-    if(blankTileCol == 2)
-        return null;
-    else
-        return tileArray[blankTileRow][blankTileCol + 1];
-}
-
-function getLeftTile(){
-    if(blankTileCol == 0)
-        return null;
-    else
-        return tileArray[blankTileRow][blankTileCol - 1];
-}
-
+// returns element above the blank; returns null if no such tile.
 function getAboveTile(){
     if(blankTileRow == 0)
         return null;
@@ -38,41 +23,24 @@ function getBelowTile(){
         return tileArray[blankTileRow + 1][blankTileCol];
 }
 
-/* global $ */
-
-var duration = 500;  // half a second to slide a tile
-
-//animate the selected tile in the direction specified by input
-function movePicture(direction, tile) {
-    if( tile == null) return;
-    var id = "#" + tile;
-    var $elt = $(id);
-    console.log("movePicture id " + id + " to direction: " + direction);
-    
-    var tileLeft = parseInt($elt.css("left"),10);
-    var tileTop = parseInt($elt.css("top"),10);
-
-    // just for debugging; not necessary 
-    function done() { 
-        console.log("now at ",$elt.css("left")," and ",$elt.css("top")); 
-    }
-    if(direction === "left") {
-        $elt.animate({ left: tileLeft - 200 }, duration);
-    } else if(direction === "right") {
-        $elt.animate({ left: tileLeft + 200 }, duration);
-    } else if(direction === "up") {
-        $elt.animate({ top: tileTop - 200 }, duration);
-    } else if(direction == "down") {
-        $elt.animate({ top: tileTop + 200 }, duration);
-    } else {
-        console.log("no such direction: "+direction);
-    }
-    updateData(direction, tile);
+function getRightTile(){
+    if(blankTileCol == 2)
+        return null;
+    else
+        return tileArray[blankTileRow][blankTileCol + 1];
 }
 
-
-//updates global variables tileArray, blankTileRow, blankTileCol
-function updateData(direction, tile){
+function getLeftTile(){
+    if(blankTileCol == 0)
+        return null;
+    else
+        return tileArray[blankTileRow][blankTileCol - 1];
+}
+
+// updates global variables tileArray, blankTileRow, blankTileCol
+// direction is a string: "right" "left" etc.
+// tile is the id of an img, like "a", "b" etc.
+function updateData(direction, tile) {
 
     // generic function to update the represention. 
     // one of the args will be zero; the other will be +/- 1
@@ -80,8 +48,7 @@ function updateData(direction, tile){
 
     function update(rowDiff, colDiff) {
         // move the tile
-        tileArray[blankTileRow][blankTileCol] =  
-            tileArray[blankTileRow + rowDiff][blankTileCol + colDiff];
+        tileArray[blankTileRow][blankTileCol] = tile;
         // set the location of the blank
         tileArray[blankTileRow + rowDiff][blankTileCol + colDiff] = null;
         blankTileRow += rowDiff;
@@ -103,6 +70,35 @@ function updateData(direction, tile){
                 "blankTileCol: " + blankTileCol);
 }
 
+/* global $ */
+
+var duration = 500;  // half a second to slide a tile
+
+//animate the selected tile in the direction specified by input
+// direction and tile args are as for updateData
+function movePicture(direction, tile) {
+    if( tile == null) return;
+    console.log("movePicture " + tile + " to direction: " + direction);
+    var selector = "#" + tile;
+    var $elt = $(selector);
+    var tileLeft = parseInt($elt.css("left"),10);
+    var tileTop = parseInt($elt.css("top"),10);
+
+    if(direction === "left") {
+        $elt.animate({ left: tileLeft - 200 }, duration);
+    } else if(direction === "right") {
+        $elt.animate({ left: tileLeft + 200 }, duration);
+    } else if(direction === "up") {
+        $elt.animate({ top: tileTop - 200 }, duration);
+    } else if(direction == "down") {
+        $elt.animate({ top: tileTop + 200 }, duration);
+    } else {
+        console.log("no such direction: "+direction);
+    }
+    updateData(direction, tile);
+}
+
+// does everything for a move. Direction is like "right" "up" etc.
 function doMove(direction) {
     if(direction == "left") {
         movePicture("left",getRightTile());
@@ -140,3 +136,9 @@ document.addEventListener('keypress',function (eventObj) {
     }
     
 });
+
+// You weren't asked to do this, but it's easy enough
+$("#right").click(function () { doMove("right"); });
+$("#left").click(function () { doMove("left"); });
+$("#up").click(function () { doMove("up"); });
+$("#down").click(function () { doMove("down"); });

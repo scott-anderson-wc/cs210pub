@@ -5,22 +5,12 @@ and how they interact with JavaScript.
 
 ## Plan
 
-1. Midterm recap
 1. Review forms
-1. A6 preview
 1. Forms and JS
 1. Quiz Questions
 1. Chapter 9/10 activities
 1. Chapter 10 review
-
-## Midterm Recap
-
-I'll go over a few of the midterm questions that people had trouble with.
-
-[midterm questions](../../solutions/midterm/midterm.html)
-
-If you have any questions or concerns, please come talk to me! I'd like to
-make sure everyone has a firm foundation for the rest of the course.
+1. Assignment 7
 
 ## HTML forms
 
@@ -47,32 +37,21 @@ Attributes to know:
 
 ## Pizza example
 
-We'll look back at the example in the reading, to make sure it's clear.
+We'll look back at the [example in the reading](../../reading/forms.html#pizza-form), to make sure it's clear.
 
-## Assignment 6
-
-You should start on A6 right away. In general, even if you are taking
-lateness coupons, you should meet with your collaborator for the new
-assignment and start thinking about it. Overlap the implementation effort.
-
-[a06](../../assignments/a06/concentration.html)
-
-[my solution](../../solutions/a06-concentration/game.html)
-
-There are lots of suggestions and advice in that assignment. I hope it'll
-be helpful, but if it's not, talk to me or the tutor.
+I'll demo `.serialize()` and `.serializeArray()`
 
 ## Forms and JS
 
 * forms will typically have a `submit` button (though you can change the
-text to "place order" or whatever.
+text to "place order" or whatever).
 * form submission is an *event*
 * we can attach JS functions to the event
-* often those handlers will want to do `event.preventDefault()`
-* we should probably check that we succeeded in finding the form to attach
-the event handler to
-* can get all the data using `.serialize` or `.serializeArray` (jQuery methods).
-* elaborate protocol of writing a generic *add handler* method that takes
+* often those handlers will want to do `event.preventDefault()` 
+* we should probably check that we succeeded in finding the form (to attach
+the event handler to)
+* we can get all the data using `.serialize` or `.serializeArray` (jQuery methods).
+* Our book teaches us an elaborate protocol of writing a generic *add handler* method that takes
 a *callback* function to get the form data as an argument and then do the
 specific work for that form.
 
@@ -110,7 +89,8 @@ Here's the final code from chapter 10, slightly edited
 
     this.$formElement = $(selector);
     if (this.$formElement.length === 0) {
-      throw new Error('No element with selector: ' + selector);
+      throw new Error('No element with selector: '
+                      + selector);
     }
   }
 
@@ -135,7 +115,7 @@ Here's the final code from chapter 10, slightly edited
   window.App = App;
 })(window);
 
-// ================================================================
+// ====================================================
 
 (function (window) {
   var FORM_SELECTOR = '[data-coffee-order="form"]';
@@ -143,10 +123,138 @@ Here's the final code from chapter 10, slightly edited
   var myTruck = new Truck('ncc-1701', new DataStore());
   var formHandler = new FormHandler(FORM_SELECTOR);
 
-  formHandler.addSubmitHandler(myTruck.createOrder.bind(myTruck));
+  formHandler.addSubmitHandler(myTruck.createOrder
+                                       .bind(myTruck));
   console.log(formHandler);
 })(window);
 ```
+
+Observations:
+
+1. the `createOrder` method wants as input an object with key/value pairs
+that describe the order, like `emailAddress`, `size` and `flavorShot`.
+1. the form has controls with those names
+1. the form event handler collects those name-value pairs into an object
+and invokes the callback with that object.
+1. the callback will be the `createOrder` method, with `this` bound to the
+intended truck.
+
+Let's try filling out [the coffeerun
+form](../../front-end-dev-resources/book-solutions/Chapter-10/coffeerun/index.html)
+and serializing the form using simplified code like this:
+
+```
+:::JavaScript
+var cof = $('[data-coffee-order="form"]');
+cof.serializeArray();
+function addEH(form, cb) {
+   $(form).on('submit', function (event) {
+       event.preventDefault(); 
+       var data = {};
+       $(this).serializeArray().forEach(function (item) {
+           data[item.name] = item.value;
+           console.log(item.name + ' is ' + item.value);
+       });
+       console.log(data);
+       cb(data);
+    });
+}
+var global_data = null;
+addEH(cof, function (data) { global_data = data; });
+```
+
+## Assignment 7 and Modules
+
+I'll demo [A07 signup form](../../solutions/a07-signup/signup.html), and
+we'll discuss this aspect of the implementation:
+
+```
+:::JavaScript
+var Luhn = (function () {
+
+    function digits_of(number,step,init) {
+        ....
+    }
+    
+    function sum(array) {
+        ...
+    }
+
+    function checksum(card_number) {
+        ...
+    } 
+
+    function is_valid(card_number) {
+        return checksum(card_number) == 0;
+    }
+    
+    function test() {
+        console.log('should be true:  '+is_valid('79927398713'));
+        console.log('should be false: '+is_valid('79927398714'));
+    }
+    
+    // here are the exported values
+    return { checksum: checksum, is_valid: is_valid, test: test };
+})();
+```
+
+Let's see that in the browser, here: [Luhn.html](Luhn.html)
+
+Let's compare that with Python code:
+
+```
+:::Python
+def digits_of(number):
+    return [int(i) for i in str(number)]
+
+def luhn_checksum(card_number):
+    digits = digits_of(card_number)
+    odd_digits = digits[-1::-2]
+    even_digits = digits[-2::-2]
+    total = sum(odd_digits)
+    for digit in even_digits:
+        total += sum(digits_of(2 * digit))
+    return total % 10
+
+def is_luhn_valid(card_number):
+    return luhn_checksum(card_number) == 0
+```
+
+To use this module, our main Python file would do
+
+```
+:::Python
+import luhn
+
+print luhn.luhn_checksum('1234')  # returns a number
+print luhn.is_luhn_valid('1234')  # returns boolean
+```    
+
+If you're using modules, you'd probably omit `luhn` from the function
+names!
+
+Let's draw a picture of this as well as seeing it in the Python REPL.
+
+Our JavaScript works pretty much the same way, only it uses better naming
+and is explicit about exports.  
+
+## Modules in Assignment 7
+
+Working with and defining modules is key to this assignment
+
+Your HTML will load three files:
+
+1. `Luhn.js`; you'll make only a tiny change to this file
+1. `formhandler.js`; you'll make some small changes to this file
+1. `signup.js`; this file will be similar to the `main.js` file from
+Chapter 10, in that it will *use* functions and objects defined in the
+other files.  By working with both sides of the abstraction barriers, I
+hope you'll feel more comfortable with modules in general and modules in JavaScript.
+
+Let's draw a picture of this.
+
+
+## Assignment 7
 
 ## Summary
 

@@ -1,20 +1,30 @@
-Can you please elaborate more on why we should avoid using ID selectors as the book previously mentions towards the end of the chapter? I was led to believe in a previous class that they were super useful and important, and now my world has been turned upside down.
-Linking CSS, and becoming more confident with formatting.
-I still don't entirely understand ID's, so it would be nice to go over them again!
-nothing in particular
-I'm a little confused about how to modify elements that are siblings (as opposed to all the elements in a class).
-I'd like to talk a little more about structural selectors, I'm still a little confused.
+Structural selectors
+No Answer
+The whole concept of selectors and how parents and children are formed within the webpage. I get that all things are contained within the body text of a page and that <li> are under <ul> but I don't fully understand how various tags are considered parents or children. 
+I just want some practice with relationship selectors, adding fonts and figuring out where different things in the code should go. The chapter kind of holds your hand through that last part but I'd like to be able to understand it myself. I also don't have a strong understanding of what a block is / does. 
+No Answer
 
-relationship selectors
+I'm still a little confused about selectors, but mostly in terms of how they are used while coding and why they are helpful
+Box models and selectors
+structural selectors they are kind of confusing to me. in general i think that after doing activities everything becomes clear, but i don't know why reading about html/css makes everything looks so hard but then it's actually not as hard as it looks. There are just a lot of abbreviations and other things that I get confused by, but i guess like anything you get used to it. 
+Can we go over structural selectors and parents/children in more details? Are parent/child relationships in CSS similar to those relationships in Java?
+"I wonder why there is <span> and <span class> ?
+
+Can you go over the selectors?"
+Can we discuss the various types of selectors and how to know when to use which one?
 No Answer
-Selectors, and more specifically, the topic of IDs
+
+none
+Selectors
 No Answer
-"What is the difference between an id and a class?
- I'm still confused with [href].
- Why is border not inherited while font-size and background color are?
- What is another way to use web fonts without having to save them on your computer?
- What does it mean to add %7C? "
+relationship selectors and why they would be used as opposed to classes!
+box model and structural selectors 
+
+Are IDs and <a href="#"> provide the same function, or are they two separate things? 
+I would love to learn more about creating color and using different formats to achieve a particular look. 
+Can you elaborate on specificity and CDNs?
+Could we go over an example of one of the structural selectors in class?
+Can we go over the differences between the different structural selectors? 
+na
+The relationship between parent and children elements 
 No Answer
-None right now
-i can't for the life of me remember the inheritance symbols, is there an easier way to remember?? please??
-I would like to learn more about IDs, and how they relate to relative URLS. 

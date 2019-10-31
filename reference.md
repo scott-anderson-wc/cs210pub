@@ -1,3 +1,9 @@
+## Visual Studio Code
+
+We'll be using Visual Studio Code (VSC) for editing remote files this
+semester. You can find [installation instructions for
+VSC](reading/visual-studio-code.html) at that link.
+
 ## Reference Material
 
 * [Mozilla Developer Network](https://developer.mozilla.org) This is an

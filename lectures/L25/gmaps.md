@@ -6,20 +6,28 @@ To use them, we have to understand *Ajax*, but fortunately, we *do*!
 
 ## Plan
 
-1. Questions on A10 (Jelly Blobs) or A11 (Learning Twenty Questions)?
+1. Questions on A10 (Jelly Blobs)?
+1. Solutions to A09 (20 Questions)
 1. Discuss Google Maps
 1. Answer your questions
 1. Building a Google Map app
 1. Google API keys and referrer
 
+## A09
+
+[20 questions solution](../../solutions/a09-20questions-static/20-static.html)
+
 ## Google Maps tutorials
 
 We'll spend time looking at this code and exploring the examples.
 
-1. [Maps Intro](https://www.w3schools.com/graphics/google_maps_intro.asp)
-1. [Maps Basic](https://www.w3schools.com/graphics/google_maps_basic.asp)
-1. [Maps Overlays](https://www.w3schools.com/graphics/google_maps_overlays.asp)
-shows how to add overlays of different types (such as markers or polylines) to the map
+1. [Simple Map](https://developers.google.com/maps/documentation/javascript/examples/map-simple)
+1. [Maps with Markers](https://developers.google.com/maps/documentation/javascript/examples/marker-simple)
+
+Did you see the link to "Using Closures in Event Listeners"?
+
+And some W3Schools examples. These used to be live...
+
 1. [Maps Events](https://www.w3schools.com/graphics/google_maps_events.asp)
 shows how to add event handlers to the map and to overlays such as markers.
 1. [Maps Controls](https://www.w3schools.com/graphics/google_maps_controls.asp)
@@ -29,19 +37,24 @@ shows some examples of the different map types (ROADMAP, SATELLITE, HYBRID, and 
 
 ## Your Questions
 
-I'll answer [your questions](../../quizzes/quiz21.html)
+I'd answer [your questions](../../quizzes/quiz21.html) but there were none!
 
 ## Geocoder
 
-Looking up the latitude and longitude of a location via an Ajax call is pretty cool:
+Looking up the latitude and longitude of a location via an Ajax call is
+pretty cool:
 
 [geocoder tutorial](https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple)
 
 ## Example
 
-I decided to build a Google map to show my summer vacation plan:
+I decided to build a Google map to show my summer vacation plan. This
+version no longer works because the API key has expired, but we can look
+at the code.
 
 [My Summer Vacation](maps2/map.html)
+
+I'll demo a version that does work in the C9 workspace. 
 
 The code is somewhat interesting.  The hardest part is dealing with a set
 of Ajax calls. Let's discuss that
@@ -69,6 +82,9 @@ request knows when *it* is done, but they might finish in any order.
 
 ## Exercise
 
+You should download the [gmaps.tar](../../downloads/gmaps.tar) file and
+unpack it using `tar xf`
+
 Build a Google Map demo!
 
 ## Console
@@ -77,8 +93,7 @@ Let's talk about setting the *referrer* patterns for your API key
 
 [credentials](https://console.developers.google.com/apis/credentials)
 
-The API key I used for this example is under project `C9 Demo 1` and is
-`Gmaps Lecture`
+The API key I used for this example is CS204-SP19 
 
 ## Eni's Examples
 

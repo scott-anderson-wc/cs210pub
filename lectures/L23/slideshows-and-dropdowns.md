@@ -4,15 +4,12 @@ Today, we'll look at some fun and useful techniques. It won't be a lot of
 JavaScript, but it'll interact with the HTML and CSS, so you have to pay
 attention to all the pieces.
 
-We'll also look at the next programming assignment.
-
 ## Plan
 
 1. Slideshows recap
 1. Dropdowns recap
 1. Answer your questions
 1. Build a page with a slideshow and dropdown menu
-1. Jelly Blobs of DOOM!
 
 ## Slideshows
 
@@ -39,7 +36,9 @@ We'll spend some time walking through this code
 I like the W3Schools example. It looks nice, the code is reasonably clear,
 and it works.  I have a few objections to the JS code:
 
-First, modern practice is to separate the JS code from the HTML, so avoid `onclick="jscode"` in favor of adding an attribute and then attaching the event handler:
+First, modern practice is to separate the JS code from the HTML, so avoid
+`onclick="jscode"` in favor of adding an attribute and then attaching the
+event handler:
 
 ```
 :::HTML
@@ -57,8 +56,11 @@ with this JS/JQ:
 
 ```
 :::JavaScript
-$("a.next").click(function (event) { plusSlides(1); });
+$("a.next").click(function () { plusSlides(1); });
 ```
+
+I'm sure they used inline JavaScript because they wanted to reduce the
+number of different pieces of code for you to look at.
 
 Second, I dislike code that has side-effects in arguments:
 
@@ -98,14 +100,7 @@ arranged left to right within a container that is only big enough to show
 one at a time. By sliding the whole ensemble to the left, you can advance
 the slides in a nice way:
 
-[cs110 f15 animation
-slideshow](http://cs.wellesley.edu/~cs110f15/reading/animations.html)
-
-Here's yet another way, using a lightbox:
-
-[cs110 s16 animation slideshow](http://cs.wellesley.edu/~cs110s16/reading/galleries-and-drop-downs.html)
-
-[cs110 s16 lightbox gallery](http://cs.wellesley.edu/~cs110s16/project/min-reqs/gallery/gallery.html)
+[cs110 f15 animation slideshow](f15/animations.html)
 
 There are dozens of JS libraries to do slideshows. Google for one and see
 what you like. Now that you understand the basic principles, you can teach
@@ -138,9 +133,15 @@ every dropdown.
 
 [W3 Schools clickable dropdown](https://www.w3schools.com/howto/howto_js_dropdown.asp)
 
+To cover the same ground in a more leisurely, tutorial way:
+[cs110 s16 animation slideshow](s16/galleries-and-drop-downs.html)
+
+
 ## Your Questions
 
-I'll answer [your questions](../../quizzes/quiz19.html)
+There were no questions!
+
+[//]: # (I'll answer [your questions](../../quizzes/quiz18.html))
 
 ## Exercise
 
@@ -149,7 +150,7 @@ Copy one of these to your C9 workspace, if you don't already have them.
 ```
 curl -O https://cs.wellesley.edu/~cs204/downloads/otter-images.tar 
 curl -O https://cs.wellesley.edu/~cs204/downloads/rps-images.tar
-curl -O https://cs.wellesley.edu/~cs204/downloads/hp-images.tar
+curl -O https://cs.wellesley.edu/~cs204/downloads/potterpics.tar
 ```
 
 The first is pictures of otters, the second Rock-Paper-Scissors, and the
@@ -165,14 +166,16 @@ Add a drop-down menu going to three places
 
 That has some useful abstractions that are worth looking at.
 
-## Assignment 10
+## Performance
 
-We'll look at Assignment 10, Jelly Blobs. In particular, I'll talk about:
-
-* The correspondence between the *model* and the CSS
-* The `progress` callback
-* Enemies do the checking for collisions, not the player
-* Two testing functions I defined
+In our slideshow implementation we had all the IMG tags in the source, so
+the all load when the page loads. That can slow down page loading if there
+are many images or they are big or both. So, this technique doesn't
+necessarily *scale*. However, there are ways to deal with that, such as
+having just the first few images in the source and having a Javascript
+element at the end of the page that adds the extra ones, or even having
+fancy code that pre-loads upcoming images when an earlier one is clicked
+on (for example, loading the N+2nd image when the Nth is shown).
 
 ## Summary
 

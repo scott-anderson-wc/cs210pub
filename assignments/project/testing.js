@@ -12,7 +12,7 @@ function testTaskList() {
     var lskey = 'test';
     localStorage.removeItem(lskey);
     var tl = new TaskList(lskey);
-    tl.read().makeInstances();
+    tl.read(); tl.makeInstances();
     console.log('local storage has: '+localStorage.getItem(lskey));
     console.log('first list:');
     tl.show();
@@ -47,10 +47,10 @@ function testTaskList() {
 
     console.log('testing sorting');
     console.log('sort by duedate:');
-    tl.setSortKey('dueDate').sort().show();
+    tl.setSortKey('dueDate'); tl.sort(); tl.show();
     console.log('sort by tag:');
-    tl.setSortKey('tag').sort().show();
+    tl.setSortKey('tag'); tl.sort(); tl.show();
     console.log('sort by taskId; should match the first list:');
-    tl.setSortKey('taskId').sort().show();
+    tl.setSortKey('taskId'); tl.sort(); tl.show();
     console.log('done!');
 }

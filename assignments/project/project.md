@@ -91,7 +91,7 @@ and replaces it with some known examples. Useful for debugging.
 
 It would be reasonable to start with the HTML and CSS for the basic page,
 including the buttons at the top, the drop-down add-task form, the
-drop-down sorting menu and the display of the tasks.  One you have the
+drop-down sorting menu and the display of the tasks.  Once you have the
 tasks formatted, you can use cloning or other techniques to build the task
 items dynamically.
 
@@ -101,15 +101,23 @@ last.
 
 Your task display will include a button to let the user mark the task as
 done (I used a check mark) and another to delete the task (I used an
-X). We saw these Unicode glyphs in class the last day
-(accessibility). 
+X). You can do these glyphs as follows:
+
+```
+:::HTML
+<button type="button" class="done">&#2714;</button>
+<button type="button" class="delete">&#2716;</button>
+<button type="button" class="more">&#271A;</button>
+```
+
+If you want to do something else with your buttons, that's fine.
 
 ## Tags
 
 Your code doesn't have to allow the user to modify the list of possible
 tags, but it should be parameterized so that there is a global list of
-possible tags, and the developer can add or remove a tag from the app just
-by editing that list:
+possible tags, and the developer using your code can add or remove a tag
+from the app just by editing that list:
 
 ```
 :::JavaScript
@@ -117,9 +125,9 @@ var tags = ['work', 'personal'];
 var defaultTag = 'personal';
 ```
 
-To format a task, the user just specifies a CSS rule matching the name of
-the tag as a class. Similarly, formatting for completed tasks can be
-specified by the user by customizing the `done` class.
+To format a task, the developer just specifies a CSS rule matching the
+name of the tag as a class. Similarly, formatting for completed tasks can
+be specified by the developer by customizing the `done` class.
 
 ```
 :::CSS
@@ -133,23 +141,26 @@ specified by the user by customizing the `done` class.
 Note that this means that your code will format a task display partly by
 adding a CSS class to the `li` that contains the whole task.  (I used `li`
 for accessibility reasons, since assistive browsers will make it easy for
-a reader to go from one list item to the next or previous.
+a reader to go from one list item to the next or previous item.)
 
 ## Tasks
 
 You'll implement an object to represent a task.  These objects represent a
-single task, such as "send card to mom by May 10th". The task object has
-methods to modify them and format them on the page.  More info below.
+single task, such as "send card to mom before Mother's Day". The task
+object has methods to modify them and format them on the page.  More info
+below.
 
 ## TaskList
 
-There is a global object that holds a list of all the task objects and
+There is a global variable that holds a list of all the task objects and
 allows the list to be modified. Any changes to the list are automatically
-saved to local storage.
+saved to local storage.  (However defer the automatic saving until you've
+gotten the management of the tasklist right, so that you aren't constantly
+having to reset the saved tasklist.)
 
-This object holds the whole list of tasks. It is an instance of a class,
-but we'll only create one instance of the class. Nevertheless, you'll
-implement the methods in the usual way.
+This variable holds the whole list of tasks. The value is an instance of a
+class, but we'll only create one instance of the class. Nevertheless,
+you'll implement the methods in the usual way.
 
 ## Time and Datepicker
 
@@ -178,7 +189,7 @@ file](example.js).  Here's one of the descriptions:
 :::JavaScript
         {text: "Finish Taskmin Project",
          priority: "high",
-         duedate: "May 15, 2017",
+         duedate: "May 15, 2019",
          tag: "work"
         }
 ```
@@ -210,46 +221,46 @@ tasks).  However, the task won't know where it is in the list until it's
 put in the list, so the constructor won't be able to do that.
 
 To help with my debugging, I implemented the following method to print a
-task succinctly. You're welcome to it.
+task succinctly. You're welcome to it. (Note that it uses the new JS
+[template
+string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
 ```
 :::JavaScript
 Task.prototype.toString = function () {
-    var date = this.duedate.toLocaleDateString();
-    var due = this.duedate ? ' due on ' + date : '';
-    var tag = '(' + this.tag + ')';
-    return '#<Task #'+this.id+" "+this.text+due+' '+tag+'>';
+    var due = this.duedate ? ' due on ' + this.duedate : '';
+    var tags = this.tags.length == 0 ? '' : ' (' + this.tags.join(',') + ')';
+    var id = this.taskId;
+    return `#<Task ${id} ${this.text} ${due} ${tags}>`;
 };
 ```
-I implemented the following simple methods:
+I implemented the following simple getter methods:
 
-* `getTag`; this will be used in sorting
-* `getDuedate`; also for sorting
-* `getId`; for identification, sorting and other purposes
-* `setId`; to set the id once it's known
+* `mainTag()`; used in sorting. It returns the first tag in the Task
+* `getDuedate()`; also for sorting
+* `getId()`; for identification, sorting and other purposes
 
 The following methods are a bit more complex:
 
-`format` creates a DOM element to display the task on the page. As in the
-past; I used cloning for this, but the implementation is up to you. You
+`format()` creates a DOM element to display the task on the page. As in the
+past, I used cloning for this, but the implementation is up to you. You
 should definitely refer to the HTML you drafted earlier, in designing the
-page. This method takes an argument that allows the method to add the DOM
-element to the document. It should be an argument suitable for, say, the
-jQuery `.appendTo()` method. The formatted DOM element should have a class
-based on its tag and, optionally, the `done` tag if it's a completed
-task. It should have a `data-taskId` attribute giving the taskId, which
-we'll need for button handling.
+page. The method should return a DOM object suitable for adding to the
+page, say by the jQuery `.append()` or `.appendTo()` method. The formatted
+DOM element should have a class based on its tag and, optionally, the
+`done` tag if it's a completed task. It should have a `data-taskId`
+attribute giving the taskId, which we'll need for button handling.
 
-`markDone` records that the task is done and updates the DOM element to
-show that. In particular, for accessiblity, this will be marked textually
-by replacing the display of the priority to the word `done`. Furthermore,
-in the screenshots above, there is a style change including a dotted
-border and reduced opacity. You can leave this configurable by the user by
-just adding the `done` class to the element. This would allow the user to
-change the effect by modifying the CSS rule, without knowing any
-JavaScript. Of course, you should implement a default behavior, namely the
-dotted border and reduced opacity.  Finally, the `markDone` method should
-make the task list save the changes.
+`markDone(domElement)` records that the task is done and updates the DOM
+element to show that. In particular, for accessiblity, this will be marked
+textually by replacing the display of the priority to the word
+`done`. Furthermore, in the screenshots above, there is a style change
+including a dotted border and reduced opacity. You can leave this
+configurable by the user by just adding the `done` class to the
+element. This would allow the user to change the effect by modifying the
+CSS rule, without knowing any JavaScript. Of course, you should implement
+a default behavior, namely the dotted border and reduced opacity.
+Finally, the `markDone` method should make the task list save the changes.
 
 ## TaskList
 
@@ -267,28 +278,35 @@ version of the app had lists of tags, which were also persistent.)
 The constructor should have one argument: the *key* that the data should
 be stored under in `localStorage`. The key is, of course, a string, such
 as "taskmin-data" or "taskmin-tasklist" or something like that; your
-choice.  The instance should remember the key in an instance variable, so
-that the TaskList object will always be able to save.
+choice.
+
+```
+:::JavaScript
+localStorage.setItem(key, JSON.stringify(...));
+```
+
+The instance should remember the key in an instance variable, so that the
+TaskList object will always be able to save.
 
 The object will also have an instance variable that is the list of tasks.
 
 Here are the methods you should have:
 
-* `save` which saves the list to `localStorage` using `JSON.stringify` on the list of tasks. 
-* `read` which reads the list from `localStorage` using `JSON.parse` to turn it into JavaScript objects. If that
+* `save()` which saves the list to `localStorage` using `JSON.stringify` on the list of tasks. 
+* `read()` which reads the list from `localStorage` using `JSON.parse` to turn it into JavaScript objects. If that
    value is null, it uses the `example_task_list` that we saw earlier. These *won't* be Task objects, but
    descriptions, so you should save them in a different instance variable, to be used by the `makeInstances`
    method, below.
-* `clear` which sets the localStorage to null, as well as setting the list to null.
+* `clear()` which sets the localStorage to null, as well as setting the list to null.
 
 The last method is really helpful in debugging, because using local
 storage means that *even reloading the page doesn't reset your app*. If a
-bug has causes you to save bogus stuff in local storage, you have to have
+bug causes save bogus stuff to be saved in local storage, you need to have
 a way to clear it out.
 
 More methods:
 
-* `get` which takes a taskId, searches the list and returns the task with that id.
+* `get(taskid)` which takes a taskId, searches the list and returns the task with that id.
 * `push` which adds a new task object onto the end of the list. It sets
   the id of the task as well, using the length of the list, and saves the
   changed list.
@@ -357,6 +375,47 @@ Here's a screenshot:
 <figcaption>The delete operator</figcaption>
 </figure>
 
+Deleting an element leaves a "hole" in the array. If we iterate in the
+old-fashioned way, we'll land on the holes and have a problem:
+
+```
+:::JavaScript
+for( i = 0; i < ar.length; i++ ) {
+   console.log(i,ar[i]);
+}
+0 0
+1 1
+2 undefined
+3 3
+4 undefined
+5 5 
+```
+
+Instead, you can iterate either using a variant of the `for` loop that
+iterates over the properties of an object (indexes of an array):
+
+```
+:::JavaScript
+for( i in ar ) {
+   console.log(i,ar[i]);
+}
+0 0
+1 1
+3 3
+5 5 
+```
+
+Or use the .forEach method on an array:
+
+```
+:::JavaScript
+ar.forEach( function(i,e) { console.log(i,e); });
+0 0
+1 1
+3 3
+5 5 
+```
+
 ## Removing a Task
 
 To remove a task, your method should take a taskId as an argument, just
@@ -364,6 +423,9 @@ like the `get` method, iterate over the array of tasks (also just like
 `get`), and when it finds the task, delete it from the array just using
 the `delete` operator.  It should then save the changed array to local
 storage.
+
+We'll keep the holes in the array, and iterate over the array using the
+techniques we were reminded of in the last section.
 
 Note that this method won't remove the DOM element. We'll take care of
 that later, in the UI.

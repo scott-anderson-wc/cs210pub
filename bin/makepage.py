@@ -1,3 +1,4 @@
+#!/usr/bin/scl enable python27 -- python2
 #!/usr/local/bin/python2.7
 
 '''Script to wrap some page content with our boilerplate skeleton. The

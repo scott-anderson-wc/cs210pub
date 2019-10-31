@@ -113,26 +113,30 @@ how we might do that:
 
 ```
 :::HTML
-<div>
+<form>
     <label>
-       <input type="radio" name="color" value="red"> Le Rouge
+       <input type="radio" name="color" value="red">
+       Le Rouge
     </label>
     <label>
-       <input type="radio" name="color" value="blue"> Le Bleu
+       <input type="radio" name="color" value="blue">
+       Le Bleu
     </label>
-</div>
+    <input type="reset">
+</form>
 ```
 
 In action:
 
-<div>
+<form>
     <label>
        <input type="radio" name="color" value="red"> Le Rouge
     </label>
     <label>
        <input type="radio" name="color" value="blue"> Le Bleu
     </label>
-</div>
+    <input type="reset">
+</form>
 
 Some important points:
 
@@ -144,9 +148,13 @@ Some important points:
   text after the button. You can imagine other layouts that makes the
   association less obvious. Or maybe someone is blind, and doesn't see the
   layout at all. The `label` is crucial for *accessibility*
-* The description doesn't have to match the value. Usually it does, but it
+* Even better, by using `label` the label text becomes a synonym of the
+  radio button itself, which means you can click on the text as well as on
+  the tiny button. That helps everyone!
+* The label description doesn't have to match the value. Usually it does, but it
   doesn't have to. Here, we switched between English and French.
 * Initially, neither is checked.  So what is the value?
+* The `reset` button only works if the inputs are wrapped in a `form`
 
 ## Determining Value
 
@@ -184,7 +192,7 @@ Skeleton would like you to wrap the text in a `span` with a class of
 `label-body`.
 
 Make that change, and then create another set of radio buttons to choose
-the size of the T-shirt (L, XL and XXL).
+the size of the T-shirt (L, XL and XXL). 
 
 [My solution to the second exercise](solution2.html)
 
@@ -215,14 +223,22 @@ Here's the JQ code:
 $("[type=radio]").click(function (event) {
     console.log(event.target);
     var start = event.target;
-    $(start).closest("div").find(".label-body").removeClass("chosen");
+    // some people like to chain this way
+    $(start).closest("form")
+            .find(".label-body")
+            .removeClass("chosen");
+    // some people like to chain this way:
     $(start).closest("label").find(".label-body").addClass("chosen");
 });
 ```
 
 Here is my [solution to third exercise](solution3.html)
 
-Here is my [solution to third exercise with delegation](solution3.html)
+Here is my [solution to third exercise with delegation](solution3-delegation.html)
+
+Note that if we were to add a "reset" button, we'd have to add a click
+handler to remove the `chosen` class when the reset button is
+clicked. I'll leave that as an exercise for the reader.
 
 ## Summary
 

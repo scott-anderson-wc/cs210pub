@@ -4,15 +4,13 @@
 
 ## Outline
 
-In a few minutes, we'll go to [where we left off last
-time](../L06/js1.html#loops)
+In a few minutes, we'll go to where we left off last
+time.
 
-1. Functions as arguments
-1. Anonymous Functions
+1. Quiz questions
 1. Exercise 3: Arrays and Loops
 1. Exercise 4: Sorting Arrays
 1. Methods
-1. Quiz questions
 1. Exercise on Date Methods
 1. Exercise on Array Methods
 1. JSON
@@ -20,9 +18,16 @@ time](../L06/js1.html#loops)
 
 ## Other things we learned:
 
-* Be sure to *run* the `stuff.html` file, not the `stuff.js` file
 * Open the `stuff.html` file in a new browser tab
 * Use the console.log from the `stuff.html` browser tab
+
+## Quiz Questions
+
+[your questions](../../quizzes/quiz06.html)
+
+## Resume
+
+Now, let's go to [where we left off last time](../L06/js1.html#arrays)
 
 ## Functions
 
@@ -51,12 +56,6 @@ add(3,4,5);
 add(3);
 ```
 
-Now, let's go to [where we left off last time](../L06/js1.html#functions-as-arguments)
-
-## Quiz Questions
-
-[your questions](../../quizzes/quiz06.html)
-
 ## Methods
 
 * Syntax:  `var.meth(arg1,arg2,...)`
@@ -67,13 +66,24 @@ Now, let's go to [where we left off last time](../L06/js1.html#functions-as-argu
 
 Here's a reference for [date methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
 
-Write a function named `uk_date` that returns a string using day/month/year notation.
+Do the following setup steps:
+
+```
+cd ~/public_html/cs204/
+mkdir js2
+cp ~cs204/pub/lectures/L07/starter.html js2
+cd js2
+code starter.html
+```
+
+Write a function named `uk_date` that returns a string using
+day/month/year notation for the given date (an argument).
 
 <div class="solution">
 <pre class="codehilite">
 function uk_date(date) {
      return date.getDate()
-            +'/'+date.getMonth()
+            +'/'+(date.getMonth()+1)
             +'/'+date.getFullYear();
 }
 </pre>
@@ -83,9 +93,16 @@ Test it like this:
 
 ```
 :::javascript
-uk_date(new Date());
-uk_date(new Date("2/14/2017"));
+uk_date(new Date());           // today!
+uk_date(new Date(2018,11,25)); // Christmas, 2018
+uk_date(new Date("2/14/2017")); // Valentine's day, 2017
 ```
+
+Note that the argument is *not* a string. It's a *date* object. The
+constructors above should make that clear, since only one of them has a
+string, and that one is an argument to `Date` not to our `uk_date`
+function.
+
 
 ## Array Methods
 
@@ -93,30 +110,61 @@ Here's a reference for [array methods](https://developer.mozilla.org/en-US/docs/
 
 Write a function to replace the `computeCurve` function using `forEach()`
 
+Here's the original that we want to replace:
+
+```
+:::javascript
+function computeCurve(inputs, func) {
+    var outputs = [];
+    for ( var i = 0; i < domain.length; i++ ) {
+        outputs[i] = func(inputs[i]);
+    }
+    return outputs;
+}
+```
+
+Here's an example of it in action:
+
+```
+:::javascript
+computeCurve([1,4,9,16], Math.sqrt) => [1,2,3,4]
+```
+
 <div class="solution">
 <pre class="codehilite">
-function computeCurve2(domain, fun) {
-     var range = [];
-     var push1 = function (val) { range.push(fun(val)); };
-     domain.forEach( push1 );
-     return range;
+function computeCurve2a(inputs, fun) {
+     var results = [];
+     function push1 (input) {
+         // invoke the user's function on one input 
+         var output = fun(input);
+         // report the input/output pair
+         console.log(input+ " maps to "+output);
+         // add it to the accumulated results
+         results.push(output);
+     }
+     inputs.forEach( push1 );
+     return results;
 }
 </pre>
+<p>Look in <a href="solved.html">solved.html</a>
 </div>
 
 Here's a version using an anonymous function:
 
 <div class="solution">
 <pre class="codehilite">
-function computeCurve2(domain, fun) {
-     var range = [];
-     domain.forEach( function (val) { range.push(fun(val)); });
-     return range;
+function computeCurve2d(inputs, fun) {
+     var results = [];
+     inputs.forEach( function (input) { results.push(fun(input)); });
+     return results;
 }
 </pre>
 </div>
 
 Code like this is quite common in certain operations on the DOM.
+
+You can copy `~cs204/pub/lectures/L07/solved.html` to get the solutions.
+
 
 ## Object Literals
 
@@ -137,7 +185,7 @@ Code like this is quite common in certain operations on the DOM.
   console.log("fred's brother: "+fred.brother);
   console.log("currently fred is: %o",fred);
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -152,7 +200,7 @@ for( var p in fred ) {
     console.log(p);
 }    
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -167,7 +215,7 @@ for( var p in fred ) {
     console.log(fred[p]);
 }    
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -187,7 +235,7 @@ dates.
   var again = JSON.parse(str);
   console.log('dob same? '+(fred.dob === again.dob));
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -236,7 +284,7 @@ Let's start with a slightly easier example:
   fred.hair = "red";
   alert(george.hair);
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>
@@ -255,7 +303,7 @@ If we do a shallow copy of an array, we just point to the same objects:
   console.log('element 3 same? '+(a[3] === b[3]));
   console.log('b[3] is '+JSON.stringify(b[3]))
 </textarea><br>
-<input type=button value="Execute It" 
+<input type=button value="Execute it" 
        onclick="eval(this.parentNode.firstElementChild.value)">
 </form>
 </div>

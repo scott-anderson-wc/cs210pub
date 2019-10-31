@@ -1,0 +1,32 @@
+    <ul>
+        <li>
+            <a href="../../../index.html">Home</a>
+        </li>
+
+        <li class="has_submenu">
+            CS110
+            <ul>
+                <li><a href="../../../project/">Project</a></li>
+                <li><a href="../../../syllabus/">Schedule</a></li>
+                <li><a href="../../../documentation/">References</a></li>
+            </ul>
+        </li>
+
+        <li class="has_submenu">
+            News
+            <ul>
+                <li><a href="https://news.google.com">Google News</a></li>
+                <li><a href="https://nytimes.com">The New York Times</a></li>
+                <li><a href="https://bbc.com">The BBC</a></li>
+            </ul>
+        </li>
+
+        <li class="has_submenu">
+            Weather
+            <ul>
+                <li><a href="http://www.weather.com/">Weather Channel</a></li>
+                <li><a href="http://www.wunderground.com/">Weather Underground</a></li>
+                <li><a href="http://www.accuweather.com/">AccuWeather</a></li>
+            </ul>
+        </li>
+    </ul>

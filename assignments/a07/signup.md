@@ -2,8 +2,8 @@
 
 We've all filled out countless forms to sign up for various web
 services. Even the Cloud 9 accounts required some elaborate signup
-forms. In this assignment, you'll write some JavaScript code to
-validate a signup form, checking its values certain common errors.
+forms. In this assignment, you'll write some JavaScript code to validate a
+signup form, checking its values for certain common errors.
 
 This assignment is intended to be relatively little coding. My solution is
 less than 50 lines of JavaScript, plus some HTML and CSS and some editing

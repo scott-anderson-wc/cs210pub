@@ -1,0 +1,58 @@
+/* Color palette chosen from: https://coolors.co */
+
+/* Used Susan's CSS, but made it depend on a class .mynav instead of #nav1 */
+
+/* Text styling */
+.mynav a, .mynav ul {
+    font-family:Helvetica;
+    color:#47BBD7; /* teal blue */
+    text-decoration:none;
+}
+
+/* Outermost UL */
+.mynav ul {
+    background-color: #43ABC1; /* seafoam greenish */
+    margin:0;
+    padding:5px;
+    list-style-type: none;  /* Hide bullets */
+}
+
+/* Primary menu items */
+.mynav > ul > li {
+    padding:5px;
+    display:inline-block;
+    background-color: #EEF5DB;
+    text-align:center;
+    position:relative;
+
+    /* Keep things narrow so design won't break down on smaller screens/mobile devices */
+    width:65px;
+    margin: 0px 5px;
+}
+
+/* Give user feedback when they hover over the menu */
+.mynav ul li:hover {
+    cursor:pointer;
+    background-color:#FAEA8C;
+}
+
+/* Sub menu group */
+.mynav ul ul {
+    text-align:left;
+
+    /* So it lines up nicely with its parent */
+    margin-left:-5px;
+    margin-top:5px;
+    width:200px;
+    display:none;                 /* change to "none" to hide the sub-menus */
+    background-color:#EEF5DB;     /* just to set them off */
+    border-top:1px solid #43ABC1; /* teal blue */
+    position: absolute;           /* relative to parent menu */
+}
+
+/* Individual items in the sub menu */
+.mynav ul ul li {
+    /* Give them a little breathing room */
+    padding-left:5px;
+    padding-top:5px;
+}

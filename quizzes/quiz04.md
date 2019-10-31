@@ -1,5 +1,6 @@
 <div>
 <style id="style1" scoped>
+/* I decided not to do this; it made the page harder to read 
     .questions, .suggs {
          border: 1px solid red;
     }
@@ -11,100 +12,145 @@
             vertical-align: top;
         }
     }
+@media (orientation: portrait) {
+    .questions LI { background-color: yellow }
+    }
+*/
 </style>    
 
 <ol class="questions">
 
-<li>I'd appreciate if you further explained media queries. I'm confused about
-what the difference between the two is. Aren't they both accomplishing the
-same thing?
+<li>Are we supposed to be started on the assignment due next Wednesday
+already? 
+<div class="ans">
+<p>I've assigned partners and you should start soon.
+</div>
 
-<p>What two things?
+<li>How do we access these "local accounts" on our phones if we don't
+have these files / are logged into vscode on our phones?
+<div class="ans">
+<p>I don't understand this question.
+Do you mean your account on cs.wellesley.edu? The URL is `https://cs.wellesley.edu/~youracct/`
+</div>
 
-<li>I'm somewhat confused about what the "all and" part of the @media line stand for.
 
-<p>You can customize the <em>kind</em> of device (e.g. <code>print</code>
-versus <code>screen</code>). That goes where the <code>all</code> is.
-See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">MDN
-media queries</a>
+<li>how to apply media queries in an example
+<div class="ans">
+<p>We'll use Ottergram; hopefully that will be okay. But we can visit <a href="http://hubspot.com/products/get-started">hubspot</a>
+</div>
 
-<li>In a media query, how do you specify mobile layouts depending on
-horizontal/vertical orientation?
+<li>What is meant by the "order" of a thumbnail-list and setting it to values like 0 or 2?
+/ What does changing the .thumbnail-list order do?
 
-    <p>Use <code>(orientation: landscape)</code> or <code>(orientation: portrait)</code>. Again,
-See <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries">MDN
-media queries</a>
-        
-<li>How should you know what pixel size to specify in a media query?
+<div class="ans">
+<p>It means whether the element is displayed first, last, or whereever. So you can use CSS to re-order things on the page, without changing the HTML!
 
-    <p>There are standard sizes/breakpoints for different common
-    devices. Chrome developer tools can help here. Your book lists some.
-        
-<li>What is the difference between layout viewport and visual viewport other than size?
+</div>
 
-    <p>The former is used, as you might guess, for <em>layout</em>. The
-    latter is a window on the former, so you might need to scroll,
-    magnify, etc.
+<li>I'd like to talk more about viewports, I feel like I've got a very
+loose and basic grasp on them right now.  / Why bother with layout vs
+visual viewpoint? Why not just always code with the visual in mind?
 
-<li> Why is the visual viewport narrower than the layout viewport?
+<div class="ans">
 
-<p>Because we either want to see everything or part of everything, but we never want to see more than everything.
+<p>Imagine that you are looking at an 8.5x11 sheet of paper through a 3x5
+index card. The layout viewport is the the paper. The visual viewport is
+the index card.
+
+<P>In this chapter, we make them the same.
+
+<p>I agree that having visual different from layout seems odd. It may be a
+part of the history of the web: big desktop screens came first, and when
+phones came along, they just used a small visual viewport onto the larger
+layout viewport.
+
+</div>
+
+<li>The reading mentions the largest screen to be a laptop, but how would we apply @media on even larger screens like Flat screen tv's or let's say a VR 'screen'
+
+<div class="ans">
+<p>great point!  You can certainly have rules for very large devices:
+<pre>
+@media all and (min-width: 8000px) {
+    /* rules for huge device */
+}
+</pre>
+
+</div>
+
+
+<li>So is the rule to design a website for a phone from the beginning and then move to a larger device? I'm still a little confused on this: can you design the same website to appear differently on different screens but using the same documents. is that the media query's job or is it an addition to that?
+
+<div class="ans">
+<p>Exactly right. Same HTML, same CSS file, but different sets of rules are activated for bigger devices.
+</div>
+
+<li>How would I turn a normal website into one fit for a mobile app? Does the HTML stay the same and just the CSS change? Would tags used in the HTML change?
+
+<div class="ans">
+<p>Yes. Same HTML, same CSS file. And same tags in the HTML.
+</div>
+
+<li>How media queries work
+
+<div class="ans">
+
+<p>The different rules replace/override the earlier ones.  So, I might use
+a bigger font on a larger device, and layout certain elements side-by-side
+instead of vertically.  </div>
+
+<li>Should every program we make have different styles for desktops and
+mobile devices using media queries.
+
+<div class="ans">
+
+<p>You don't have to take advantage of the extra space, but you can. Later
+in the course, we're going to worry more about JS than layout.  </div>
+
+
+<li>I would like to talk more about using device mode.
+
+<div class="ans">
+<p>Do you mean in the Chrome Inspector? We'll do that today!
+</div>
+
+<li>How media queries and flexbox work together. The Ottergram example in the book had us recode the flex-box- is that because they wanted it to be a teaching moment? In other words, could we have just coded it for mobile optimization in the first place? Or do you have to tweak your flex-box whenever you're coding to figure out what works right? 
+
+<div class="ans">
+
+<p>I'm confused. In Chapter 5, we didn't change the HTML at all (well,
+other than changing the visual viewport). Our flexbox was unchanged. We
+did change the <em>layout</em> of the flexbox, from column to row and
+such.
+
+</div>
+
+<li>what exactly does overflow:hidden do?
+
+<div class="ans">
+<p>Chops off any content that doesn't fit in the container, as opposed to
+creating a scroll bar.
+</div>
+
+<li>I'd like to go more in depth with Media Queries.
+
+<div class="ans">
+<p>I'd be glad to talk to you more outside class. For now, we're just
+going to inquire about the width of the device. (I've also used it in the
+past for print styles.) And, see below.
+</div>
+
+<li>I just want to try it out
+/ I would just like to see this code play out in action through the activities! 
+/ More practice on changing the sizes around would be helpful!
+/ Everything seems clear to me. 
+
+<div class="ans">
+<p>Great! Let's get started!
+</div>
+
+
     
-<li>what is a breakpoint?
-
-    <p>A device size that triggers a change in the CSS rules (and, often, a change in layout).
-
-<li>I noticed that webpages use media queries for mobile devices, but some webpages use a separate page for mobile devices. How can the webpage detect that the user is viewing the page from mobile device? Also, why do some webpages use a separate mobile page instead of using media queries?
-
-<div class="ans">
-<p>The browser sends an identifying string saying "I'm Chrome" or "I'm
-Firefox" and your browser can detect that. Best practice is <em>not</em>
-to do that, though, because (1) it's better to think
-of <em>capabilities</em>, (2) you might not catch every case, and (3)
-browsers can lie.
-
-<p>Separate pages can allow the CSS to be streamlined, omitting anything
-that is irrelevant, instead of overriding it, but in many cases the
-separate page is a legacy from the days before media queries.
-</div>
-
-<li>What counts and does not count as "responsive"?  When we use ems and
-set widths as percentages, so that they adjust as the window expands, is
-that also responsive, or is there a different term?
-
-    <p>Ems and percentages is part of being responsive. Being responsive
-    doesn't have a mathematical definition, but is the goal of adjusting
-    (responding) to different size devices.
-
-<li>Difference between media query css and normal css when it comes to
-rendering hierarchy. Is it guaranteed that putting a certain size limit on
-the alternate css will make it disable at the right size? Also, which
-version of the css gets priority, the regular version or the one that
-specifies a certain window size?
-
-    <p>There's no difference. Later rules override earlier rules, so
-    standard practice is to specify the default first, and then override
-    for larger devices. Thus, media queries don't complicate the rules for
-    how CSS cascades. As for the guarantee, a browser could be broken,
-    non-compliant or just old, but there's nothing we can do about that.
-
-<li>Run through an example in which we convert code for a desktop webpage
-to mobile (viewports practice)
-
-<div class="ans">
-    <p>Actually, we want to do the opposite: convert a mobile page into a
-    desktop page.  We'll do it with this page:
-
-<pre id="style1dst"></pre>
-<script>
-    document.getElementById('style1dst').innerHTML = document.getElementById('style1').textContent;
-</script>
-
-</div>
-
-<li>I'm okay for now! I just need more practice. / Just need more practice 
-
-<p>Great!
 
 </ol>
 
@@ -114,4 +160,5 @@ to mobile (viewports practice)
 
 </ul>    
 </div>
-
+<div class="ans">
+</div>

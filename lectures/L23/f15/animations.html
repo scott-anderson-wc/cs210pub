@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='/~anderson/sda-style.css'>
+    <meta name=author content="Scott D. Anderson">
+    <title></title>
+</head>
+<style>
+    textarea, pre {
+        font-family: monospace;
+        font-size: 16px;
+    }
+</style>    
+
+<body>
+
+<h1>Animations</h1>
+
+<p>These animations rely on the jQuery <code>.animate()</code> method that
+we have used before. If you need a reminder, here's the documentation on
+the <a href="https://api.jquery.com/animate/">animate</a> method and the
+W3Schools description
+of <a href="https://www.w3schools.com/jquery/eff_animate.asp">jQuery
+animate()</a>.
+
+<h2>Carousels</h2>
+
+<p>We now know all that we need to understand how to make a cool effect
+for our automatic slideshow (carousel).  The basic ingredients are these:
+  <ol>
+    <li>We'll use CSS to lay out all the images in the slideshow side by
+    side, left to right. This might be really wide, much wider than our
+    browser, but don't worry.
+      
+    <li>We'll put all the images in a container that is only as wide
+    as <em>one</em> slide, so that the others will stick out to the left
+    and right of the container
+      
+    <li>We'll use the CSS <code>overflow:hidden</code> to ensure that the
+      ones that stick out will not be seen by the user.
+      
+    <li>We'll use the <code>position:relative</code> and <code>left</code>
+    properties to move the assembled slides to the left, so that a
+    different one shows.
+      
+    <li>We can animate that change to the <code>left</code> property, just
+    as we moved the broom above.
+  </ol>
+
+<p>Let's take those one step at a time.
+  
+<h3>All Images Left to Right</h3>
+
+<p>We'll put the images in an unordered list. Since each of our slides is
+256px wide, the UL will be 1024px wide (though anything wider than that
+would also work). We'll make the slides <code>float:left</code> so that
+they'll be arranged left to right.
+
+<div id="carousel1-html">
+<figure id="slides1">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+</div>
+
+<style id="carousel1-css" scoped>
+  #slides1 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+#slides1 li {
+     float: left;
+  }
+</style>
+
+<p>Here's the HTML code:
+<pre id="carousel1-pre-html" class="prettyprint lang-html"></pre>  
+
+<script>
+document.getElementById('carousel1-pre-html').innerText = document.getElementById('carousel1-html').innerHTML;
+</script>
+
+<p>And the CSS code:
+
+<pre id="carousel1-pre-css" class="prettyprint lang-css"></pre>
+
+<script>
+document.getElementById('carousel1-pre-css').innerText = document.getElementById('carousel1-css').innerHTML;
+</script>
+
+<h3>A One-Slide Container</h3>
+
+<p>Here's our next version:
+
+<figure id="slides2">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+
+<style id="carousel2-css" scoped>
+  /* This rule is new */
+  #slides2 {
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+  }
+
+  /* these are all the same */
+  #slides2 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #slides2 li {
+      float: left;
+  }
+</style>
+
+<p>The HTML code is unchanged; here is the CSS code, which only adds one
+rule.  You're strongly encouraged to right-click on the image above and
+do <em>inspect element</em>, so that you can use the Chrome Inspector to
+see that the other images are all there.  Try unchecking the checkbox next
+to <code>overflow:hidden</code> or <code>width:256px</code> on
+the <code>#slides2</code> element.
+  
+<pre id="carousel2-pre-css" class="prettyprint lang-css"></pre>
+
+<script>
+document.getElementById('carousel2-pre-css').innerText = document.getElementById('carousel2-css').innerHTML;
+</script>
+
+<h3>Animating the Sliding</h3>
+
+<p>Now, let's animate the sliding of the <em>entire</em> unordered list.
+Since this is an editable execution box, try different target values for
+the <code>left</code> property. Note that negative values move the list to
+the left, positive value move it to the right. If the target value is a
+multiple of 256px, the display moves to a slide boundary.
+
+<figure id="slides3">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+
+<style id="carousel3-css" scoped>
+  #slides3 {
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+  }
+
+  #slides3 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #slides3 li {
+      float: left;
+  }
+</style>
+
+<form action="">
+<div>
+<textarea cols=50 rows=2>
+$("#slides3 ul").animate({left: "-256px"}, 3000);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note that the JS object has a <em>target</em> value, not an amount by
+which to change. So, to move from slide to slide, we need to calculate the
+new target value.
+
+<h3>Calculating Target Value for Left</h3>
+
+<p>If we are keeping track of the index of the current slide in a global
+variable, say <code>currentSlideIndex</code>, we can use that to calculate
+the desired target value.  Here's a slideshow that does that. (Assume that
+the <code>currentSlideIndex</code> is initialized to zero when the page
+loads.)
+
+<figure id="slides4">
+  <ul>
+    <li><img src="potterpics/harry-potter-256.jpeg" alt="Harry Potter"></li>
+    <li><img src="potterpics/ron-weasley-256.jpeg" alt="Ron Weasley"></li>
+    <li><img src="potterpics/hermione-granger-256.jpeg" alt="Hermione Granger"></li>
+    <li><img src="potterpics/draco-malfoy-256.jpeg" alt="Draco Malfoy"></li>
+  </ul>
+</figure>
+
+<style id="carousel3-css" scoped>
+  #slides4 {
+      width: 256px;
+      height: 192px;
+      overflow: hidden;
+  }
+
+  #slides4 ul {
+      width: 1024px;
+      list-style: none;
+      position: relative;
+      margin: 0px;
+      padding: 0px;
+  }
+
+  #slides4 li {
+      float: left;
+  }
+</style>
+
+<script>
+var currentSlideIndex = 0; 
+</script>
+
+<form action="">
+<div>
+<textarea cols=60 rows=7>
+currentSlideIndex ++;
+if( currentSlideIndex >= $("#slides4 li").length ) {
+    currentSlideIndex = 0;
+}
+var target = -256 * currentSlideIndex;    
+$("#slides4 ul").animate({left: target+"px"}, 2000);
+</textarea><br>
+<input type=button value="Execute It" 
+       onclick="eval(this.parentNode.firstElementChild.value)">
+</div>
+</form>
+
+<p>Note that we take advantage of the fact that when the selector matches
+more than one element, jQuery returns an array-like value that has
+a <code>.length</code> property.
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- for the executable button -->
+<script src="../../../js/activity.js"></script>
+
+</body>
+</html>

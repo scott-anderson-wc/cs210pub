@@ -3,54 +3,19 @@
 Today we'll look at some principles for making our websites accessible to
 as wide an audience as possible.
 
-We'll also look at my solution to A10 (Jelly Blobs)
+We will *not* look at my solution to A10 (Jelly Blobs), but I'll talk
+about when we will.
 
 ## Plan
 
-1. Admin
-1. Questions on A11?
-1. Solution to A10
+1. Admin: 304 showcase, OH during RP and exams, A10 solution
 1. Discuss Accessibility
 1. Answer your questions
 1. Explore Taskmin
 
 ## Admin
 
-Perkins School for the Blind (near Boston) is having a [hackathon](https://www.perkins.org/get-involved/events/perkins-hacks) for
-visual accessibility in April 2018!  
-
-* Printouts of A10 solution available now
-* Come to the CS 304 showcase in SCI 257 on Thursday 12/14 from 10-12
-* Printouts of A11 solution then
-* The final project can be done solo if you wish, for any reason.
-
-## A10 Jelly Blobs
-
-[my solution](../../solutions/a10-jelly/jBlobs.html)
-
-## Code Review
-
-* We'll start with the HTML file and notice
-    * the initial buttons and text
-    * the way the files are loaded and used
-* We'll look briefly at the CSS file; there's not much there
-* We'll look at the JS files, in order.
-
-Things to note:
-
-* Correspondence between DOM object (a `div`) and the JS object (`Blob`);
-  look at `setDiameter` for example
-* `Player` is pretty simple.
-* Constructor for `Enemy` invokes `Blob` constructor, after choosing color
-  and diameter
-* `maybeCollide` does some important work
-* How enemy sets coords
-* The `start` method starts the animation, with the `progress` and `done`
-  callbacks, including two uses of `bind`.
-* The `game.js` file (not printed) defines a function to start the game,
-  and sets up event handlers (click handlers and a mouse handler with
-  another use of `bind`)
-
+* The final project can be done with a partner or solo, as you choose
 
 ## Accessibility
 
@@ -69,17 +34,16 @@ Try to get around a website using just the keyboard:
 
 ## Buttons vs SPANs
 
-Here are two different things with click handlers:
+Here are two different things with click handlers. Clicking either of them
+changes it to a random color. 
 
 <button id="button1">click me</button>
-<span id="span1">click me</span>
+<span id="span1" class="button">click me</span>
 
 <script src="random.js"></script>
 
 <style>
 #button1:focus, #span1:focus { box-shadow: 3px 2px blue; }
-
-#span1 { border: 1px solid gray; padding: 1ex 2em; border-radius: 3px }
 </style>
 
 <script>
@@ -90,12 +54,13 @@ $("#button1").click( function() { $(this).css("background-color",random.color())
 $("#span1").click( function() { $(this).css("background-color",random.color()) });
 </script>
 
-Here's the HTML:
+Here's the HTML. The class added to the span is just a skeleton-defined
+class to style buttons and button-like things, so that they look the same.
 
 ```
 :::HTML
 <button id="button1">click me</button>
-<span id="span1">click me</span>
+<span id="span1" class="button">click me</span>
 ```
 
 Here's the CSS. Note how we mark elements that are in focus.  However, the
@@ -105,12 +70,6 @@ SPAN can't be in focus; it's not focusable, since it's not a control.
 :::CSS
 #button1:focus, #span1:focus {
     box-shadow: 3px 2px blue;
-}
-
-#span1 {
-    border: 1px solid gray;
-    padding: 1ex 2em;
-    border-radius: 3px
 }
 ```
 
@@ -125,7 +84,8 @@ $("#button1").click( function() { changeColor(this); })
 $("#span1").click( function() { changeColor(this); })
 ```
 
-But the button can be used with the mouse, and the span can't.
+But the *button* can be used with the mouse, and the span *can't*.  So the
+button is more *accessible*
 
 ## ARIA
 
@@ -142,18 +102,22 @@ Alternatively, wrap them in a hyperlink (the `a` tag).
 This time, the SPAN uses some extra attributes to make it more like a button.
 
 <button id="button2">no, click me</button>
-<span id="span2" role="button" tabindex="0">no, click me</span>
+<span id="span2" class="button" role="button" tabindex="0">no, click me</span>
 
 <style>
 #button2:focus, #span2:focus { box-shadow: 3px 2px blue; }
-
-#span2 { border: 1px solid gray; padding: 1ex 2em; border-radius: 3px }
 </style>
 
 <script>
 $("#button2").click( function() { changeColor(this); })
 $("#span2").click( function() { changeColor(this); })
-$("#span2").on('keypress', function () { changeColor(this); });
+$("#span2").on('keydown', function (evt) {
+    if( event.key === " " || event.key === "Enter" ) {
+        // unnecessary for SPAN, but needed for A
+        event.preventDefault();
+        changeColor(this);
+    }
+});
 </script>
 
 Here's the HTML:
@@ -161,21 +125,29 @@ Here's the HTML:
 ```
 :::HTML
 <button id="button2">no, click me</button>
-<span id="span2" role="button" tabindex="0">no, click me</span>
+<span id="span2" class="button"
+      role="button" tabindex="0">no, click me</span>
 ```
 
-JavaScript is the mostly the same, except for `keypress` handling:
+JavaScript is the mostly the same, except for `keydown` handling. 
 
 ```
 :::JavaScript
 $("#button2").click( function() { changeColor(this); })
 $("#span2").click( function() { changeColor(this); })
-$("#span2").on('keypress', function () { changeColor(this); });
+$("#span2").on('keydown', function (evt) {
+    if( event.key === " " || event.key === "Enter" ) {
+        // unnecessary for SPAN, but needed for A
+        event.preventDefault(); 
+        this changeColor(this);
+    }
+});
 ```
 
 ## Your Questions
 
-I'll answer [your questions](../../quizzes/quiz22.html)
+There were no questions, otherwise I would answer [your
+questions](../../quizzes/quiz22.html)
 
 ## Alt
 

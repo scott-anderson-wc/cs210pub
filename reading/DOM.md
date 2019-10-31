@@ -32,7 +32,7 @@ those parts.
 <aside style="margin: 10px 2em; border: 2px solid gray; background-color: #eee;">
     <p>The following are optional, supplemental readings, if you want:</p>
     <ul>
-        <li><a href="http://www.javascriptkit.com/javatutors/dom.shtml">http://www.javascriptkit.com/javatutors/dom.shtml</a> &larr; I like this one a lot.e
+        <li><a href="http://www.javascriptkit.com/javatutors/dom.shtml">http://www.javascriptkit.com/javatutors/dom.shtml</a> &larr; I like this one a lot.
         <li><a href="http://www.brainjar.com/dhtml/intro/">http://www.brainjar.com/dhtml/intro/</a> This one looks nice, too.
         <li><a href="http://www.w3schools.com/dom/default.asp">http://www.w3schools.com/dom/default.asp</a> I always like the material at W3Schools.
         <li><a href="http://www.quirksmode.org/dom/intro.html">http://www.quirksmode.org/dom/intro.html</a> There's a lot of good info here.
@@ -46,11 +46,11 @@ those parts.
 </ul>
 </aside>
   
-## <span id="raw-h2">The DOM in raw JavaScript</span>
+## The DOM in raw JavaScript
 
 Your book uses the JavaScript DOM API that is built into the browser. We
 will use jQuery instead, but let's take a minute to look at the built-in
-API first.  Specifically, we'll look at these three methods:
+API first.  Specifically, we'll look at these:
 
 <ul>
     
@@ -72,15 +72,20 @@ API first.  Specifically, we'll look at these three methods:
     then <q>handle</q> the event in any way it wants to.
 </ul>
 
+
+The following code implements a click handler for the button below, so
+that if you click on the button it will change to a random number. Try it!
+Click as many times as you like!
+
+<button id="rawJSbutton">raw JavaScript</button> <span id="rawNumber">1234</span>
+
 <script id="rawScript">
-var rawh2 = document.querySelector("#raw-h2");
-rawh2.addEventListener("click",function () {
-    rawh2.textContent = "Stayin' Alive";
+var raw = document.querySelector("#rawJSbutton");
+raw.addEventListener("click",function () {
+    var span = document.querySelector("#rawNumber");
+    span.textContent = Math.random();
 });
 </script>
-
-The following code implements a click handler for the header for this
-section, so that you click on the header, it will change. Try it!
 
 <pre id="rawScriptDisplay" class="codehilite"></pre>
 
@@ -95,21 +100,16 @@ Because jQuery makes manipulating the DOM easier, let's learn jQuery.
 jQuery is a JavaScript library of useful methods for manipulating the
 document, by which I mean things like this:
 
-    <ul>
-        <li>Adding structure. For example, the back-end sends some new
-        Facebook content; JQ can add that to the page.
-            
-        <li>Removing structure. You finish composing a Gmail message in a
-        little sub-window of your browser window and you click
-        on <em>send</em>. JQ can remove the sub-window and put the focus
-            back on your main Gmail window.
-            
-        <li>Modifying style. You type some stuff into a Google Doc, and
-        moments later, the phrase "all changes saved" appears at the top
-        of the window, then fades to gray and disappears over the course
-        of several seconds. JQ not only inserts the text, but sets its
-        color and animates its changing color and opacity.
-    </ul>
+* Adding structure. For example, the back-end sends some new Facebook
+  content; JQ can add that to the page.
+* Removing structure. You finish composing a Gmail message in a little
+  sub-window of your browser window and you click on *send*. JQ can
+  remove the sub-window and put the focus back on your main Gmail window.
+* Modifying style. You type some stuff into a Google Doc, and moments
+  later, the phrase "all changes saved" appears at the top of the window,
+  then fades to gray and disappears over the course of several seconds. JQ
+  not only inserts the text, but sets its color and animates its changing
+  color and opacity.  
 
 It does a few other things as well, including Ajax. For example, those
 Facebook updates, sending mail from Gmail, and sending the document
@@ -126,14 +126,39 @@ character.  A synonym of the <code>$</code> variable/function is
 <code>jQuery</code>, but that's rarely used.  After all, it may be
 clearer, but it's six times as much typing!
 
-## <span id="jq-h2">Click Handling Example</span>
+## Loading JQuery
+
+jQuery isn't built into the browser the way that raw JavaScript is. You
+have to load it. Many sites host versions of jQuery, and so typically, we
+load it from one of those.
+
+Skim this page about [Google Hosted
+Libraries](https://developers.google.com/speed/libraries)
+
+Then, put the following in your page(s):
+
+```
+:::html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+```
+
+Note that, as with most programming languages, you have to load jQuery
+*before* you use it.
+
+## Click Handling Example
 
 As a point of comparison, let's compare jQuery code equivalent to the
 example we saw using the raw API.
 
+As before, the following code implements a click handler for the button
+below, so that if you click on the button it will change to a random
+number. Try it!  Click as many times as you like!
+
+<button id="JQbutton">JQ button</button> <span id="JQNumber">1234</span>
+
 <script id="js-script">
-$("#jq-h2").click(function () {
-    $(this).text("Stayin' Alive");
+$("#JQbutton").click(function () {
+    $("#JQNumber").text(Math.random());
 });
 </script>
 
@@ -143,13 +168,10 @@ $("#jq-h2").click(function () {
 document.getElementById("js-ScriptDisplay").textContent = document.getElementById("js-script").textContent;
 </script>
 
-(Later in the course, we'll learn more about the special variable
-`this` in the above code, but for now, you can think of it as the element
-that got clicked.)
-
 You can see that jQuery is a bit more terse than the raw API, which is
-nice, but not decisive. It also tries to work the same in all browsers,
-hiding their idiosyncracies. It's extremely popular for those reasons.
+nice, but not decisive. jQuery also tries to work the same in all
+browsers, hiding their idiosyncracies. It's extremely popular for those
+reasons.
 
 ## jQuery Usage
 
@@ -177,7 +199,7 @@ $(".important").css("color","red");
 
 // change the CSS of the navbar to be red on white.
 // Notice the use of an object literal to package up two changes
-$(".important").css({"color":"red","background-color":"white"});
+$("#navbar").css({"color":"red","background-color":"white"});
 
 // add the class "important" to all H2 elements:
 $("h2").addClass("important");
@@ -207,15 +229,13 @@ We could go on, but you get the idea.
 The jQuery API is well documented.  Here are some of the methods we
 used above:
 
-  <ul>
-    <li><a href="http://api.jquery.com/css">css</a>
-    <li><a href="http://api.jquery.com/addClass">addClass</a>
-    <li><a href="http://api.jquery.com/text">text</a>
-    <li><a href="http://api.jquery.com/html">html</a>
-    <li><a href="http://api.jquery.com/append">append</a>
-    <li><a href="http://api.jquery.com/remove">remove</a>
-    <li><a href="http://api.jquery.com/hide">hide</a>
-  </ul>
+* [css](http://api.jquery.com/css)
+* [addClass](http://api.jquery.com/addClass)
+* [text](http://api.jquery.com/text)
+* [html](http://api.jquery.com/html)
+* [append](http://api.jquery.com/append)
+* [remove](http://api.jquery.com/remove)
+* [hide](http://api.jquery.com/hide)
 
 You can learn a lot just by poking around in there and reading some of
 their examples and notes.
@@ -256,9 +276,9 @@ $elts.hide();                       // and hide them??
 </pre>
 
 That's efficient, but a bit tedious to type.  (Note that it's a common
-convention, but not required, to name variables that hold jQuery object
-with a dollar sign). An experienced and terse jQuery coder might do the
-following:
+convention, but not required, to name variables that hold jQuery objects
+with a dollar sign). An experienced and terse jQuery coder might instead
+do the following:
 
 <pre class="codehilite">
 $(sel).addClass('important').css('color','red').append("&lt;em&gt;really!!&lt;/em").hide();
@@ -285,12 +305,20 @@ The preceding is concise, efficient, and easy to read.
 elements</q> is that the empty set is a perfect valid set, so jQuery is
 perfectly happy to do all those operations above on an empty set of
 elements, thereby doing nothing, and never give you a peep of complaint or
-warning.  So if your jQuery isn't working and there's no error message,
-scrutinize your selector expressions.  In fact, I often end up doing
-something like this when I'm debugging:
+warning. Here's an example, where a typo in the selector string keeps the
+code from working, yet jQuery doesn't complain:
+
+```
+:::javascript
+$("sectoin").css('border','2px solid blue');
+```
+
+So if your jQuery isn't working and there's no error message, scrutinize
+your selector expressions.  In fact, I often end up doing something like
+this when I'm debugging:
 
 <pre class="codehilite">
-var x = $(sel);
+var x = $("sectoin");
 console.log("matched "+x.length+" elements");
 </pre>
 
@@ -314,7 +342,8 @@ have a destination for them:
 
 Now the code to add some primes to that list:
 
-<pre class="codehilite">
+```
+:::javascript
 function addPrimes( primes ) {
     primes.forEach(function(p) {
              $('&lt;li&gt;').text(p).appendTo('#prime-list')
@@ -322,42 +351,30 @@ function addPrimes( primes ) {
 }
 
 addPrimes( [2, 3, 5, 7, 11, 13, 17] );
-</pre>
+```
 
 Here it is:
 
-  <div id="prime-container">
-    <p>Our primes:
+<div id="prime-container">
+    <p>Our primes:</p>
     <ul id="prime-list">
     </ul>
-  </div>
+</div>
 
 <script>
-$(function () {
-
 function addPrimes( primes ) {
     primes.forEach(function(p) {
-         $('&lt;li&gt;').text(p).appendTo('#prime-list')
+         $('<li>').text(p).appendTo('#prime-list')
          });
 }
 
-/*
-    function addPrimes( primes ) {
-        var i;
-        for( i=0; i < primes.length; i++ ) {
-            $('<li>').text( primes[i] ).appendTo('#prime-list');
-        }
-    }
-*/
-
-    addPrimes( [2, 3, 5, 7, 11, 13, 17] );
-});
+addPrimes( [2, 3, 5, 7, 11, 13, 17] );
 </script>
 
 You might wonder what the '&lt;li&gt;' does as the argument of the jQuery
 function, since it's not a CSS selector. What happens is that jQuery
-creates the given element, but it is not (yet) attached to the
-document. Here, we attach it to the document with <code>appendTo</code>
+*creates* the given element, but it is not (yet) attached to the
+document. Here, we attach it to the document with the jQuery `appendTo`
 method.
 
 An alternative way to do this is to build the entire list up and only
@@ -386,16 +403,6 @@ addPrimes2( [2, 3, 5, 7, 11, 13, 17] );
 
 <script>
 $(function () {
-    /*       
-    function addPrimes2( primes ) {
-        var i;
-        var listElt = $('&lt;ul&gt;');
-        for( i=0; i &lt; primes.length; i++ ) {
-            $('&lt;li&gt;').text( primes[i] ).appendTo(listElt);
-        }
-        listElt.appendTo('#prime-container2');
-    }
-    */
     function addPrimes2(primes) {
         var $ul = $('<ul>');
         primes.forEach(function (p) {
@@ -409,9 +416,9 @@ addPrimes2( [2, 3, 5, 7, 11, 13, 17] );
 
 Here it is:
 
-  <div id="prime-container2">
-    <p>Another list of our primes:
-  </div>
+<div id="prime-container2">
+    <p>Another list of our primes:</p>
+</div>
 
 ## <span id="events">DOM Events</span>
 
@@ -436,40 +443,40 @@ a user clicking on something or mousing over something is an
 
 The way that event-handling in the DOM works is that you can say:
 
-  <blockquote><p><q>when event E occurs to DOM element D, please invoke
-        function F</q>.
-  </blockquote>
+<blockquote><p><q>when event E occurs to DOM element D, please invoke
+            function F</q>.
+</blockquote>
 
 Here's a partial list of some common <a
     href="http://en.wikipedia/wiki/DOM_events">DOM events</a>:
 
-    <ul>
-        <li>click:  when you click on something</li>
-        <li>dblclick: when you double-click something</li>
-        <li>mouseover: when your mouse is moved onto an element</li>
-        <li>keypress:  when a key on the keyboard is pressed</li>
-        <li>load: when the document or an object like an image finishes loading</li>
-        <li>submit: when a form is submitted</li>
-    </ul>
+* click:  when you click on something
+* dblclick: when you double-click something
+* mouseover: when your mouse is moved onto an element
+* keypress:  when a key on the keyboard is pressed
+* load: when the document or an object like an image finishes loading
+* submit: when a form is submitted
 
 Let's make that more concrete.  The H2 header for this section has an ID
 and the ID is <code>events</code>. Let's write some code that would turn
 that element a random color:
 
-<pre class="codehilite">
+```
+:::javascript  
 var colors = ['red','orange','green','blue','purple'];
 var randIndex = Math.floor(Math.random()*colors.length);
 var randColor = colors[randIndex];
 // jQuery magic to turn it a random color:
 $("#events").css('color',randColor);
-</pre>
+```
 
 Okay, very nice, but that's not yet what we want.  We'd like the user to
 be able to turn the header a random color just by clicking on it.  So, one
 step on the way to do that is to package up that code into a function, say
 <code>turnEventsRandomColor</code>:
 
-<pre class="codehilite">
+```
+:::javascript
 function turnEventsRandomColor() {
     var colors = ['red','orange','green','blue','purple'];
     var randIndex = Math.floor(Math.random()*colors.length);
@@ -477,14 +484,15 @@ function turnEventsRandomColor() {
     // jQuery magic to turn it a random color:
     $("#events").css('color',randColor);
 }
-</pre>
+```
 
 Then, whenever we want to turn that header a random color, we just invoke
 the function:
 
-<pre class="codehilite">
+```
+:::javascript
 turnEventsRandomColor();
-</pre>
+```
 
 However, we want the user to be able to have that function invoked by
 clicking on the header.  More precisely, we want to say that whenever the
@@ -492,9 +500,10 @@ clicking on the header.  More precisely, we want to say that whenever the
 that function invoked. jQuery provides a very easy way do to this, using
 the same pattern we've seen many times:
 
-<pre class="codehilite">
+```
+:::javascript
 $("#events").click(turnEventsRandomColor);
-</pre>
+```
 
 Scroll back and try it!
 
@@ -527,7 +536,8 @@ that she is never going to refer to again after handing it to the
 <code>click</code> method.  Instead, she uses an <em>anonymous</em>
 function literal, putting all the important code right where she needs it:
 
-<pre class="codehilite">
+```
+:::javascript
 $("#events").click(function () {
     var colors = ['red','orange','green','blue','purple'];
     var randIndex = Math.floor(Math.random()*colors.length);
@@ -535,7 +545,7 @@ $("#events").click(function () {
     // jQuery magic to turn it a random color:
     $("#events").css('color',randColor);
 });
-</pre>
+```
 
 The whole function literal is the argument of the <code>click</code>
 method &mdash; notice the close paren on the last line, after the closing

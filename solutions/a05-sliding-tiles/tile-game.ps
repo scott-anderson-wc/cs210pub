@@ -2,13 +2,13 @@
 %%Title: tile-game.html, tile-game.css, tiles.js
 %%For: Introduction to Front-End Web Development
 %%Creator: a2ps version 4.14
-%%CreationDate: Tue Nov  7 09:36:17 2017
-%%BoundingBox: 24 24 588 768
+%%CreationDate: Thu Apr  4 16:47:28 2019
+%%BoundingBox: 24 40 588 752
 %%DocumentData: Clean7Bit
 %%Orientation: Landscape
 %%Pages: 2
 %%PageOrder: Ascend
-%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentMedia: Letterdj 612 792 0 () ()
 %%DocumentNeededResources: font Courier
 %%+ font Courier-Bold
 %%+ font Courier-BoldOblique
@@ -684,8 +684,8 @@ a2psdict begin
 % Initialize page description variables.
 /sh 612 def
 /sw 792 def
-/llx 24 def
-/urx 768 def
+/llx 40 def
+/urx 752 def
 /ury 588 def
 /lly 24 def
 /#copies 1 def
@@ -712,8 +712,8 @@ countdictstack exch sub dup 0 gt
 } ifelse
 /th 15.000000 def
 /fnfs 11 def
-/bfs 7.060185 def
-/cw 4.236111 def
+/bfs 6.751543 def
+/cw 4.050926 def
 
 % Dictionary for ISO-8859-1 support
 /iso1dict 8 dict begin
@@ -738,7 +738,7 @@ currentdict end def
    cw 86.400000 mul
 def
 /ph
-   520.335631 th add
+   524.594895 th add
 def
 /pmw urx llx sub pw 2 mul sub 1 div def
 /pmh 0 def
@@ -776,7 +776,7 @@ iso1dict begin
 gsave
 llx lly 12 add translate
 /v 0 store
-/x0 x v get 2.965278 add sx cw mul add store
+/x0 x v get 2.835648 add sx cw mul add store
 /y0 y v get bfs th add sub store
 x0 y0 moveto
 0 T (<!DOCTYPE html>) K n
@@ -850,7 +850,7 @@ x0 y0 moveto
 (>) K n
 (15) # () S
 (    ) p
-(<div) K
+(<button) K
 ( ) p
 (id=) k
 (") p
@@ -858,10 +858,10 @@ x0 y0 moveto
 (") p
 (>) K
 (w &uarr; Up) p
-(</div>) K n
+(</button>) K n
 0 T () S
 (    ) p
-(<div) K
+(<button) K
 ( ) p
 (id=) k
 (") p
@@ -869,10 +869,10 @@ x0 y0 moveto
 (") p
 (>) K
 (s &darr; Down) p
-(</div>) K n
+(</button>) K n
 0 T () S
 (    ) p
-(<div) K
+(<button) K
 ( ) p
 (id=) k
 (") p
@@ -880,10 +880,10 @@ x0 y0 moveto
 (") p
 (>) K
 (a &larr; Left) p
-(</div>) K n
+(</button>) K n
 0 T () S
 (    ) p
-(<div) K
+(<button) K
 ( ) p
 (id=) k
 (") p
@@ -891,7 +891,7 @@ x0 y0 moveto
 (") p
 (>) K
 (d &rarr; Right) p
-(</div>) K n
+(</button>) K n
 0 T (</figure>) N
 (20) # () S
 (    ) p n
@@ -1084,10 +1084,10 @@ x0 y0 moveto
 (40) # () S
 (</body>) K n
 0 T (</html>) N
-(tile-game.html) (Page 1/1) (Nov 07, 17 9:24) title
+(tile-game.html) (Page 1/1) (Mar 18, 19 11:43) title
 border
 /v 1 store
-/x0 x v get 2.965278 add sx cw mul add store
+/x0 x v get 2.835648 add sx cw mul add store
 /y0 y v get bfs th add sub store
 x0 y0 moveto
 0 T (h1 {) p n
@@ -1109,7 +1109,7 @@ x0 y0 moveto
 0 T (    font: 20px Verdana;) N
 0 T (}) N
 0 T () N
-(20) # (#directions div {) N
+(20) # (#directions button {) N
 0 T (    position: absolute;) N
 0 T (    width: 100px;) N
 0 T (}) N
@@ -1149,11 +1149,11 @@ x0 y0 moveto
 0 T (    border: 1px solid blue;) N
 0 T (    border-radius: 0.5ex;) N
 0 T (}) N
-(tile-game.css) (Page 1/1) (Nov 07, 17 9:32) title
+(tile-game.css) (Page 1/1) (Mar 18, 19 11:44) title
 border
 grestore
 (Printed by Introduction to Front-End Web Development) rhead
-(tile-game.html, tile-game.css) (1/2) (Tuesday November 07, 2017) footer
+(tile-game.html, tile-game.css) (1/2) (Thursday April 04, 2019) footer
 end % of iso1dict
 pagesave restore
 showpage
@@ -1166,7 +1166,7 @@ iso1dict begin
 gsave
 llx lly 12 add translate
 /v 0 store
-/x0 x v get 2.965278 add sx cw mul add store
+/x0 x v get 2.835648 add sx cw mul add store
 /y0 y v get bfs th add sub store
 x0 y0 moveto
 0 T (// JavaScript for game representation and tile movement) c n
@@ -1204,50 +1204,7 @@ x0 y0 moveto
 ( blankTileCol = 2;) p n
 (10) # () N
 0 T () S
-(// returns element to the right of the null element in tileArray) c n
-0 T (// returns null if there is no tile to the right) N
-0 T () S
-(function) K
-( ) p
-(getRightTile) l
-(\(\){) p n
-0 T (    ) S
-(if) K
-(\(blankTileCol == 2\)) p n
-(15) # (        ) S
-(return) K
-( ) p
-(null) k
-(;) p n
-0 T (    ) S
-(else) K n
-0 T () S
-(        ) p
-(return) K
-( tileArray[blankTileRow][blankTileCol + 1];) p n
-0 T (}) N
-0 T () N
-(20) # () S
-(function) K
-( ) p
-(getLeftTile) l
-(\(\){) p n
-0 T (    ) S
-(if) K
-(\(blankTileCol == 0\)) p n
-0 T (        ) S
-(return) K
-( ) p
-(null) k
-(;) p n
-0 T (    ) S
-(else) K n
-0 T () S
-(        ) p
-(return) K
-( tileArray[blankTileRow][blankTileCol - 1];) p n
-(25) # (}) N
-0 T () N
+(// returns element above the blank; returns null if no such tile.) c n
 0 T () S
 (function) K
 ( ) p
@@ -1261,7 +1218,7 @@ x0 y0 moveto
 ( ) p
 (null) k
 (;) p n
-(30) # (    ) S
+(15) # (    ) S
 (else) K n
 0 T () S
 (        ) p
@@ -1274,7 +1231,7 @@ x0 y0 moveto
 ( ) p
 (getBelowTile) l
 (\(\){) p n
-(35) # (    ) S
+(20) # (    ) S
 (if) K
 (\(blankTileRow == 2\)) p n
 0 T (        ) S
@@ -1289,126 +1246,60 @@ x0 y0 moveto
 (return) K
 ( tileArray[blankTileRow + 1][blankTileCol];) p n
 0 T (}) N
-(40) # () N
-0 T () S
-(/* global $ */) c n
-0 T () N
-0 T () S
-(var) K
-( duration = 500;  ) p
-(// half a second to slide a tile) c n
-0 T () N
-(45) # (//animate the selected tile in the direction specified by input) N
+(25) # () N
 0 T () S
 (function) K
 ( ) p
-(movePicture) l
-(\(direction, tile\) {) p n
+(getRightTile) l
+(\(\){) p n
 0 T (    ) S
 (if) K
-(\( tile == ) p
-(null) k
-(\) ) p
+(\(blankTileCol == 2\)) p n
+0 T (        ) S
 (return) K
+( ) p
+(null) k
 (;) p n
 0 T (    ) S
-(var) K
-( id = ") p
-(#) str
-(" + tile;) p n
-0 T (    ) S
-(var) K
-( $elt = $\(id\);) p n
-(50) # (    console.log\(") S
-(movePicture id ) str
-(" + id + ") p
-( to direction: ) str
-(" + direction\);) p n
-0 T (    ) N
-0 T (    ) S
-(var) K
-( tileLeft = parseInt\($elt.css\(") p
-(left) str
-("\),10\);) p n
-0 T (    ) S
-(var) K
-( tileTop = parseInt\($elt.css\(") p
-(top) str
-("\),10\);) p n
-0 T () N
-(55) # (    ) S
-(// just for debugging; not necessary ) c n
-0 T () S
-(    ) p
-(function) K
-( ) p
-(done) l
-(\(\) { ) p n
-0 T (        console.log\(") S
-(now at ) str
-(",$elt.css\(") p
-(left) str
-("\),") p
-( and ) str
-(",$elt.css\(") p
-(top) str
-("\)\); ) p n
-0 T (    }) N
-0 T (    ) S
-(if) K
-(\(direction === ") p
-(left) str
-("\) {) p n
-(60) # (        $elt.animate\({ left: tileLeft - 200 }, duration\);) N
-0 T (    } ) S
-(else) K
-( ) p
-(if) K
-(\(direction === ") p
-(right) str
-("\) {) p n
-0 T (        $elt.animate\({ left: tileLeft + 200 }, duration\);) N
-0 T (    } ) S
-(else) K
-( ) p
-(if) K
-(\(direction === ") p
-(up) str
-("\) {) p n
-0 T (        $elt.animate\({ top: tileTop - 200 }, duration\);) N
-(65) # (    } ) S
-(else) K
-( ) p
-(if) K
-(\(direction == ") p
-(down) str
-("\) {) p n
-0 T (        $elt.animate\({ top: tileTop + 200 }, duration\);) N
-0 T (    } ) S
-(else) K
-( {) p n
-0 T (        console.log\(") S
-(no such direction: ) str
-("+direction\);) p n
-0 T (    }) N
-(70) # (    updateData\(direction, tile\);) N
+(else) K n
+(30) # () S
+(        ) p
+(return) K
+( tileArray[blankTileRow][blankTileCol + 1];) p n
 0 T (}) N
 0 T () N
+0 T () S
+(function) K
+( ) p
+(getLeftTile) l
+(\(\){) p n
+0 T (    ) S
+(if) K
+(\(blankTileCol == 0\)) p n
+(35) # (        ) S
+(return) K
+( ) p
+(null) k
+(;) p n
+0 T (    ) S
+(else) K n
+0 T () S
+(        ) p
+(return) K
+( tileArray[blankTileRow][blankTileCol - 1];) p n
+0 T (}) N
 0 T () N
-(tiles.js) (Page 1/2) (Nov 07, 17 9:34) title
-border
-/v 1 store
-/x0 x v get 2.965278 add sx cw mul add store
-/y0 y v get bfs th add sub store
-x0 y0 moveto
-0 T (//updates global variables tileArray, blankTileRow, blankTileCol) c n
-(75) # () S
+(40) # () S
+(// updates global variables tileArray, blankTileRow, blankTileCol) c n
+0 T (// direction is a string: "right" "left" etc.) N
+0 T (// tile is the id of an img, like "a", "b" etc.) N
+0 T () S
 (function) K
 ( ) p
 (updateData) l
-(\(direction, tile\){) p n
+(\(direction, tile\) {) p n
 0 T () N
-0 T (    ) S
+(45) # (    ) S
 (// generic function to update the represention. ) c n
 0 T () S
 (    ) p
@@ -1416,35 +1307,34 @@ x0 y0 moveto
 0 T () S
 (    ) p
 (// they represent the location of the moving tile relative to the blank) c n
-(80) # () N
+0 T () N
 0 T () S
 (    ) p
 (function) K
 ( ) p
 (update) l
 (\(rowDiff, colDiff\) {) p n
-0 T (        ) S
+(50) # (        ) S
 (// move the tile) c n
 0 T () S
-(        tileArray[blankTileRow][blankTileCol] =  ) p n
-0 T (            tileArray[blankTileRow + rowDiff][blankTileCol + colDiff];) N
-(85) # (        ) S
+(        tileArray[blankTileRow][blankTileCol] = tile;) p n
+0 T (        ) S
 (// set the location of the blank) c n
 0 T () S
 (        tileArray[blankTileRow + rowDiff][blankTileCol + colDiff] = ) p
 (null) k
 (;) p n
 0 T (        blankTileRow += rowDiff;) N
-0 T (        blankTileCol += colDiff;) N
+(55) # (        blankTileCol += colDiff;) N
 0 T (    }) N
-(90) # () N
+0 T () N
 0 T (    ) S
 (if) K
 ( \(direction === ") p
 (left) str
 ("\) {) p n
 0 T (        update\(0,+1\);) N
-0 T (    } ) S
+(60) # (    } ) S
 (else) K
 ( ) p
 (if) K
@@ -1452,7 +1342,7 @@ x0 y0 moveto
 (right) str
 ("\) {) p n
 0 T (        update\(0,-1\);) N
-(95) # (    } ) S
+0 T (    } ) S
 (else) K
 ( ) p
 (if) K
@@ -1467,11 +1357,11 @@ x0 y0 moveto
 ( \(direction == ") p
 (down) str
 ("\) {) p n
-0 T (        update\(-1,0\);) N
+(65) # (        update\(-1,0\);) N
 0 T (    } ) S
 (else) K
 ( {) p n
-(100) # (        console.log\(") S
+0 T (        console.log\(") S
 (no such direction:) str
 ("+direction\);) p n
 0 T (    }) N
@@ -1480,11 +1370,105 @@ x0 y0 moveto
 (" + blankTileRow + ") p
 (\\n) str
 (" +) p n
-0 T (                ") S
+(70) # (                ") S
 (blankTileCol: ) str
 (" + blankTileCol\);) p n
 0 T (}) N
-(105) # () N
+0 T () N
+0 T () S
+(/* global $ */) c n
+0 T () N
+(75) # () S
+(var) K
+( duration = 500;  ) p
+(// half a second to slide a tile) c n
+0 T () N
+0 T (//animate the selected tile in the direction specified by input) N
+(tiles.js) (Page 1/2) (Mar 18, 19 12:13) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (// direction and tile args are as for updateData) c n
+0 T () S
+(function) K
+( ) p
+(movePicture) l
+(\(direction, tile\) {) p n
+(80) # (    ) S
+(if) K
+(\( tile == ) p
+(null) k
+(\) ) p
+(return) K
+(;) p n
+0 T (    console.log\(") S
+(movePicture ) str
+(" + tile + ") p
+( to direction: ) str
+(" + direction\);) p n
+0 T (    ) S
+(var) K
+( selector = ") p
+(#) str
+(" + tile;) p n
+0 T (    ) S
+(var) K
+( $elt = $\(selector\);) p n
+0 T (    ) S
+(var) K
+( tileLeft = parseInt\($elt.css\(") p
+(left) str
+("\),10\);) p n
+(85) # (    ) S
+(var) K
+( tileTop = parseInt\($elt.css\(") p
+(top) str
+("\),10\);) p n
+0 T () N
+0 T (    ) S
+(if) K
+(\(direction === ") p
+(left) str
+("\) {) p n
+0 T (        $elt.animate\({ left: tileLeft - 200 }, duration\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\(direction === ") p
+(right) str
+("\) {) p n
+(90) # (        $elt.animate\({ left: tileLeft + 200 }, duration\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\(direction === ") p
+(up) str
+("\) {) p n
+0 T (        $elt.animate\({ top: tileTop - 200 }, duration\);) N
+0 T (    } ) S
+(else) K
+( ) p
+(if) K
+(\(direction == ") p
+(down) str
+("\) {) p n
+0 T (        $elt.animate\({ top: tileTop + 200 }, duration\);) N
+(95) # (    } ) S
+(else) K
+( {) p n
+0 T (        console.log\(") S
+(no such direction: ) str
+("+direction\);) p n
+0 T (    }) N
+0 T (    updateData\(direction, tile\);) N
+0 T (}) N
+(100) # () N
+0 T () S
+(// does everything for a move. Direction is like "right" "up" etc.) c n
 0 T () S
 (function) K
 ( ) p
@@ -1498,14 +1482,14 @@ x0 y0 moveto
 0 T (        movePicture\(") S
 (left) str
 (",getRightTile\(\)\);) p n
-0 T (    } ) S
+(105) # (    } ) S
 (else) K
 ( ) p
 (if) K
 (\( direction == ") p
 (right) str
 ("\) {) p n
-(110) # (        movePicture\(") S
+0 T (        movePicture\(") S
 (right) str
 (",getLeftTile\(\)\);) p n
 0 T (    } ) S
@@ -1525,10 +1509,10 @@ x0 y0 moveto
 (\( direction == ") p
 (down) str
 ("\) {) p n
-0 T (        movePicture\(") S
+(110) # (        movePicture\(") S
 (down) str
 (",getAboveTile\(\)\);) p n
-(115) # (    } ) S
+0 T (    } ) S
 (else) K
 ( {) p n
 0 T (        console.log\(") S
@@ -1536,8 +1520,8 @@ x0 y0 moveto
 ("+direction\);) p n
 0 T (    }) N
 0 T (}) N
-0 T () N
-(120) # (document.addEventListener\(') S
+(115) # () N
+0 T (document.addEventListener\(') S
 (keypress) str
 (',function \(eventObj\) {) p n
 0 T (    ) N
@@ -1550,12 +1534,12 @@ x0 y0 moveto
 (var) K
 ( s_key = 115; ) p
 (//down) c n
-0 T () S
+(120) # () S
 (    ) p
 (var) K
 ( d_key = 100; ) p
 (//right) c n
-(125) # () S
+0 T () S
 (    ) p
 (var) K
 ( w_key = 119; ) p
@@ -1568,10 +1552,10 @@ x0 y0 moveto
 0 T (        console.log\(") S
 (a key pressed) str
 ("\);) p n
-0 T (        doMove\(") S
+(125) # (        doMove\(") S
 (left) str
 ("\);) p n
-(130) # (    } ) S
+0 T (    } ) S
 (else) K
 ( ) p
 (if) K
@@ -1587,10 +1571,10 @@ x0 y0 moveto
 0 T (        console.log\(") S
 (w key pressed) str
 ("\);) p n
-0 T (        doMove\(") S
+(130) # (        doMove\(") S
 (up) str
 ("\);) p n
-(135) # (    } ) S
+0 T (    } ) S
 (else) K
 ( ) p
 (if) K
@@ -1604,17 +1588,41 @@ x0 y0 moveto
 0 T (    } ) S
 (else) K
 ( {) p n
-0 T (        ) S
+(135) # (        ) S
 (//do nothing) c n
-(140) # () S
+0 T () S
 (    }) p n
 0 T (    ) N
 0 T (}\);) N
-(tiles.js) (Page 2/2) (Nov 07, 17 9:34) title
+0 T () N
+(140) # () S
+(// You weren't asked to do this, but it's easy enough) c n
+0 T () S
+($\(") p
+(#right) str
+("\).click\(function \(\) { doMove\(") p
+(right) str
+("\); }\);) p n
+0 T ($\(") S
+(#left) str
+("\).click\(function \(\) { doMove\(") p
+(left) str
+("\); }\);) p n
+0 T ($\(") S
+(#up) str
+("\).click\(function \(\) { doMove\(") p
+(up) str
+("\); }\);) p n
+0 T ($\(") S
+(#down) str
+("\).click\(function \(\) { doMove\(") p
+(down) str
+("\); }\);) p n
+(tiles.js) (Page 2/2) (Mar 18, 19 12:13) title
 border
 grestore
 (Printed by Introduction to Front-End Web Development) rhead
-(tiles.js) (2/2) (Tuesday November 07, 2017) footer
+(tiles.js) (2/2) (Thursday April 04, 2019) footer
 end % of iso1dict
 pagesave restore
 showpage

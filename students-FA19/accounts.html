@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <title>Semester CS204 Accounts</title>
+
+<script type="text/JavaScript">
+ function writeServerUserURL(userName, file, text) {
+        document.write(" [<a target='_blank' href='http://cs.wellesley.edu/~" 
+                       + userName + "/" + file + "'>" + text + "</a>]");
+    }
+
+ function writeStudent(fullName, account, lecture) {
+      document.write("<li class='nameline'> ");
+      document.write("<div class='namebox'>");              // start of  name box
+      document.write("<span class='lecture'>"+lecture+"</span>");
+      document.write("<strong>" + fullName + ":</strong> ");
+      document.write("("+account + ") ");
+      document.write("</div><div class='rest'>");           // end of name box, start of rest of line
+      // document.write(lecture + " ");
+      writeServerUserURL(account, "", "public");
+      writeServerUserURL(account, "cs204-assignments", "cs204-assignments");
+      document.write("</div>");                             // end of box for rest of line
+      document.writeln("</li>");
+ }
+</script>
+
+<style type="text/css">
+  li.nameline {
+      width: 100%;
+      border: 1px solid white;
+  }
+  li.nameline:hover {
+      border: 1px solid red;
+  }
+
+  div.namebox {
+      display: inline-block;
+      width: 27em;
+  }
+
+  .lecture {
+      display: inline-block;
+      width: 6em;
+      color: green;
+  }
+
+  div.rest {
+      display: inline-block; /* it'll end up next to the namebox. */
+  }
+
+</style>
+</head>
+<body>
+<h1>CS 204 Accounts</h1>
+
+<ol>
+<script type="text/JavaScript">
+writeStudent("Maxine Aguilar","maguilar","CS 204 01");
+writeStudent("Shrunothra Ambati","sambati","CS 204 01");
+writeStudent("Aliza Amin","aamin","CS 204 01");
+writeStudent("Sabrina Cadiz","scadiz2","CS 204 01");
+writeStudent("Stephanie Cobas","scobas","CS 204 01");
+writeStudent("Katianna Conde","kconde","CS 204 01");
+writeStudent("Martha Dameron","md6","CS 204 01");
+writeStudent("Zhining Ding","zd2","CS 204 01");
+writeStudent("Adhel Geng","ageng","CS 204 01");
+writeStudent("Diana Hernandez","dhernan3","CS 204 01");
+writeStudent("Vivian Hou","vhou","CS 204 01");
+writeStudent("Ebunoluwa Joseph","ejoseph","CS 204 01");
+writeStudent("Marili Karageorgiou","mkarageo","CS 204 01");
+writeStudent("Cin Ji Lee","clee50","CS 204 01");
+writeStudent("Sabrina Lin","slin7","CS 204 01");
+writeStudent("Annie Liu","aliu8","CS 204 01");
+writeStudent("Xinyu Liu","xliu2","CS 204 01");
+writeStudent("Angela Liu","aliu7","CS 204 01");
+writeStudent("Jennifer Miranda","jmiranda","CS 204 01");
+writeStudent("Lakeyia Mumford","lmumford","CS 204 01");
+writeStudent("Jisun Oh","joh5","CS 204 01");
+writeStudent("Sophia Rim","srim2","CS 204 01");
+writeStudent("Paige Robinson","probins3","CS 204 01");
+writeStudent("Anna Soong","asoong","CS 204 01");
+writeStudent("Linda Taing","ltaing","CS 204 01");
+writeStudent("Min Clarice Tan","mtan4","CS 204 01");
+writeStudent("Cherie Wang","cw1","CS 204 01");
+writeStudent("Yiran Wu","ywu5","CS 204 01");
+writeStudent("Yidou You","yyou2","CS 204 01");
+</script>
+</ol>
+
+
+</body>
+</html>

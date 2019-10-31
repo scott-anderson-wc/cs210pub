@@ -41,7 +41,8 @@ var Task = function (inits) {
 Task.prototype.toString = function () {
     var due = this.duedate ? ' due on ' + this.duedate : '';
     var tags = this.tags.length == 0 ? '' : ' (' + this.tags.join(',') + ')';
-    return '#<Task '+this.text+due+tags+'>';
+    var id = this.taskId;
+    return `#<Task ${id} ${this.text} ${due} ${tags}>`;
 };
 
 Task.prototype.mainTag = function () {
@@ -53,10 +54,14 @@ Task.prototype.mainTag = function () {
     }
 }
 
+Task.prototype.getDueDate = function () { return this.duedate; };
+
+Task.prototype.getId = function () { return this.taskId; };
+
 // This method formats the Task for display on a web page.
 
-Task.prototype.format = function (templateElt) {
-    templateElt = templateElt || $('#templatetasklist > li');
+Task.prototype.format = function () {
+    templateElt = $('#templatetasklist > li');
     var clone = templateElt.clone();
     clone.attr("data-taskId",this.taskId);
     clone.find(".duedate").text(this.duedate.toDateString());

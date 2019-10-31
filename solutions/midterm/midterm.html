@@ -23,11 +23,11 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="../../images/favicon.png">
+  <link rel="icon" type="image/ico" href="../../images/favicon.ico">
 
   <!-- We load jQuery at the top so that we can intersperse examples in
        the reading and lecture notes -->
-  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
 
 </head>
@@ -52,7 +52,7 @@
     <div class="row">
         
 
-<article id="main" class="twelve columns">
+<article id="main" class="twelve columns lecture">
 
     <h1 id="midterm-exam">Midterm Exam</h1>
 <p>People did pretty well. Some common errors:</p>
@@ -90,16 +90,16 @@ Lorem ipsum dolor sit amet, ...
 abstractly. Summarize the overall effect or behavior. Try to ignore the
 implementation details.</p>
 <p>A common, good student response:</p>
-<div class="codehilite"><pre><span class="n">the</span> <span class="n">class</span> <span class="n">fred</span> <span class="n">first</span> <span class="n">has</span> <span class="n">an</span> <span class="n">opacity</span> <span class="n">of</span> <span class="mi">0</span><span class="p">,</span> <span class="n">meaning</span> <span class="n">it</span> <span class="n">is</span> <span class="n">not</span>
-<span class="n">opaque</span><span class="p">.</span>  <span class="n">When</span> <span class="n">the</span> <span class="n">user</span> <span class="n">hovers</span> <span class="n">her</span> <span class="n">mouse</span> <span class="n">over</span> <span class="n">the</span> <span class="s">&quot;fred&quot;</span>
-<span class="n">element</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">turn</span> <span class="n">perfectly</span> <span class="n">opaque</span> <span class="n">in</span> <span class="n">a</span> <span class="n">span</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">seconds</span>
+<div class="codehilite"><pre><span class="n">the</span> <span class="n">class</span> <span class="n">fred</span> <span class="n">first</span> <span class="n">has</span> <span class="n">an</span> <span class="n">opacity</span> <span class="n">of</span> 0<span class="p">,</span> <span class="n">meaning</span> <span class="n">it</span> <span class="n">is</span> <span class="n">not</span>
+<span class="n">opaque</span><span class="p">.</span>  <span class="n">When</span> <span class="n">the</span> <span class="n">user</span> <span class="n">hovers</span> <span class="n">her</span> <span class="n">mouse</span> <span class="n">over</span> <span class="n">the</span> &quot;<span class="n">fred</span>&quot;
+<span class="n">element</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">turn</span> <span class="n">perfectly</span> <span class="n">opaque</span> <span class="n">in</span> <span class="n">a</span> <span class="n">span</span> <span class="n">of</span> 3 <span class="n">seconds</span>
 </pre></div>
 
 
 <p>What I had in mind:</p>
 <div class="codehilite"><pre><span class="n">The</span> <span class="n">CSS</span> <span class="n">causes</span> <span class="n">elements</span> <span class="n">of</span> <span class="n">class</span> <span class="n">fred</span> <span class="n">to</span> <span class="n">fade</span> <span class="n">in</span> <span class="n">when</span> <span class="n">hovered</span>
 <span class="n">over</span><span class="p">.</span> <span class="n">They</span> <span class="n">fade</span> <span class="n">out</span> <span class="n">when</span> <span class="n">the</span> <span class="n">mouse</span> <span class="n">leaves</span><span class="p">.</span> <span class="n">The</span> <span class="n">transition</span>
-<span class="n">takes</span> <span class="mi">3</span> <span class="n">seconds</span><span class="p">.</span>
+<span class="n">takes</span> 3 <span class="n">seconds</span><span class="p">.</span>
 </pre></div>
 
 
@@ -289,6 +289,21 @@ $(".example-with-code").each(function (index,elt) {
 
 addMarginTopToFragment();
 </script>
+
+<footer>
+<ul class="validation_icons">
+    <li><a href="//validator.w3.org/check?uri=referer"><img 
+       src="//cs.wellesley.edu/~cs204/Icons/valid-html5v2.png"
+       alt="Valid HTML 5"
+       title="Valid HTML 5"  
+       height="31" width="88"/></a></li>
+
+<li><a href="//jigsaw.w3.org/css-validator/check/referer"><img 
+      style="border:0;width:88px;height:31px"
+      src="//cs.wellesley.edu/~cs204/Icons/vcss.gif"
+      alt="Valid CSS!"/></a></li>
+</ul>
+</footer>
 
 </body>
 </html>

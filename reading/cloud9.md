@@ -1,57 +1,52 @@
-# Cloud 9
+# Code Anywhere
 
 Cloud 9 is a service that allows you to create virtual machines
 (workspaces) and Integrated Development Environments (IDEs) that are based
-in the cloud. There is a free service level that limits the power of your
-machine (cpu, ram, disk) and also limits the number of private workspaces
-you can have, but these limits are sufficient for our course.
+in the cloud. We'll be using it at the "starter" level, which, with an
+educational discount, the department can afford.
 
-## Signup
+## Accounts
 
-Signup is free and is like many other web accounts. You won't have any
-difficulty with it.
+I will send each student in the course an invitation using their Wellesley
+email address. You will have to confirm that, and you should then be able
+to create a container. We'll do that in class.
 
-I will send each student in the course (and some of those on the waiting
-list) an invitation using their Wellesley email address. That will allow
-you to create a C9 account without having to give a credit card.
+## Container Creation
 
-(You're welcome to create a personal account, which is free, but I believe
-they require a credit card anyhow, probably to ensure that you're not 13.)
+We'll do this in class together
 
-Please create your C9 account before class, so that we don't have any
-difficulties or delays during class.
-
-## Workspace Creation
-
-We'll do this in class together, but if you want to do it beforehand,
-that's good too.
-
-* put in a workspace name. Call it `cs204pub`
-* the default is to make it public; that's fine
-* the default template (HTML5) is good
-* create the workspace by clicking the big green button
-
-## Looking around Workspace
-
-Here's what the workspace looks like:
-
-<figure>
-   <img style="width:80%" src="../images/c9-cs204-initial-workspace-full.png">
-   <figcaption>The Cloud 9 Initial Workspace</figcaption>
-</figure>
+* create a "CentOS 7 PHP" container.
 
 It has:
 
 * Menus on the top like a desktop Integrated Development Environment (IDE)
   application. That will all you to create, edit, and save files,
 * files and folders on the left hand side
-* right hand side has links to share, collaborate, etc
 * shell on the bottom, for executing commands. We won't use that a lot.
-* A JavaScript Read-Eval-Print-Loop (REPL) is there on the bottom, too. We'll use that a lot.
 
 ## Using a Workspace
 
-They have some "getting started" info. It's worth doing:
+1. create a new file
+1. save it as hello.html
+1. copy-paste the following code into it:
+
+```
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='style.css'>
+    <title></title>
+</head>
+<body>
+
+<h1>This is an H1</h1>
+
+<p>This is a very boring paragraph.</p>
+
+</body>
+</html>
+```
 
 1. Open the hello-world.html file by double-clicking
 1. Click on Preview button to see it live
@@ -63,7 +58,9 @@ your changes.
 ## Sharing
 
 I can see exactly what you see if you share your workspace with me. (No
-copying files around.)  Be sure to do the following:
+copying files around.)  In fact, you *must* share your workspace with me
+and with the tutors in order for us to grade your work. Be sure to do the
+following:
 
 * click `share` in the upper right, next to the big gear
 * enter my email address `scott.anderson@wellesley.edu` as the person to invite
@@ -73,5 +70,3 @@ copying files around.)  Be sure to do the following:
 
 * yellow triangles in the margin are warnings
 * red circles in the margin show errors (none yet; we'll make one)
-
-

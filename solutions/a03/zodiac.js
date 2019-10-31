@@ -30,7 +30,8 @@ function test_makeDate() {
 test_makeDate();
 
 function formatDate(date) {
-    var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", 
+                    "Thursday", "Friday", "Saturday"];
     var name = dayNames[date.getDay()];
     var mon = date.getMonth()+1;
     return name+", "+mon+"/"+date.getDate()+"/"+date.getFullYear();
@@ -38,12 +39,14 @@ function formatDate(date) {
 
 function test_formatDate() {
     console.log("testing formatDate");
-    test_dates.forEach(function (s) { console.log(s+" => "+formatDate(makeDate(s))); });
+    test_dates.forEach(function (s) { 
+        console.log(s+" => "+formatDate(makeDate(s))); 
+    });
 }
 
 test_formatDate();
 
-function zodiacSign(date) {
+function zodiacSign(date) {
     var m = date.getMonth()+1;
     var d = date.getDate();
     // there are many ways this could be done. Here's a somewhat fancy way:
@@ -82,7 +85,9 @@ function zodiacSign(date) {
 
 function test_zodiacSign() {
     console.log("testing zodiacSign");
-    test_dates.forEach(function (s) { console.log(s+" => "+zodiacSign(makeDate(s))); });
+    test_dates.forEach(function (s) { 
+        console.log(s+" => "+zodiacSign(makeDate(s))); 
+    });
 }
 
 test_zodiacSign();
@@ -92,12 +97,12 @@ function randomElt(elts) {
     return elts[index];
 }
 
-function randomDate() {
+function getTestDate() {
     return makeDate(randomElt(test_dates));
 }
 
 function updatePage() {
-    var today = randomDate();
+    var today = getTestDate();
     $("#today").text(formatDate(today));
     var zsign = zodiacSign(today);
     $("#sign").text(zsign);
@@ -107,5 +112,3 @@ function updatePage() {
 $("#updateButton").click(updatePage);
 
 updatePage();  // this happens on load
-
-

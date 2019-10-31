@@ -37,19 +37,17 @@ function foo(a,b) {
 
 ## Running JS
 
-* The "immediate" tab on the lower part of the page is a perfect sandbox. You can make it full-screen
 * You can also use the console in the Chrome Dev Tools (or equivalent in Firefox)
 * The console is nice for trying functions defined by a web page
 
-1. Open your public class workspace and create a folder named `js1`
-1. Create a file `stuff.html` that has a `script` tag that loads `stuff.js` Maybe add an `h1`, too.
-1. Create a `stuff.js` file that just contains `console.log("loaded");`
-1. Run the `stuff.html` file
-1. Open the `stuff.html` file in a new tab
-1. Open the JS console in the new tab.
+1. Open your `cs204` folder
+1. `cp -r ~cs204/pub/lectures/L06/js1a .`
+1. Edit the `stuff.js` file so that it just contains `console.log("loaded");`
+1. Visit the `stuff.html` file in a browser
+1. Open the JS console in the page
 1. See the `loaded` message
 
-Here is [mine](stuff.html)
+Here is [mine](js1a/stuff.html)
 
 ## Exercise 1
 
@@ -69,7 +67,8 @@ function line(m, x, b) {
 </pre>
 </div>
 
-Write a function named `parabola` that takes four arguments and implements a quadratic function like this:
+Write a function named `parabola` that takes four arguments and implements
+a quadratic function like this:
 
 ```
 y = a x^2 + b x + c
@@ -85,13 +84,54 @@ function parabola(a, b, c, x) {
 </pre>
 </div>
 
-Write a  recursive function named `choose` that takes two arguments and implements n choose k like this:
+## N Choose K
+
+In combinatorics, we learn how to count things. For example, suppose I
+have 28 people in this class, and I have to choose 3 of them for a
+programming team. How many ways are there to do that? In general, how can
+I choose K things from a set of N things?
+
+One way is to think recursively. To choose 3 people from 28, let's
+consider the first person in the class:
+
+* If I choose them, I have to choose 2 people from the remaining 27.
+* If I don't choose them, I have to choose 3 people from the remaining 27.
+
+Those are all the possibilities, and they are mutually exclusive. So, one
+way do compute Choose(N,K) is as follows (math notation):
 
 ```
-f(n,k) = f(n-1,k)+f(n-1,k-1) if n>1
-f(n,0) = 1
-f(n,n) = 1
+Choose(N,K) = Choose(N-1,K-1) + Choose(N-1,K)
 ```
+
+We have to think about the base cases as well. If N=K, we have to take all
+the K of them, and there's only one way to do that, so
+
+```
+Choose(N,N) = 1
+```
+
+Similarly, if there no more people left to be chosen, there's exactly one
+way to do that (no choices).
+
+```
+Choose(N,0) = 1
+```
+
+This is exactly how Pascal's triangle works.
+
+## Combinatorics Exercise
+
+Write a recursive function named `choose` that takes two arguments and
+implements n choose k like this (math notation):
+
+```
+choose(n,k) = choose(n-1,k)+choose(n-1,k-1) if n>1
+choose(n,0) = 1
+choose(n,n) = 1
+```
+
+My solution:
 
 <div class="solution"> 
 <pre class="codehilite"> 
@@ -102,19 +142,40 @@ function choose(n,k) {
 </pre>
 </div>
 
+## Milestone 1
+
+[js1b](js1b/stuff.html)
+
+Feel free to copy my solution: `cp -r cs204/pub/lectures/L06/js1b .`
+
 ## Debugging with breakpoints
 
-I'll take you through debugging the `choose` function using the Chrome debugger and stepper.
+I'll take you through debugging the `choose` function using the Chrome
+debugger and stepper.
 
-I'll invoke `choose_v1(3,4)` in my public workspace and we'll see how it works.
+I'll invoke `choose(4,3)` in my page and we'll see how it works.
 
-You can then do the same.  Or use [mine](stuff.html)
+You can then do the same.  Or use [mine](js1b/stuff.html)
+
+Here's the basics of how to use the debugger:
+
+* Open the developer tools
+* switch to the `sources` tab
+* choose `stuff.js`; this displays the code in the big panel
+* click in the margin to the left of the line you'd like to set a breakpoint on
+* switch back to the console and run the function
+* the browser will stop just before the line you chose is executed
+* you can look to the right to see the call stack, local variables, and more
+* the buttons above that "state" pane allow you to resume execution, step over this function, and more
+
 
 ## Local Variables
 
-Write a function that takes three arguments: the subtotal of the restaurant bill, the tax rate, and a string describing the service (great or not). It should compute and return the total bill.
+Write a function that takes three arguments: the subtotal of the
+restaurant bill, the tax rate, and a string describing the service (great
+or not). It should compute and return the total bill.
 
-We'll look at my `total_bad` function. Why is it bad?
+We'll look at my `total_bad` function. 
 
 <div class="solution">
 <pre class="codehilite"> 
@@ -123,12 +184,22 @@ function total_bad(subtotal, rate, service) {
     if( service == "great" ) {
         tip = subtotal * 0.2;
     } else {
-	tip = subtotal * 0.15;
+        tip = subtotal * 0.15;
     }
     return subtotal + tax + tip;
 }
 </pre>
 </div>
+
+Why is it bad?
+<div class="solution">
+<p>
+It's bad because it omits the <code>var</code> keyword
+for <code>tax</code> and <code>tip</code> so it ends up creating global
+variables.
+</p>
+</div>
+
 
 ## Arrays
 
@@ -168,10 +239,17 @@ function range(n) {
 </pre>
 </div>
 
+## Milestone 2
+
+[js1c](js1c/stuff.html)
+
+Feel free to copy my solution: `cp -r cs204/pub/lectures/L06/js1c .`
+
 ## Functions as arguments.
 
 You can pass a function to another function and the callee can invoke the
-argument:
+argument. Passing functions as arguments is an important part of browser
+programming, so understanding it is crucial.
 
 ```
 :::javascript
@@ -191,16 +269,17 @@ function ask_user(fun) {
 }
 ```
 
-Write a function `computeCurve` to compute a math function on an array of inputs.
+Write a function `computeCurve` to compute a math function on an array of
+inputs, returning an array of results.
 
 <div class="solution">
 <pre class="codehilite"> 
-function computeCurve(domain, func) {
-    var range = [];
+function computeCurve(inputs, func) {
+    var outputs = [];
     for ( var i = 0; i < domain.length; i++ ) {
-        range[i] = func(domain[i]);
+        outputs[i] = func(inputs[i]);
     }
-    return range;
+    return outputs;
 }
 </pre>
 </div>
@@ -212,6 +291,14 @@ way:
 :::JavaScript
 y_values = x_values.map(some_function)
 ```
+
+## Milestone 3
+
+[js1d](js1d/stuff.html)
+
+Feel free to copy my solution: `cp -r cs204/pub/lectures/L06/js1d .`
+
+## More Functions 
 
 Let's create functions `line23` and `curve234` and use them with this
 function:
@@ -240,7 +327,20 @@ computeCurve( range(10),
 </pre>
 </div>
 
-There is, however, the <q>blizzard of punctuation</q> problem.
+There is, however, the <q>blizzard of punctuation</q> problem. That's an
+advantage for arrow functions, which are syntactically nicer:
+
+<div class="solution">
+<pre class="codehilite">
+var f2 = x => line(2,x,3)
+computeCurve( range(10), f2);
+
+// much better:
+computeCurve( range(10),
+              x => line(2,x,3) );
+</pre>
+</div>
+
 
 ## Search
 
@@ -267,13 +367,14 @@ By default, they are sorted as *strings*.
 Optionally, you can supply a comparison function. The comparison
 function must take two args and return
 
-* negative if the first arg is less than the second
+* negative if the first arg is less than the second (should be earlier)
 * zero if they are equal
-* positive if the first is greater than the second
+* positive if the first is greater than the second (should be later)
 
 ```
 nums2.sort( function (a,b) { return b-a; } );
-nums2.sort( function (a,b) { return a-b; } );
+nums2.sort( (a,b) => b-a );
+nums2.sort( (a,b) => a-b );
 ```
 
 ## Anonymous functions
@@ -293,6 +394,12 @@ nums2.sort(diff);
 
 Similarly `line23` and `curve234` could have been anonymous functions.
 
+## Milestone 4
+
+[js1e](js1e/stuff.html)
+
+Feel free to copy my solution: `cp -r cs204/pub/lectures/L06/js1e .`
+
 ## End of Class
 
 At the end of each class, I'll hand out paper slips. On it, please write
@@ -304,5 +411,5 @@ At the end of each class, I'll hand out paper slips. On it, please write
 * An "I'm okay" statement
 
 <script>
-var revealAt = "9/22/2017 5:00 pm";
+var revealAt = "9/24/2019 5:00 pm";
 </script>

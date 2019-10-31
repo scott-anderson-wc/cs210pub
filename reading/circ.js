@@ -1,5 +1,4 @@
 function Circ(c1,radius) {
-    // UL is upper left, LR is lower right
     this.center = c1;
     this.radius = radius;
 }

@@ -1,19 +1,32 @@
 No Answer
+Could you go over "jusify-content" and "align-items" and "align-content" for flexbox? What are the difference between these three and what are the similarities? I found these concepts here: https://css-tricks.com/snippets/css/a-guide-to-flexbox/  
+Can we talk more about how flex boxes all stack together? I am having trouble keeping all of the different components and containers straight.
 No Answer
-I'm curious to learn about the purpose of other position values, such as fixed. Additionally, I would like to learn a bit more about float!
-nothing in particular!
-No questions on this section!
-To clarify: the "auto" in, for example, the shorthand "flex: 0 1 auto;"  tells the container to calculate the element's size rather than the developer specifying it?
+No Answer
 
-Flexbox is just really confusing! Looking forward to practicing in class.
+I think I'm all good
 No Answer
-Flexbox vs. Float (just more detail on why we use one over the other, pros and cons)
+No question for now
+Can we discuss galleries in more detail?
+n/a
+I would like to go over the differences between the flexbox and the float more in depth!
 No Answer
-"I'm still confused with absolute positioning and relative positioning.
- What is the difference between flex and float?
- What does it mean when flex items can ""grow and shrink""?
- why is it important to explicitly declare position property? "
 
-The supplemental reading mentioned that flex containers can be nested.  What does that look like?
-What attributes can flexbox have other than positioning and size? Is there a page somewhere with all the attributes you can use?
-Absolute and relative positioning. Flex vs. flexbox.
+none
+I'm still confused on how to use coordinates for position: absolute children for the position: relative ancestor.
+No Answer
+
+No Answer
+No Answer
+"I'm still fuzzy about flexbox but I think going over it in class and practicing it should help.
+
+
+
+This isn't a question for the current reading but is it possible for you to release the Sakai quizzes earlier on during the week for students to complete? "
+No Answer
+Relative and Absolute Positioning is a bit confusing for me.
+flexbox 
+Can we go over the differences between position: absolute and the default position: static? 
+NA
+No Answer
+No Answer

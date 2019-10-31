@@ -25,7 +25,7 @@ jQueryUI](https://jqueryui.com/about)
 
 Next, I'll ask you to look at several specific items. Each item has a main
 page with a demo. In fact, it usually has several demos; make sure you
-study at least the default demo. The demoe will have a way to look at the
+study at least the default demo. The demo will have a way to look at the
 source code of the demo. Please look at the source code.
 
 You'll notice that the source code usually loads quite a few files and
@@ -53,7 +53,7 @@ In class, we'll get some more experience with using these.
 
 * [sortable](https://jqueryui.com/sortable/) We'll use this in the final project
 * [autocomplete](https://jqueryui.com/autocomplete/) Developers should
-always use this for state name when giving addresses.
+always use this for "state name" when asking for an address.
 * [datepicker](https://jqueryui.com/datepicker/) So easy and useful. We'll
 use this in the final project as well
 * [tabs](https://jqueryui.com/tabs/) A nice way to organize a page without

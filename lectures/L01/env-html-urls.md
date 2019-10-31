@@ -9,8 +9,7 @@ then get started setting up our environment and getting under way.
 
 The history is told on the [about page](../../about.html). In a nutshell:
 
-* Like CS 110 (HTML, CSS, JS, JQ), but for those who know some programming
-* Prereqs are *either* CS 111 *or* CS 115
+* Prereq is CS 111. CS 115 is not sufficient.
 * I expect that you know programming basics:
     * variables and scope
     * conditionals
@@ -19,7 +18,8 @@ The history is told on the [about page](../../about.html). In a nutshell:
     * methods
     * arrays and dictionaries (Python) or arrays and objects (JavaScript)
 * I do *not* expect that you know much HTML or CSS. It always helps if you do, of course.
-* The plan is for this course to be renumbered CS 204 and be offered every year, maybe more.
+* The plan is for this course to be offered every semester next year, and
+probably ongoing
     
 ## Target Audience
 
@@ -28,31 +28,12 @@ prior course.
 
 Similar to CS 230 rather than CS 304.
 
-However, this semester, due to its newness and the fact that seniors get
-first dibs, that isn't entirely the case.
-
 So, one difficulty is the range of skill and experience in the class.
 
 * the course may be boring for some and challenging for others
 * I hope to avoid it being too boring and too challenging.
 * my aim is to aim for the lower end, so boring is more likely
 * you have been warned. :-)
-
-## What number is it?
-
-* Originally, we planned to number it 210, a souped-up version of 110
-* However, 110 doesn't exist anymore and conceptually, the course pairs better with 304, so
-* Now it's numbered 204,
-* But almost everything I've written originally said "210", so you may
-* find some vestiges. Don't worry about that.
-
-## Course Development
-
-Since this is a relatively new course, I will be asking you to fill out
-lots of feedback surveys about whether a reading assignment or problem set
-is too hard, too easy, or just right.
-
-I'll try to keep these brief, but they are important
 
 ## About the Course
 
@@ -67,12 +48,12 @@ front-end is not much of a limitation. Many powerful applications are
 
 We will learn:
 
-* HTML
-* CSS
-* JavaScript
+* HTML *structure*
+* CSS  *appearance*
+* JavaScript *behavior*
 * the DOM, which is how JavaScript controls the page, including HTML, CSS
 and event handling
-* jQuery, a library for doing common DOM-related operations
+* jQuery, a JavaScript library for doing common DOM-related operations
 
 ## Waiting list
 
@@ -89,6 +70,8 @@ During add/drop, I'll call roll. It also helps me learn your names and
 faces. Please correct my pronunciation of your name if necessary, and
 please tell me what your pronouns are. I use "he/him".
 
+I will probably do additional "getting to know you" exercises. Bear with me.
+
 ## Syllabus issues:
 
 * Communication: please read/use email every day. I'm old; it's what I use
@@ -100,104 +83,129 @@ We'll take a few minutes now to talk about the syllabus and the schedule.
 
 ## Environment
 
-Cloud 9 is a platform where you get your own virtual machine in the Cloud:
+Code Anywhere is a platform where you get your own virtual machine in the
+Cloud, paid for by me and the department.
 
 * command line 
 * files and folders
-* built-in editor (Ace)
+* built-in editor
 * variety of backend servers; we'll use the default, which is Apache
 * uniform development environment, whether you're a Mac, PC or Linux person
-* as many public workspaces as you want, plus
-* 1 *private* workspace, that ...
-* you will share with me and with the tutor
+* 1 container that ...
+* you will share with me and with the tutor, and various partners
 
-Login now, please! [https://c9.io/](https://c9.io/)
+## Demo
+
+I'll show you around a little. Then we'll dive in a bit.
 
 ## Orientation
 
-We'll look around at the various parts of the C9 interface
+We'll look around at the various parts of the CA interface
 
-## Workspace Creation
+## Account setup
 
-We'll do this in class together, but if you want to do it beforehand,
-that's good too.
+1. Click on the email that was sent to you
+1. confirm the account and set a password
+1. Login and go to your dashboard
+1. send a confirmation email to yourself.
+1. when the confirmation email arrives, confirm it
+1. then, you should be able to go to the "editor" and create a container
 
-* put in a workspace name. Call it cs204
-* make it *public*
-* the default template is okay
-* create the workspace by clicking the big green button
+Some pictures you might see corresponding to these steps:
 
-## Looking around Workspace
+<div>
+<style scoped>
+img { max-width: 100%; width: 45%;}
+</style>
+<img src="CA-create-container.png">
+<img src="CA-editor-window.png">
+<img src="CA-deploying-container.png">
+<img src="CA-dashboard.png">
+<img src="CA-successfully-verified.png">
+</div>
 
-Launch your workspace and we'll look around.
+## Container Creation
+
+A container is a virtual computer, hosted on another computer. 
+
+1. Create a container with File / New / Container
+1. I suggest calling it "cs204"
+1. search for a PHP stack
+1. click on the "CentOS 7.2" option
+1. wait while the machine is created (deployed)
+
+## The User Interface
+
+It has:
 
 * Menus on the top like a desktop Integrated Development Environment (IDE)
-  application. That will allow you to create, edit, and save files,
+  application. That will all you to create, edit, and save files,
 * files and folders on the left hand side
-* right hand side has links to collaborate, etc
-* shell on the bottom, for executing commands. 
-* A JavaScript REPL is there on the bottom, too. We'll use that a lot.
+* windows (panes) on the right
 
 ## Using a Workspace
 
-They have some "getting started" info. It's worth doing:
+1. create a new file
+1. save it as hello.html
+1. copy-paste the following code into it:
 
-1. Open the hello-world.html file by double-clicking
-1. Click on Preview to see the web page in a tiny pane.
-1. Click on Run to start a web server and
-1. Click on the URL to see it in another tab
-1. Change something, save, and refresh the other tab
-1. have fun!
+```
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <link rel='stylesheet' href='style.css'>
+    <title></title>
+</head>
+<body>
 
-## Stuff to Notice
+<h1>This is an H1</h1>
 
-* yellow triangles in the margin are warnings
-* red circles in the margin show errors (none yet; we'll make one)
+<p>This is a very boring paragraph.</p>
 
-## Stuff To Do
-
-1. Create a new file: File > New From Template > CSS file
-1. Copy/paste the CSS code (the contents of the `style` tag, from line 9
-to line 41 to the new file, *between* the `style` tags).
-1. Save the file as `hello-world.css`:  File > Save As 
-1. In `hello-world.html` after the `<title>` type `link` and hit
-`tab`. Notice that the editor fills in lots of code for you.
-1. put `hello-world.css` as the value of the `href` attribute. You can try
-right-clicking on the filename in the file browser and choosing "copy file
-path" then pasting it in
-1. Click on the circle-arrow in the upper left of the hello-world.html
-view to refresh it.
-
-## Edit the HTML to create some more files
-
-   1. right after `body` type `<h1>` and notice the editor puts in the closing tag
-1. Type `Fred` into the `h1` tag. That will make the page look different
-from other pages.
-1. Save the file as `fred.html`: File > Save As
-1. Repeat to create `george.html` and put "George" in the `h1` tag.
-1. Return to `hello-world.html` and put in links to fred and george:
-
-```html
-<a href="/fred.html">Fred</a>
-<a href="george.html">George</a>
+</body>
+</html>
 ```
 
-The lack of a slash in the second is intentional. We'll see why in a
-moment.
+1. Open the hello.html file by right-clicking (control-click on a mac) and
+choosing "preview"
+1. This will open up a new tab with your html page in it!
+1. Change something, save, and switch to the other tab. shift-refresh to
+see the changes.
+1. have fun!
 
-Note that `amailto` interferes with using the autocompletion nicely. What
-I do is type `<a>` which gives me the closing tag, and then I backspace
-one step and type `href="` to start the URL.
+## Sharing
 
-Save the result and try it. Do both links work?
+I can see exactly what you see if you share your workspace with me. (No
+copying files around.)  In fact, you *must* share your workspace with me
+and with the tutors in order for us to grade your work. Be sure to do the
+following:
 
-## Running an Application
+* control-click on the container (cs204) and click "share"
+* share it with my email address `scott.anderson@wellesley.edu` 
+* the default is to share the workspace `edit`
 
-* Note that you'll have to *run* the application to get the links to work;
-the preview shows structure and style, but isn't quite complete.
-* Click on the `Run` menu then look in the console at the bottom.
-* Click on the URL shown there
-* Click on `open` not `open in preview`
+## More stuff To Do
+
+save copies of the file to `fred.html` and `george.html`
+
+in `fred.html`, put in a link to `george.html`:
+
+```
+<a href="george.html">Go to George</a>
+```
+
+in `george.html`, put in a link to `fred.html`:
+
+```
+<a href="/fred.html">Go to Fred</a>
+```
+
+One has a slash and the other doesn't. That's on purpose.
+
+Save the result and try it. 
+
+Do both links work? 
 
 ## Relative URLs
 
@@ -206,21 +214,23 @@ Both links should work.
 Now, we're going to move this stuff out of our way, for some other day
 
 1. Close the editor panes you have open to these files
-1. Click on the "bash" tab in the bottom console
+1. right click on the container and click on SSH terminal. A new pane opens.
 1. type `ls`
 1. type `ls -l` for more info
 1. type `mkdir hello`
 1. type `mv *.html hello` and `mv *.css hello`
-1. type `ls` to see what happened
+1. type `ls` to see what happened (and look in the file browser)
+1. type `cd hello` to go to that folder 
+1. type `ls` to see the files
+1. right click on the container and click on "refresh"
 
 Now, we'll look at the new location:
 
 1. open the `hello` folder in the file browser
-1. open the `hello-world.html` file
-1. run it (click on the green circle with the white arrow)
-1. open the file in a new browser tab by clicking on the URL in the lower console
+1. open `fred.html` 
+1. preview it
 1. notice that the URL now has `/hello/` spliced in
-1. try both the `fred` and `george` links. Which one worked? Why?
+1. try the links. Do they work?
 
 ## URLs
 
@@ -260,32 +270,24 @@ The reason that `george.html` worked and `/fred.html` didn't work is that
 the latter is an absolute URL, so that when we moved the files, the
 absolute URL was no longer correct, but the relative one was *still correct*.
 
-In general, use relative URLs for related parts of a project.
+In general, use relative URLs for related parts of a project (files that will move *together*)
 
 [Learn more about
 URLs](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL)
 
-## Share your workspaces with me!
+## Share your workspace with me!
 
-Create *two* workspaces, one public and one private. Call them `cs204` and `cs204private`
+Create one container. Call it `cs204`
 
-1.  use the private one for assignments. You can share it with your partner,
-  but no one else will be able to look at it, so your work is secure (you
-  don't want other students cheating off you -- unlikely but possible)
-1. use the public one for work in class and other occasions when your code
-  is not your own
+* use it for all your work. You can share it with your partner, on an
+  assignment, and revoke that sharing later. No one else will be able to
+  look at it, so your work is secure (you don't want other students
+  cheating off you -- unlikely but possible)
 
-You can create other workspaces if you want, for other projects, but the
-free C9 service limits you to one *private* workspace, so use the private
-one for CS 204 assignments
-
-But, please *share* your workspaces with me and with our tutor. You can
-share it read-write (RW) or read-only (R), but I recommend RW so that, if
-necessary, the tutor (Emily Wang) and I can modify your files. Please
-share with these two email addresses
+But, please *share* your workspace with me and with our tutor. 
 
 * `scott.anderson@wellesley.edu`
-* `ewang10@wellesley.edu`
+* `sxu5@wellesley.edu`
 
 ## About our book
 
@@ -293,12 +295,13 @@ share with these two email addresses
 * You can install them on your own laptop if you want; no support
 * After the first two chapters, it won't make any difference
 * We'll start with chapter 2
+* see [FEWD chapter 2](../../LocalOnly/FEWD-Chapter-2.pdf)
 
 ## To Do
 
+* fill out the "getting to know you Google Form"
 * send me an introductory email
 * plan to visit me in office hours sometime
 * get a copy of the book. Read chapter 2 and our online supplement for
 next time
 * There will be a quiz on the reading
-

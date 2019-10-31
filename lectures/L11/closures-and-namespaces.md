@@ -6,13 +6,21 @@ fell asleep.
 ## Plan
 
 1. Describe and demo assignment 4
-1. Discuss Closures
 1. Quiz questions
+1. Discuss Closures
 1. Discuss Modules
 1. Discuss Namespaces
-1. Activity (maybe)
-1. Solution to Assignment 3 (Zodiac)
-1. Bring questions on Tuesday!
+
+## Assignment 4 (Rock-Paper-Scissors Game)
+
+[RPS Game](../../assignments/a04/rps.html)
+
+I'll also demo this.
+
+## Quiz Questions
+
+[quiz questions](../../quizzes/quiz09.html)
+
 
 ## Closures
 
@@ -35,6 +43,33 @@ things from closures. For example, you can build OOP. The closure variables are 
 * You can build things like modules out of closures.
 * Closures naturally arise in programming with callbacks
 
+## Example: Array of Counter Closures
+
+Run the following in your browser:
+
+```
+var vals = [0,0,0,0];
+var counters =
+    vals.map(function (v) {
+        return function () { return ++v; }});
+```
+
+Then, let's invoke some of those counters a few times:
+```
+counters[0]();
+counters[0]();
+counters[2]();
+counters[2]();
+counters[2]();
+```
+
+Strange? Surprising?
+
+Try inspecting the `counters` array. Drill down into the `scopes`
+property.
+
+This is very cool!
+
 ## Closures in Ottergram
 
 Here's their code to attach an event handler to a thumbnail in Ottergram
@@ -49,8 +84,8 @@ span.em { font-style: italics; color: red; }
 <pre class="prettyprint lang-js">
 function addThumbClickHandler(<span class="em">thumb</span>) {
     'use strict';
-    thumb.addEventListener('click', function (event) {
-        event.preventDefault();
+    thumb.addEventListener('click', function (evt) {
+        evt.preventDefault();
         setDetailsFromThumb(<span class="em">thumb</span>);
     });
 }
@@ -63,8 +98,8 @@ is executed is:
 
 <div class="codehilite">
 <pre class="prettyprint lang-js">
-function (event) {
-    event.preventDefault();
+function (evt) {
+    evt.preventDefault();
     setDetailsFromThumb(<span class="em">thumb</span>);
 }
 </pre>
@@ -80,8 +115,8 @@ Note that anonymity is not the problem. Here's a named event handler; it's
 <pre class="prettyprint lang-js">
 function addThumbClickHandler(thumb) {
     'use strict';
-    function handler(event) {
-        event.preventDefault();
+    function handler(evt) {
+        evt.preventDefault();
         setDetailsFromThumb(thumb);
     }
 
@@ -94,8 +129,8 @@ Again, here's the executed function, deprived of its lexical context:
 
 <div class="codehilite">
 <pre class="prettyprint lang-js">
-function handler (event) {
-    event.preventDefault();
+function handler (evt) {
+    evt.preventDefault();
     setDetailsFromThumb(<span class="em">thumb</span>);
 }
 </pre>
@@ -116,10 +151,6 @@ We'll return to the reading on
 [closures](../../reading/closures-and-namespaces.html) and make sure all
 that material is clear.
 
-## Questions from last night
-
-[questions](../../quizzes/quiz10.html)
-
 ## Pitfalls
 
 It's really easy to make mistakes with closures, and the mistakes can be
@@ -127,14 +158,16 @@ hard to debug.  Here's one that really happened:
 
 ```
 :::JavaScript
-var nodeList = document.querySelectorAll("#listA > li");
+var nodeList = document.querySelectorAll
+                                ("#listA > li");
 // add click handlers to every element of a list
 for( var i = 0; i < nodeList.length; i++ ) {
     var node = nodeList[i];
-    node.addEventListener('click', 
-                          function (event) {
-                               alert('clicked on element '+i);
-                          });
+    node.addEventListener(
+        'click', 
+        function (event) {
+            alert('clicked on element '+i);
+        });
 }
 ```
 
@@ -207,7 +240,8 @@ Here's the code:
 
 ```
 :::JavaScript
-var nodeList = document.querySelectorAll("#listA > li");
+var nodeList = document.querySelectorAll
+                                ("#listB > li");
 // add click handlers to every element of a list
 for( var i = 0; i < nodeList.length; i++ ) {
     var node = nodeList[i];
@@ -229,8 +263,9 @@ invocation and we have parens after it. That's because we invoke it and
 ## Modules
 
 Modules are a really important idea in all complex programming. It's
-really part of *divide and conquer*: in particular it allows you to truly
-*divide* the problem into separate components. Here's an example:
+really part of the big idea of *divide and conquer*: in particular it
+allows you to truly *divide* the problem into separate components. Here's
+an example:
 
 <figure>
    <img src="modules.svg" alt="a program with two supporting modules">
@@ -324,6 +359,7 @@ do that?  We can do that with objects (as dictionaries). Here's a way:
 var colors = (function () {
      var namespace = {};
 
+     var x = 3;  // local
      namespace.red = 0xff0000;
      namespace.tan = 0xd2b48c;
      ...
@@ -351,7 +387,7 @@ parameters.  Here's an example:
 ```
 :::JavaScript
 (function (window) {
-     // use the global value if it exists,
+     // use the property if it exists,
      // otherwise, create a new, empty object
      var App = window.App || {};
 
@@ -370,7 +406,7 @@ following counterintuitive code:
 ```
 :::JavaScript
 (function (window) {
-     // use the global value if it exists,
+     // use the property if it exists,
      // otherwise, create a new, empty object
      var App = window.App || {};
 
@@ -383,23 +419,35 @@ of the global variable (name) `window`.
 
 Your book does this a lot. Don't let it confuse you!
 
-## Activity
+## Coffeerun
 
-If we get this far, start setting up the CoffeeRun app. Start on page
-168. You'll only do the following:
+[Coffeerun](../../front-end-dev-resources/book-solutions/Chapter-08/coffeerun/index.html)
 
-1. Create the necessary folder, `coffeerun`
-1. Create the `index.html` file
-1. Put the basic contents in, including loading the `scripts/datastore.js`
-file
-1. Create the `scripts` folder and the `datastore.js` file
-1. Write the contents of the `datastore.js` file (see page 171)
-1. Run the HTML file and open the JS console.
-1. Try some of their test code (bottom of page 172)
+The page is empty, but we'll open the console and look at:
 
-## Zodiac Solution
+```
+App
+window.App
+App.DataStore
+App.Truck
+myTruck
+dir(myTruck)
+myTruck.createOrder(
+    {emailAddress: 'hermione@hogwarts.ac.uk',
+     coffee: 'double espresso'});
+myTruck.createOrder(
+    {emailAddress: 'harry@hogwarts.ac.uk',
+     coffee: 'butterbeer'});
+myTruck.createOrder(
+    {emailAddress: 'ron@hogwarts.ac.uk',
+     coffee: 'fizzing whizbee'});
+myTruck.printOrders();
+```
 
-Here's my [solution](../../solutions/a03/)
+The point of all this module stuff is to separate the implementation of
+the DataStore from the implementation of Truck, so that if we want/need to
+change one, we minimize the amount of code we have to look at, and we
+clarify the interface.
 
 ## End of Class
 

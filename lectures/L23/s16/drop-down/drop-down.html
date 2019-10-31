@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+    <meta name=author content="Scott D. Anderson and Susan Buck">
+    <title>CS110: Drop-Down Menus</title>
+    <link rel="stylesheet" href="nav.css">
+</head>
+<body>
+
+  <h1>Drop-Down Menus</h1>
+
+  <p>When a webpage has more links than the designer wants to make
+  visible, a common approach is to use a <em>drop-down menu</em>. You'll
+  see an example at the top of this page, but I'm sure you're already
+  familiar with them. While there are many ways to create drop-down menus,
+  we will just discuss one of them.
+
+  <p>Unlike many drop-down menus, however, we are going to require the
+  user to click on the menu in order to reveal the hidden links. This is
+  because the action of <q>hovering over</q> a menu item, which works fine
+  with computer mice, doesn't work so well with touch-screen devices. By
+  using only the <em>click</em> event, our approach will work for both
+  mice and fingertips.
+    
+    <h2>Drop-down in Action</h2>
+
+    <p>Here's a link to a page with the
+     <a href="scott-v2.html">final drop-down menu</a> that we will build.
+     It is fully functional, mobile-friendly, and the CSS is
+     comprehensible.
+
+    <p>Use <q>view source</q> on that page to see exactly how we did it.
+
+     <h2>Concepts</h2>
+
+     <ul>
+       <li>Mobile devices often have narrow displays. By keeping the text
+       short ("News" not "Current Events" and "CS110" not "Computers and
+       the Internet"), we facilitate that. Try making the window very
+       narrow. Each top-level menu item is only 65px wide (total width
+       including margins and padding is 85px). So the whole thing is just
+       4*85=340px wide.  The widths are explicitly defined, so that every
+       top-level menu item is the same width.
+
+       <li>We use <code>display: inline-block</code> for the top-level
+       menu items (LI). This is similar to floating, in that the LI
+       elements are laid out horizontally, but we don't have trouble with
+       non-floated stuff coming up next to them and they contribute to the
+       height and widths of their parent. See
+         <ul>
+           <li><a href="http://robertnyman.com/2010/02/24/css-display-inline-block-why-it-rocks-and-why-it-sucks/">CSS
+           display inline block: Why it Rocks, and Why it Sucks</a>
+           <li><a href="http://www.quirksmode.org/css/css2/display.html#inlineBlock">QuirksMode
+           Display property</a>
+         </ul>
+
+       <li>We add a click handler on the upper-level menu items that have
+         sub-menus to open/close the sub-menus. We mark the menus with a
+         class, <code>has_submenu</code>; we can use that class with
+         jQuery to add the click handlers.
+
+       <li>We use <code>$(this)</code> to get the element that was clicked
+       on.
+
+       <li>We use the JQ <code>.find()</code> method to find descendants of
+         the clicked element.
+         
+       <li>We add a click handler to the document so that if you click
+       anywhere else (not on a menu or submenu) it closes any open
+       sub-menus.
+         
+       <li>We
+         use <a href="https://api.jquery.com/event.stoppropagation/"><code>event.StopPropagation()</code></a>
+         to keep a click on a top-level menu from bubbling up to the
+         document and causing the sub-menu to be closed.
+
+     </ul>
+
+    <h2>Drop-down Development</h2>
+
+    <p>Let's start with a set of menus without any CSS or JS at all:
+
+      <nav id="nav_1">
+        <!--#include virtual="menu.part"-->
+      </nav>
+
+    <p>Now, let's add the CSS to make them look pretty. You're welcome to
+    look at the CSS, but we basically just use simple stuff like color,
+    margin, padding, width, text-decoration:none, list-style-type:none,
+    text-align and border. The more complex CSS is:
+      <ul>
+        <li>We use <code>position:relative</code> on the top-level menu
+        items, so that the sub-menus are positioned relative to the
+        top-level item they belong to
+          
+        <li>We use <code>position:absolute</code> to position the
+        sub-menus relative to their parents.
+          
+      </ul>
+
+      <p>For purposes of exposition, we omitted
+      the <code>display:none</code> on the sub-menus and made the parents
+      wider so that all the sub-menus could be displayed without
+      overlapping.
+
+      <style>
+        #nav_2 ul ul { display: block !important; }
+        #nav_2 > ul > li { width: 231px !important; }
+      </style>
+
+      <nav class="mynav" id="nav_2">
+        <!--#include virtual="menu.part"-->
+      </nav>        
+
+      <p style="margin-top:6em">Now, we'll add a simple click-handler that just toggles the
+      sub-menu. We'll add it by code like this:
+        <pre class="prettyprint lang-js">
+function toggleSubmenu_v1() {
+    $(this).find("ul").toggle();
+}
+
+$(".has_submenu").click(toggleSubmenu_v1);
+</pre>
+
+      <style>
+        #nav_3 > ul > li { width: 231px !important; }
+      </style>
+
+
+      <nav class="mynav" id="nav_3">
+        <!--#include virtual="menu.part"-->
+      </nav>        
+
+
+
+      <p>You could use this kind of interface, but it's not what people
+      expect, because it's possible to open several menus at once. (Try
+      it!)  Usually, if you click on a heading, say "News", to open it,
+      and then you on another heading, say "CS110", you expect the "News"
+      submenu to close. We'll achieve this by adding a click handler to
+      the <em>document</em> that closes all the submenus. Like this:
+
+        <pre class="prettyprint lang-js">
+function closeAll() {
+    $(".has_submenu ul").hide();
+}
+
+$(document).click(closeAll);
+</pre>
+
+      <p>However, that has a hidden trap, which is that if we click on
+      "News," that <em>also</em> counts as a click on the document. That
+      is, the <em>click</em> event <q>bubbles</q> up the document from
+      child to parent until it reaches the very top (which is
+      the <code>document</code> selector we saw above). What we want to do
+      is stop the bubbling or <em>propagation</em> of this event.
+
+      <p>To do that, we add an argument to the click handler for top-level
+      menu items. The argument is typically called something
+      like <code>event</code> or <code>evt</code>.  That argument will be
+      given a value by the browser when it invokes the click handler. The
+      value is an <em>object</em> that includes a lot of information about
+      the event. The event object also has a <em>method</em>
+      called <code>stopPropagation</code>, which is exactly the tool we
+      need. So here's our new code:
+
+<pre class="prettyprint lang-js">
+function toggleSubmenu_v2(event) {
+    event.stopPropagation();
+    $(this).find("ul").toggle();
+}
+
+$(".has_submenu").click(toggleSubmenu_v2);
+</pre>
+
+      <p>Here's the new menu:
+
+        <nav id="nav_4" class="mynav">
+          <!--#include virtual="menu.part"-->
+        </nav>
+
+
+      <h2>Credit</h2>
+
+      <p>We were inspired by this which we based on this wonderfully
+  written tutorial by <q>Iggy</q> on
+  a <a href="http://line25.com/tutorials/how-to-create-a-pure-css-dropdown-menu">how
+  to create a pure CSS Drop-down Menu</a>. Unfortunately, that tutorial
+  uses :hover, which is great of desktop applications where a mouse can
+  hover over a menu item to reveal a submenu, but that doesn't work with
+  touch-screen applications, as most mobile devices are.  Since we want to
+  write pages that are usable with touch-screens, we ultimately had to
+  abandon Iggy's approach. Still, hat's off to it.
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script>
+    function toggleSubmenu_v1() {
+        $(this).find("ul").toggle();
+    }
+
+    /* This works fine with single-levels of menus, but if there are
+    sub-sub-menus, the upper menu will close when you try to open a
+    sub-sub-menu, which is obviously not what you want. More elaborate
+    programming would be necessary. */
+
+    $("#nav_3 .has_submenu").click(toggleSubmenu_v1);
+
+    function toggleSubmenu() {
+        console.log("clicked on top-level menu item");
+        that = this;
+        ul = $(this).find("ul");
+        var state = ul.css("display");
+        console.log("before, state is "+state);
+        ul.toggle();
+        state = ul.css("display");
+        console.log("state is now "+state);
+    }
+
+    // $("#nav_3 .has_submenu").click(toggleSubmenu);
+
+
+// ================================================================
+
+function closeAll() {
+    $(".has_submenu ul").hide();
+}
+
+$(document).click(closeAll);
+
+function toggleSubmenu_v2(event) {
+    event.stopPropagation();
+    $(this).find("ul").toggle();
+}
+
+$("#nav_4 .has_submenu").click(toggleSubmenu_v2);
+
+  </script>
+
+
+</body>
+</html>

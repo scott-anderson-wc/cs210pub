@@ -146,7 +146,7 @@ Setting up inheritance requires several steps:
   `color` instance variable ourselves, but what if the parent changes the
   initialization code, say to check the color? Then we'd have to copy
   those changes to every child: very bad.
-* We have to specify that the child's prototype is a instance of
+* We have to specify that the child's prototype is an instance of
   `Shape`. Since each object inherits instance variables and methods from
   its prototype chain, we have to make sure that chain is correct.
 * Setting the child's prototype has the unwanted side-effect of changing
@@ -204,6 +204,23 @@ console.log("r1 instanceof Object: "+(r1 instanceof Object));
 // False
 console.log("r1 instanceof Circle: "+(r1 instanceof Circle));
 ```
+
+## New Syntax
+
+In JavaScript/ECMAScript 2015, a new syntax was introduced for defining
+classes. At the same time, they introduced a new syntax for inheritance,
+namely the `extends` keyword to the new `class` syntax. For a quick
+introduction, see the following:
+
+* read the first example in this section on [subclassing with
+  extends](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Sub_classing_with_extends)
+* [the extends
+  keyword](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)
+* [Class inheritance](https://javascript.info/class-inheritance)
+
+One important thing to note is that you *must* invoke the constructor for
+the parent class using `super()`; that invocation is not automatic. You
+can also use `super` in method definitions, which is very cool.
 
 ## Summary
 

@@ -1,0 +1,1548 @@
+%!PS-Adobe-3.0
+%%Title: game.html, game.css, solution.js
+%%For: Introduction to Front-End Web Development
+%%Creator: a2ps version 4.14
+%%CreationDate: Thu Apr  4 16:44:53 2019
+%%BoundingBox: 24 40 588 752
+%%DocumentData: Clean7Bit
+%%Orientation: Landscape
+%%Pages: 2
+%%PageOrder: Ascend
+%%DocumentMedia: Letterdj 612 792 0 () ()
+%%DocumentNeededResources: font Courier
+%%+ font Courier-Bold
+%%+ font Courier-BoldOblique
+%%+ font Courier-Oblique
+%%+ font Helvetica
+%%+ font Helvetica-Bold
+%%+ font Symbol
+%%+ font Times-Bold
+%%+ font Times-Roman
+%%DocumentProcessColors: Black 
+%%Requirements: Tumble Duplex 
+%%DocumentSuppliedResources: procset a2ps-a2ps-hdr
+%%+ procset a2ps-black+white-Prolog
+%%+ encoding ISO-8859-1Encoding
+%%EndComments
+/a2psdict 200 dict def
+a2psdict begin
+%%BeginProlog
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+
+% EPSF import as in the Red Book
+/BeginInclude {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack 
+  userdict begin
+    0 setgray 0 setlinecap
+    1 setlinewidth 0 setlinejoin
+    10 setmiterlimit [ ] 0 setdash newpath
+    gs_languagelevel 1 ne {
+      false setstrokeadjust false setoverprint 
+    } if
+} bind def
+
+/EndInclude {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+/BeginEPSF {
+  BeginInclude
+  /showpage { } def
+} bind def
+
+/EndEPSF {
+  EndInclude
+} bind def
+
+% Page prefeed
+/page_prefeed {         % bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} bind def
+
+/deffont {
+  findfont exch scalefont def
+} bind def
+
+/reencode_font {
+  findfont reencode 2 copy definefont pop def
+} bind def
+
+% Function c-show (str => -)
+% centers text only according to x axis.
+/c-show { 
+  dup stringwidth pop
+  2 div neg 0 rmoveto
+  show
+} bind def
+
+% Function l-show (str => -)
+% prints texts so that it ends at currentpoint
+/l-show {
+  dup stringwidth pop neg 
+  0 
+  rmoveto show
+} bind def
+
+% center-fit show (str w => -)
+% show centered, and scale currentfont so that the width is less than w
+/cfshow {
+  exch dup stringwidth pop
+  % If the title is too big, try to make it smaller
+  3 2 roll 2 copy
+  gt
+  { % if, i.e. too big
+    exch div
+    currentfont exch scalefont setfont
+  } { % ifelse
+    pop pop 
+  }
+  ifelse
+  c-show			% center title
+} bind def
+
+% Return the y size of the current font
+% - => fontsize
+/currentfontsize {
+  currentfont /FontType get 0 eq {
+    currentfont /FontMatrix get 3 get
+  }{
+    currentfont /FontMatrix get 3 get 1000 mul
+  } ifelse
+} bind def
+
+% reencode the font
+% <encoding-vector> <fontdict> -> <newfontdict>
+/reencode { %def
+  dup length 5 add dict begin
+    { %forall
+      % <vector> <key> <val>
+      1 index /FID ne 
+      { def }{ pop pop } ifelse
+    } forall
+    /Encoding exch def % -
+
+    % Use the font's bounding box to determine the ascent, descent,
+    % and overall height; don't forget that these values have to be
+    % transformed using the font's matrix.
+    % We use `load' because sometimes BBox is executable, sometimes not.
+    % Since we need 4 numbers an not an array avoid BBox from being executed
+    /FontBBox load aload pop
+    FontMatrix transform /Ascent exch def pop
+    FontMatrix transform /Descent exch def pop
+    /FontHeight Ascent Descent sub def
+
+    % Get the underline position and thickness if they're defined.
+    % Use 1 if they are not defined.
+    currentdict /FontInfo 2 copy known
+    { get
+      /UnderlinePosition 2 copy % <FontInfo> /UP <FontInfo> /UP
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+
+      /UnderlineThickness 2 copy % <FontInfo> /UT <FontInfo> /UT
+      2 copy known
+      { get }{ pop pop 1 } ifelse
+      0 exch FontMatrix transform exch pop
+      def % <FontInfo>
+      pop % -
+    }{ pop pop
+    } ifelse
+
+    currentdict
+  end 
+} bind def
+
+% composite fonts for ASCII-EUC mixed string
+% Version 1.2 1/31/1990
+% Orignal Ken'ichi HANDA (handa@etl.go.jp)
+% Modified Norio Katayama (katayama@rd.nacsis.ac.jp),1998
+% Extend & Fix Koji Nakamaru (maru@on.cs.keio.ac.jp), 1999
+% Anyone can freely copy, modify, distribute this program.
+
+/copyfont {	% font-dic extra-entry-count  copyfont  font-dic
+	1 index maxlength add dict begin
+	{	1 index /FID ne 2 index /UniqueID ne and
+		{def} {pop pop} ifelse
+	} forall
+	currentdict
+	end
+} bind def
+
+/compositefont { % ASCIIFontName EUCFontName RomanScale RomanOffset Rot(T/F) compositefont font
+    /RomanRotation exch def
+    /RomanOffset exch def
+    /RomanScale exch def
+    userdict /fixeucfont_dict known not {
+	userdict begin
+	    /fixeucfont_dict 2 dict begin
+		/UpperByteEncoding [
+		    16#00 1 16#20 { pop 0 } for
+		    16#21 1 16#28 { 16#20 sub } for
+		    16#29 1 16#2F { pop 0 } for
+		    16#30 1 16#74 { 16#27 sub } for
+		    16#75 1 16#FF { pop 0 } for
+		] def
+	        /LowerByteEncoding [
+		    16#00 1 16#A0 { pop /.notdef } for
+		    16#A1 1 16#FE { 16#80 sub 16 2 string cvrs
+				    (cXX) dup 1 4 -1 roll
+				    putinterval cvn } for
+		    /.notdef
+		] def
+		currentdict
+	    end def
+	end
+    } if
+    findfont dup /FontType get 0 eq {
+	14 dict begin
+	    %
+	    % 7+8 bit EUC font
+	    %
+	    12 dict begin
+		/EUCFont exch def
+		/FontInfo (7+8 bit EUC font) readonly def
+		/PaintType 0 def
+		/FontType 0 def
+		/FontMatrix matrix def
+		% /FontName
+		/Encoding fixeucfont_dict /UpperByteEncoding get def
+		/FMapType 2 def
+		EUCFont /WMode known
+		{ EUCFont /WMode get /WMode exch def }
+		{ /WMode 0 def } ifelse
+		/FDepVector [
+		    EUCFont /FDepVector get 0 get
+		    [ 16#21 1 16#28 {} for 16#30 1 16#74 {} for ]
+		    {
+			13 dict begin
+			    /EUCFont EUCFont def
+			    /UpperByte exch 16#80 add def	
+			    % /FontName
+			    /FontInfo (EUC lower byte font) readonly def
+			    /PaintType 0 def
+			    /FontType 3 def
+			    /FontMatrix matrix def
+			    /FontBBox {0 0 0 0} def
+			    /Encoding
+				fixeucfont_dict /LowerByteEncoding get def
+			    % /UniqueID
+			    % /WMode
+			    /BuildChar {
+				gsave
+				exch dup /EUCFont get setfont
+				/UpperByte get
+				2 string
+				dup 0 4 -1 roll put
+				dup 1 4 -1 roll put
+				dup stringwidth setcharwidth
+				0 0 moveto show
+				grestore
+			    } bind def
+			    currentdict
+			end
+			/lowerbytefont exch definefont
+		    } forall
+		] def
+		currentdict
+	    end
+	    /eucfont exch definefont
+	    exch
+	    findfont 1 copyfont dup begin
+		RomanRotation {
+			/FontMatrix FontMatrix
+			[ 0 RomanScale neg RomanScale 0 RomanOffset neg 0 ]
+			matrix concatmatrix def
+		}{
+			/FontMatrix FontMatrix
+			[ RomanScale 0 0 RomanScale 0 RomanOffset ] matrix concatmatrix
+			def
+			/CDevProc
+			    {pop pop pop pop 0 exch -1000 exch 2 div 880} def
+		} ifelse
+	    end
+	    /asciifont exch definefont
+	    exch
+	    /FDepVector [ 4 2 roll ] def
+	    /FontType 0 def
+	    /WMode 0 def
+	    /FMapType 4 def
+	    /FontMatrix matrix def
+	    /Encoding [0 1] def
+	    /FontBBox {0 0 0 0} def
+%	    /FontHeight 1.0 def % XXXX
+	    /FontHeight RomanScale 1.0 ge { RomanScale }{ 1.0 } ifelse def
+	    /Descent -0.3 def   % XXXX
+	    currentdict
+	end
+	/tmpfont exch definefont
+	pop
+	/tmpfont findfont
+    }{
+	pop findfont 0 copyfont
+    } ifelse
+} def	
+
+/slantfont {	% FontName slant-degree  slantfont  font'
+    exch findfont 1 copyfont begin
+    [ 1 0 4 -1 roll 1 0 0 ] FontMatrix exch matrix concatmatrix
+    /FontMatrix exch def
+    currentdict
+    end
+} def
+
+% Function print line number (<string> # -)
+/# {
+  gsave
+    sx cw mul neg 2 div 0 rmoveto
+    f# setfont
+    c-show
+  grestore
+} bind def
+
+% -------- Some routines to enlight plain b/w printings ---------
+
+% Underline
+% width --
+/dounderline {
+  currentpoint
+  gsave
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    0 rlineto
+    stroke
+  grestore
+} bind def
+
+% Underline a string
+% string --
+/dounderlinestring {
+  stringwidth pop
+  dounderline
+} bind def
+
+/UL {
+  /ul exch store
+} bind def
+
+% Draw a box of WIDTH wrt current font
+% width --
+/dobox {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    stroke
+  grestore
+} bind def
+
+/BX {
+  /bx exch store
+} bind def
+
+% Box a string
+% string --
+/doboxstring {
+  stringwidth pop
+  dobox
+} bind def
+
+%
+% ------------- Color routines ---------------
+%
+/FG /setrgbcolor load def
+
+% Draw the background
+% width --
+/dobackground {
+  currentpoint
+  gsave
+    newpath
+    moveto
+    0 currentfont /Descent get currentfontsize mul rmoveto
+    dup 0 rlineto
+    0 currentfont /FontHeight get currentfontsize mul rlineto
+    neg 0 rlineto
+    closepath
+    bgcolor aload pop setrgbcolor
+    fill
+  grestore
+} bind def
+
+% Draw bg for a string
+% string --
+/dobackgroundstring {
+  stringwidth pop
+  dobackground
+} bind def
+
+
+/BG {
+  dup /bg exch store
+  { mark 4 1 roll ] /bgcolor exch store } if
+} bind def
+
+
+/Show {
+  bg { dup dobackgroundstring } if
+  ul { dup dounderlinestring } if
+  bx { dup doboxstring } if
+  show
+} bind def
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T {
+  cw mul x0 add
+  bg { dup currentpoint pop sub dobackground } if
+  ul { dup currentpoint pop sub dounderline } if
+  bx { dup currentpoint pop sub dobox } if
+  y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n {
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+/S {
+  Show
+} bind def
+
+%%BeginResource: procset a2ps-a2ps-hdr 2.0 2
+%%Copyright: (c) 1988, 89, 90, 91, 92, 93 Miguel Santana
+%%Copyright: (c) 1995, 96, 97, 98 Akim Demaille, Miguel Santana
+% Function title: prints page header.
+% <ct> <rt> <lt> are passed as argument
+/title { 
+  % 1. Draw the background
+  x v get y v get moveto
+  gsave
+    0 th 2 div neg rmoveto 
+    th setlinewidth
+    0.95 setgray
+    pw 0 rlineto stroke
+  grestore
+  % 2. Border it
+  gsave
+    0.7 setlinewidth
+    pw 0 rlineto
+    0 th neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+  % stk: ct rt lt
+  x v get y v get th sub 1 add moveto
+%%IncludeResource: font Helvetica
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  % 3. The left title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    fnfs 0.8 mul hm rmoveto
+    show			% left title
+  grestore
+  exch
+  % stk: ct ltw rt
+  % 4. the right title
+  gsave
+    dup stringwidth pop fnfs 0.8 mul add exch % leave space took on stack
+    dup
+    pw exch stringwidth pop fnfs 0.8 mul add sub
+    hm
+    rmoveto
+    show			% right title
+  grestore
+  % stk: ct ltw rtw
+  % 5. the center title
+  gsave
+    pw 3 1 roll
+    % stk: ct pw ltw rtw
+    3 copy 
+    % Move to the center of the left room
+    sub add 2 div hm rmoveto
+    % What is the available space in here?
+    add sub fnfs 0.8 mul sub fnfs 0.8 mul sub
+    % stk: ct space_left
+%%IncludeResource: font Helvetica-Bold
+  fHelvetica-Bold fnfs scalefont setfont
+    cfshow
+  grestore
+} bind def
+
+% Function border: prints virtual page border
+/border { %def
+  gsave				% print four sides
+    0 setgray
+    x v get y v get moveto
+    0.7 setlinewidth		% of the square
+    pw 0 rlineto
+    0 ph neg rlineto
+    pw neg 0 rlineto
+    closepath stroke
+  grestore
+} bind def
+
+% Function water: prints a water mark in background
+/water { %def
+  gsave
+    scx scy moveto rotate
+%%IncludeResource: font Times-Bold
+  fTimes-Bold 100 scalefont setfont
+    .97 setgray
+    dup stringwidth pop 2 div neg -50 rmoveto
+    show
+  grestore
+} bind def
+
+% Function rhead: prints the right header
+/rhead {  %def
+  lx ly moveto
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  l-show
+} bind def
+
+% Function footer (cf rf lf -> -)
+/footer {
+  fHelvetica fnfs 0.8 mul scalefont setfont
+  dx dy moveto
+  show
+
+  snx sny moveto
+  l-show
+  
+  fnx fny moveto
+  c-show
+} bind def
+%%EndResource
+%%BeginResource: procset a2ps-black+white-Prolog 2.0 1
+
+% Function T(ab), jumps to the n-th tabulation in the current line
+/T { 
+  cw mul x0 add y0 moveto
+} bind def
+
+% Function n: move to the next line
+/n { %def
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+} bind def
+
+% Function N: show and move to the next line
+/N {
+  Show
+  /y0 y0 bfs sub store
+  x0 y0 moveto
+}  bind def
+
+/S {
+  Show
+} bind def
+
+/p {
+  false UL
+  false BX
+  fCourier bfs scalefont setfont
+  Show
+} bind def
+
+/sy {
+  false UL
+  false BX
+  fSymbol bfs scalefont setfont
+  Show
+} bind def
+
+/k {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/K {
+  false UL
+  false BX
+  fCourier-Bold bfs scalefont setfont
+  Show
+} bind def
+
+/c {
+  false UL
+  false BX
+  fCourier-Oblique bfs scalefont setfont
+  Show
+} bind def
+
+/C {
+  false UL
+  false BX
+  fCourier-BoldOblique bfs scalefont setfont
+  Show 
+} bind def
+
+/l {
+  false UL
+  false BX
+  fHelvetica bfs scalefont setfont
+  Show
+} bind def
+
+/L {
+  false UL
+  false BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show 
+} bind def
+
+/str{
+  false UL
+  false BX
+  fTimes-Roman bfs scalefont setfont
+  Show
+} bind def
+
+/e{
+  false UL
+  true BX
+  fHelvetica-Bold bfs scalefont setfont
+  Show
+} bind def
+
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier
+%%IncludeResource: font Courier-Oblique
+%%IncludeResource: font Courier-Bold
+%%IncludeResource: font Times-Roman
+%%IncludeResource: font Symbol
+%%IncludeResource: font Courier-BoldOblique
+%%BeginResource: encoding ISO-8859-1Encoding
+/ISO-8859-1Encoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright 
+/parenleft /parenright /asterisk /plus /comma /minus /period /slash 
+/zero /one /two /three /four /five /six /seven 
+/eight /nine /colon /semicolon /less /equal /greater /question 
+/at /A /B /C /D /E /F /G 
+/H /I /J /K /L /M /N /O 
+/P /Q /R /S /T /U /V /W 
+/X /Y /Z /bracketleft /backslash /bracketright /asciicircum /underscore 
+/quoteleft /a /b /c /d /e /f /g 
+/h /i /j /k /l /m /n /o 
+/p /q /r /s /t /u /v /w 
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef 
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section 
+/dieresis /copyright /ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron 
+/degree /plusminus /twosuperior /threesuperior /acute /mu /paragraph /bullet 
+/cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf /threequarters /questiondown 
+/Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla 
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis 
+/Eth /Ntilde /Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply 
+/Oslash /Ugrave /Uacute /Ucircumflex /Udieresis /Yacute /Thorn /germandbls 
+/agrave /aacute /acircumflex /atilde /adieresis /aring /ae /ccedilla 
+/egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis 
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide 
+/oslash /ugrave /uacute /ucircumflex /udieresis /yacute /thorn /ydieresis 
+] def
+%%EndResource
+% Initialize page description variables.
+/sh 612 def
+/sw 792 def
+/llx 40 def
+/urx 752 def
+/ury 588 def
+/lly 24 def
+/#copies 1 def
+%% Pagedevice definitions:
+countdictstack
+% Push our own mark, since there can be several PS marks pushed depending
+% where the failure really occured.
+/a2ps_mark
+{
+%%BeginFeature: *Tumble False
+  (<<) cvx exec /Tumble (false) cvx exec (>>) cvx exec setpagedevice
+%%EndFeature
+%%BeginFeature: *Duplex True
+  (<<) cvx exec /Duplex (true) cvx exec (>>) cvx exec setpagedevice
+%%EndFeature
+} stopped
+% My cleartomark
+{ /a2ps_mark eq { exit } if } loop
+countdictstack exch sub dup 0 gt
+{
+  { end } repeat
+}{
+  pop
+} ifelse
+/th 15.000000 def
+/fnfs 11 def
+/bfs 6.751543 def
+/cw 4.050926 def
+
+% Dictionary for ISO-8859-1 support
+/iso1dict 8 dict begin
+  /fCourier ISO-8859-1Encoding /Courier reencode_font
+  /fCourier-Bold ISO-8859-1Encoding /Courier-Bold reencode_font
+  /fCourier-BoldOblique ISO-8859-1Encoding /Courier-BoldOblique reencode_font
+  /fCourier-Oblique ISO-8859-1Encoding /Courier-Oblique reencode_font
+  /fHelvetica ISO-8859-1Encoding /Helvetica reencode_font
+  /fHelvetica-Bold ISO-8859-1Encoding /Helvetica-Bold reencode_font
+  /fTimes-Bold ISO-8859-1Encoding /Times-Bold reencode_font
+  /fTimes-Roman ISO-8859-1Encoding /Times-Roman reencode_font
+currentdict end def
+/bgcolor [ 0 0 0 ] def
+/bg false def
+/ul false def
+/bx false def
+% The font for line numbering
+/f# /Helvetica findfont bfs .6 mul scalefont def
+/fSymbol /Symbol findfont def
+/hm fnfs 0.25 mul def
+/pw
+   cw 86.400000 mul
+def
+/ph
+   524.594895 th add
+def
+/pmw urx llx sub pw 2 mul sub 1 div def
+/pmh 0 def
+/v 0 def
+/x [
+  0
+  dup pmw add pw add
+] def
+/y [
+  pmh ph add 0 mul ph add
+  dup
+] def
+/scx sw 2 div def
+/scy sh 2 div def
+/snx urx def
+/sny lly 2 add def
+/dx llx def
+/dy sny def
+/fnx scx def
+/fny dy def
+/lx snx def
+/ly ury fnfs 0.8 mul sub def
+/sx 5 def
+/tab 8 def
+/x0 0 def
+/y0 0 def
+%%EndSetup
+
+%%Page: (1,1) 1
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (<!doctype html>) K n
+0 T () N
+0 T () S
+(<!-- ) c n
+0 T (     Game of Concentration for CS110 assignment) N
+(5) # (     Originally written by CS110 staff, Fall 2012) N
+0 T (     Re-written for CS204 by Scott, Fall 2016) N
+0 T (-->) N
+0 T () S
+(     ) p n
+0 T () S
+(<html>) K n
+(10) # (<head>) N
+0 T () S
+(   ) p
+(<meta) K
+( ) p
+(charset=) k
+(") p
+(utf-8) str
+(") p
+(>) K n
+0 T () S
+(   ) p
+(<title>) K
+(Game of Concentration) p
+(</title>) K n
+0 T () S
+(   ) p
+(<link) K
+( ) p
+(rel=) k
+(") p
+(stylesheet) str
+(") p
+( href=) k
+(") p
+(game.css) str
+(") p
+(>) K n
+0 T (</head>) N
+(15) # () N
+0 T (<body>) N
+0 T () S
+(   ) p
+(<h1>) K
+(The Game of Concentration) p
+(</h1>) K n
+0 T () N
+0 T () S
+(   ) p
+(<div) K
+( ) p
+(id=) k
+(") p
+(board) str
+(") p
+(>) K n
+(20) # () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(1) str
+(") p
+( alt=) k
+(") p
+(image1) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(2) str
+(") p
+( alt=) k
+(") p
+(image2) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(3) str
+(") p
+( alt=) k
+(") p
+(image3) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(4) str
+(") p
+( alt=) k
+(") p
+(image4) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(5) str
+(") p
+( alt=) k
+(") p
+(image5) str
+(") p
+(>) K n
+(25) # () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(6) str
+(") p
+( alt=) k
+(") p
+(image6) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(7) str
+(") p
+( alt=) k
+(") p
+(image7) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(8) str
+(") p
+( alt=) k
+(") p
+(image8) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(9) str
+(") p
+( alt=) k
+(") p
+(image9) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(10) str
+(") p
+( alt=) k
+(") p
+(image10) str
+(") p
+(>) K n
+(30) # () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(11) str
+(") p
+( alt=) k
+(") p
+(image11) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(12) str
+(") p
+( alt=) k
+(") p
+(image12) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(13) str
+(") p
+( alt=) k
+(") p
+(image13) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(14) str
+(") p
+( alt=) k
+(") p
+(image14) str
+(") p
+(>) K n
+0 T () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(15) str
+(") p
+( alt=) k
+(") p
+(image15) str
+(") p
+(>) K n
+(35) # () S
+(        ) p
+(<img) K
+( ) p
+(src=) k
+(") p
+(blank.jpg) str
+(") p
+( id=) k
+(") p
+(16) str
+(") p
+( alt=) k
+(") p
+(image16) str
+(") p
+(>) K n
+0 T () S
+(   ) p
+(</div>) K n
+0 T () N
+0 T () S
+(   ) p
+(<button) K
+( ) p
+(id=) k
+(") p
+(startNewGameButton) str
+(") p
+(>) K
+(Start New Game) p
+(</button>) K n
+0 T () N
+(40) # () S
+(   ) p
+(<!-- display the number of clicks and matches as the game progresses -->) c n
+0 T () S
+(   ) p
+(<h2>) K
+(Clicks: ) p
+(<span) K
+( ) p
+(id=) k
+(") p
+(tries) str
+(") p
+(></span>) K
+( Matches: ) p
+(<span) K
+( ) p
+(id=) k
+(") p
+(matches) str
+(") p
+(></span></h2>) K n
+0 T () S
+(   ) p
+(<h2 id="msg"></h2>) K n
+0 T () S
+(   ) p
+(<script) K
+( ) p
+(src=) k
+(") p
+(https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js) str
+(") p
+(></script>) K n
+0 T () S
+(   ) p
+(<script) K
+( ) p
+(src=) k
+(") p
+(https://cs.wellesley.edu/~cs204/assignments/a06/supplied.js) str
+(") p
+(></script>) K n
+(45) # () S
+(   ) p
+(<script) K
+( ) p
+(src=) k
+(") p
+(solution.js) str
+(") p
+(></script>) K n
+0 T (</body>) N
+0 T (</html>) N
+(game.html) (Page 1/1) (Nov 14, 17 9:52) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (#board img {) p n
+0 T (    width: 150px;) N
+0 T () S 8 T (border: 2px solid black;) N
+0 T () S 8 T (margin: 10px;) N
+(5) # () S 8 T (padding: 5px;) N
+0 T (}) N
+0 T () N
+0 T (#board {) N
+0 T (    width: 90%;) N
+(10) # () S 8 T (border: 2px solid black;) N
+0 T () S 8 T (margin: 10px;) N
+0 T () S 8 T (padding: 10px;) N
+0 T (}) N
+0 T () N
+(15) # (.clearfloat {clear: left}) N
+0 T (.results {color: red}) N
+0 T () N
+0 T (button {) N
+0 T () S 8 T (font: 20px verdana;) N
+(20) # () S 8 T (padding: 0.5ex 1em;) N
+0 T () S 8 T (border: 1px solid black;) N
+0 T () S 8 T (border-radius: 0.5ex;) N
+0 T (}) N
+(game.css) (Page 1/1) (Nov 14, 17 9:53) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(game.html, game.css) (1/2) (Thursday April 04, 2019) footer
+end % of iso1dict
+pagesave restore
+showpage
+%%Page: (1-2) 2
+%%BeginPageSetup
+/pagesave save def
+sh 0 translate 90 rotate
+%%EndPageSetup
+iso1dict begin
+gsave
+llx lly 12 add translate
+/v 0 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (// By Ellen Hildreth, Scott D. Anderson and the CS110 staff) c n
+0 T () N
+0 T (// Updated Fall 2016 by Scott D. Anderson) N
+0 T () N
+(5) # (// This version uses jQuery. It also doesn't use alert, to avoid the) N
+0 T (// problem where the page isn't updated to show the second image.  It) N
+0 T (// does, however, use setTimeout to have images disappear after 1 second.) N
+0 T () N
+0 T (// global variables: number of tries and matches are 0 initially,) N
+(10) # (// click = 1 to indicate the first element in a pair of clicks will) N
+0 T (// start the game, firstelt is defined so that it can be used to save) N
+0 T (// the id of the first element clicked in a pair of clicks) N
+0 T () N
+0 T () S
+(var) K
+( tries = 0;) p n
+(15) # () S
+(var) K
+( matches = 0;) p n
+0 T () S
+(var) K
+( click = 1;) p n
+0 T () S
+(var) K
+( firstelt;) p n
+0 T () N
+0 T () S
+(/* global $, board, shuffleImages, getImage */) c n
+(20) # () S
+( ) p n
+0 T () S
+(//reinitialize the page when a new game is started) c n
+0 T () S
+(function) K
+( ) p
+(newGame) l
+(\(\) {) p n
+0 T (    click = 1;) N
+0 T (    tries = 0;) N
+(25) # (    matches = 0;) N
+0 T (    updateStatus\(\);) N
+0 T (    shuffleImages\(\);) N
+0 T (    $\(") S
+(#board img) str
+("\).attr\(") p
+(src) str
+(",") p
+(blank.jpg) str
+("\);  ) p
+(// replace all pics with blank) c n
+0 T () S
+(}) p n
+(30) # (newGame\(\);                      ) S
+(// invoke it) c n
+0 T () S
+(  ) p n
+0 T () S
+(//show the image specified by the parameter elementid by changing the src to) c n
+0 T (//one of the images) N
+0 T () S
+(function) K
+( ) p
+(showImage) l
+(\(elementid\) {) p n
+(35) # (    $\(') S
+(#) str
+(' + elementid\).attr\(") p
+(src) str
+(",getImage\(elementid\)\);) p n
+0 T (} ) N
+0 T ( ) N
+0 T () S
+(//hide the image specified by the parameter elementid by changing the src to) c n
+0 T (//a blank image) N
+(40) # () S
+(function) K
+( ) p
+(hideImage) l
+(\(elementid\) {) p n
+0 T (    $\(') S
+(#) str
+(' + elementid\).attr\(") p
+(src) str
+(",") p
+(blank.jpg) str
+("\);) p n
+0 T (} ) N
+0 T ( ) N
+0 T () S
+(// The event handler that does all the work) c n
+(45) # () N
+0 T () S
+(function) K
+( ) p
+(processClick) l
+(\(id\) {) p n
+0 T (    console.log\(") S
+(Processing for elt ) str
+("+id\);) p n
+0 T (    ) S
+(// Optional:  if the image is already showing, do nothing.) c n
+0 T () S
+(    ) p
+(var) K
+( img = $\(") p
+(#) str
+("+id\);) p n
+(50) # (    ) S
+(if) K
+( \($\(img\).attr\(") p
+(src) str
+("\) != ") p
+(blank.jpg) str
+("\) {) p n
+0 T (        console.log\(") S
+(click on revealed image is ignored) str
+("\);) p n
+0 T (    }) N
+0 T (    ) N
+0 T (    ) S
+(// else if this is the first cell clicked in a pair of clicks, show the) c n
+(55) # () S
+(    ) p
+(//image, set the firstelt variable, and set click to 2 to indicate a) c n
+0 T () S
+(    ) p
+(//first element has been clicked) c n
+0 T () S
+(    ) p
+(else) K
+( ) p
+(if) K
+( \(click == 1\) { ) p n
+0 T (        showImage\(id\);) N
+0 T (        firstelt = id;) N
+(60) # (        click = 2;) N
+0 T (    }) N
+0 T (    ) N
+0 T (    ) S
+(//else if this is the second element clicked in a pair of clicks,) c n
+0 T () S
+(    ) p
+(//increment number of tries, show the element, and check for a match ) c n
+(65) # () S
+(    ) p
+(else) K
+(  {) p n
+0 T (        tries = tries + 1;) N
+0 T (        showImage\(id\);) N
+0 T (        ) N
+0 T (        ) S
+(//if they don't match, announce, hide the images, and reset click) c n
+(70) # () S
+(        ) p
+(//variable to 1 for the next turn) c n
+0 T () S
+(        ) p
+(if) K
+( \( getImage\(id\) != getImage\(firstelt\) \) {) p n
+0 T (            $\(") S
+(#msg) str
+("\).text\(") p
+(No match!) str
+("\);) p n
+0 T (            setTimeout\() N
+0 T (                function \(\) {) N
+(75) # (                    $\(") S
+(#msg) str
+("\).text\(""\);) p n
+0 T (                    hideImage\(id\);  ) N
+0 T (                    hideImage\(firstelt\);) N
+(solution.js) (Page 1/2) (Nov 14, 17 9:50) title
+border
+/v 1 store
+/x0 x v get 2.835648 add sx cw mul add store
+/y0 y v get bfs th add sub store
+x0 y0 moveto
+0 T (                }, ) p n
+0 T (                1000\);) N
+(80) # (        } ) N
+0 T (        ) N
+0 T (        ) S
+(//else if they do match, announce, reset click variable to 1 for) c n
+0 T () S
+(        ) p
+(//the next turn, increment number of matches, and announce if game) c n
+0 T () S
+(        ) p
+(//over) c n
+(85) # () S
+(        ) p
+(else) K
+( {) p n
+0 T (            $\(") S
+(#msg) str
+("\).text\(") p
+(Match!) str
+("\);) p n
+0 T (            setTimeout\(function \(\) { $\(") S
+(#msg) str
+("\).text\(""\); }, 1000\);) p n
+0 T (            matches = matches + 1;) N
+0 T (            ) S
+(if) K
+( \(matches == 8\) {) p n
+(90) # (                $\(") S
+(#msg) str
+("\).text\(") p
+(Game over!) str
+("\);) p n
+0 T (            }) N
+0 T (        }) N
+0 T (     ) N
+0 T (    ) S
+(// Next click is a first click) c n
+(95) # () S
+(    click = 1;) p n
+0 T (    ) S
+(//update game display \(number of tries and matches\) ) c n
+0 T () S
+(    updateStatus\(\);) p n
+0 T (    }) N
+0 T (}) N
+(100) # ( ) N
+0 T ( ) S
+(//update the document display of the number of tries and matches) c n
+0 T () N
+0 T () S
+(function) K
+( ) p
+(updateStatus) l
+(\(\) {) p n
+0 T (    $\(") S
+(#tries) str
+("\).text\(tries\);) p n
+(105) # (    $\(") S
+(#matches) str
+("\).text\(matches\);) p n
+0 T (}) N
+0 T ( ) N
+0 T () S
+(// Set up 16 event handlers.) c n
+0 T () N
+(110) # () S
+(var) K
+( id;                         ) p
+(// just for debugging) c n
+0 T () N
+0 T (// Here's how our book would add the event handlers, before we learn delegation) N
+0 T () N
+0 T () S
+(function) K
+( ) p
+(addEventHandler) l
+(\(img\) {) p n
+(115) # (   ) S
+(var) K
+( elementId = $\(img\).attr\(') p
+(id) str
+('\);) p n
+0 T (   ) S
+(if) K
+(\( ! elementId \) {) p n
+0 T (       ) S
+(throw) K
+( ") p
+(no id for element ) str
+(";) p n
+0 T (   }) N
+0 T (    $\(img\).click\(function \(event\) {) N
+(120) # (       id = elementId;  ) S
+(// closure variable) c n
+0 T () S
+(       console.log\(") p
+(Click on element id ) str
+("+elementId\);) p n
+0 T (       processClick\(elementId\); ) S
+(// or maybe, pass in the element?) c n
+0 T () S
+(    }\);) p n
+0 T (}) N
+(125) # () N
+0 T () S
+(function) K
+( ) p
+(addEventHandlers) l
+(\(\) {) p n
+0 T (    console.log\(") S
+(adding event handlers using book approach) str
+("\);) p n
+0 T (    ) S
+(var) K
+( nodes = document.querySelectorAll\(") p
+(#board img) str
+("\);) p n
+0 T (    ) S
+(var) K
+( nodeArray = [].slice.call\(nodes\);) p n
+(130) # (    nodeArray.forEach\(addEventHandler\);) N
+0 T (}) N
+0 T () N
+0 T (addEventHandlers\(\);) N
+0 T () N
+(135) # ($\(") S
+(#startNewGameButton) str
+("\).click\(newGame\);) p n
+(solution.js) (Page 2/2) (Nov 14, 17 9:50) title
+border
+grestore
+(Printed by Introduction to Front-End Web Development) rhead
+(solution.js) (2/2) (Thursday April 04, 2019) footer
+end % of iso1dict
+pagesave restore
+showpage
+
+%%Trailer
+end
+%%EOF

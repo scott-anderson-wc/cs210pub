@@ -138,7 +138,7 @@ but a better way to do this would be to use a FIGURE and a CAPTION:
 
 In this case, the screen reader software can use the caption as the ALT
 text, so we explicitly leave the ALT attribute empty, so that the blind
-visitor isn't read the same text twice.
+visitor isn't having the same text read twice.
 
 This figure with a caption is now better for both blind and sighted
 visitors, an example of where accessibility can improve the experience for

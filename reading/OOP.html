@@ -23,11 +23,11 @@
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="../images/favicon.png">
+  <link rel="icon" type="image/ico" href="../images/favicon.ico">
 
   <!-- We load jQuery at the top so that we can intersperse examples in
        the reading and lecture notes -->
-  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
 
 </head>
@@ -56,21 +56,26 @@
 
     <h1 id="introduction-to-object-oriented-programming">Introduction to Object Oriented Programming</h1>
 <p>Many of you are already familiar with the ideas of Object-Oriented
-Programming, but let's review so that it's fresh in our minds</p>
+Programming (OOP), but let's review so that it's fresh in our minds</p>
 <h2 id="general-idea">General Idea</h2>
-<p>In JavaScript, an <b>object</b> is a kind of value that can have two important characteristics:</p>
-<p><b>State</b>: This is information describing the object. For example, a ball object could be the color red, have a radius of 12 inches, and have polka dots.</p>
-<p><b>Behavior</b>: This is the information describing the actions of the object. For instance, a ball object can bounce.</p>
-<p>In order to create specific objects, we need to create a JavaScript
-<b>class</b>.  (Note that is different from the HTML classes!) Imagine a
-class as a general grouping, and objects are the specific instances of
-that grouping. Here are some examples of classes and objects.</p>
+<p>In OOP, an <em>object</em> is a kind of value (data structure) that can have two
+important characteristics:</p>
+<p><em>State</em>: This is information describing the object. For example, a ball
+ object could be have a state like: being color red, have a radius of 12
+ inches, and have polka dots.</p>
+<p><em>Behavior</em>: This is the information describing the actions of the
+object. For instance, a ball object can bounce.</p>
+<p>In order to create specific objects, we need to describe a <em>class</em> of
+objects and then create some <em>instances</em> of the class.  (Note that these
+are different from the HTML classes!) Imagine a class as a general <em>kind</em>
+of thing, and objects are the specific instances of that kind. Here are
+some examples of classes and objects.</p>
 <ul>
             <li><b>Class</b>: Ball</li>
             <ul>
             <li style="list-style: none;"><b>Objects</b>:</li>
-            <li>Red, has a radius of 12, has polka dots, bounces</li>
-            <li>Blue, has a radius of 5, does not have polka dots, bounces</li>
+            <li>ball1: Red, has a radius of 12, has polka dots, bounces</li>
+            <li>ball2: Blue, has a radius of 5, does not have polka dots, bounces</li>
             </ul>
 </ul>
 
@@ -78,66 +83,183 @@ that grouping. Here are some examples of classes and objects.</p>
             <li><b>Class</b>: Wellesley College Student</li>
             <ul>
             <li style="list-style: none;"><b>Objects</b>:</li>
-            <li>Beatrice, Class of 2019, MAS major, says "hello!"</li>
-            <li>Jackie, Class of 2018, biology major, runs to lab</li>
-            <li>Kate, Class of 2020, English major, sings</li>
+            <li>stu1: Beatrice, Class of 2019, MAS major, says "hello!"</li>
+            <li>stu2: Jackie, Class of 2018, biology major, runs to lab</li>
+            <li>stu3: Kate, Class of 2020, English major, sings</li>
             </ul>
 </ul>
 
 <h2 id="programming-classes-and-objects">Programming Classes and Objects</h2>
-<p>Let's make our ball object through JavaScript:</p>
+<p>In discussing how to implement Object-Oriented Programming in JavaScript,
+we have a choice. In 2015, the JavaScript language was expanded to include
+specialized syntax to support classes and objects. That was pretty new
+when our book came out, and so our book does not discuss it. Moreover,
+older browsers might not support the new syntax (though there are tools
+that can convert the new syntax to the old syntax). Therefore, it's useful
+to understand the old way of doing OOP in JS.</p>
+<p>However, I will start with the new syntax because it is simpler and easier
+to understand. In fact, that's its purpose: to be a better syntax for an
+existing implementation. This is sometimes called <a href="https://en.wikipedia.org/wiki/Syntactic_sugar">syntactic
+sugar</a>. So, for that
+reason, we'll introduce the new syntax first, and then proceed to the
+older syntax that means the same thing.</p>
+<h2 id="modern-syntax">Modern Syntax</h2>
+<p>In this presentation, I've followed the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">Mozilla Developer's Network web
+docs on
+Classes</a>,
+but that document isn't intended for novices. Nevertheless, you're
+welcome to read it if you want more depth and rigor.</p>
+<p>Let's describe our ball objects using the <code>class</code> syntax:</p>
+<div class="codehilite"><pre><span class="kr">class</span> <span class="nx">Ball</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">hasPolkaDots</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ballColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ballRadius</span> <span class="o">=</span> <span class="nx">radius</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">doesThisBallhavePolkaDots</span> <span class="o">=</span> <span class="nx">hasPolkaDots</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">getColor</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">ballColor</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">setColor</span><span class="p">(</span><span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">ballColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">bounce</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Booiiiinng. Ball is bouncing.&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-<pre><code>function Ball(color, radius, hasPolkaDots) {
-    this.ballColor = color;
-    this.ballRadius = radius;
-    this.doesThisBallhavePolkaDots = hasPolkaDots;
-};
+<span class="c1">// examples of creating two instances of the class</span>
+<span class="kd">var</span> <span class="nx">ball1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Ball</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ball2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Ball</span><span class="p">(</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
 
-Ball.prototype.bounce = function() {
-  console.log("currently bouncing");
-};
+<span class="c1">// examples of invoking a method</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ball1</span><span class="p">.</span><span class="nx">getColor</span><span class="p">());</span> <span class="c1">// &quot;Red&quot;</span>
 
-var ball1 = new Ball("Purple", 12, true);
-var ball2 = new Ball("Blue", 5, false);
+<span class="nx">ball1</span><span class="p">.</span><span class="nx">setColor</span><span class="p">(</span><span class="s2">&quot;Green&quot;</span><span class="p">);</span>
 
-console.log(ball1.ballColor);  //Purple"
-console.log(ball2.ballRadius);  //5
-console.log(ball2.doesThisBallhavePolkaDots);  //false
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ball1</span><span class="p">.</span><span class="nx">getColor</span><span class="p">());</span> <span class="c1">// now &quot;Green&quot;</span>
 
-ball1.bounce();   // "Booiiiiinng. Ball is bouncing"
-ball2.bounce();   // "Booiiiiinng. Ball is bouncing"</code></pre>
+<span class="c1">// example of retrieving an instance variable</span>
+<span class="c1">// it would be better to define a method to do this</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ball2</span><span class="p">.</span><span class="nx">ballRadius</span><span class="p">);</span> <span class="c1">// 5</span>
+</pre></div>
 
-<p>Let's break the code into sections. The first 5 lines of this code is:</p>
 
+<p>Some observations:</p>
+<ul>
+<li>a class has a special function called a <em>constructor</em> which initializes
+  the <em>instance variables</em> of each new object (instance of the class). The
+  constructor is automatically invoked whenever you create a new instance.</li>
+<li>a class can have any number of <em>methods</em>. Here we have three:
+  <code>getColor</code>, <code>setColor</code> and <code>bounce</code>.</li>
+<li>a method is invoked by giving the object (or a variable containing the
+  object) a <em>dot</em> and the name of the method, along with parentheses
+  around any arguments to the method. As with function invocation, there
+  are <em>always</em> parentheses, even if there are no arguments to the method.
+  Indeed, that's because a method is just a special kind of function.</li>
+<li>we use the <code>new</code> operator when creating an instance of a class. The
+  <code>new</code> operator creates the new, empty, object, binds it to <code>this</code> and
+  then invokes the constructor. The constructor can then initialize the
+  object by using the magic variable <code>this</code>.</li>
+<li>similarly, methods can refer to the object using <code>this</code> in their
+  code. The <code>this</code> variable above is always the object in <code>ball1</code> but we
+  could easily invoke a method on <code>ball2</code>.</li>
+</ul>
+<p>You can see that code in action using the <a href="ball-modern.html">ball modern
+demo</a>. Note that the web page will be blank. View the
+page source to see the JS code, and open the JavaScript console to see
+what was printed to the console.</p>
+<p>Type in the names of the two variables, <code>ball1</code> and <code>ball2</code> to see how
+they are displayed.</p>
+<p>There are other features of the new syntax that we won't go into now, but
+we may look at later in the course.</p>
+<h2 id="classic-syntax">Classic Syntax</h2>
+<p>Let's revisit our ball example but without the helpful syntactic
+sugar. Remember that the ideas and implementation is the same.</p>
+<div class="codehilite"><pre><span class="kd">function</span> <span class="nx">Ball</span><span class="p">(</span><span class="nx">color</span><span class="p">,</span> <span class="nx">radius</span><span class="p">,</span> <span class="nx">hasPolkaDots</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">ballColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">ballRadius</span> <span class="o">=</span> <span class="nx">radius</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">doesThisBallhavePolkaDots</span> <span class="o">=</span> <span class="nx">hasPolkaDots</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">Ball</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getColor</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">ballColor</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">Ball</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setColor</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">color</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">ballColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">Ball</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bounce</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;currently bouncing&#39;</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="c1">// examples of creating two instances of the class</span>
+<span class="kd">var</span> <span class="nx">ball1</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Ball</span><span class="p">(</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ball2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Ball</span><span class="p">(</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// examples of invoking a method</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ball1</span><span class="p">.</span><span class="nx">getColor</span><span class="p">());</span> <span class="c1">// &quot;Red&quot;</span>
+
+<span class="nx">ball1</span><span class="p">.</span><span class="nx">setColor</span><span class="p">(</span><span class="s2">&quot;Green&quot;</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ball1</span><span class="p">.</span><span class="nx">getColor</span><span class="p">());</span> <span class="c1">// &quot;Green&quot;</span>
+
+<span class="c1">// example of retrieving an instance variable</span>
+<span class="c1">// it would be better to define a method to do this</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ball2</span><span class="p">.</span><span class="nx">ballRadius</span><span class="p">);</span> <span class="c1">// 5</span>
+
+<span class="nx">ball1</span><span class="p">.</span><span class="nx">bounce</span><span class="p">();</span>  <span class="c1">// Booiiiiinng. Ball is bouncing</span>
+<span class="nx">ball2</span><span class="p">.</span><span class="nx">bounce</span><span class="p">();</span>  <span class="c1">// Booiiiiinng. Ball is bouncing</span>
+</pre></div>
+
+
+<p>You can see that code in action using the <a href="ball-classic.html">ball classic
+demo</a>. Again that the web page will be blank. View the
+page source to see the JS code, and open the JavaScript console to see
+what was printed to the console.</p>
+<p>Let's break the code into sections. The first 5 lines of this code are:</p>
 <p><img src="../images/constructor.png" alt="constructor"></p>
 
-<p>The <b>class name</b> is <code>Ball</code>, as indicated by the box and
-purple in the picture. Class names are always capitalized by
-convention. When creating a Ball, it needs to be given a color, a radius,
-and whether or not it has polka dots, as shown by the green. The code with
-the keyword <code>this</code> indicates that you are binding the green
-parameters (color, radius, hasPolkaDots) to the name of the <b>instance
-variable</b> (ballColor, ballRadius, doesThisBallHavePolkaDots). The
-instance variables describes the properties or <b>state</b> of the object,
-as described earlier in this reading.</p>
-
+<p>The <em>class name</em> is <code>Ball</code>, as indicated by the box and purple in the
+picture. By convention, class names are always capitalized. When creating
+a Ball using <code>new</code>, it needs to be given a color, a radius, and whether or
+not it has polka dots, as shown by the green. The code with the keyword
+<code>this</code> indicates that you are storing the green parameters
+(color, radius, hasPolkaDots) to the <b>instance variables</b> (ballColor,
+ballRadius, doesThisBallHavePolkaDots). The instance variables describe
+the properties or <b>state</b> of the object, as described earlier in this
+reading.</p>
+<p>Comparing this to the modern syntax, we see that the capitalized function
+plays the role of both class and constructor function.</p>
+<p>Now let's turn to methods. </p>
 <p><img src="../images/method.png" alt="method"></p>
-<p>Just as instance variables describe state, <b>methods</b> describe the <b>behavior</b> of
-the object. Here, the name of the method is bounce as indicated by the box and the purple. 
-When a ball bounces, it logs "Booiiiiinng. Ball is bouncing." When you create new methods,
-you always preface the function with the name of the class (in this case, Ball) and the key
-word <code>prototype</code>.</p>
-
+<p>Just as instance variables describe state, <b>methods</b> describe the
+<b>behavior</b> of the object. Here, the name of the method is bounce as
+indicated by the box and the purple.  When a ball bounces, it logs
+"Booiiiiinng. Ball is bouncing." When you create new methods, you always
+preface the function with the name of the class (in this case, Ball) and
+the key word <code>prototype</code>.</p>
+<p>Comparing this to the modern syntax, we see that methods are defined as
+properties of the <em>prototype</em> property of the class (constructor
+function). Every instance gets the class as its prototype, so putting
+methods as properties of the prototype means that every instance gets
+those methods.</p>
+<p>Here are some examples:</p>
 <p><img src="../images/main.png" alt="creating two ball objects, calling instance variables and methods"></p>
-<p>After you create the Ball class, you can create specific <b>instances</b> of Ball objects.
-The first two lines of code create ball1 and ball2, each with its own characteristics. Notice that
-when you create brand new objects, you must use the keyword <code>new</code>.
-The next three lines of code accesses the different instance variables. For example,
-ball1 is purple. Finally, the last two lines of code access the method of the Ball class.
-Both ball1 and ball2 have the method bounce, so they will behave the same way.
-Notice that when you access methods, you must use parenthesis at the end! (as shown by 
-the orange).</p>
+<p>After you create the Ball class, you can create specific
+<b>instances</b> of Ball objects.  The first two lines of code create
+ball1 and ball2, each with its own characteristics. Notice that when you
+create brand new objects, you must use the keyword <code>new</code>.  The
+next three lines of code accesses the different instance variables. For
+example, ball1 is purple. Finally, the last two lines of code access the
+method of the Ball class.  Both ball1 and ball2 have the method bounce, so
+they will behave the same way.  Notice that when you access methods, you
+must use parentheses at the end! (as shown by the orange).</p>
 
+<p>Furthermore, if you compare the old syntax with the new, you'll see that
+<em>using</em> OOP (creating instances and invoking methods) are exactly the same
+between the two. The new syntax just makes it easier to describe the
+class, its constructor and methods.</p>
 <hr>
 
 <h3>Exercises</h3>
@@ -145,7 +267,7 @@ the orange).</p>
 <p>1. Here is the Ball code in JSfiddle to explore. Open up JSfiddle and the console, and try creating new objects, accessing instance variables, and calling methods. Afterwards, try
 creating new instance variables and methods to your liking.</p>
 
-<iframe width="100%" height="300" src="https://jsfiddle.net/1ngdn481/3/embedded/js/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="500" src="https://jsfiddle.net/1ngdn481/3/embedded/js/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 <p><br><br></p>
 <p>2. Create your own Person class. Add instance variables and methods of your choices.</p>
@@ -175,6 +297,21 @@ $(".example-with-code").each(function (index,elt) {
 
 addMarginTopToFragment();
 </script>
+
+<footer>
+<ul class="validation_icons">
+    <li><a href="//validator.w3.org/check?uri=referer"><img 
+       src="//cs.wellesley.edu/~cs204/Icons/valid-html5v2.png"
+       alt="Valid HTML 5"
+       title="Valid HTML 5"  
+       height="31" width="88"/></a></li>
+
+<li><a href="//jigsaw.w3.org/css-validator/check/referer"><img 
+      style="border:0;width:88px;height:31px"
+      src="//cs.wellesley.edu/~cs204/Icons/vcss.gif"
+      alt="Valid CSS!"/></a></li>
+</ul>
+</footer>
 
 </body>
 </html>

@@ -67,30 +67,34 @@ Let's look at these examples:
     this.serverUrl = url;
   }
 
-  RemoteDataStore.prototype.add = function (key, val) {
-    $.post(this.serverUrl, val, function (serverResponse) {
-      console.log(serverResponse);
+  RemoteDataStore.prototype.add =
+  function (key, val) {
+    $.post(this.serverUrl, val, function (resp) {
+      console.log(resp);
     });
   };
 
-  RemoteDataStore.prototype.getAll = function (cb) {
-    $.get(this.serverUrl, function (serverResponse) {
-      console.log(serverResponse);
-      cb(serverResponse);
+  RemoteDataStore.prototype.getAll =
+  function (cb) {
+    $.get(this.serverUrl, function (resp) {
+      console.log(resp);
+      cb(resp);
     });
   };
 
-  RemoteDataStore.prototype.get = function (key, cb) {
-    $.get(this.serverUrl + '/' + key, function (serverResponse) {
-      console.log(serverResponse);
-      cb(serverResponse);
-    });
+  RemoteDataStore.prototype.get =
+  function (key, cb) {
+    $.get(this.serverUrl + '/' + key,
+        function (resp) {
+            console.log(resp);
+           cb(resp);
+        });
   };
 
-  RemoteDataStore.prototype.remove = function (key) {
-    $.ajax(this.serverUrl + '/' + key, {
-      type: 'DELETE'
-    });
+  RemoteDataStore.prototype.remove =
+  function (key) {
+    $.ajax(this.serverUrl + '/' + key,
+           { type: 'DELETE' });
   };
 
   App.RemoteDataStore = RemoteDataStore;
@@ -107,6 +111,16 @@ I'll answer [your questions](../../quizzes/quiz17.html)
 We'll look at <a
 href="../../solutions/a09-20questions-static/20-static.html">Assignment
 9</a> and I'll give a demo.
+
+Observations
+
+1. You'll have to manage and work with trees
+1. You'll have to dynamically create pairs of clickable buttons
+1. You'll have to have a recursive function to show the tree
+1. Playing the game will involve tracing a single path through the tree
+from root to leaf.
+
+Let's look at some of these issues.
 
 ## Cloning
 

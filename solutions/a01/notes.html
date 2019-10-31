@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>CS204: Introduction to Front-End Web Development</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS; should concatenate these into one file
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../css/normalize.css">
+  <link rel="stylesheet" href="../../css/skeleton.css">
+  <link rel="stylesheet" href="../../css/glyphicons.css">
+  <link rel="stylesheet" href="../../css/pygments/colorful.css">
+  <link rel="stylesheet" href="../../css/custom.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/ico" href="../../images/favicon.ico">
+
+  <!-- We load jQuery at the top so that we can intersperse examples in
+       the reading and lecture notes -->
+  <script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="//cs.wellesley.edu/~anderson/js/bounds/bounds-plugin.js"></script>
+
+</head>
+<body>
+
+    <header>
+        <!-- needs a skip-to-content link -->
+        <nav id="site_nav">
+            <ul>
+                <li id="home"><a href="../../index.html">Home</a></li>
+                <li id="about"><a href="../../about.html">About</a></li>
+                <li id="schedule"><a href="../../schedule/schedule.html">Schedule</a></li>
+                <li id="syllabus"><a href="../../syllabus.html">Syllabus</a></li>
+                <li id="reference"><a href="../../reference.html">Reference</a></li>
+            </ul>
+        </nav>
+    </header>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+        
+
+<article id="main" class="twelve columns lecture">
+
+    <h1 id="assignment-1-solution">Assignment 1 Solution</h1>
+<ul>
+<li>uses <code>article</code> and <code>section</code> to structure (not UL)</li>
+<li>uses <code>figure</code> and <code>figcaption</code> for images</li>
+<li>the code is valid</li>
+<li>descendant selectors to control images in sections</li>
+<li>common stuff in tag selectors</li>
+<li>individual stuff in separate class selectors (could be ID)</li>
+</ul>
+
+</article>
+
+
+    </div><!-- end of row -->
+
+  </div><!-- end of container -->
+ 
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="../../js/custom.js"></script>
+
+<script src="https://cs.wellesley.edu/~anderson/js/Datejs-master/build/date-en-US.js"></script>
+<script src="../../js/activity.js"></script>
+
+
+
+<script>
+$(".example-with-code").each(function (index,elt) {
+   var src = $(elt).find(".example").html();
+   console.log("src for "+index+" is "+src);
+   $(elt).find("pre").text(src);
+});
+
+addMarginTopToFragment();
+</script>
+
+<footer>
+<ul class="validation_icons">
+    <li><a href="//validator.w3.org/check?uri=referer"><img 
+       src="//cs.wellesley.edu/~cs204/Icons/valid-html5v2.png"
+       alt="Valid HTML 5"
+       title="Valid HTML 5"  
+       height="31" width="88"/></a></li>
+
+<li><a href="//jigsaw.w3.org/css-validator/check/referer"><img 
+      style="border:0;width:88px;height:31px"
+      src="//cs.wellesley.edu/~cs204/Icons/vcss.gif"
+      alt="Valid CSS!"/></a></li>
+</ul>
+</footer>
+
+</body>
+</html>

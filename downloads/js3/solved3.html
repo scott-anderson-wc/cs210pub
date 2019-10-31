@@ -1,0 +1,61 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta name=author content="Scott D. Anderson">
+    <title>Color Rotation</title>
+    <style>
+        button { background-color: #CCF; }
+    </style>
+</head>
+<body>
+
+<h2>Some Colors</h2>
+
+<ol id="colorList">
+  <li>Red</li>
+  <li>Green</li>
+  <li>Blue</li>
+  <li>Yellow</li>
+  <li>Cyan</li>
+  <li>Magenta</li>
+</ol>
+
+<form>
+  <p><button id="nextColorButton" type="button">Next Color</button>
+</form>
+
+<p>Here's a flower:</p>
+<p><img id="flower" src="roses.jpeg"></p>
+
+<p><button id="changeFlowerButton" type="button">Change Flower</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+// Given code
+
+var mainColors = ["red","green","blue","yellow","cyan","magenta"];
+var currColorIndex = 0;
+
+// Your code here:
+// Solution for exercise 1:
+
+function nextColor() {
+    currColorIndex++;
+    if( currColorIndex > mainColors.length - 1 ) {
+        currColorIndex = 0;
+    }
+    return mainColors[currColorIndex];
+}
+
+// Solution for exercise 2:
+function setNextColor() {
+    var color = nextColor();
+    $("#colorList li").css("color",color);
+}
+
+// Solution for exercise 3:
+$("#nextColorButton").click(setNextColor);
+</script>
+</body>
+</html>

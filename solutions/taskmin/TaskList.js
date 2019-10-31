@@ -30,20 +30,33 @@ PersistentList.prototype.clear = function () {
     return this;
 }
 
-PersistentList.prototype.get = function (index) {
+    // the following was a terrible idea.
+    /*
     if( typeof this.list[index] === "undefined") {
         // probably not a good thing, so throw an error
         throw "invalid index to persistent list: "+index;
     }
     return this.list[index];
-}
+     */
+    // better
 
-PersistentList.prototype.del = function (index) {
+PersistentList.prototype.get = function (id) {
+    console.log("search for "+id);
+    return this.list.find(function (elt) {
+        console.log(elt.getId());
+        return ( elt.getId() === id );
+    });
+};
+
+PersistentList.prototype.del = function (id) {
+    var index = this.list.findIndex(function (elt) {
+        console.log(elt.getId());
+        return ( elt.getId() === id );
+    });
     delete this.list[index];
     this.save();
     return this;
-}
-
+};
 
 // Push adds to the end and returns the index of the added item
 
@@ -89,7 +102,7 @@ TaskList.sort = function (sortKey) {
     case "dueDate":
         this.list.sort(function (a,b) {
              // subtracting date objects is okay, but not strings
-            return new Date(a.duedate) - new Date(b.duedate);
+            return new Date(a.getDueDate()) - new Date(b.getDueDate());
         });
         break;
     case "mainTag":
@@ -130,11 +143,10 @@ TaskList.readInstances = function () {
 TaskList.format = function () {
     var list = this.list;
     console.log("formatting list of "+list.length+" tasks");
-    var template = $("#templatetasklist > li");
     var listElt = $("<ul>");
     for( var i in list ) {
         var task = list[i];
-        var elt = task.format(template);
+        var elt = task.format();
         if (task.done) $(elt).addClass("done");
         listElt.append(elt);
     }
